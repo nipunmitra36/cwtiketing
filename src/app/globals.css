@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #FF6A1C;
+  --color-brand-hover: #e55a12;
+  --color-brand-light: #fff4ed;
+  --color-brand-dark: #cc5516;
+  --color-text-dark: #111111;
+  --color-text-body: #333333;
+  --color-text-muted: #666666;
+  --color-surface: #f9fafb;
+  --color-surface-white: #ffffff;
+}
+
+:root {
+  --font-poppins: "Poppins", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-google-sans: "Google Sans", sans-serif;
+  --font-vanilla-sans: "Vanilla Sans", sans-serif;
+}
+
+body {
+  font-family: var(--font-poppins);
+}
+
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+.font-google-sans {
+  font-family: var(--font-google-sans);
+}
+
+.font-vanilla-sans {
+  font-family: var(--font-vanilla-sans);
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.container-fluid {
+  @apply w-full px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 text-white font-medium rounded-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  background-color: var(--color-brand);
+  &:hover {
+    background-color: var(--color-brand-hover);
+  }
+  &:focus {
+    ring-color: var(--color-brand);
+  }
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 font-medium rounded-lg transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  color: var(--color-text-dark);
+  background-color: #f3f4f6;
+  &:hover {
+    background-color: #e5e7eb;
+  }
+  &:focus {
+    ring-color: #d1d5db;
+  }
+}
+
+.text-primary {
+  color: var(--color-brand);
+}
+
+.text-secondary {
+  color: var(--color-text-body);
+}
+
+/* ── GSAP ScrollSmoother ───────────────────────────────────────────────────── */
+#smooth-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+#smooth-content {
+  overflow: visible;
+  width: 100%;
+}
+
+/* ── GSAP Scroll Animation Classes ─────────────────────────────────────────── */
+.gsap-reveal {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gsap-reveal-up {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.gsap-reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+.gsap-reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.gsap-reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.gsap-parallax-section {
+  will-change: transform;
+}
