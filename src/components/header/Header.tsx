@@ -4,111 +4,150 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { ScrollSmoother } from "@/lib/gsap";
 import {
   HiOutlineMenuAlt3,
   HiOutlineX,
   HiOutlineChevronDown,
   HiOutlineChevronRight,
-  HiOutlineCode,
   HiOutlineCollection,
   HiOutlineChip,
   HiOutlineGlobeAlt,
   HiOutlineLightningBolt,
   HiOutlineCalendar,
-  HiOutlineDocumentText,
-  HiOutlineUserGroup,
   HiOutlineOfficeBuilding,
-  HiArrowRight,
+  HiOutlineTruck,
+  HiOutlineUserGroup,
+  HiOutlineGlobe,
+  HiOutlineDocumentText,
+  HiOutlineQuestionMarkCircle,
+  HiOutlineBriefcase,
+  HiOutlineChat,
 } from "react-icons/hi";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
-interface MegaSubItem {
-  label: string;
-  href: string;
-}
-
-interface MegaMenuItem {
+interface DropMenuItem {
   label: string;
   desc: string;
   href: string;
   icon: React.ReactNode;
-  children?: MegaSubItem[];
 }
 
 interface NavItem {
   label: string;
   href?: string;
-  mega?: MegaMenuItem[];
+  dropdown?: DropMenuItem[];
 }
 
 // ── Data ──────────────────────────────────────────────────────────────────────
-const SERVICES_MEGA: MegaMenuItem[] = [
+const NAV_ITEMS: NavItem[] = [
   {
-    label: "Bus Ticketing System",
-    desc: "Intercity, shuttle & marketplace solutions",
-    href: "/services/bus-ticketing",
-    icon: <HiOutlineCollection className="h-5 w-5" />,
-    children: [
-      { label: "Intercity Bus Ticketing System", href: "/services/bus-ticketing/intercity" },
-      { label: "Shuttle Booking System", href: "/services/bus-ticketing/shuttle" },
-      { label: "Bus Ticketing Marketplace", href: "/services/bus-ticketing/marketplace" },
+    label: "Solutions",
+    dropdown: [
+      {
+        label: "Bus Ticketing System",
+        desc: "Routes, seats, fares & bookings",
+        href: "/services/bus-ticketing",
+        icon: <HiOutlineTruck className="h-5 w-5" />,
+      },
+      {
+        label: "Train Booking System",
+        desc: "Rail schedules & reservations",
+        href: "/services/train-ticketing",
+        icon: <HiOutlineChip className="h-5 w-5" />,
+      },
+      {
+        label: "Cruise Booking System",
+        desc: "Deck plans & online bookings",
+        href: "/services/cruise-booking",
+        icon: <HiOutlineGlobeAlt className="h-5 w-5" />,
+      },
+      {
+        label: "Taxi Booking System",
+        desc: "Dispatch, tracking & fares",
+        href: "/services/taxi-booking",
+        icon: <HiOutlineLightningBolt className="h-5 w-5" />,
+      },
+      {
+        label: "Event Ticketing",
+        desc: "Concerts, conferences & more",
+        href: "/services/event-ticketing",
+        icon: <HiOutlineCalendar className="h-5 w-5" />,
+      },
     ],
   },
   {
-    label: "Train Ticketing System",
-    desc: "Rail booking & reservation platform",
-    href: "/services/train-ticketing",
-    icon: <HiOutlineChip className="h-5 w-5" />,
+    label: "Industries",
+    dropdown: [
+      {
+        label: "Bus Operators",
+        desc: "Intercity, shuttle & coach lines",
+        href: "/industries/bus-operators",
+        icon: <HiOutlineCollection className="h-5 w-5" />,
+      },
+      {
+        label: "Travel Agencies",
+        desc: "Multi-operator ticket retail",
+        href: "/industries/travel-agencies",
+        icon: <HiOutlineGlobe className="h-5 w-5" />,
+      },
+      {
+        label: "Shuttle Companies",
+        desc: "Airport & point-to-point shuttles",
+        href: "/industries/shuttle-companies",
+        icon: <HiOutlineOfficeBuilding className="h-5 w-5" />,
+      },
+      {
+        label: "Fleet Managers",
+        desc: "Dispatch, manifests & analytics",
+        href: "/industries/fleet-managers",
+        icon: <HiOutlineUserGroup className="h-5 w-5" />,
+      },
+    ],
   },
+  { label: "Features", href: "/#features" },
   {
-    label: "Cruise Booking System",
-    desc: "Cruise line booking & management",
-    href: "/services/cruise-booking",
-    icon: <HiOutlineGlobeAlt className="h-5 w-5" />,
+    label: "Resources",
+    dropdown: [
+      {
+        label: "Blog",
+        desc: "Guides & industry insights",
+        href: "/blog",
+        icon: <HiOutlineDocumentText className="h-5 w-5" />,
+      },
+      {
+        label: "FAQ",
+        desc: "Quick answers to common questions",
+        href: "/#faq",
+        icon: <HiOutlineQuestionMarkCircle className="h-5 w-5" />,
+      },
+    ],
   },
+  { label: "Pricing", href: "/pricing" },
   {
-    label: "Taxi Booking System",
-    desc: "Ride-hailing & fleet management",
-    href: "/services/taxi-booking",
-    icon: <HiOutlineLightningBolt className="h-5 w-5" />,
+    label: "Company",
+    dropdown: [
+      {
+        label: "About Us",
+        desc: "Who we are & what we do",
+        href: "/about",
+        icon: <HiOutlineBriefcase className="h-5 w-5" />,
+      },
+      {
+        label: "Contact",
+        desc: "Talk to our team",
+        href: "/contact",
+        icon: <HiOutlineChat className="h-5 w-5" />,
+      },
+    ],
   },
-  {
-    label: "Cable Car Booking System",
-    desc: "Aerial lift ticketing solutions",
-    href: "/services/cable-car-booking",
-    icon: <HiOutlineOfficeBuilding className="h-5 w-5" />,
-  },
-  {
-    label: "Event Ticketing System",
-    desc: "Conferences, concerts & events",
-    href: "/services/event-ticketing",
-    icon: <HiOutlineCalendar className="h-5 w-5" />,
-  },
-  {
-    label: "Parcel Management System",
-    desc: "Shipping, tracking & logistics",
-    href: "/services/parcel-management",
-    icon: <HiOutlineDocumentText className="h-5 w-5" />,
-  },
-  {
-    label: "Customer Management System",
-    desc: "CRM & customer engagement",
-    href: "/services/customer-management",
-    icon: <HiOutlineUserGroup className="h-5 w-5" />,
-  },
-];
-
-const NAV_ITEMS: NavItem[] = [
-  { label: "Services", mega: SERVICES_MEGA },
-  { label: "Features", href: "/about" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
 ];
 
 // ── Animation Variants ────────────────────────────────────────────────────────
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const megaMenuVariants: Variants = {
+const dropdownVariants: Variants = {
   hidden: { opacity: 0, y: 8, scale: 0.98 },
   visible: {
     opacity: 1,
@@ -121,20 +160,6 @@ const megaMenuVariants: Variants = {
     y: 6,
     scale: 0.98,
     transition: { duration: 0.15, ease: EASE },
-  },
-};
-
-const flyoutVariants: Variants = {
-  hidden: { opacity: 0, x: 8 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.2, ease: EASE },
-  },
-  exit: {
-    opacity: 0,
-    x: 6,
-    transition: { duration: 0.12, ease: EASE },
   },
 };
 
@@ -161,149 +186,74 @@ const mobileItemVariants: Variants = {
   }),
 };
 
-// ── Desktop Mega Menu ─────────────────────────────────────────────────────────
-function DesktopMegaMenu({ items }: { items: MegaMenuItem[] }) {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const handleEnter = (idx: number) => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setHoveredIdx(idx);
-  };
-
-  const handleLeave = () => {
-    timeoutRef.current = setTimeout(() => setHoveredIdx(null), 150);
-  };
-
-  const activeItem = hoveredIdx !== null ? items[hoveredIdx] : null;
-
+// ── Dropdown Menu (desktop) ───────────────────────────────────────────────────
+function DesktopDropMenu({
+  items,
+  align = "left",
+}: {
+  items: DropMenuItem[];
+  align?: "left" | "right";
+}) {
+  const notchClass =
+    align === "right"
+      ? "right-6"
+      : "left-6";
   return (
     <motion.div
-      variants={megaMenuVariants}
+      variants={dropdownVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
-      onMouseLeave={handleLeave}
-      className="absolute left-1/2 top-full mt-4 w-[680px] -translate-x-1/2 overflow-hidden rounded-[28px] border border-gray-200 bg-white shadow-2xl shadow-gray-900/10"
+      className={`absolute top-full mt-4 w-[320px] overflow-hidden rounded-[24px] border border-gray-200 bg-white p-2.5 shadow-2xl shadow-gray-900/10 ${
+        align === "right" ? "right-0" : "left-0"
+      }`}
     >
-      {/* Arrow notch */}
-      <div className="absolute -top-1.5 left-[140px] h-3 w-3 -translate-x-1/2 rotate-45 rounded-sm border-l border-t border-gray-200 bg-white" />
-
-      <div className="flex">
-        {/* Left: service list */}
-        <div className="w-[320px] shrink-0 space-y-0.5 border-r border-gray-100/70 p-3">
-          {items.map((item, idx) => (
-            <div
-              key={item.href}
-              onMouseEnter={() => handleEnter(idx)}
-              className="relative"
-            >
-              <Link
-                href={item.href}
-                className={`group flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors ${hoveredIdx === idx
-                    ? "bg-brand-light text-brand"
-                    : "text-text-body hover:bg-gray-50 hover:text-text-dark"
-                  }`}
-              >
-                <span
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${hoveredIdx === idx
-                      ? "bg-brand text-white"
-                      : "bg-gray-100 text-gray-500 group-hover:bg-gray-200"
-                    }`}
-                >
-                  {item.icon}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-semibold leading-tight">
-                    {item.label}
-                  </span>
-                  <span className="block text-[11px] text-text-muted leading-tight mt-0.5">
-                    {item.desc}
-                  </span>
-                </span>
-                {item.children && (
-                  <HiOutlineChevronRight className="h-3.5 w-3.5 shrink-0 text-gray-400" />
-                )}
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        {/* Right: flyout for sub-items */}
-        <div className="flex-1 p-4">
-          <AnimatePresence mode="wait">
-            {activeItem?.children ? (
-              <motion.div
-                key={activeItem.href}
-                variants={flyoutVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="space-y-1"
-              >
-                <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-text-muted">
-                  {activeItem.label}
-                </p>
-                {activeItem.children.map((sub) => (
-                  <Link
-                    key={sub.href}
-                    href={sub.href}
-                    className="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-gray-50"
-                  >
-                    <span className="flex h-2 w-2 shrink-0 rounded-full bg-brand/30 transition-colors group-hover:bg-brand" />
-                    <span className="text-[13px] font-medium text-text-body transition-colors group-hover:text-text-dark">
-                      {sub.label}
-                    </span>
-                    <HiOutlineChevronRight className="ml-auto h-3.5 w-3.5 shrink-0 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-brand" />
-                  </Link>
-                ))}
-                <Link
-                  href={activeItem.href}
-                  className="mt-3 flex items-center gap-1.5 rounded-xl px-3 py-2 text-[12px] font-semibold text-brand transition-colors hover:bg-brand-light"
-                >
-                  View all {activeItem.label} solutions
-                  <HiArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="overview"
-                variants={flyoutVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="flex h-full flex-col items-center justify-center text-center"
-              >
-                <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-light">
-                  <HiOutlineCode className="h-7 w-7 text-brand" />
-                </div>
-                <p className="mb-1 text-[14px] font-semibold text-text-dark">
-                  Explore all solutions
-                </p>
-                <p className="mb-4 max-w-[220px] text-[12px] leading-relaxed text-text-muted">
-                  Hover over a service to see sub-items or click to explore.
-                </p>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-[12px] font-semibold text-white transition-colors hover:bg-brand-hover"
-                >
-                  View all services
-                  <HiArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+      <div
+        className={`absolute -top-1.5 h-3 w-3 rotate-45 rounded-sm border-l border-t border-gray-200 bg-white ${notchClass}`}
+      />
+      <div className="space-y-1">
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="group flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-brand-light"
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 transition-colors group-hover:bg-brand group-hover:text-white">
+              {item.icon}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-semibold leading-tight text-text-body transition-colors group-hover:text-brand">
+                {item.label}
+              </span>
+              <span className="mt-0.5 block text-[11px] leading-tight text-text-muted">
+                {item.desc}
+              </span>
+            </span>
+            <HiOutlineChevronRight className="h-3.5 w-3.5 shrink-0 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-brand" />
+          </Link>
+        ))}
       </div>
     </motion.div>
   );
 }
 
 // ── Desktop Nav Item ──────────────────────────────────────────────────────────
-function DesktopNavItem({ item }: { item: NavItem }) {
+function DesktopNavItem({ item, align }: { item: NavItem; align: "left" | "right" }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isHome = usePathname() === "/";
+
+  const scrollToHash = (href: string) => {
+    const hash = href.split("#")[1];
+    if (!hash) return;
+    const smoother = ScrollSmoother.get();
+    if (smoother) smoother.scrollTo(hash, true);
+    else {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -324,7 +274,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
   const linkClass =
     "flex items-center gap-1 text-[13.5px] font-medium text-text-body transition-colors duration-150 hover:text-text-dark";
 
-  if (item.mega) {
+  if (item.dropdown) {
     return (
       <div
         ref={ref}
@@ -350,91 +300,35 @@ function DesktopNavItem({ item }: { item: NavItem }) {
             <HiOutlineChevronDown className="h-3.5 w-3.5" />
           </motion.span>
         </button>
-        <AnimatePresence>{open && <DesktopMegaMenu items={item.mega} />}</AnimatePresence>
+        <AnimatePresence>
+          {open && <DesktopDropMenu items={item.dropdown} align={align} />}
+        </AnimatePresence>
       </div>
     );
   }
 
+  const isAnchor = item.href!.includes("#");
   return (
-    <Link href={item.href!} className={linkClass}>
+    <Link
+      href={item.href!}
+      onClick={(e) => {
+        if (isAnchor && isHome) {
+          e.preventDefault();
+          scrollToHash(item.href!);
+        }
+      }}
+      className={linkClass}
+    >
       {item.label}
     </Link>
   );
 }
 
-// ── Mobile Sub-Items Accordion ────────────────────────────────────────────────
-function MobileServiceAccordion({
-  item,
-  onClose,
-}: {
-  item: MegaMenuItem;
-  onClose: () => void;
-}) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div>
-      <button
-        onClick={() => setOpen((p) => !p)}
-        className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-[13px] font-medium text-text-body transition-colors hover:bg-gray-50 hover:text-text-dark"
-      >
-        <span className="flex items-center gap-2.5">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500">
-            {item.icon}
-          </span>
-          {item.label}
-        </span>
-        <motion.span
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <HiOutlineChevronDown className="h-4 w-4 text-gray-400" />
-        </motion.span>
-      </button>
-
-      <AnimatePresence>
-        {open && item.children && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: EASE }}
-            className="overflow-hidden"
-          >
-            <div className="ml-5 mt-1 space-y-0.5 border-l-2 border-gray-100 pl-3">
-              {item.children.map((sub) => (
-                <Link
-                  key={sub.href}
-                  href={sub.href}
-                  onClick={onClose}
-                  className="block rounded-lg px-2.5 py-2 text-[12px] text-text-muted transition-colors hover:bg-gray-50 hover:text-text-dark"
-                >
-                  {sub.label}
-                </Link>
-              ))}
-              <Link
-                href={item.href}
-                onClick={onClose}
-                className="block rounded-lg px-2.5 py-2 text-[12px] font-semibold text-brand transition-colors hover:bg-brand-light"
-              >
-                View all →
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 // ── Main Header ───────────────────────────────────────────────────────────────
-// Floating glass pill that sits on top of the hero video, in the spirit of
-// Gorgias's header: always a soft, frosted, rounded surface — never a hard
-// full-width bar — so the video reads through the edges while the nav
-// itself stays crisp and legible.
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isHome = usePathname() === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -452,13 +346,32 @@ export default function Header() {
 
   const closeMobile = () => setMobileOpen(false);
 
+  const scrollToHash = (href: string) => {
+    const hash = href.split("#")[1];
+    if (!hash) return;
+    const smoother = ScrollSmoother.get();
+    if (smoother) smoother.scrollTo(hash, true);
+    else {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleMobileNav = (href: string) => {
+    if (isHome && href.includes("#")) {
+      scrollToHash(href);
+    }
+    closeMobile();
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 w-full px-3 pt-3 sm:px-4 sm:pt-5">
       <div
-        className={`mx-auto flex h-14 w-full max-w-6xl items-center justify-between rounded-full border pl-3 pr-2 transition-all duration-300 sm:pl-4 sm:pr-3 ${scrolled
+        className={`mx-auto flex h-14 w-full max-w-6xl items-center justify-between rounded-full border pl-3 pr-2 transition-all duration-300 sm:pl-4 sm:pr-3 ${
+          scrolled
             ? "border-gray-200 bg-white shadow-lg shadow-gray-900/10"
             : "border-gray-100 bg-white shadow-md shadow-gray-900/5"
-          }`}
+        }`}
       >
         {/* ── Brand ── */}
         <Link href="/" className="flex items-center">
@@ -473,9 +386,13 @@ export default function Header() {
         </Link>
 
         {/* ── Desktop Nav ── */}
-        <nav className="hidden items-center gap-7 lg:flex">
-          {NAV_ITEMS.map((item) => (
-            <DesktopNavItem key={item.label} item={item} />
+        <nav className="hidden items-center gap-6 xl:gap-7 lg:flex">
+          {NAV_ITEMS.map((item, i) => (
+            <DesktopNavItem
+              key={item.label}
+              item={item}
+              align={i >= NAV_ITEMS.length - 2 ? "right" : "left"}
+            />
           ))}
         </nav>
 
@@ -485,7 +402,7 @@ export default function Header() {
             href="/contact"
             className="rounded-full bg-brand px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-brand/30 transition-all hover:bg-brand-hover active:scale-95"
           >
-            Book a Demo
+            Book Demo
           </Link>
         </div>
 
@@ -522,7 +439,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* ── Mobile Menu — floating glass panel under the pill ── */}
+      {/* ── Mobile Menu — floating panel under the pill ── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -533,50 +450,68 @@ export default function Header() {
             className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-[28px] border border-gray-200 bg-white shadow-2xl shadow-gray-900/10 lg:hidden"
           >
             <nav className="space-y-0.5 px-4 py-4">
-              {/* Services accordion (mega menu) */}
-              <motion.div
-                custom={0}
-                variants={mobileItemVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <MobileServicesBlock onClose={closeMobile} />
-              </motion.div>
-
-              {/* Simple nav items */}
-              {NAV_ITEMS.filter((n) => !n.mega).map((item, i) => (
+              {NAV_ITEMS.map((item, i) => (
                 <motion.div
                   key={item.label}
-                  custom={i + 1}
+                  custom={i}
                   variants={mobileItemVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  <Link
-                    href={item.href!}
-                    onClick={closeMobile}
-                    className="block rounded-xl px-3 py-2.5 text-[14px] font-medium text-text-body transition-colors hover:bg-gray-50 hover:text-text-dark"
-                  >
-                    {item.label}
-                  </Link>
+                  {item.dropdown ? (
+                    <div>
+                      <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-widest text-text-muted">
+                        {item.label}
+                      </p>
+                      <div className="space-y-0.5">
+                        {item.dropdown.map((d) => (
+                          <Link
+                            key={d.href}
+                            href={d.href}
+                            onClick={() => handleMobileNav(d.href)}
+                            className="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-gray-50"
+                          >
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 transition-colors group-hover:bg-brand group-hover:text-white">
+                              {d.icon}
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block text-[13px] font-medium text-text-body">
+                                {d.label}
+                              </span>
+                              <span className="block text-[11px] text-text-muted">
+                                {d.desc}
+                              </span>
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href!}
+                      onClick={() => handleMobileNav(item.href!)}
+                      className="block rounded-xl px-3 py-2.5 text-[14px] font-medium text-text-body transition-colors hover:bg-gray-50 hover:text-text-dark"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
 
               {/* Mobile CTA */}
               <motion.div
-                custom={NAV_ITEMS.length + 1}
+                custom={NAV_ITEMS.length}
                 variants={mobileItemVariants}
                 initial="hidden"
                 animate="visible"
-                className="!mt-4 flex flex-col gap-2 border-t border-gray-100 pt-4"
+                className="!mt-4 border-t border-gray-100 pt-4"
               >
-                
                 <Link
                   href="/contact"
                   onClick={closeMobile}
                   className="w-full rounded-full bg-brand px-4 py-2.5 text-center text-[13.5px] font-semibold text-white transition-colors hover:bg-brand-hover"
                 >
-                  Book a Demo
+                  Book Demo
                 </Link>
               </motion.div>
             </nav>
@@ -584,47 +519,5 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
-  );
-}
-
-// Small helper so the Services accordion keeps its own open/close state
-// without cluttering the main component.
-function MobileServicesBlock({ onClose }: { onClose: () => void }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <button
-        onClick={() => setOpen((p) => !p)}
-        className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-[14px] font-medium text-text-body transition-colors hover:bg-gray-50 hover:text-text-dark"
-      >
-        <span className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-light text-brand">
-            <HiOutlineCode className="h-3.5 w-3.5" />
-          </span>
-          Services
-        </span>
-        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <HiOutlineChevronDown className="h-4 w-4" />
-        </motion.span>
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: EASE }}
-            className="overflow-hidden"
-          >
-            <div className="ml-3 mt-1 space-y-0.5 border-l-2 border-gray-100 pl-3">
-              {SERVICES_MEGA.map((item) => (
-                <MobileServiceAccordion key={item.href} item={item} onClose={onClose} />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
   );
 }

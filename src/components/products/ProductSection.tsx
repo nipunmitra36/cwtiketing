@@ -234,6 +234,7 @@ export default function ScrollFeatures() {
     return (
         <section
             ref={sectionRef}
+            id="solutions"
             className="relative overflow-hidden bg-white"
         >
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:px-8 lg:py-16">

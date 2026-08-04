@@ -137,6 +137,7 @@ export default function FeatureGrid() {
     return (
         <section
             ref={sectionRef}
+            id="features"
             className="relative overflow-hidden bg-gray-50 py-16 lg:py-24"
         >
             <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -169,15 +170,17 @@ export default function FeatureGrid() {
                             <div
                                 key={i}
                                 data-gsap
-                                className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand/20 hover:shadow-lg hover:shadow-brand/5"
+                                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-[0_1px_2px_rgba(17,17,17,0.04),0_10px_30px_-14px_rgba(17,17,17,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:shadow-[0_2px_4px_rgba(17,17,17,0.05),0_20px_40px_-16px_rgba(255,106,28,0.25)]"
                             >
-                                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand text-white shadow-sm shadow-brand/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-md group-hover:shadow-brand/30">
+                                <div className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand to-brand-hover transition-transform duration-300 group-hover:scale-x-100" />
+                                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand/[0.06] blur-2xl transition-all duration-300 group-hover:bg-brand/10" />
+                                <div className="relative mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-brand-dark text-white shadow-md shadow-brand/25 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-brand/40">
                                     <Icon className="h-5 w-5" />
                                 </div>
-                                <h3 className="mb-1 text-[14px] font-bold text-text-dark sm:text-[15px]">
+                                <h3 className="relative mb-1 text-[14px] font-bold text-text-dark sm:text-[15px]">
                                     {f.title}
                                 </h3>
-                                <p className="text-[12.5px] leading-relaxed text-text-muted sm:text-[13px]">
+                                <p className="relative text-[12.5px] leading-relaxed text-text-muted sm:text-[13px]">
                                     {f.desc}
                                 </p>
                             </div>

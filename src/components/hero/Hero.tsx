@@ -2,267 +2,126 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { usePathname } from "next/navigation";
+import { gsap, ScrollSmoother } from "@/lib/gsap";
 import {
   HiOutlineArrowRight,
   HiOutlineCheck,
   HiOutlineArrowNarrowRight,
-  HiOutlineClock,
   HiOutlineUsers,
   HiOutlineCreditCard,
-  HiOutlineLocationMarker,
-  HiOutlineStar,
   HiOutlineShieldCheck,
+  HiOutlineDeviceMobile,
+  HiOutlineTicket,
+  HiOutlinePlay,
+  HiOutlineChartBar,
 } from "react-icons/hi";
 
-// ── Seat Selection Card (glass) ───────────────────────────────────────────────
-function SeatSelectionCard() {
-  const rows = [
-    [0, 1, 0, 2, 1, 0],
-    [1, 0, 0, 1, 0, 1],
-    [0, 2, 1, 0, 0, 2],
-    [1, 0, 0, 2, 1, 0],
-  ];
-  const seatColors = ["bg-gray-200", "bg-brand", "bg-emerald-400"];
-  const seatLabels = ["Available", "Selected", "Booked"];
-
+// ── Connectors (animated network lines) ──────────────────────────────────────
+function ConnectorV() {
   return (
-    <div className="gsap-bento-card col-span-5 row-span-3 overflow-hidden rounded-2xl border border-white/50 bg-white/80 shadow-2xl shadow-black/20 backdrop-blur-2xl">
-      <div className="border-b border-gray-100/70 px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[12px] font-bold text-text-dark">NYC → Boston</p>
-            <p className="text-[10px] text-text-muted">AC Sleeper • Seat Layout</p>
-          </div>
-          <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[10px] font-semibold text-brand">
-            Bus
-          </span>
-        </div>
-      </div>
-      <div className="px-4 pt-4 pb-3">
-        <div className="mb-3 flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-gray-300" />
-          <span className="text-[9px] text-text-muted">Driver</span>
-        </div>
-        <div className="space-y-1.5">
-          {rows.map((row, ri) => (
-            <div key={ri} className="flex items-center gap-1.5">
-              <span className="w-4 text-center text-[9px] font-medium text-text-muted">
-                {ri + 1}
-              </span>
-              {row.map((seat, si) => (
-                <div key={si} className="flex flex-1 items-center gap-0.5">
-                  <div className={`h-5 w-5 rounded-[4px] transition-colors ${seatColors[seat]}`} />
-                  {(si === 1 || si === 3) && <div className="h-5 w-2" />}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div className="mt-3 flex items-center gap-3 border-t border-gray-100/70 pt-2.5">
-          {seatColors.map((c, i) => (
-            <span key={i} className="flex items-center gap-1">
-              <span className={`h-2.5 w-2.5 rounded-sm ${c}`} />
-              <span className="text-[9px] text-text-muted">{seatLabels[i]}</span>
-            </span>
-          ))}
-        </div>
-      </div>
+    <div className="relative z-0 mx-auto h-8 w-8">
+      <span className="gsap-line-v absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 rounded-full bg-gradient-to-b from-brand/60 via-brand/30 to-brand/20" />
+      <span className="gsap-dot-v absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-brand opacity-0 shadow-[0_0_10px_rgba(255,106,28,0.9)]" />
     </div>
   );
 }
 
-// ── Admin Dashboard Card (glass) ──────────────────────────────────────────────
+function ConnectorH() {
+  return (
+    <div className="relative z-0 flex w-8 items-center">
+      <span className="gsap-line-h h-[2px] w-full rounded-full bg-gradient-to-r from-brand/40 via-brand/60 to-brand/40" />
+      <span className="gsap-dot-h absolute left-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand opacity-0 shadow-[0_0_10px_rgba(255,106,28,0.9)]" />
+    </div>
+  );
+}
+
+// ── Admin Dashboard card (glass) ─────────────────────────────────────────────
 function AdminDashboardCard() {
-  const bookings = [
-    { route: "NYC–Boston", count: 234, pct: 82 },
-    { route: "LA–SF", count: 189, pct: 67 },
-    { route: "Chicago–Dallas", count: 156, pct: 55 },
-  ];
-
   return (
-    <div className="gsap-bento-card col-span-7 row-span-3 overflow-hidden rounded-2xl border border-white/50 bg-white/80 shadow-2xl shadow-black/20 backdrop-blur-2xl">
-      <div className="border-b border-gray-100/70 px-4 py-3">
-        <div className="flex items-center justify-between">
-          <p className="text-[12px] font-bold text-text-dark">Admin Dashboard</p>
-          <div className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span className="text-[10px] text-text-muted">Live</span>
-          </div>
+    <div className="gsap-bento-card relative z-10 flex flex-col overflow-hidden rounded-2xl border border-white/50 bg-white/80 shadow-2xl shadow-black/20 backdrop-blur-2xl">
+      <div className="flex items-center justify-between border-b border-gray-100/70 px-4 py-2.5">
+        <p className="text-[12px] font-bold text-text-dark">Admin Dashboard</p>
+        <div className="flex items-center gap-1">
+          <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          <span className="text-[10px] text-text-muted">Live</span>
         </div>
       </div>
-      <div className="px-4 py-3">
-        <div className="mb-3 grid grid-cols-3 gap-2">
-          {[
-            { icon: <HiOutlineUsers className="h-3 w-3" />, value: "1,247", label: "Today" },
-            { icon: <HiOutlineCreditCard className="h-3 w-3" />, value: "$84K", label: "Revenue" },
-            { icon: <HiOutlineClock className="h-3 w-3" />, value: "98.2%", label: "Uptime" },
-          ].map((s) => (
-            <div key={s.label} className="rounded-lg bg-white/60 p-2 text-center backdrop-blur-sm">
-              <span className="mb-1 flex justify-center text-brand">{s.icon}</span>
-              <p className="text-[13px] font-bold text-text-dark leading-tight">{s.value}</p>
-              <p className="text-[9px] text-text-muted">{s.label}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mb-3">
-          <p className="mb-1.5 text-[10px] font-semibold text-text-muted uppercase tracking-wider">
-            Top Routes
-          </p>
-          <div className="space-y-1.5">
-            {bookings.map((b) => (
-              <div key={b.route} className="flex items-center gap-2">
-                <span className="w-20 truncate text-[10px] text-text-body">{b.route}</span>
-                <div className="flex-1 overflow-hidden rounded-full bg-gray-100/80">
-                  <div
-                    className="gsap-bar h-1.5 w-0 rounded-full bg-gradient-to-r from-brand to-brand-hover"
-                    data-width={`${b.pct}%`}
-                  />
-                </div>
-                <span className="w-6 text-right text-[10px] font-semibold text-text-dark">{b.count}</span>
-              </div>
-            ))}
+      <div className="grid grid-cols-3 gap-2 px-4 py-3">
+        {[
+          { icon: <HiOutlineUsers className="h-3 w-3" />, value: "1,247", label: "Bookings" },
+          { icon: <HiOutlineCreditCard className="h-3 w-3" />, value: "$84K", label: "Revenue" },
+          { icon: <HiOutlineShieldCheck className="h-3 w-3" />, value: "92%", label: "Occupancy" },
+        ].map((s) => (
+          <div key={s.label} className="rounded-lg bg-white/60 p-2 text-center backdrop-blur-sm">
+            <span className="mb-1 flex justify-center text-brand">{s.icon}</span>
+            <p className="text-[13px] font-bold leading-tight text-text-dark">{s.value}</p>
+            <p className="text-[9px] text-text-muted">{s.label}</p>
           </div>
-        </div>
-        <div className="flex items-center gap-2 rounded-lg bg-brand/5 px-3 py-2">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
-          <p className="text-[10px] text-text-body">
-            <span className="font-semibold">John D.</span> booked NYC→Boston for{" "}
-            <span className="font-semibold text-brand">$65</span>
-          </p>
-        </div>
+        ))}
       </div>
-    </div>
-  );
-}
-
-// ── Mobile Booking App Card (glass) ───────────────────────────────────────────
-function MobileBookingCard() {
-  return (
-    <div className="gsap-bento-card col-span-5 row-span-4 overflow-hidden rounded-2xl border border-white/50 bg-white/80 shadow-2xl shadow-black/20 backdrop-blur-2xl">
-      <div className="relative mx-auto mt-3 w-[calc(100%-24px)] rounded-[20px] border-[3px] border-gray-900 bg-white pt-6">
-        <div className="absolute left-1/2 top-1.5 h-2 w-12 -translate-x-1/2 rounded-full bg-gray-900" />
-        <div className="flex items-center justify-between px-4 pb-2 pt-1">
-          <span className="text-[9px] font-semibold text-text-dark">9:41</span>
-          <div className="flex items-center gap-1">
-            <span className="text-[8px] text-text-muted">●●●●</span>
-            <span className="text-[9px] text-text-muted">100%</span>
-          </div>
-        </div>
-        <div className="border-b border-gray-100 px-3 pb-2 pt-1">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-text-dark">Book Ticket</span>
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand/10 text-brand">
-              <HiOutlineLocationMarker className="h-3 w-3" />
-            </span>
-          </div>
-        </div>
-        <div className="px-3 pt-3">
-          <div className="rounded-xl border border-gray-100 bg-gray-50 p-2.5">
-            <div className="flex items-center gap-2">
-              <div className="flex-1">
-                <p className="text-[9px] text-text-muted">From</p>
-                <p className="text-[11px] font-bold text-text-dark">New York</p>
-                <p className="text-[8px] text-text-muted">07:00 AM</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <HiOutlineArrowNarrowRight className="h-4 w-4 text-brand" />
-                <span className="text-[8px] text-text-muted">6h 30m</span>
-              </div>
-              <div className="flex-1 text-right">
-                <p className="text-[9px] text-text-muted">To</p>
-                <p className="text-[11px] font-bold text-text-dark">Boston</p>
-                <p className="text-[8px] text-text-muted">01:30 PM</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="space-y-2 px-3 pt-3">
-          {[
-            { name: "Greyhound", type: "AC Sleeper", price: "$65", time: "07:00" },
-            { name: "Megabus", type: "Non-AC", price: "$45", time: "07:30" },
-          ].map((bus, i) => (
+      <div className="px-4 pb-3.5">
+        <div className="flex items-center gap-2">
+          <span className="w-24 truncate text-[10px] text-text-body">NYC–Boston</span>
+          <div className="flex-1 overflow-hidden rounded-full bg-gray-100/80">
             <div
-              key={bus.name}
-              className={`rounded-xl border p-2.5 ${i === 0 ? "border-brand/30 bg-brand-light" : "border-gray-100 bg-white"
-                }`}
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] font-bold text-text-dark">{bus.name}</p>
-                  <p className="text-[8px] text-text-muted">{bus.type} • {bus.time}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-[11px] font-bold text-brand">{bus.price}</p>
-                  <button className="mt-0.5 rounded-md bg-brand px-2 py-0.5 text-[8px] font-semibold text-white">
-                    Select
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-3 flex items-center justify-around border-t border-gray-100 px-3 py-2">
-          {["Search", "My Trips", "Profile"].map((tab, i) => (
-            <span
-              key={tab}
-              className={`text-[8px] font-medium ${i === 0 ? "text-brand" : "text-text-muted"}`}
-            >
-              {tab}
-            </span>
-          ))}
+              className="gsap-bar h-1.5 w-0 rounded-full bg-gradient-to-r from-brand to-brand-hover"
+              data-width="82%"
+            />
+          </div>
+          <span className="text-[10px] font-semibold text-text-dark">82%</span>
         </div>
       </div>
     </div>
   );
 }
 
-// ── Payment Confirmation Card (glass) ─────────────────────────────────────────
-function PaymentConfirmationCard() {
+// ── Mobile App card (glass) ───────────────────────────────────────────────────
+function MobileAppCard() {
   return (
-    <div className="gsap-bento-card col-span-7 row-span-4 overflow-hidden rounded-2xl border border-white/50 bg-white/80 shadow-2xl shadow-black/20 backdrop-blur-2xl">
-      <div className="flex items-center gap-3 bg-emerald-500 px-4 py-3">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
-          <HiOutlineCheck className="h-4 w-4 text-emerald-500" />
-        </span>
-        <div>
-          <p className="text-[12px] font-bold text-white">Payment Successful!</p>
-          <p className="text-[10px] text-emerald-100">Booking confirmed • Ticket #BK-48291</p>
-        </div>
+    <div className="gsap-bento-card flex flex-1 flex-col items-center justify-center gap-2 rounded-2xl border border-white/50 bg-white/80 px-3 py-5 text-center shadow-xl shadow-black/20 backdrop-blur-2xl">
+      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-900 text-white">
+        <HiOutlineDeviceMobile className="h-5 w-5" />
+      </span>
+      <div>
+        <p className="text-[12px] font-bold text-text-dark">Mobile App</p>
+        <p className="text-[9px] text-text-muted">Android &amp; iOS</p>
       </div>
-      <div className="px-4 py-3">
-        <div className="mb-3 flex items-center justify-between">
+      <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[9px] font-semibold text-brand">
+        Download
+      </span>
+    </div>
+  );
+}
+
+// ── Booking Engine card (central, highlighted) ───────────────────────────────
+function BookingEngineCard() {
+  return (
+    <div className="gsap-bento-card relative z-10 flex flex-[1.3] flex-col overflow-hidden rounded-2xl border border-brand/40 bg-white shadow-2xl shadow-brand/20 backdrop-blur-2xl">
+      <div className="flex items-center justify-between border-b border-brand/10 bg-brand-light px-3 py-2">
+        <p className="text-[12px] font-bold text-brand">Booking Engine</p>
+        <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-semibold text-white">
+          Core
+        </span>
+      </div>
+      <div className="flex flex-1 flex-col justify-center gap-2 px-3 py-3">
+        <div className="flex items-center justify-between gap-1 rounded-lg border border-gray-100 bg-gray-50 px-2.5 py-1.5">
           <div>
-            <p className="text-[11px] font-bold text-text-dark">New York → Boston</p>
-            <p className="text-[10px] text-text-muted">23 Jun 2026 • Greyhound AC</p>
+            <p className="text-[9px] text-text-muted">Search</p>
+            <p className="text-[10px] font-bold text-text-dark">NYC → Boston</p>
           </div>
-          <div className="text-right">
-            <p className="text-[11px] font-bold text-brand">$65</p>
-            <p className="text-[9px] text-text-muted">2 seats</p>
-          </div>
+          <HiOutlineArrowNarrowRight className="h-3.5 w-3.5 shrink-0 text-brand" />
         </div>
-        <div className="grid grid-cols-3 gap-2 border-t border-gray-100/70 pt-3">
-          {[
-            { label: "Departure", value: "07:00 AM" },
-            { label: "Seat", value: "A3, A4" },
-            { label: "Status", value: "Confirmed" },
-          ].map((d) => (
-            <div key={d.label}>
-              <p className="text-[9px] text-text-muted">{d.label}</p>
-              <p className="text-[11px] font-semibold text-text-dark">{d.value}</p>
+        <div className="grid grid-cols-3 gap-1.5 text-center">
+          {["Seats", "Pay", "Issue"].map((step, i) => (
+            <div
+              key={step}
+              className={`rounded-lg py-1 ${
+                i === 1 ? "bg-brand text-white" : "bg-gray-50 text-text-body"
+              }`}
+            >
+              <p className="text-[10px] font-semibold">{step}</p>
             </div>
-          ))}
-        </div>
-        <div className="mt-3 flex items-center gap-3 border-t border-gray-100/70 pt-2.5">
-          {[
-            { icon: <HiOutlineShieldCheck className="h-3 w-3" />, label: "Secure" },
-            { icon: <HiOutlineCreditCard className="h-3 w-3" />, label: "Visa/PayPal" },
-            { icon: <HiOutlineStar className="h-3 w-3" />, label: "4.9 Rating" },
-          ].map((b) => (
-            <span key={b.label} className="flex items-center gap-1 text-[9px] text-text-muted">
-              <span className="text-brand">{b.icon}</span>
-              {b.label}
-            </span>
           ))}
         </div>
       </div>
@@ -270,12 +129,70 @@ function PaymentConfirmationCard() {
   );
 }
 
-// ── Main Component ────────────────────────────────────────────────────────────
+// ── Passenger Ticket card (glass) ────────────────────────────────────────────
+function PassengerTicketCard() {
+  const bars = [2, 3, 1, 4, 2, 3, 1, 2, 4, 2, 3, 2];
+  return (
+    <div className="gsap-bento-card flex flex-1 flex-col items-center justify-center gap-2 rounded-2xl border border-white/50 bg-white/80 px-3 py-5 text-center shadow-xl shadow-black/20 backdrop-blur-2xl">
+      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand text-white">
+        <HiOutlineTicket className="h-5 w-5" />
+      </span>
+      <div>
+        <p className="text-[12px] font-bold text-text-dark">Passenger Ticket</p>
+        <p className="text-[9px] text-text-muted">NYC → Boston • Seat A12</p>
+      </div>
+      <div className="flex h-3 items-stretch gap-[2px]">
+        {bars.map((w, i) => (
+          <span key={i} className="bg-gray-800" style={{ width: `${w}px` }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Analytics card (glass) ───────────────────────────────────────────────────
+function AnalyticsCard() {
+  const heights = [18, 28, 22, 34, 30, 42];
+  return (
+    <div className="gsap-bento-card relative z-10 flex flex-col overflow-hidden rounded-2xl border border-white/50 bg-white/80 px-4 py-3.5 shadow-2xl shadow-black/20 backdrop-blur-2xl">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <HiOutlineChartBar className="h-3.5 w-3.5 text-brand" />
+          <p className="text-[12px] font-bold text-text-dark">Analytics</p>
+        </div>
+        <span className="text-[10px] font-semibold text-emerald-600">Revenue +18%</span>
+      </div>
+      <div className="mt-2.5 flex items-end gap-1.5">
+        {heights.map((h, i) => (
+          <div
+            key={i}
+            className="flex-1 rounded-t-sm bg-gradient-to-t from-brand/30 to-brand"
+            style={{ height: `${h}px` }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Hero ─────────────────────────────────────────────────────────────────────
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftCopyRef = useRef<HTMLDivElement>(null);
   const bentoRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isHome = usePathname() === "/";
+
+  const scrollToHash = (href: string) => {
+    const hash = href.split("#")[1];
+    if (!hash) return;
+    const smoother = ScrollSmoother.get();
+    if (smoother) smoother.scrollTo(hash, true);
+    else {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -295,23 +212,90 @@ export default function Hero() {
         );
       }
 
-      // ── Bento grid: step-by-step story sequence ──
+      // ── Scene cards: fade + scale in, staggered ──
       const cards = bentoRef.current?.querySelectorAll(".gsap-bento-card");
       if (cards?.length) {
-        gsap.set(cards, { opacity: 0, y: 40, scale: 0.95 });
-
-        const tl = gsap.timeline({ delay: 0.5 });
-
-        // Step 1: Admin Dashboard + Seat Selection (operator setup)
-        tl.to(cards[0], { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power2.out" })
-          .to(cards[1], { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power2.out" }, 0)
-          // Step 2: Mobile Booking (customer books)
-          .to(cards[2], { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power2.out" }, 1.2)
-          // Step 3: Payment Confirmation (successfully booked)
-          .to(cards[3], { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.4)" }, 2.4);
+        gsap.set(cards, { opacity: 0, y: 30, scale: 0.96 });
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          delay: 0.5,
+          ease: "power2.out",
+        });
       }
 
-      // ── Bento grid: parallax drift ──
+      // ── Connector lines draw in ──
+      const vLines = bentoRef.current?.querySelectorAll(".gsap-line-v");
+      if (vLines?.length) {
+        gsap.fromTo(
+          vLines,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            duration: 0.45,
+            stagger: 0.2,
+            delay: 1.1,
+            ease: "power2.inOut",
+            transformOrigin: "50% 0%",
+          }
+        );
+      }
+      const hLines = bentoRef.current?.querySelectorAll(".gsap-line-h");
+      if (hLines?.length) {
+        gsap.fromTo(
+          hLines,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            duration: 0.4,
+            stagger: 0.15,
+            delay: 1.1,
+            ease: "power2.inOut",
+            transformOrigin: "0% 50%",
+          }
+        );
+      }
+
+      // ── Traveling pulse signals along the connectors ──
+      const dotsV = bentoRef.current?.querySelectorAll(".gsap-dot-v");
+      dotsV?.forEach((d, i) => {
+        gsap.fromTo(
+          d,
+          { top: 0, opacity: 1 },
+          {
+            top: "100%",
+            opacity: 0.1,
+            duration: 1.1,
+            ease: "power1.in",
+            repeat: -1,
+            repeatDelay: 0.5,
+            delay: 1.5 + i * 0.2,
+            immediateRender: false,
+          }
+        );
+      });
+      const dotsH = bentoRef.current?.querySelectorAll(".gsap-dot-h");
+      dotsH?.forEach((d, i) => {
+        gsap.fromTo(
+          d,
+          { left: 0, opacity: 1 },
+          {
+            left: "100%",
+            opacity: 0.1,
+            duration: 0.9,
+            ease: "power1.in",
+            repeat: -1,
+            repeatDelay: 0.4,
+            delay: 1.6 + i * 0.2,
+            immediateRender: false,
+          }
+        );
+      });
+
+      // ── Scene: parallax drift ──
       if (bentoRef.current) {
         gsap.to(bentoRef.current, {
           y: -30,
@@ -325,13 +309,12 @@ export default function Hero() {
         });
       }
 
-      // ── Animated bars inside dashboard card ──
+      // ── Animated bar inside admin card ──
       const bars = bentoRef.current?.querySelectorAll(".gsap-bar");
       if (bars?.length) {
         gsap.to(bars, {
           width: (i, el) => el.getAttribute("data-width"),
           duration: 1,
-          stagger: 0.15,
           ease: "power2.out",
           delay: 1.5,
         });
@@ -387,71 +370,94 @@ export default function Hero() {
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand">
                   <HiOutlineCheck className="h-3 w-3 text-white" />
                 </span>
-                Trusted by 50+ transport companies
+                For bus, train, cruise, taxi &amp; event operators
               </span>
             </div>
 
             {/* Headline */}
             <h1 className="gsap-left-item mb-5 text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl xl:text-[3.4rem]">
-              Build Your Own{" "}
+              Launch Your Own{" "}
               <span className="relative inline-block">
-                <span className="relative z-10">Online Ticket</span>
+                <span className="relative z-10">Online Ticket Booking</span>
                 <span className="absolute bottom-1 left-0 right-0 -z-0 h-3 rounded bg-brand/40" />
               </span>{" "}
-              Booking System
+              System in Weeks
             </h1>
 
             {/* Sub-copy */}
             <p className="gsap-left-item mb-8 max-w-lg text-[15px] leading-relaxed text-white/75 sm:text-[16px]">
-              Launch a custom web and mobile ticketing system for bus, train, cruise,
-              taxi, cable car, or event booking. Manage routes, seats, schedules,
-              payments, customers, and reports from one powerful dashboard.
+              A complete white-label booking system for transport operators. Manage routes,
+              seats, payments, passengers, and mobile apps from one powerful platform.
             </p>
 
             {/* CTA row */}
-            <div className="gsap-left-item mb-10 flex flex-wrap items-center gap-3">
+            <div className="gsap-left-item mb-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/contact"
                 className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
               >
-                Book a Free Demo
+                Start Free Consultation
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
               <Link
-                href="/services"
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-[14px] font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-[0.97]"
+                href="/#platform"
+                onClick={(e) => {
+                  if (isHome) {
+                    e.preventDefault();
+                    scrollToHash("/#platform");
+                  }
+                }}
+                className="group inline-flex items-center gap-2.5 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-[14px] font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-[0.97]"
               >
-                Explore Solutions
-                <HiOutlineArrowNarrowRight className="h-4 w-4" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 transition-colors group-hover:bg-brand">
+                  <HiOutlinePlay className="ml-px h-3 w-3 text-white" />
+                </span>
+                Watch Platform Demo
               </Link>
             </div>
 
-            {/* Social proof */}
-            <div className="gsap-left-item flex items-center gap-4">
-              <div className="flex -space-x-2">
-                {["bg-brand", "bg-emerald-500", "bg-sky-500", "bg-violet-500"].map((c, i) => (
-                  <span
-                    key={i}
-                    className={`flex h-8 w-8 items-center justify-center rounded-full border-2 border-white/80 text-[10px] font-bold text-white ${c}`}
-                  >
-                    {["RK", "AS", "MR", "JD"][i]}
+            {/* Trust points */}
+            <div className="gsap-left-item flex flex-wrap items-center gap-x-5 gap-y-2.5 border-t border-white/15 pt-6">
+              {[
+                "50+ Transport Companies",
+                "99.9% Platform Uptime",
+                "Android & iOS Apps Included",
+              ].map((point) => (
+                <span key={point} className="flex items-center gap-2 text-[12px] text-white/80">
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-brand/90">
+                    <HiOutlineCheck className="h-2.5 w-2.5 text-white" />
                   </span>
-                ))}
-              </div>
-              <div className="text-[12px]">
-                <span className="font-semibold text-white">2,400+</span>{" "}
-                <span className="text-white/70">operators trust our platform</span>
-              </div>
+                  {point}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* ── Right: Bento Grid, glass cards floating over the video ── */}
-          <div ref={bentoRef} className="relative overflow-visible hidden lg:block">
-            <div className="relative grid grid-cols-12 gap-3">
-              <SeatSelectionCard />
-              <AdminDashboardCard />
-              <MobileBookingCard />
-              <PaymentConfirmationCard />
+          {/* ── Right: connected product ecosystem scene ── */}
+          <div ref={bentoRef} className="relative hidden overflow-visible lg:block">
+            <div className="mx-auto w-full max-w-[540px]">
+              {/* Admin Dashboard */}
+              <div className="relative z-10 mx-auto w-full max-w-[400px]">
+                <AdminDashboardCard />
+              </div>
+
+              <ConnectorV />
+
+              {/* Middle row: Mobile App — Booking Engine — Passenger Ticket */}
+              <div className="flex items-stretch gap-1.5">
+                <MobileAppCard />
+                <ConnectorH />
+                <BookingEngineCard />
+                <ConnectorH />
+                <PassengerTicketCard />
+              </div>
+
+              <ConnectorV />
+
+              {/* Analytics */}
+              <div className="relative z-10 mx-auto w-full max-w-[420px]">
+                <AnalyticsCard />
+              </div>
             </div>
           </div>
         </div>

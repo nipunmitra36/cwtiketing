@@ -26,39 +26,63 @@ const googleSans = Google_Sans({
 });
 
 
+const SITE_URL = "https://www.cwticketingsystem.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Your Brand Name | Modern Web Solutions",
-    template: "%s | Your Brand Name",
+    default: "CW Ticketing System | Online Ticket Booking Platform for Transport Operators",
+    template: "%s | CW Ticketing System",
   },
   description:
-    "We build scalable, high-performance web applications using modern technologies like Next.js, Laravel, and React. Fast, SEO-optimized, and conversion-focused solutions.",
+    "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards for bus, train, cruise, taxi, and event operators.",
   keywords: [
-    "web development",
-    "Next.js developer",
-    "Laravel development",
-    "React development",
-    "SEO optimized websites",
-    "UI UX design",
+    "ticketing system",
+    "online ticket booking software",
+    "bus ticket booking system",
+    "train booking platform",
+    "transport management software",
+    "seat selection software",
+    "transit ticketing",
+    "payment gateway integration",
+    "mobile ticketing app",
+    "transport operator dashboard",
   ],
-  authors: [{ name: "Your Name" }],
-  creator: "Your Brand Name",
-  metadataBase: new URL("https://yourdomain.com"),
+  authors: [{ name: "CW Ticketing System" }],
+  creator: "CW Ticketing System",
+  alternates: {
+    canonical: "/",
+  },
 
   openGraph: {
-    title: "Your Brand Name | Modern Web Solutions",
-    description:
-      "High-performance web development services built for scalability and SEO growth.",
-    url: "https://yourdomain.com",
-    siteName: "Your Brand Name",
     type: "website",
+    title: "Online Ticket Booking System for Bus, Train & Transport Operators",
+    description:
+      "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards.",
+    url: SITE_URL,
+    siteName: "CW Ticketing System",
+    locale: "en_US",
+    images: [
+      {
+        url: "/images/og-ticket-booking-platform.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ticket booking platform dashboard with seat selection and transport management",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Your Brand Name | Web Development Agency",
+    title: "Online Ticket Booking System for Transport Businesses",
     description:
-      "Scalable, SEO-friendly web solutions built with modern frameworks.",
+      "Build a branded online ticket booking system for buses, trains, cruises, taxis, and events with payments, apps, and analytics.",
+    images: [
+      {
+        url: "/images/og-ticket-booking-platform.jpg",
+        alt: "Online ticket booking software dashboard",
+      },
+    ],
   },
 
   robots: {

@@ -67,6 +67,7 @@ export default function CaseStudies() {
     return (
         <section
             ref={sectionRef}
+            id="case-studies"
             className="relative overflow-hidden bg-white py-16 lg:py-24"
         >
             <div className="absolute -right-40 -top-40 h-[400px] w-[400px] rounded-full bg-brand-light/60 blur-3xl" />
