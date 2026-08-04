@@ -72,15 +72,15 @@ export default function ProblemSolution() {
             data-gsap
             className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
           >
-            Stop losing bookings
+            Before / After
           </span>
           <h2
             data-gsap
             className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
           >
-            From Chaos to a{" "}
+            Why Operators Move to{" "}
             <span className="relative inline-block">
-              <span className="relative z-10">Complete System</span>
+              <span className="relative z-10">CW Ticketing</span>
               <span className="absolute bottom-1 left-0 right-0 h-3 rounded bg-brand/15" />
             </span>
           </h2>

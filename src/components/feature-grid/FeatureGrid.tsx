@@ -164,7 +164,7 @@ export default function FeatureGrid() {
                         data-gsap
                         className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
                     >
-                        Everything included
+                        Platform
                     </span>
                     <h2
                         data-gsap
@@ -176,8 +176,8 @@ export default function FeatureGrid() {
                         data-gsap
                         className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
                     >
-                        Four pillars, one platform — plus cancellations &amp; refunds,
-                        QR validation, notifications, and more.
+                        Everything you need, grouped by job — from booking to
+                        back-office, growth to revenue.
                     </p>
                 </div>
 

@@ -375,11 +375,10 @@ export default function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="gsap-left-item mb-5 text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-6xl xl:text-[4.5rem]">
+            <h1 className="gsap-left-item mb-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-white sm:text-5xl xl:text-6xl">
               Launch Your Own{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10">Online Ticket Booking</span>
-                <span className="absolute bottom-1 left-0 right-0 -z-0 h-3 rounded bg-brand/40" />
+              <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-brand-light bg-clip-text text-transparent">
+                Online Ticket Booking
               </span>{" "}
               System in Weeks
             </h1>

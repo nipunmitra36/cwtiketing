@@ -86,7 +86,7 @@ export default function CaseStudies() {
                         data-gsap
                         className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
                     >
-                        Success stories
+                        Case studies
                     </span>
                     <h2
                         data-gsap
@@ -102,7 +102,7 @@ export default function CaseStudies() {
                         data-gsap
                         className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
                     >
-                        See how ticketing businesses transformed their operations.
+                        Operators who made the switch.
                     </p>
                 </div>
 

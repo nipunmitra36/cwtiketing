@@ -102,7 +102,7 @@ export default function FAQ() {
                         data-gsap
                         className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
                     >
-                        Got questions?
+                        FAQ
                     </span>
                     <h2
                         data-gsap
@@ -114,10 +114,9 @@ export default function FAQ() {
                         data-gsap
                         className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
                     >
-                        Everything you need to know about our ticketing platform.
+                        Questions operators ask before switching.
                     </p>
                 </div>
-
                 <div className="grid gap-10 lg:grid-cols-[1fr_400px] lg:items-start">
                     {/* ── FAQ Accordion ── */}
                     <div>
@@ -126,7 +125,7 @@ export default function FAQ() {
                                 data-gsap
                                 className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
                             >
-                                Got questions?
+                                FAQ
                             </span>
                             <h2
                                 data-gsap
@@ -138,7 +137,7 @@ export default function FAQ() {
                                 data-gsap
                                 className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
                             >
-                                Everything you need to know about our ticketing platform.
+                                Questions operators ask before switching.
                             </p>
                         </div>
 

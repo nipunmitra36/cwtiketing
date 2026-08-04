@@ -79,20 +79,20 @@ export default function DashboardPreview() {
                         data-gsap
                         className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-[12px] font-medium text-brand"
                     >
-                        Platform preview
+                        Product demo
                     </span>
                     <h2
                         data-gsap
                         className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"
                     >
-                        See the Platform in Action
+                        One Platform, Five Surfaces
                     </h2>
                     <p
                         data-gsap
                         className="mt-3 text-[14px] leading-relaxed text-gray-400 sm:text-[15px]"
                     >
-                        Switch between views to explore the admin dashboard,
-                        passenger app, agent portal, driver app, and developer API.
+                        Every stakeholder gets a screen built for their job — all
+                        reading from the same live data.
                     </p>
                 </div>
 

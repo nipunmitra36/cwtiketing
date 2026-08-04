@@ -60,7 +60,7 @@ export default function Comparison() {
             data-gsap
             className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
           >
-            The upgrade
+            Comparison
           </span>
           <h2
             data-gsap

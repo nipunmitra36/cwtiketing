@@ -242,10 +242,10 @@ export default function ScrollFeatures() {
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:px-8 lg:py-16">
                 <div className="mx-auto mb-10 max-w-2xl text-center lg:mb-10">
                     <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
-                        Every booking business, one platform
+                        Solutions by industry
                     </span>
                     <h2 className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl">
-                        Ticketing Solutions for Every Booking Business
+                        Built for How Each Industry Actually Moves People
                     </h2>
                     <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
                         Scroll or tap through to see how each module works,
