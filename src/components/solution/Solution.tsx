@@ -66,7 +66,7 @@ export default function Solution() {
                         </span>
                         <h2
                             data-gsap
-                            className="mt-4 text-3xl font-bold leading-tight tracking-tight text-text-dark sm:text-4xl"
+                            className="mt-4 text-3xl font-bold leading-tight tracking-tight text-text-dark sm:text-5xl"
                         >
                             One system for{" "}
                             <span className="relative inline-block">

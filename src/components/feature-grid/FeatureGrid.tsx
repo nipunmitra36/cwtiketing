@@ -1,106 +1,124 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import {
     HiOutlineTicket,
     HiOutlineViewGrid,
+    HiOutlineUserGroup,
     HiOutlineMap,
+    HiOutlineTruck,
+    HiOutlineCalendar,
     HiOutlineTrendingUp,
     HiOutlineCreditCard,
-    HiOutlineUserGroup,
-    HiOutlineDeviceMobile,
-    HiOutlineChartSquareBar,
-    HiOutlineUserCircle,
-    HiOutlineTruck,
-    HiOutlineSpeakerphone,
     HiOutlineTag,
-    HiOutlineRefresh,
+    HiOutlineChartSquareBar,
     HiOutlineDocumentReport,
-    HiOutlineGlobe,
-    HiOutlineQrcode,
+    HiOutlineDeviceMobile,
 } from "react-icons/hi";
+import type { IconType } from "react-icons";
 
-const features = [
+interface Feature {
+    icon: IconType;
+    title: string;
+    desc: string;
+}
+
+interface FeatureGroup {
+    title: string;
+    accent: string;
+    icon: IconType;
+    features: Feature[];
+}
+
+const groups: FeatureGroup[] = [
     {
+        title: "Booking Experience",
+        accent: "from-brand to-brand-hover",
         icon: HiOutlineTicket,
-        title: "Online Ticket Booking",
-        desc: "Sell tickets online 24/7 with a seamless booking experience across all devices.",
+        features: [
+            {
+                icon: HiOutlineTicket,
+                title: "Online Booking",
+                desc: "Sell tickets online 24/7 with a seamless flow across all devices.",
+            },
+            {
+                icon: HiOutlineViewGrid,
+                title: "Seat Selection",
+                desc: "Let passengers pick seats with real-time visual seat maps.",
+            },
+            {
+                icon: HiOutlineUserGroup,
+                title: "Customer Portal",
+                desc: "Self-service booking, management, and trip tracking for customers.",
+            },
+        ],
     },
     {
-        icon: HiOutlineViewGrid,
-        title: "Interactive Seat Selection",
-        desc: "Let passengers pick their preferred seats with real-time visual seat maps.",
-    },
-    {
+        title: "Operations",
+        accent: "from-sky-500 to-sky-600",
         icon: HiOutlineMap,
-        title: "Route & Schedule Management",
-        desc: "Create and manage complex route networks, timetables, and service schedules.",
+        features: [
+            {
+                icon: HiOutlineMap,
+                title: "Route Management",
+                desc: "Build complex route networks, timetables, and service schedules.",
+            },
+            {
+                icon: HiOutlineTruck,
+                title: "Driver Panel",
+                desc: "Trips, passenger manifests, and route info for every driver.",
+            },
+            {
+                icon: HiOutlineCalendar,
+                title: "Schedule Management",
+                desc: "Keep every timetable live, accurate, and always in sync.",
+            },
+        ],
     },
     {
+        title: "Revenue",
+        accent: "from-emerald-500 to-emerald-600",
         icon: HiOutlineTrendingUp,
-        title: "Dynamic Fare Management",
-        desc: "Implement flexible pricing with peak pricing, early bird discounts, and promotions.",
+        features: [
+            {
+                icon: HiOutlineTrendingUp,
+                title: "Dynamic Pricing",
+                desc: "Peak pricing, early-bird discounts, and flexible fare rules.",
+            },
+            {
+                icon: HiOutlineCreditCard,
+                title: "Payments",
+                desc: "Credit cards, mobile wallets, and 20+ local gateways.",
+            },
+            {
+                icon: HiOutlineTag,
+                title: "Coupons",
+                desc: "Promotional codes, loyalty discounts, and seasonal offers.",
+            },
+        ],
     },
     {
-        icon: HiOutlineCreditCard,
-        title: "Multiple Payment Gateways",
-        desc: "Accept payments via credit cards, mobile wallets, and local payment methods.",
-    },
-    {
-        icon: HiOutlineUserGroup,
-        title: "Customer Booking Portal",
-        desc: "Self-service portal for customers to book, manage, and track reservations.",
-    },
-    {
-        icon: HiOutlineDeviceMobile,
-        title: "Android & iOS Mobile Apps",
-        desc: "Native mobile apps for passengers to book tickets and manage trips on the go.",
-    },
-    {
+        title: "Growth",
+        accent: "from-violet-500 to-violet-600",
         icon: HiOutlineChartSquareBar,
-        title: "Admin Dashboard",
-        desc: "Complete business overview with real-time analytics and performance metrics.",
-    },
-    {
-        icon: HiOutlineUserCircle,
-        title: "Agent & Vendor Panel",
-        desc: "Authorize agents and vendors to sell tickets with commission tracking.",
-    },
-    {
-        icon: HiOutlineTruck,
-        title: "Driver & Operator Panel",
-        desc: "Empower drivers with trip details, passenger manifests, and route info.",
-    },
-    {
-        icon: HiOutlineSpeakerphone,
-        title: "SMS, Email & WhatsApp",
-        desc: "Automated notifications for confirmations, reminders, and promotions.",
-    },
-    {
-        icon: HiOutlineTag,
-        title: "Coupon & Discount Management",
-        desc: "Create promotional coupons, loyalty discounts, and seasonal offers.",
-    },
-    {
-        icon: HiOutlineRefresh,
-        title: "Cancellation & Refunds",
-        desc: "Hassle-free cancellation and refund management with configurable policies.",
-    },
-    {
-        icon: HiOutlineDocumentReport,
-        title: "Reports & Analytics",
-        desc: "Comprehensive reports on sales, revenue, and operational performance.",
-    },
-    {
-        icon: HiOutlineGlobe,
-        title: "Multi-Language & Currency",
-        desc: "Serve a global audience with multi-language and currency support.",
-    },
-    {
-        icon: HiOutlineQrcode,
-        title: "QR Code Ticket Validation",
-        desc: "Secure QR code and barcode scanning for fraud-proof ticket validation.",
+        features: [
+            {
+                icon: HiOutlineChartSquareBar,
+                title: "Analytics",
+                desc: "Real-time dashboards for bookings, sales, and performance.",
+            },
+            {
+                icon: HiOutlineDocumentReport,
+                title: "Reports",
+                desc: "Deep-dive reports on revenue, routes, and occupancy.",
+            },
+            {
+                icon: HiOutlineDeviceMobile,
+                title: "Mobile Apps",
+                desc: "White-label Android & iOS apps for your passengers.",
+            },
+        ],
     },
 ];
 
@@ -114,13 +132,13 @@ export default function FeatureGrid() {
 
             gsap.fromTo(
                 el.querySelectorAll("[data-gsap]"),
-                { opacity: 0, y: 30, scale: 0.97 },
+                { opacity: 0, y: 30, scale: 0.98 },
                 {
                     opacity: 1,
                     y: 0,
                     scale: 1,
                     duration: 0.5,
-                    stagger: 0.04,
+                    stagger: 0.06,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: el,
@@ -150,39 +168,65 @@ export default function FeatureGrid() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl"
+                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
                     >
-                        All Features, One Platform
+                        Everything You Need
                     </h2>
                     <p
                         data-gsap
                         className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
                     >
-                        Every tool you need to launch, manage, and grow your ticketing
-                        business.
+                        Four pillars, one platform — plus cancellations &amp; refunds,
+                        QR validation, notifications, and more.
                     </p>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {features.map((f, i) => {
-                        const Icon = f.icon;
+                <div className="grid gap-5 md:grid-cols-2">
+                    {groups.map((group) => {
+                        const GroupIcon = group.icon;
                         return (
                             <div
-                                key={i}
+                                key={group.title}
                                 data-gsap
-                                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-[0_1px_2px_rgba(17,17,17,0.04),0_10px_30px_-14px_rgba(17,17,17,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:shadow-[0_2px_4px_rgba(17,17,17,0.05),0_20px_40px_-16px_rgba(255,106,28,0.25)]"
+                                className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_1px_2px_rgba(17,17,17,0.04),0_10px_30px_-14px_rgba(17,17,17,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_rgba(17,17,17,0.05),0_20px_40px_-16px_rgba(255,106,28,0.22)]"
                             >
-                                <div className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand to-brand-hover transition-transform duration-300 group-hover:scale-x-100" />
-                                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand/[0.06] blur-2xl transition-all duration-300 group-hover:bg-brand/10" />
-                                <div className="relative mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-brand-dark text-white shadow-md shadow-brand/25 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-brand/40">
-                                    <Icon className="h-5 w-5" />
+                                {/* Group header */}
+                                <div className={`flex items-center gap-3 bg-gradient-to-r ${group.accent} px-5 py-4`}>
+                                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/20 text-white">
+                                        <GroupIcon className="h-5 w-5" />
+                                    </span>
+                                    <div>
+                                        <p className="text-[15px] font-bold text-white">{group.title}</p>
+                                        <p className="text-[11px] text-white/70">
+                                            {group.features.length} core tools
+                                        </p>
+                                    </div>
                                 </div>
-                                <h3 className="relative mb-1 text-[14px] font-bold text-text-dark sm:text-[15px]">
-                                    {f.title}
-                                </h3>
-                                <p className="relative text-[12.5px] leading-relaxed text-text-muted sm:text-[13px]">
-                                    {f.desc}
-                                </p>
+
+                                {/* Feature list */}
+                                <div className="space-y-1.5 p-3 sm:p-4">
+                                    {group.features.map((f) => {
+                                        const Icon = f.icon;
+                                        return (
+                                            <div
+                                                key={f.title}
+                                                className="flex items-start gap-3.5 rounded-xl border border-transparent px-3 py-3 transition-all duration-200 hover:border-gray-100 hover:bg-gray-50"
+                                            >
+                                                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand transition-transform duration-300 group-hover:scale-110">
+                                                    <Icon className="h-[18px] w-[18px]" />
+                                                </span>
+                                                <div>
+                                                    <h3 className="text-[14px] font-bold text-text-dark">
+                                                        {f.title}
+                                                    </h3>
+                                                    <p className="mt-0.5 text-[12.5px] leading-relaxed text-text-muted">
+                                                        {f.desc}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         );
                     })}

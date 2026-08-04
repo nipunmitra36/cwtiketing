@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { HiOutlineChevronDown } from "react-icons/hi";
 
 const faqs = [
@@ -28,6 +28,26 @@ const faqs = [
     {
         q: "What kind of support do you provide after launch?",
         a: "We offer 24/7 technical support, a dedicated account manager, and regular platform updates. Enterprise plans include SLA-backed support and priority issue resolution.",
+    },
+    {
+        q: "What is a white label ticket booking platform?",
+        a: "A white label ticket booking platform is a ready-made ticketing system you can rebrand as your own — with your logo, colors, domain, and apps. You get all the technology of a custom-built platform without the years of development time or cost.",
+    },
+    {
+        q: "Can I launch my own branded booking app?",
+        a: "Yes. We publish white-label Android and iOS apps under your brand on the Google Play Store and Apple App Store. Passengers download 'your' app to book, select seats, and manage trips, while you keep full ownership of the platform.",
+    },
+    {
+        q: "Does it support multiple operators?",
+        a: "Absolutely. The platform supports multi-operator and marketplace models — multiple transport companies can sell on one platform with separate dashboards, commissions, and reporting for each.",
+    },
+    {
+        q: "Can I integrate my existing payment gateway?",
+        a: "Yes. We support Stripe, PayPal, Square, Razorpay, and 20+ local providers out of the box, and we can connect your existing merchant account or custom gateway through our API during onboarding.",
+    },
+    {
+        q: "How much does a booking system cost?",
+        a: "Pricing depends on your routes, volumes, and features. Starter plans start at a modest monthly rate, while Growth and Enterprise are custom-quoted. Contact us for a free, no-obligation quote tailored to your operation.",
     },
 ];
 
@@ -86,7 +106,7 @@ export default function FAQ() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl"
+                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
                     >
                         Frequently Asked Questions
                     </h2>
@@ -110,7 +130,7 @@ export default function FAQ() {
                             </span>
                             <h2
                                 data-gsap
-                                className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl"
+                                className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
                             >
                                 Frequently Asked Questions
                             </h2>

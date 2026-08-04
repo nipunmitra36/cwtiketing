@@ -2,35 +2,42 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { HiOutlineArrowRight } from "react-icons/hi";
+import { gsap } from "@/lib/gsap";
+import {
+  HiOutlineArrowRight,
+  HiOutlineCheck,
+  HiOutlineX,
+} from "react-icons/hi";
 
 const cases = [
     {
         name: "Coachline UK",
         country: "United Kingdom",
         flag: "🇬🇧",
+        before: "Old manual booking",
         result: "40%",
-        resultLabel: "More online bookings",
-        desc: "Migrated from a legacy system to our platform, cutting booking time by 60% and increasing direct online sales across 150+ routes.",
+        resultLabel: "increase in online bookings",
+        desc: "Migrated from a legacy system to our platform, cutting booking time by 60% across 150+ routes.",
         href: "/case-studies/coachline-uk",
     },
     {
         name: "Lagos Move",
         country: "Nigeria",
         flag: "🇳🇬",
+        before: "Scattered phone bookings",
         result: "3x",
-        resultLabel: "Revenue growth",
-        desc: "A transport marketplace that scaled from 50 to 500+ vehicles on the platform within 6 months of launch with real-time tracking.",
+        resultLabel: "revenue growth in 6 months",
+        desc: "A transport marketplace that scaled from 50 to 500+ vehicles with real-time tracking.",
         href: "/case-studies/lagos-move",
     },
     {
         name: "Falcon Shuttle",
         country: "UAE",
         flag: "🇦🇪",
+        before: "Late airport pickups",
         result: "98%",
-        resultLabel: "On-time performance",
-        desc: "Airport shuttle operator serving Dubai. Automated dispatching and passenger notifications improved on-time performance dramatically.",
+        resultLabel: "on-time performance",
+        desc: "Automated dispatching and passenger notifications fixed the airport shuttle experience.",
         href: "/case-studies/falcon-shuttle",
     },
 ];
@@ -83,7 +90,7 @@ export default function CaseStudies() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl"
+                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
                     >
                         Trusted by Operators{" "}
                         <span className="relative inline-block">
@@ -104,30 +111,56 @@ export default function CaseStudies() {
                         <div
                             key={i}
                             data-gsap
-                            className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200/80"
+                            className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-gray-200/80"
                         >
+                            {/* Gradient top edge */}
+                            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand to-brand-hover" />
+
                             <div className="p-6 pb-4">
-                                <div className="mb-4 flex items-center justify-between">
-                                    <span className="text-[11px] font-semibold uppercase tracking-widest text-text-muted">
-                                        Client story
+                                {/* Logo */}
+                                <div className="mb-5 flex items-center gap-3">
+                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-gray-800 to-gray-950 text-lg shadow-md">
+                                        {c.flag}
                                     </span>
-                                    <span className="text-2xl leading-none">{c.flag}</span>
+                                    <div>
+                                        <h3 className="text-[16px] font-bold text-text-dark">
+                                            {c.name}
+                                        </h3>
+                                        <p className="text-[12px] text-text-muted">
+                                            {c.country}
+                                        </p>
+                                    </div>
                                 </div>
 
-                                <h3 className="mb-1 text-[17px] font-bold text-text-dark">
-                                    {c.name}
-                                </h3>
-                                <p className="mb-4 text-[12.5px] text-text-muted">
-                                    {c.country}
-                                </p>
-
-                                <div className="mb-4 flex items-baseline gap-1.5">
-                                    <span className="text-4xl font-bold tracking-tight text-brand">
-                                        {c.result}
-                                    </span>
-                                    <span className="text-[12px] font-medium text-text-body">
-                                        {c.resultLabel}
-                                    </span>
+                                {/* Before / After */}
+                                <div className="mb-5 space-y-2.5">
+                                    <div className="flex items-center gap-2.5 rounded-lg border border-gray-100 bg-gray-50/80 px-3 py-2.5">
+                                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-500">
+                                            <HiOutlineX className="h-3.5 w-3.5" />
+                                        </span>
+                                        <div className="min-w-0">
+                                            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+                                                Before
+                                            </p>
+                                            <p className="truncate text-[12.5px] font-medium text-gray-500">
+                                                {c.before}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2.5 rounded-lg border border-brand/15 bg-brand-light/60 px-3 py-2.5">
+                                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                                            <HiOutlineCheck className="h-3.5 w-3.5" />
+                                        </span>
+                                        <div className="min-w-0">
+                                            <p className="text-[10px] font-semibold uppercase tracking-wider text-brand">
+                                                After
+                                            </p>
+                                            <p className="truncate text-[12.5px] font-semibold text-text-dark">
+                                                <span className="text-brand">{c.result}</span>{" "}
+                                                {c.resultLabel}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <p className="text-[13px] leading-relaxed text-text-muted">

@@ -222,7 +222,7 @@ export default function HowItWorks() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl"
+                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
                     >
                         Launch Your Platform in 4 Simple Steps
                     </h2>

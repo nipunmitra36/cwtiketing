@@ -1,8 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
 import {
+    HiOutlineArrowRight,
     HiOutlineTruck,
     HiOutlineClock,
     HiOutlineGlobeAlt,
@@ -242,7 +244,7 @@ export default function ScrollFeatures() {
                     <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
                         Every booking business, one platform
                     </span>
-                    <h2 className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl">
+                    <h2 className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl">
                         Ticketing Solutions for Every Booking Business
                     </h2>
                     <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
@@ -449,6 +451,14 @@ export default function ScrollFeatures() {
                                         ))}
                                     </div>
                                 </div>
+
+                                <Link
+                                    href="/contact"
+                                    className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[12.5px] font-semibold text-brand shadow-lg shadow-black/20 transition-all hover:gap-2.5 hover:bg-gray-100 active:scale-95"
+                                >
+                                    Explore {active.title.replace(" System", "")} Solution
+                                    <HiOutlineArrowRight className="h-4 w-4" />
+                                </Link>
                             </div>
                         </div>
                     </div>

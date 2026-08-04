@@ -48,6 +48,8 @@ body {
   background-color: var(--color-brand);
   &:hover {
     background-color: var(--color-brand-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px -8px rgba(255, 106, 28, 0.55);
   }
   &:focus {
     ring-color: var(--color-brand);

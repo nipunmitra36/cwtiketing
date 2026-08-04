@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import {
     HiOutlineCalendar,
     HiOutlineChartSquareBar,
@@ -15,12 +15,24 @@ import {
     HiOutlineUser,
     HiOutlineUsers,
     HiOutlineViewGrid,
+    HiOutlineCash,
+    HiOutlineCode,
+    HiOutlineKey,
+    HiOutlineLink,
+    HiOutlineLocationMarker,
+    HiOutlineMap,
+    HiOutlinePhone,
+    HiOutlineQrcode,
+    HiOutlineStatusOnline,
+    HiOutlineTerminal,
 } from "react-icons/hi";
 
 const tabs = [
-    { id: "admin", label: "Admin Panel", icon: HiOutlineChartSquareBar },
-    { id: "seat", label: "Seat Map", icon: HiOutlineViewGrid },
-    { id: "mobile", label: "Mobile App", icon: HiOutlineDeviceMobile },
+    { id: "admin", label: "Admin Dashboard", icon: HiOutlineChartSquareBar },
+    { id: "passenger", label: "Passenger App", icon: HiOutlineDeviceMobile },
+    { id: "agent", label: "Agent Portal", icon: HiOutlineCash },
+    { id: "driver", label: "Driver App", icon: HiOutlineMap },
+    { id: "api", label: "API", icon: HiOutlineCode },
 ];
 
 export default function DashboardPreview() {
@@ -71,7 +83,7 @@ export default function DashboardPreview() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl"
+                        className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"
                     >
                         See the Platform in Action
                     </h2>
@@ -79,13 +91,13 @@ export default function DashboardPreview() {
                         data-gsap
                         className="mt-3 text-[14px] leading-relaxed text-gray-400 sm:text-[15px]"
                     >
-                        Switch between views to explore the admin dashboard, seat
-                        selection, and mobile booking experience.
+                        Switch between views to explore the admin dashboard,
+                        passenger app, agent portal, driver app, and developer API.
                     </p>
                 </div>
 
                 <div data-gsap className="mb-8 flex justify-center">
-                    <div className="inline-flex rounded-xl border border-gray-800 bg-gray-900 p-1">
+                    <div className="inline-flex max-w-full flex-wrap justify-center gap-1 rounded-xl border border-gray-800 bg-gray-900 p-1">
                         {tabs.map((tab) => {
                             const Icon = tab.icon;
                             const isActive = activeTab === tab.id;
@@ -109,8 +121,10 @@ export default function DashboardPreview() {
 
                 <div data-gsap className="relative">
                     {activeTab === "admin" && <AdminPanel />}
-                    {activeTab === "seat" && <SeatMap />}
-                    {activeTab === "mobile" && <MobileApp />}
+                    {activeTab === "passenger" && <PassengerApp />}
+                    {activeTab === "agent" && <AgentPortal />}
+                    {activeTab === "driver" && <DriverApp />}
+                    {activeTab === "api" && <ApiPanel />}
                 </div>
             </div>
         </section>
@@ -349,157 +363,260 @@ function AdminPanel() {
     );
 }
 
-function Seat({ state, vip = false }: { state: number; vip?: boolean }) {
-    const colors =
-        state === 1
-            ? "bg-brand border-brand"
-            : state === 2
-              ? "bg-emerald-500 border-emerald-500"
-              : vip
-                ? "bg-amber-400 border-amber-400"
-                : "bg-gray-700 border-gray-700 hover:bg-brand/70";
-    return (
-        <div className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-md border transition-colors sm:h-8 sm:w-8 ${colors}`}>
-            {state === 2 && <span className="h-1.5 w-1.5 rounded-full bg-gray-950/40" />}
-        </div>
-    );
-}
-
-function SeatMap() {
-    const [mode, setMode] = useState<"bus" | "event">("bus");
-
-    const busRows = [
-        [0, 1, 2, 1, 0],
-        [1, 0, 0, 2, 1],
-        [0, 2, 1, 0, 0],
-        [1, 0, 0, 1, 2],
-        [0, 1, 0, 2, 1],
-    ];
-    const eventRows = [
-        [0, 0, 2, 1, 0, 0, 2, 0],
-        [2, 0, 0, 0, 0, 1, 0, 2],
-        [0, 1, 2, 0, 0, 2, 0, 0],
-        [0, 0, 0, 1, 0, 0, 0, 1],
-    ];
-
-    const legend = [
-        { color: "bg-gray-700", label: "Available" },
-        { color: "bg-brand", label: "Selected" },
-        { color: "bg-emerald-500", label: "Booked" },
+function AgentPortal() {
+    const sales = [
+        { agent: "Travco Travels", sales: "$4,320", commission: "$216", trips: 132, status: "Active" },
+        { agent: "Sunrise Holidays", sales: "$2,980", commission: "$149", trips: 98, status: "Active" },
+        { agent: "Metro Tours", sales: "$1,150", commission: "$57", trips: 41, status: "Pending" },
     ];
 
     return (
-        <BrowserFrame
-            url={mode === "bus" ? "app.cwticketingsystem.com/coach/12" : "app.cwticketingsystem.com/events/tech-fest"}
-            badge={mode === "bus" ? "Bus • AC Sleeper" : "Live"}
-        >
-            <div className="p-5 sm:p-6">
-                {/* Mode toggle */}
-                <div className="mb-6 flex justify-center">
-                    <div className="inline-flex rounded-lg border border-gray-800 bg-gray-900 p-0.5">
-                        <button
-                            onClick={() => setMode("bus")}
-                            className={`rounded-md px-4 py-1.5 text-[11px] font-medium transition-all ${
-                                mode === "bus" ? "bg-brand text-white" : "text-gray-400 hover:text-white"
-                            }`}
-                        >
-                            Bus / Train
-                        </button>
-                        <button
-                            onClick={() => setMode("event")}
-                            className={`rounded-md px-4 py-1.5 text-[11px] font-medium transition-all ${
-                                mode === "event" ? "bg-brand text-white" : "text-gray-400 hover:text-white"
-                            }`}
-                        >
-                            Event Hall
-                        </button>
+        <BrowserFrame url="agents.cwticketingsystem.com/dashboard" badge="Reseller">
+            <div className="grid gap-4 p-5 sm:p-6 lg:grid-cols-3">
+                {/* Stats */}
+                <div className="rounded-xl border border-gray-800 bg-gray-900/50 p-4">
+                    <p className="mb-3 text-[11px] font-semibold text-gray-300">This month</p>
+                    <div className="space-y-3">
+                        {[
+                            { label: "Agent sales", value: "$8,450", color: "text-brand" },
+                            { label: "Your commission", value: "$422", color: "text-emerald-400" },
+                            { label: "Active agents", value: "24", color: "text-sky-400" },
+                        ].map((s) => (
+                            <div key={s.label} className="flex items-center justify-between">
+                                <span className="text-[11px] text-gray-400">{s.label}</span>
+                                <span className={`text-[15px] font-bold ${s.color}`}>{s.value}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                {mode === "bus" ? (
-                    <div className="mx-auto max-w-sm">
-                        <div className="mb-5 flex items-center gap-1.5">
-                            <span className="flex items-center gap-1.5 rounded-md bg-gray-800 px-2.5 py-1.5 text-[10px] font-medium text-gray-300">
-                                <HiOutlineUser className="h-3 w-3 text-brand" />
-                                Driver
-                            </span>
-                            <span className="ml-auto flex items-center gap-1.5 rounded-md bg-gray-800 px-2.5 py-1.5 text-[10px] font-medium text-gray-300">
-                                <HiOutlineViewGrid className="h-3 w-3 text-sky-400" />
-                                2 + 2 Coach
-                            </span>
-                        </div>
-                        <div className="rounded-xl border border-gray-800 bg-gray-900/50 p-4">
-                            <div className="space-y-2">
-                                {busRows.map((row, ri) => (
-                                    <div key={ri} className="flex items-center gap-2">
-                                        <span className="w-4 text-center text-[10px] font-medium text-gray-500">{ri + 1}</span>
-                                        <div className="flex flex-1 items-center justify-between">
-                                            <div className="flex gap-1.5">
-                                                {row.slice(0, 2).map((s, si) => (
-                                                    <Seat key={si} state={s} />
-                                                ))}
-                                            </div>
-                                            <div className="flex gap-1.5">
-                                                {row.slice(2).map((s, si) => (
-                                                    <Seat key={si} state={s} />
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <span className="w-4 text-center text-[10px] font-medium text-gray-500">{ri + 1}</span>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="mt-4 flex items-center justify-center gap-1 rounded-lg border border-dashed border-gray-700 py-2 text-[10px] text-gray-500">
-                                <HiOutlineViewGrid className="h-3 w-3" /> Exit Door
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="mx-auto max-w-md">
-                        <div className="mb-5 flex flex-col items-center">
-                            <div className="w-2/3 rounded-lg bg-gradient-to-r from-brand/80 to-brand-hover py-2 text-center text-[10px] font-semibold uppercase tracking-[0.3em] text-white">
-                                Stage
-                            </div>
-                            <div className="mt-3 flex items-center gap-1.5 rounded-md bg-gray-800 px-2.5 py-1.5 text-[10px] font-medium text-gray-300">
-                                <HiOutlineTicket className="h-3 w-3 text-violet-400" />
-                                Tech Fest 2026 • VIP Block A
-                            </div>
-                        </div>
-                        <div className="rounded-xl border border-gray-800 bg-gray-900/50 p-4">
-                            {eventRows.map((row, ri) => (
-                                <div key={ri} className="mb-2 flex items-center gap-1.5 last:mb-0">
-                                    <span className="w-4 text-center text-[10px] font-medium text-gray-500">{ri + 1}</span>
-                                    <div className="grid flex-1 grid-cols-8 gap-1.5">
-                                        {row.map((s, si) => (
-                                            <Seat key={si} state={s} vip={ri < 2} />
-                                        ))}
-                                    </div>
-                                    <span className="w-4 text-center text-[10px] font-medium text-gray-500">{ri + 1}</span>
-                                </div>
-                            ))}
-                            <div className="mt-3 flex items-center justify-center gap-2 border-t border-dashed border-gray-700 pt-3 text-[10px] text-gray-500">
-                                <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-amber-400" /> VIP</span>
-                                <span className="mx-1 text-gray-700">•</span>
-                                <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-gray-700" /> Standard</span>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                <div className="mt-6 flex items-center justify-center gap-5 border-t border-gray-800 pt-4">
-                    {legend.map((l) => (
-                        <span key={l.label} className="flex items-center gap-2">
-                            <span className={`h-3 w-3 rounded-sm ${l.color}`} />
-                            <span className="text-[10px] text-gray-400">{l.label}</span>
+                {/* Reseller link */}
+                <div className="rounded-xl border border-gray-800 bg-gray-900/50 p-4">
+                    <p className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold text-gray-300">
+                        <HiOutlineLink className="h-3.5 w-3.5 text-brand" /> Agent booking link
+                    </p>
+                    <div className="flex items-center gap-2 rounded-lg border border-gray-800 bg-gray-950 px-3 py-2">
+                        <span className="truncate text-[10px] text-gray-500">
+                            book.cwticketingsystem.com/agent/travco
                         </span>
-                    ))}
+                        <HiOutlineLink className="h-3.5 w-3.5 shrink-0 text-brand" />
+                    </div>
+                    <p className="mt-3 text-[10px] leading-relaxed text-gray-500">
+                        Every agent gets a branded booking link. Commission settles automatically each week.
+                    </p>
+                </div>
+
+                {/* Payout */}
+                <div className="rounded-xl border border-brand/30 bg-brand/10 p-4">
+                    <p className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold text-brand">
+                        <HiOutlineCash className="h-3.5 w-3.5" /> Payout due
+                    </p>
+                    <p className="text-2xl font-bold text-white">$422.00</p>
+                    <p className="text-[10px] text-gray-400">Next payout: Friday</p>
+                </div>
+
+                {/* Sales table */}
+                <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/50 lg:col-span-3">
+                    <div className="flex items-center justify-between border-b border-gray-800 px-4 py-3">
+                        <p className="text-[11px] font-semibold text-gray-300">Agent performance</p>
+                        <span className="text-[10px] text-brand">View all →</span>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full min-w-[520px] text-left">
+                            <thead>
+                                <tr className="border-b border-gray-800 text-[9px] uppercase tracking-wider text-gray-500">
+                                    <th className="px-4 py-2.5 font-medium">Agent</th>
+                                    <th className="px-4 py-2.5 font-medium">Trips</th>
+                                    <th className="px-4 py-2.5 font-medium">Sales</th>
+                                    <th className="px-4 py-2.5 font-medium">Commission</th>
+                                    <th className="px-4 py-2.5 text-right font-medium">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {sales.map((s, i) => (
+                                    <tr key={i} className="border-b border-gray-800/60 last:border-0">
+                                        <td className="px-4 py-2.5 text-[11px] font-medium text-white">{s.agent}</td>
+                                        <td className="px-4 py-2.5 text-[11px] text-gray-400">{s.trips}</td>
+                                        <td className="px-4 py-2.5 text-[11px] font-semibold text-gray-300">{s.sales}</td>
+                                        <td className="px-4 py-2.5 text-[11px] font-semibold text-emerald-400">{s.commission}</td>
+                                        <td className="px-4 py-2.5 text-right">
+                                            <span className={`rounded-full px-2 py-0.5 text-[9px] font-semibold ${s.status === "Active" ? "bg-emerald-400/10 text-emerald-400" : "bg-amber-400/10 text-amber-400"}`}>
+                                                {s.status}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </BrowserFrame>
     );
 }
 
-function MobileApp() {
+function DriverApp() {
+    return (
+        <div className="mx-auto max-w-[320px]">
+            <div className="overflow-hidden rounded-[32px] border-[3px] border-gray-700 bg-gray-900 shadow-2xl shadow-black/40">
+                <div className="flex items-center justify-between px-5 pb-2 pt-4">
+                    <span className="text-[11px] font-semibold text-white">9:41</span>
+                    <div className="flex items-center gap-1">
+                        <span className="text-[10px] text-gray-400">●●●●</span>
+                        <span className="text-[11px] text-gray-400">100%</span>
+                    </div>
+                </div>
+
+                <div className="border-b border-gray-800 px-4 pb-3">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-[10px] text-gray-500">Driver mode</p>
+                            <p className="text-[13px] font-bold text-white">James Okoro</p>
+                        </div>
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand/20 text-brand">
+                            <HiOutlineUser className="h-4 w-4" />
+                        </span>
+                    </div>
+                </div>
+
+                <div className="space-y-3 p-4">
+                    {/* Live trip */}
+                    <div className="rounded-xl border border-brand/30 bg-brand/10 p-3.5">
+                        <div className="mb-2 flex items-center justify-between">
+                            <span className="flex items-center gap-1.5 text-[10px] font-semibold text-brand">
+                                <HiOutlineStatusOnline className="h-3 w-3" /> Live trip
+                            </span>
+                            <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[9px] font-semibold text-emerald-400">
+                                On time
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="flex-1">
+                                <p className="text-[10px] text-gray-500">From</p>
+                                <p className="text-[13px] font-bold text-white">Dhaka</p>
+                            </div>
+                            <div className="flex flex-col items-center">
+                                <svg className="h-4 w-4 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
+                            <div className="flex-1 text-right">
+                                <p className="text-[10px] text-gray-500">To</p>
+                                <p className="text-[13px] font-bold text-white">Chattogram</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Manifest */}
+                    <div className="rounded-xl border border-gray-800 bg-gray-950 p-3.5">
+                        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500">
+                            Passenger manifest • 24 / 32
+                        </p>
+                        <div className="mb-2 flex -space-x-1.5">
+                            {["A", "S", "M", "R", "T", "P"].map((c) => (
+                                <span key={c} className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[8px] font-semibold text-gray-300">
+                                    {c}
+                                </span>
+                            ))}
+                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-[8px] font-semibold text-white">
+                                +18
+                            </span>
+                        </div>
+                        <p className="text-[10px] text-gray-500">Next stop: Uttara • 12 min</p>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="grid grid-cols-2 gap-2">
+                        <button className="flex items-center justify-center gap-1.5 rounded-lg border border-gray-700 py-2.5 text-[11px] font-semibold text-gray-300">
+                            <HiOutlinePhone className="h-3.5 w-3.5" /> Dispatcher
+                        </button>
+                        <button className="rounded-lg bg-brand py-2.5 text-[11px] font-semibold text-white">
+                            Complete trip
+                        </button>
+                    </div>
+                    <div className="flex items-center justify-center gap-1.5 rounded-lg border border-gray-800 py-2 text-[10px] text-gray-500">
+                        <HiOutlineLocationMarker className="h-3.5 w-3.5 text-brand" /> Live location sharing on
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function ApiPanel() {
+    const endpoints = [
+        { method: "GET", path: "/v1/routes", desc: "List routes & schedules" },
+        { method: "POST", path: "/v1/bookings", desc: "Create a booking" },
+        { method: "GET", path: "/v1/bookings/:id", desc: "Fetch a booking" },
+        { method: "POST", path: "/v1/webhooks", desc: "Subscribe to events" },
+    ];
+    const methodColor: Record<string, string> = {
+        GET: "text-emerald-400 bg-emerald-400/10",
+        POST: "text-brand bg-brand/10",
+    };
+
+    return (
+        <BrowserFrame url="docs.cwticketingsystem.com/api" badge="REST API">
+            <div className="grid gap-4 p-5 sm:p-6 lg:grid-cols-2">
+                {/* Code block */}
+                <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-950">
+                    <div className="flex items-center justify-between border-b border-gray-800 px-4 py-2.5">
+                        <span className="flex items-center gap-1.5 text-[10px] font-semibold text-gray-400">
+                            <HiOutlineTerminal className="h-3.5 w-3.5" /> Create a booking
+                        </span>
+                        <span className="flex items-center gap-1 rounded-md bg-gray-800 px-2 py-0.5 text-[9px] text-gray-400">
+                            <HiOutlineKey className="h-3 w-3 text-amber-400" /> sandbox key
+                        </span>
+                    </div>
+                    <pre className="overflow-x-auto p-4 text-[11px] leading-relaxed text-gray-300">
+{`POST /v1/bookings
+{
+  "route_id": "r_nyc_bos",
+  "seat_ids": ["A12"],
+  "passenger": {
+    "name": "Alex Carter",
+    "phone": "+1 555 0142"
+  }
+}
+
+→ 201 Created
+{
+  "booking_ref": "CW-83291",
+  "status": "confirmed",
+  "qr_token": "eyJ0eXAiOi..."
+}`}
+                    </pre>
+                </div>
+
+                {/* Endpoints */}
+                <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/50">
+                    <div className="border-b border-gray-800 px-4 py-2.5">
+                        <p className="text-[11px] font-semibold text-gray-300">Endpoints</p>
+                    </div>
+                    <div className="divide-y divide-gray-800">
+                        {endpoints.map((ep) => (
+                            <div key={ep.path} className="flex items-center gap-3 px-4 py-3">
+                                <span className={`w-14 rounded-md px-2 py-1 text-center text-[9px] font-bold ${methodColor[ep.method]}`}>
+                                    {ep.method}
+                                </span>
+                                <code className="text-[11px] font-medium text-white">{ep.path}</code>
+                                <span className="ml-auto hidden text-[10px] text-gray-500 sm:block">{ep.desc}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex items-center justify-between border-t border-gray-800 px-4 py-3">
+                        <span className="flex items-center gap-1.5 text-[10px] text-gray-400">
+                            <HiOutlineStatusOnline className="h-3 w-3 text-emerald-400" /> 99.9% uptime SLA
+                        </span>
+                        <span className="text-[10px] text-brand">Read docs →</span>
+                    </div>
+                </div>
+            </div>
+        </BrowserFrame>
+    );
+}
+
+function PassengerApp() {
     const bottomNav = [
         { icon: HiOutlineSearch, label: "Search", active: true },
         { icon: HiOutlineTicket, label: "My Trips", active: false },
@@ -590,16 +707,16 @@ function MobileApp() {
                         ))}
                     </div>
 
-                    {/* Event ticket */}
-                    <div className="flex items-center gap-3 rounded-xl border border-violet-400/20 bg-violet-500/10 p-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-500/20 text-violet-400">
-                            <HiOutlineCalendar className="h-5 w-5" />
+                    {/* QR ticket */}
+                    <div className="flex items-center gap-3 rounded-xl border border-brand/25 bg-brand/10 p-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-gray-900">
+                            <HiOutlineQrcode className="h-5 w-5" />
                         </div>
                         <div className="min-w-0 flex-1">
-                            <p className="text-[12px] font-bold text-white">Jazz Night • Aug 09</p>
-                            <p className="text-[10px] text-gray-400">2 VIP tickets • $100</p>
+                            <p className="text-[12px] font-bold text-white">CW-83291 • NYC → Boston</p>
+                            <p className="text-[10px] text-gray-400">Seat A12 • Boarding 07:00 AM</p>
                         </div>
-                        <span className="rounded-full bg-violet-500/20 px-2 py-1 text-[9px] font-semibold text-violet-300">View</span>
+                        <span className="rounded-full bg-brand px-2 py-1 text-[9px] font-semibold text-white">QR</span>
                     </div>
                 </div>
 

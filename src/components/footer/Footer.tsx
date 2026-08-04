@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface FooterLink {
@@ -18,18 +18,30 @@ interface FooterSection {
 // ── Data ─────────────────────────────────────────────────────────────────────
 const FOOTER_LINKS: FooterSection[] = [
   {
-    title: "Company",
+    title: "Solutions",
     links: [
-      { label: "About", href: "/about" },
-      { label: "Services", href: "/services" },
-      { label: "Blog", href: "/blog" },
+      { label: "Bus Booking Software", href: "/product/bus-ticketing" },
+      { label: "Train Booking Software", href: "/product/train-ticketing" },
+      { label: "Cruise Booking Software", href: "/product/cruise-booking" },
+      { label: "Taxi Booking Software", href: "/product/taxi-booking" },
     ],
   },
   {
-    title: "Support",
+    title: "Resources",
     links: [
+      { label: "Blog", href: "/blog" },
+      { label: "Case Studies", href: "/#case-studies" },
+      { label: "Documentation", href: "/docs" },
+      { label: "API", href: "/docs/api" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
-      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Careers", href: "/careers" },
+      { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
     ],
   },
@@ -211,12 +223,16 @@ export default function Footer() {
 
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         {/* ── Grid ── */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <Brand />
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-6">
+          <div className="sm:col-span-2">
+            <Brand />
+          </div>
           {FOOTER_LINKS.map((section) => (
             <LinkColumn key={section.title} section={section} />
           ))}
-          <NewsletterBox />
+          <div className="sm:col-span-2 lg:col-span-1">
+            <NewsletterBox />
+          </div>
         </div>
 
         {/* ── Divider ── */}
