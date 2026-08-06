@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { gsap, ScrollSmoother } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import {
   HiOutlineArrowRight,
   HiOutlineCheck,
@@ -181,18 +180,6 @@ export default function Hero() {
   const leftCopyRef = useRef<HTMLDivElement>(null);
   const bentoRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const isHome = usePathname() === "/";
-
-  const scrollToHash = (href: string) => {
-    const hash = href.split("#")[1];
-    if (!hash) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(hash, true);
-    else {
-      const el = document.getElementById(hash);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -389,13 +376,7 @@ export default function Hero() {
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
               <Link
-                href="/#platform"
-                onClick={(e) => {
-                  if (isHome) {
-                    e.preventDefault();
-                    scrollToHash("/#platform");
-                  }
-                }}
+                href="/features"
                 className="group inline-flex items-center gap-2.5 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-[14px] font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-[0.97]"
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 transition-colors group-hover:bg-brand">

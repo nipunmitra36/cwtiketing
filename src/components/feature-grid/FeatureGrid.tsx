@@ -2,234 +2,334 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import {
-    HiOutlineTicket,
-    HiOutlineViewGrid,
-    HiOutlineUserGroup,
     HiOutlineMap,
+    HiOutlineTicket,
+    HiOutlineChatAlt2,
+    HiOutlineTrendingUp,
     HiOutlineTruck,
     HiOutlineCalendar,
-    HiOutlineTrendingUp,
-    HiOutlineCreditCard,
-    HiOutlineTag,
-    HiOutlineChartSquareBar,
-    HiOutlineDocumentReport,
-    HiOutlineDeviceMobile,
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
-interface Feature {
+interface FloatingCard {
     icon: IconType;
     title: string;
-    desc: string;
+    subtitle: string;
+    // position as % of the stage, from the relevant edges
+    style: React.CSSProperties;
+    accent: "bars" | "dot" | "quote";
 }
 
-interface FeatureGroup {
-    title: string;
-    accent: string;
-    icon: IconType;
-    features: Feature[];
-}
-
-const groups: FeatureGroup[] = [
+const cards: FloatingCard[] = [
     {
-        title: "Booking Experience",
-        accent: "from-brand to-brand-hover",
-        icon: HiOutlineTicket,
-        features: [
-            {
-                icon: HiOutlineTicket,
-                title: "Online Booking",
-                desc: "Sell tickets online 24/7 with a seamless flow across all devices.",
-            },
-            {
-                icon: HiOutlineViewGrid,
-                title: "Seat Selection",
-                desc: "Let passengers pick seats with real-time visual seat maps.",
-            },
-            {
-                icon: HiOutlineUserGroup,
-                title: "Customer Portal",
-                desc: "Self-service booking, management, and trip tracking for customers.",
-            },
-        ],
-    },
-    {
-        title: "Operations",
-        accent: "from-sky-500 to-sky-600",
         icon: HiOutlineMap,
-        features: [
-            {
-                icon: HiOutlineMap,
-                title: "Route Management",
-                desc: "Build complex route networks, timetables, and service schedules.",
-            },
-            {
-                icon: HiOutlineTruck,
-                title: "Driver Panel",
-                desc: "Trips, passenger manifests, and route info for every driver.",
-            },
-            {
-                icon: HiOutlineCalendar,
-                title: "Schedule Management",
-                desc: "Keep every timetable live, accurate, and always in sync.",
-            },
-        ],
+        title: "Route Map",
+        subtitle: "18 active routes",
+        style: { top: "8%", left: "2%" },
+        accent: "dot",
     },
     {
-        title: "Revenue",
-        accent: "from-emerald-500 to-emerald-600",
+        icon: HiOutlineTicket,
+        title: "Live Bookings",
+        subtitle: "482 seats sold today",
+        style: { top: "8%", right: "2%" },
+        accent: "bars",
+    },
+    {
+        icon: HiOutlineChatAlt2,
+        title: "Customer Chat",
+        subtitle: "“Is 6A window free?”",
+        style: { top: "42%", left: "2%" },
+        accent: "quote",
+    },
+    {
         icon: HiOutlineTrendingUp,
-        features: [
-            {
-                icon: HiOutlineTrendingUp,
-                title: "Dynamic Pricing",
-                desc: "Peak pricing, early-bird discounts, and flexible fare rules.",
-            },
-            {
-                icon: HiOutlineCreditCard,
-                title: "Payments",
-                desc: "Credit cards, mobile wallets, and 20+ local gateways.",
-            },
-            {
-                icon: HiOutlineTag,
-                title: "Coupons",
-                desc: "Promotional codes, loyalty discounts, and seasonal offers.",
-            },
-        ],
+        title: "Revenue",
+        subtitle: "৳120,760 this week",
+        style: { top: "42%", right: "2%" },
+        accent: "bars",
     },
     {
-        title: "Growth",
-        accent: "from-violet-500 to-violet-600",
-        icon: HiOutlineChartSquareBar,
-        features: [
-            {
-                icon: HiOutlineChartSquareBar,
-                title: "Analytics",
-                desc: "Real-time dashboards for bookings, sales, and performance.",
-            },
-            {
-                icon: HiOutlineDocumentReport,
-                title: "Reports",
-                desc: "Deep-dive reports on revenue, routes, and occupancy.",
-            },
-            {
-                icon: HiOutlineDeviceMobile,
-                title: "Mobile Apps",
-                desc: "White-label Android & iOS apps for your passengers.",
-            },
-        ],
+        icon: HiOutlineTruck,
+        title: "Driver Panel",
+        subtitle: "12 drivers on trip",
+        style: { bottom: "14%", left: "4%" },
+        accent: "dot",
+    },
+    {
+        icon: HiOutlineCalendar,
+        title: "Today’s Trips",
+        subtitle: "36 departures left",
+        style: { bottom: "14%", right: "4%" },
+        accent: "dot",
     },
 ];
 
-export default function FeatureGrid() {
+const checklist = [
+    "Every route, driver, and seat status in one live view",
+    "Revenue and occupancy update the moment a ticket sells",
+    "Jump into any trip without leaving the dashboard",
+];
+
+export default function WorkInContext() {
     const sectionRef = useRef<HTMLElement>(null);
+    const stageRef = useRef<HTMLDivElement>(null);
+    const avatarWrapRef = useRef<HTMLDivElement>(null);
+    const glowRef = useRef<HTMLDivElement>(null);
+    const whiteAvatarRef = useRef<HTMLImageElement>(null);
+    const colorAvatarRef = useRef<HTMLImageElement>(null);
+    const textPanelRef = useRef<HTMLDivElement>(null);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const el = sectionRef.current;
-            if (!el) return;
+        let ctx: gsap.Context | null = null;
 
-            gsap.fromTo(
-                el.querySelectorAll("[data-gsap]"),
-                { opacity: 0, y: 30, scale: 0.98 },
+        const cancel = onSmootherReady(() => {
+            ctx = gsap.context(() => {
+                const mm = gsap.matchMedia();
+
+            // Desktop / tablet: pinned, scrubbed convergence animation
+            mm.add(
                 {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.5,
-                    stagger: 0.06,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
+                    isDesktop: "(min-width: 1024px)",
+                    reduceMotion: "(prefers-reduced-motion: reduce)",
+                },
+                (context) => {
+                    const { isDesktop, reduceMotion } = context.conditions as {
+                        isDesktop: boolean;
+                        reduceMotion: boolean;
+                    };
+
+                    if (!isDesktop || reduceMotion) {
+                        // Simple, non-pinned fallback: settle into the final state
+                        gsap.set(colorAvatarRef.current, { opacity: 1, scale: 1 });
+                        gsap.set(whiteAvatarRef.current, { opacity: 0 });
+                        gsap.set(glowRef.current, { opacity: 1 });
+                        gsap.set(cardRefs.current, { opacity: 0, scale: 0.2 });
+                        gsap.fromTo(
+                            textPanelRef.current,
+                            { opacity: 0, y: 20 },
+                            {
+                                opacity: 1,
+                                y: 0,
+                                duration: 0.6,
+                                ease: "power2.out",
+                                scrollTrigger: {
+                                    trigger: sectionRef.current,
+                                    start: "top 65%",
+                                    toggleActions: "play none none none",
+                                },
+                            }
+                        );
+                        return;
+                    }
+
+                    // Compute how far each card needs to travel to reach the
+                    // avatar's center, so this works at any viewport size.
+                    const stage = stageRef.current;
+                    const avatar = avatarWrapRef.current;
+                    if (!stage || !avatar) return;
+
+                    const avatarBox = avatar.getBoundingClientRect();
+                    const avatarCenterX = avatarBox.left + avatarBox.width / 2;
+                    const avatarCenterY = avatarBox.top + avatarBox.height / 2;
+
+                    const deltas = cardRefs.current.map((el) => {
+                        if (!el) return { dx: 0, dy: 0 };
+                        const box = el.getBoundingClientRect();
+                        const cx = box.left + box.width / 2;
+                        const cy = box.top + box.height / 2;
+                        return { dx: avatarCenterX - cx, dy: avatarCenterY - cy };
+                    });
+
+                    gsap.set(colorAvatarRef.current, { opacity: 0, scale: 0.94 });
+                    gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
+                    gsap.set(textPanelRef.current, { opacity: 0, x: -32 });
+
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top top",
+                            end: "+=2400",
+                            scrub: 1,
+                            pin: stage,
+                            anticipatePin: 1,
+                        },
+                    });
+
+                    // Phase 1 — cards drift inward and dissolve into the avatar
+                    tl.to(
+                        cardRefs.current,
+                        {
+                            x: (i) => deltas[i].dx,
+                            y: (i) => deltas[i].dy,
+                            scale: 0.15,
+                            opacity: 0,
+                            duration: 1,
+                            stagger: 0.05,
+                            ease: "power1.in",
+                        },
+                        0
+                    );
+
+                    // Phase 1 — the outline avatar burns off, the color one lights up
+                    tl.to(whiteAvatarRef.current, { opacity: 0, scale: 0.9, duration: 1 }, 0.1);
+                    tl.to(
+                        colorAvatarRef.current,
+                        { opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
+                        0.15
+                    );
+                    tl.to(
+                        glowRef.current,
+                        { opacity: 1, scale: 1.2, duration: 1.1, ease: "power2.out" },
+                        0.1
+                    );
+
+                    // Phase 2 — avatar settles left, the payoff copy slides in
+                    tl.to(avatarWrapRef.current, { x: "-16%", duration: 0.7, ease: "power2.inOut" }, 1.0);
+                    tl.to(
+                        textPanelRef.current,
+                        { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
+                        1.1
+                    );
                 }
             );
-        }, sectionRef);
 
-        return () => ctx.revert();
+            return () => mm.revert();
+            }, sectionRef);
+        });
+
+        return () => {
+            cancel();
+            ctx?.revert();
+        };
     }, []);
 
     return (
-        <section
-            ref={sectionRef}
-            id="features"
-            className="relative overflow-hidden bg-gray-50 py-16 lg:py-24"
-        >
-            <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-                <div className="mx-auto mb-12 max-w-2xl text-center">
-                    <span
-                        data-gsap
-                        className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
-                    >
-                        Platform
+        <section ref={sectionRef} className="relative bg-gray-50">
+            <div
+                ref={stageRef}
+                className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center overflow-hidden px-4 pb-0 pt-16 sm:px-6 lg:px-8"
+            >
+                <div className="mx-auto mb-10 max-w-xl text-center lg:mb-14">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
+                        Live Operations
                     </span>
-                    <h2
-                        data-gsap
-                        className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
-                    >
-                        Everything You Need
+                    <h2 className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl">
+                        Everything about today,
+                        <br className="hidden sm:block" /> in one glance
                     </h2>
-                    <p
-                        data-gsap
-                        className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
-                    >
-                        Everything you need, grouped by job — from booking to
-                        back-office, growth to revenue.
+                    <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+                        Bookings, routes, and revenue update in real time. Scroll to
+                        watch it come together.
                     </p>
                 </div>
 
-                <div className="grid gap-5 md:grid-cols-2">
-                    {groups.map((group) => {
-                        const GroupIcon = group.icon;
-                        return (
-                            <div
-                                key={group.title}
-                                data-gsap
-                                className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_1px_2px_rgba(17,17,17,0.04),0_10px_30px_-14px_rgba(17,17,17,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_rgba(17,17,17,0.05),0_20px_40px_-16px_rgba(255,106,28,0.22)]"
-                            >
-                                {/* Group header */}
-                                <div className={`flex items-center gap-3 bg-gradient-to-r ${group.accent} px-5 py-4`}>
-                                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/20 text-white">
-                                        <GroupIcon className="h-5 w-5" />
-                                    </span>
-                                    <div>
-                                        <p className="text-[15px] font-medium text-white">{group.title}</p>
-                                        <p className="text-[11px] text-white/70">
-                                            {group.features.length} core tools
+                {/* Stage: floating cards + avatar + payoff copy */}
+                <div className="relative mx-auto h-[420px] w-full max-w-4xl sm:h-[480px] lg:h-[min(64vh,640px)]">
+                    {/* Cards — hidden on small screens to keep things calm on mobile */}
+                    <div className="pointer-events-none absolute inset-0 hidden lg:block">
+                        {cards.map((card, i) => {
+                            const Icon = card.icon;
+                            return (
+                                <div
+                                    key={card.title}
+                                    ref={(el) => {
+                                        cardRefs.current[i] = el;
+                                    }}
+                                    style={card.style}
+                                    className="absolute w-[180px] rounded-xl border border-gray-200 bg-white p-3 shadow-[0_1px_2px_rgba(17,17,17,0.04),0_10px_24px_-12px_rgba(17,17,17,0.16)]"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand">
+                                            <Icon className="h-4 w-4" />
+                                        </span>
+                                        <p className="text-[12.5px] font-medium text-text-dark">
+                                            {card.title}
                                         </p>
                                     </div>
-                                </div>
 
-                                {/* Feature list */}
-                                <div className="space-y-1.5 p-3 sm:p-4">
-                                    {group.features.map((f) => {
-                                        const Icon = f.icon;
-                                        return (
-                                            <div
-                                                key={f.title}
-                                                className="flex items-start gap-3.5 rounded-xl border border-transparent px-3 py-3 transition-all duration-200 hover:border-gray-100 hover:bg-gray-50"
-                                            >
-                                                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand transition-transform duration-300 group-hover:scale-110">
-                                                    <Icon className="h-[18px] w-[18px]" />
-                                                </span>
-                                                <div>
-                                                    <h3 className="text-[14px] font-medium text-text-dark">
-                                                        {f.title}
-                                                    </h3>
-                                                    <p className="mt-0.5 text-[12.5px] leading-relaxed text-text-muted">
-                                                        {f.desc}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
+                                    {card.accent === "bars" && (
+                                        <div className="mt-2 flex items-end gap-1 pl-9">
+                                            {[6, 10, 7, 12].map((h, idx) => (
+                                                <span
+                                                    key={idx}
+                                                    className="w-2 rounded-sm bg-brand/60"
+                                                    style={{ height: h * 2 }}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                    {card.accent !== "bars" && (
+                                        <p className="mt-1.5 pl-9 text-[11px] leading-snug text-text-muted">
+                                            {card.subtitle}
+                                        </p>
+                                    )}
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
+
+                    {/* Avatar */}
+                    <div className="absolute inset-0 flex items-end justify-center">
+                        <div ref={avatarWrapRef} className="relative h-[320px] w-[320px] sm:h-[380px] sm:w-[380px] lg:h-[min(52vh,460px)] lg:w-[min(52vh,460px)]">
+                            <div
+                                ref={glowRef}
+                                className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand/30 to-sky-400/20 blur-3xl"
+                            />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                ref={whiteAvatarRef}
+                                src="/media/white-man.avif"
+                                alt=""
+                                aria-hidden="true"
+                                className="absolute inset-0 h-full w-full object-contain"
+                            />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                ref={colorAvatarRef}
+                                src="/media/color-man.avif"
+                                alt="CwTicketing operator managing bookings, routes, and revenue"
+                                className="absolute inset-0 h-full w-full object-contain opacity-0"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Payoff copy panel */}
+                    <div
+                        ref={textPanelRef}
+                        className="absolute inset-y-0 right-0 flex w-full max-w-xs flex-col justify-center opacity-0 lg:w-[300px]"
+                    >
+                        <h3 className="text-2xl font-medium tracking-tight text-text-dark">
+                            Full control
+                        </h3>
+                        <p className="mt-2 text-[13.5px] leading-relaxed text-text-muted">
+                            One dashboard replaces the spreadsheets, group chats, and
+                            phone calls it used to take to run a fleet.
+                        </p>
+                        <ul className="mt-4 space-y-2.5">
+                            {checklist.map((item) => (
+                                <li key={item} className="flex items-start gap-2.5">
+                                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
+                                        <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none">
+                                            <path
+                                                d="M2 6.2 4.7 9 10 3"
+                                                stroke="currentColor"
+                                                strokeWidth="1.6"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <span className="text-[12.5px] leading-snug text-text-dark">
+                                        {item}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>

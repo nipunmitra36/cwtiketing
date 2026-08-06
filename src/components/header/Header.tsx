@@ -25,6 +25,7 @@ import {
   HiOutlineBriefcase,
   HiOutlineChat,
 } from "react-icons/hi";
+import { FaWhatsapp } from "react-icons/fa";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface DropMenuItem {
@@ -39,6 +40,10 @@ interface NavItem {
   href?: string;
   dropdown?: DropMenuItem[];
 }
+
+// ── Config ────────────────────────────────────────────────────────────────────
+const WHATSAPP_NUMBER = "10000000000"; // TODO: replace with your real number, digits only, with country code
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const NAV_ITEMS: NavItem[] = [
@@ -106,7 +111,7 @@ const NAV_ITEMS: NavItem[] = [
       },
     ],
   },
-  { label: "Product Demo", href: "/features" },
+  { label: "Features", href: "/features" },
   {
     label: "Resources",
     dropdown: [
@@ -204,9 +209,8 @@ function DesktopDropMenu({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className={`absolute top-full mt-4 w-[320px] overflow-hidden rounded-[24px] border border-gray-200 bg-white p-2.5 shadow-2xl shadow-gray-900/10 ${
-        align === "right" ? "right-0" : "left-0"
-      }`}
+      className={`absolute top-full mt-4 w-[320px] overflow-hidden rounded-[24px] border border-gray-200 bg-white p-2.5 shadow-2xl shadow-gray-900/10 ${align === "right" ? "right-0" : "left-0"
+        }`}
     >
       <div
         className={`absolute -top-1.5 h-3 w-3 rotate-45 rounded-sm border-l border-t border-gray-200 bg-white ${notchClass}`}
@@ -324,6 +328,22 @@ function DesktopNavItem({ item, align }: { item: NavItem; align: "left" | "right
   );
 }
 
+// ── WhatsApp Button ───────────────────────────────────────────────────────────
+function WhatsAppButton({ className = "" }: { className?: string }) {
+  return (
+    <Link
+      href={WHATSAPP_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+      className={`group flex items-center gap-2 rounded-full border-2 border-[#25D366] bg-white px-4 py-2.5 text-[13px] font-semibold text-[#25D366] transition-all duration-200 hover:bg-[#25D366] hover:text-white active:scale-95 ${className}`}
+    >
+      <FaWhatsapp className="h-4 w-4 shrink-0" />
+      <span>WhatsApp</span>
+    </Link>
+  );
+}
+
 // ── Main Header ───────────────────────────────────────────────────────────────
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -367,11 +387,10 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 w-full px-3 pt-3 sm:px-4 sm:pt-5">
       <div
-        className={`mx-auto flex h-14 w-full max-w-6xl items-center justify-between rounded-full border pl-3 pr-2 transition-all duration-300 sm:pl-4 sm:pr-3 ${
-          scrolled
+        className={`mx-auto flex h-14 w-full max-w-6xl items-center justify-between rounded-full border pl-3 pr-2 transition-all duration-300 sm:pl-4 sm:pr-3 ${scrolled
             ? "border-gray-200 bg-white shadow-lg shadow-gray-900/10"
             : "border-gray-100 bg-white shadow-md shadow-gray-900/5"
-        }`}
+          }`}
       >
         {/* ── Brand ── */}
         <Link href="/" className="flex items-center gap-2">
@@ -400,7 +419,8 @@ export default function Header() {
         </nav>
 
         {/* ── Desktop CTA ── */}
-        <div className="hidden items-center lg:flex">
+        <div className="hidden items-center gap-2.5 lg:flex">
+          <WhatsAppButton />
           <Link
             href="/contact"
             className="rounded-full bg-brand px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-brand/30 transition-all hover:bg-brand-hover active:scale-95"
@@ -501,14 +521,15 @@ export default function Header() {
                 </motion.div>
               ))}
 
-              {/* Mobile CTA */}
+              {/* Mobile CTAs */}
               <motion.div
                 custom={NAV_ITEMS.length}
                 variants={mobileItemVariants}
                 initial="hidden"
                 animate="visible"
-                className="!mt-4 border-t border-gray-100 pt-4"
+                className="!mt-4 flex flex-col gap-2 border-t border-gray-100 pt-4"
               >
+                <WhatsAppButton className="w-full justify-center" />
                 <Link
                   href="/contact"
                   onClick={closeMobile}
