@@ -9,7 +9,6 @@ import ProductSection from "@/components/products/ProductSection";
 import DashboardPreview from "@/components/dashboard-preview/DashboardPreview";
 import Comparison from "@/components/comparison/Comparison";
 import CaseStudies from "@/components/case-studies/CaseStudies";
-import Pricing from "@/components/pricing/Pricing";
 import FAQ from "@/components/faq/FAQ";
 import CTA from "@/components/cta/CTA";
 
@@ -25,7 +24,6 @@ export default function Home() {
       <DashboardPreview/>
       <Comparison/>
       <CaseStudies/>
-      <Pricing/>
       <FAQ/>
       <CTA/>
     </main>

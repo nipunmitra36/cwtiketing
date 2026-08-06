@@ -106,7 +106,7 @@ export default function FAQ() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+                        className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
                     >
                         Frequently Asked Questions
                     </h2>
@@ -129,7 +129,7 @@ export default function FAQ() {
                             </span>
                             <h2
                                 data-gsap
-                                className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+                                className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
                             >
                                 Frequently Asked Questions
                             </h2>
@@ -243,7 +243,7 @@ export default function FAQ() {
                                 </div>
 
                                 <div className="mb-6 text-center">
-                                    <h3 className="text-xl font-bold text-white">
+                                    <h3 className="text-xl font-medium text-white">
                                         Still have questions?
                                     </h3>
                                     <p className="mt-2 text-[13px] leading-relaxed text-gray-400">

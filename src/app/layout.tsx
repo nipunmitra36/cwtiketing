@@ -7,6 +7,7 @@ import GSAPProvider from "../components/GSAPProvider";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import Newsletter from "../components/newsletter/Newsletter";
+import BackToTop from "../components/back-to-top/BackToTop";
 
 // Fonts
 const poppins = Poppins({
@@ -119,6 +120,7 @@ export default function RootLayout({
           </Providers>
         </GSAPProvider>
         <Newsletter />
+        <BackToTop />
       </body>
     </html>
   );

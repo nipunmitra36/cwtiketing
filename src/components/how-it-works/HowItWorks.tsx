@@ -214,15 +214,9 @@ export default function HowItWorks() {
 
             <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <div className="mx-auto mb-14 max-w-2xl text-center">
-                    <span
-                        data-gsap
-                        className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
-                    >
-                        Onboarding
-                    </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+                        className="text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
                     >
                         Launch Your Platform in 4 Simple Steps
                     </h2>
@@ -281,7 +275,7 @@ export default function HowItWorks() {
                                         <p className="text-[10px] font-semibold uppercase tracking-widest text-brand">
                                             Step {step.num}
                                         </p>
-                                        <h3 className="mt-1 text-[15px] font-bold text-text-dark">
+                                        <h3 className="mt-1 text-[15px] font-medium text-text-dark">
                                             {step.title}
                                         </h3>
                                         {step.desc ? (

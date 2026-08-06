@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import {
   HiOutlineX,
@@ -13,6 +14,7 @@ import {
   HiOutlineViewGrid,
   HiOutlineCreditCard,
   HiOutlineChartBar,
+  HiOutlineArrowRight,
 } from "react-icons/hi";
 
 const problems = [
@@ -64,19 +66,14 @@ export default function ProblemSolution() {
       id="why-cw-ticketing"
       className="relative overflow-hidden bg-gradient-to-b from-white to-surface py-16 lg:py-24"
     >
-      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-light/70 blur-3xl" />
+      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-rose-100/50 blur-3xl" />
+      <div className="absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-emerald-100/50 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <span
-            data-gsap
-            className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
-          >
-            Before / After
-          </span>
           <h2
             data-gsap
-            className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+            className="text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
           >
             Why Operators Move to{" "}
             <span className="relative inline-block">
@@ -93,81 +90,126 @@ export default function ProblemSolution() {
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          {/* ── Before ── */}
+        <div className="relative grid gap-6 lg:grid-cols-2 lg:gap-8">
+          {/* ── Before (Problem) ── */}
           <div
             data-gsap
-            className="relative overflow-hidden rounded-3xl border border-rose-100 bg-white p-6 shadow-lg shadow-rose-100/50 sm:p-8"
+            className="group relative overflow-hidden rounded-3xl border border-rose-200 bg-white p-6 shadow-xl shadow-rose-500/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-rose-500/15 sm:p-8"
           >
-            <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-rose-50 blur-2xl" />
-            <div className="mb-6 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-100 text-rose-500">
+            {/* top accent */}
+            <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-rose-400 via-rose-500 to-red-500" />
+            {/* glows */}
+            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-rose-200/40 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-rose-100/60 blur-3xl" />
+
+            <div className="relative mb-6 flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500 to-red-500 text-white shadow-lg shadow-rose-500/30">
                 <HiOutlineX className="h-5 w-5" />
               </span>
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-rose-400">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-rose-500">
                   Before
                 </p>
-                <h3 className="text-lg font-bold text-text-dark">Old-School Ticketing</h3>
+                <h3 className="text-lg font-semibold text-text-dark">Old-School Ticketing</h3>
               </div>
+              <span className="ml-auto rounded-full bg-rose-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-rose-500 ring-1 ring-rose-100">
+                The Problem
+              </span>
             </div>
-            <ul className="space-y-3.5">
+
+            <ul className="relative space-y-3">
               {problems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <li
                     key={item.label}
-                    className="flex items-start gap-3.5 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3.5"
+                    className="flex items-start gap-3.5 rounded-2xl border border-rose-100 bg-rose-50/40 px-4 py-3.5 transition-colors duration-200 hover:border-rose-200 hover:bg-rose-50"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-rose-500">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white text-rose-500 shadow-sm ring-1 ring-rose-100 transition-colors duration-200 group-hover:bg-rose-500 group-hover:text-white">
                       <Icon className="h-4 w-4" />
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-[14px] font-semibold text-text-dark">{item.label}</p>
-                      <p className="mt-0.5 text-[12.5px] text-text-muted">{item.desc}</p>
+                      <p className="mt-0.5 text-[12.5px] leading-relaxed text-text-muted">{item.desc}</p>
                     </div>
                   </li>
                 );
               })}
             </ul>
+
+            <div className="relative mt-5 flex items-center gap-2 rounded-xl border border-dashed border-rose-200 bg-rose-50/50 px-4 py-3">
+              <HiOutlineClock className="h-4 w-4 shrink-0 text-rose-400" />
+              <p className="text-[12.5px] font-medium text-rose-500">
+                Every day, operators quietly pay for this inefficiency.
+              </p>
+            </div>
           </div>
 
-          {/* ── After ── */}
+          {/* ── Divider arrow (desktop) ── */}
           <div
             data-gsap
-            className="relative overflow-hidden rounded-3xl border border-brand/25 bg-gradient-to-br from-brand-light to-white p-6 shadow-xl shadow-brand/10 sm:p-8"
+            className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:flex"
           >
-            <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand/10 blur-2xl" />
-            <div className="mb-6 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand text-white shadow-md shadow-brand/30">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-brand shadow-xl shadow-gray-900/10">
+              <HiOutlineArrowRight className="h-5 w-5" />
+            </span>
+          </div>
+
+          {/* ── After (Solution) ── */}
+          <div
+            data-gsap
+            className="group relative overflow-hidden rounded-3xl border border-emerald-200 bg-white p-6 shadow-xl shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/15 sm:p-8"
+          >
+            {/* top accent */}
+            <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-500" />
+            {/* glows */}
+            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-emerald-200/40 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-emerald-100/60 blur-3xl" />
+
+            <div className="relative mb-6 flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-500/30">
                 <HiOutlineCheck className="h-5 w-5" />
               </span>
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-brand">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-600">
                   After
                 </p>
-                <h3 className="text-lg font-bold text-text-dark">CW Ticketing</h3>
+                <h3 className="text-lg font-semibold text-text-dark">CW Ticketing</h3>
               </div>
+              <span className="ml-auto rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-600 ring-1 ring-emerald-100">
+                The Solution
+              </span>
             </div>
-            <ul className="space-y-3.5">
+
+            <ul className="relative space-y-3">
               {solutions.map((item) => {
                 const Icon = item.icon;
                 return (
                   <li
                     key={item.label}
-                    className="flex items-start gap-3.5 rounded-xl border border-brand/10 bg-white px-4 py-3.5 shadow-sm"
+                    className="flex items-start gap-3.5 rounded-2xl border border-emerald-100 bg-emerald-50/40 px-4 py-3.5 transition-colors duration-200 hover:border-emerald-200 hover:bg-emerald-50"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand text-white">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white text-emerald-600 shadow-sm ring-1 ring-emerald-100 transition-colors duration-200 group-hover:bg-emerald-500 group-hover:text-white">
                       <Icon className="h-4 w-4" />
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-[14px] font-semibold text-text-dark">{item.label}</p>
-                      <p className="mt-0.5 text-[12.5px] text-text-muted">{item.desc}</p>
+                      <p className="mt-0.5 text-[12.5px] leading-relaxed text-text-muted">{item.desc}</p>
                     </div>
                   </li>
                 );
               })}
             </ul>
+
+            <Link
+              href="/features"
+              className="group/cta relative mt-5 flex items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-4 py-3 transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
+            >
+              <p className="text-[12.5px] font-semibold text-emerald-700">
+                See it live — explore the full product
+              </p>
+              <HiOutlineArrowRight className="h-4 w-4 shrink-0 text-emerald-600 transition-transform duration-200 group-hover/cta:translate-x-1" />
+            </Link>
           </div>
         </div>
       </div>

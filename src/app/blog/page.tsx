@@ -137,7 +137,7 @@ function FeaturedCard({ post }: { post: Post }) {
             <span className="text-[12px] text-gray-400">{post.date}</span>
           </div>
 
-          <h2 className="mb-3 text-2xl font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-brand lg:text-3xl">
+          <h2 className="mb-3 text-2xl font-medium leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-brand lg:text-3xl">
             {post.title}
           </h2>
           <p className="mb-6 text-[14px] leading-relaxed text-gray-500">{post.excerpt}</p>
@@ -172,7 +172,7 @@ function PostCard({ post, index }: { post: Post; index: number }) {
         </div>
 
         {/* Title */}
-        <h3 className="mb-2 flex-1 text-[15px] font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-gray-700">
+        <h3 className="mb-2 flex-1 text-[15px] font-medium leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-gray-700">
           {post.title}
         </h3>
 
@@ -185,7 +185,7 @@ function PostCard({ post, index }: { post: Post; index: number }) {
         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
           <div className="flex items-center gap-2">
             <span
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-white ${post.author.color}`}
+              className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-medium text-white ${post.author.color}`}
             >
               {post.author.initials}
             </span>
@@ -225,7 +225,7 @@ export default function BlogListPage() {
               <HiOutlineTag className="h-3.5 w-3.5" />
               Writing & tutorials
             </span>
-            <h1 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="mb-4 text-4xl font-medium tracking-tight text-gray-900 sm:text-5xl">
               The Blog
             </h1>
             <p className="mx-auto max-w-xl text-[15px] leading-relaxed text-gray-500">

@@ -41,7 +41,7 @@ function AdminDashboardCard() {
   return (
     <div className="gsap-bento-card relative z-10 flex flex-col overflow-hidden rounded-2xl border border-white/50 bg-white/80 shadow-2xl shadow-black/20 backdrop-blur-2xl">
       <div className="flex items-center justify-between border-b border-gray-100/70 px-4 py-2.5">
-        <p className="text-[12px] font-bold text-text-dark">Admin Dashboard</p>
+        <p className="text-[12px] font-medium text-text-dark">Admin Dashboard</p>
         <div className="flex items-center gap-1">
           <span className="h-2 w-2 rounded-full bg-emerald-400" />
           <span className="text-[10px] text-text-muted">Live</span>
@@ -55,7 +55,7 @@ function AdminDashboardCard() {
         ].map((s) => (
           <div key={s.label} className="rounded-lg bg-white/60 p-2 text-center backdrop-blur-sm">
             <span className="mb-1 flex justify-center text-brand">{s.icon}</span>
-            <p className="text-[13px] font-bold leading-tight text-text-dark">{s.value}</p>
+            <p className="text-[13px] font-medium leading-tight text-text-dark">{s.value}</p>
             <p className="text-[9px] text-text-muted">{s.label}</p>
           </div>
         ))}
@@ -84,7 +84,7 @@ function MobileAppCard() {
         <HiOutlineDeviceMobile className="h-5 w-5" />
       </span>
       <div>
-        <p className="text-[12px] font-bold text-text-dark">Mobile App</p>
+        <p className="text-[12px] font-medium text-text-dark">Mobile App</p>
         <p className="text-[9px] text-text-muted">Android &amp; iOS</p>
       </div>
       <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[9px] font-semibold text-brand">
@@ -99,7 +99,7 @@ function BookingEngineCard() {
   return (
     <div className="gsap-bento-card relative z-10 flex flex-[1.3] flex-col overflow-hidden rounded-2xl border border-brand/40 bg-white shadow-2xl shadow-brand/20 backdrop-blur-2xl">
       <div className="flex items-center justify-between border-b border-brand/10 bg-brand-light px-3 py-2">
-        <p className="text-[12px] font-bold text-brand">Booking Engine</p>
+        <p className="text-[12px] font-medium text-brand">Booking Engine</p>
         <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-semibold text-white">
           Core
         </span>
@@ -108,7 +108,7 @@ function BookingEngineCard() {
         <div className="flex items-center justify-between gap-1 rounded-lg border border-gray-100 bg-gray-50 px-2.5 py-1.5">
           <div>
             <p className="text-[9px] text-text-muted">Search</p>
-            <p className="text-[10px] font-bold text-text-dark">NYC → Boston</p>
+            <p className="text-[10px] font-medium text-text-dark">NYC → Boston</p>
           </div>
           <HiOutlineArrowNarrowRight className="h-3.5 w-3.5 shrink-0 text-brand" />
         </div>
@@ -138,7 +138,7 @@ function PassengerTicketCard() {
         <HiOutlineTicket className="h-5 w-5" />
       </span>
       <div>
-        <p className="text-[12px] font-bold text-text-dark">Passenger Ticket</p>
+        <p className="text-[12px] font-medium text-text-dark">Passenger Ticket</p>
         <p className="text-[9px] text-text-muted">NYC → Boston • Seat A12</p>
       </div>
       <div className="flex h-3 items-stretch gap-[2px]">
@@ -158,7 +158,7 @@ function AnalyticsCard() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <HiOutlineChartBar className="h-3.5 w-3.5 text-brand" />
-          <p className="text-[12px] font-bold text-text-dark">Analytics</p>
+          <p className="text-[12px] font-medium text-text-dark">Analytics</p>
         </div>
         <span className="text-[10px] font-semibold text-emerald-600">Revenue +18%</span>
       </div>
@@ -364,18 +364,8 @@ export default function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* ── Left: Copy (GSAP fade-up) ── */}
           <div ref={leftCopyRef} className="flex flex-col">
-            {/* Eyebrow — glass pill */}
-            <div className="gsap-left-item mb-5">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 py-1 pl-1 pr-3 text-[12px] font-medium text-white backdrop-blur-md">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand">
-                  <HiOutlineCheck className="h-3 w-3 text-white" />
-                </span>
-                For bus, train, cruise, taxi &amp; event operators
-              </span>
-            </div>
-
             {/* Headline */}
-            <h1 className="gsap-left-item mb-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-white sm:text-5xl xl:text-6xl">
+            <h1 className="gsap-left-item mb-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-[2.75rem] xl:text-[52px]">
               Launch Your Own{" "}
               <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-brand-light bg-clip-text text-transparent">
                 Online Ticket Booking

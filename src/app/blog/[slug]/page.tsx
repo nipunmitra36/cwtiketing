@@ -318,7 +318,7 @@ export default function BlogPostPage() {
 
         <motion.h1
           {...fadeUp(0.08)}
-          className="mb-5 text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl lg:text-5xl"
+          className="mb-5 text-3xl font-medium leading-tight tracking-tight text-gray-900 sm:text-4xl lg:text-5xl"
         >
           {POST.title}
         </motion.h1>
@@ -338,7 +338,7 @@ export default function BlogPostPage() {
           {/* Author */}
           <div className="flex items-center gap-3">
             <span
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[13px] font-bold text-white ${POST.author.color}`}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[13px] font-medium text-white ${POST.author.color}`}
             >
               {POST.author.initials}
             </span>
@@ -430,7 +430,7 @@ export default function BlogPostPage() {
                 {...fadeUp(0.05 * i)}
                 className="mb-12 scroll-mt-28"
               >
-                <h2 className="mb-4 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+                <h2 className="mb-4 text-xl font-medium tracking-tight text-gray-900 sm:text-2xl">
                   {section.heading}
                 </h2>
                 <div className="space-y-4">
@@ -464,12 +464,12 @@ export default function BlogPostPage() {
             {/* Author bio card */}
             <div className="mb-14 flex gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-6">
               <span
-                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${POST.author.color}`}
+                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-medium text-white ${POST.author.color}`}
               >
                 {POST.author.initials}
               </span>
               <div>
-                <p className="mb-0.5 text-[14px] font-bold text-gray-900">{POST.author.name}</p>
+                <p className="mb-0.5 text-[14px] font-medium text-gray-900">{POST.author.name}</p>
                 <p className="mb-2 text-[12px] text-gray-400">{POST.author.role}</p>
                 <p className="text-[13px] leading-relaxed text-gray-500">{POST.author.bio}</p>
               </div>
@@ -477,7 +477,7 @@ export default function BlogPostPage() {
 
             {/* Related posts */}
             <div>
-              <h3 className="mb-5 text-[15px] font-bold text-gray-900">Related articles</h3>
+              <h3 className="mb-5 text-[15px] font-medium text-gray-900">Related articles</h3>
               <div className="grid gap-4 sm:grid-cols-3">
                 {RELATED.map((r) => (
                   <Link

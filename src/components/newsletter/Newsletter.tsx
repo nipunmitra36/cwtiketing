@@ -71,7 +71,7 @@ export default function Newsletter() {
                 </svg>
               </div>
 
-              <h2 className="mb-2 text-center text-2xl font-bold text-gray-900">
+              <h2 className="mb-2 text-center text-2xl font-medium text-gray-900">
                 Let&apos;s Build Something Great
               </h2>
               <p className="mb-8 text-center text-sm leading-relaxed text-gray-600">

@@ -295,7 +295,7 @@ export default function SingleProductPage() {
                 </span>
               )}
               {discount && (
-                <span className="absolute right-4 top-4 rounded-full bg-rose-500 px-2.5 py-1 text-[12px] font-bold text-white">
+                <span className="absolute right-4 top-4 rounded-full bg-rose-500 px-2.5 py-1 text-[12px] font-medium text-white">
                   -{discount}%
                 </span>
               )}
@@ -340,7 +340,7 @@ export default function SingleProductPage() {
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-gray-400">
               {PRODUCT.category}
             </p>
-            <h1 className="mb-3 text-3xl font-bold tracking-tight text-gray-900 leading-tight">
+            <h1 className="mb-3 text-3xl font-medium tracking-tight text-gray-900 leading-tight">
               {PRODUCT.name}
             </h1>
 
@@ -356,7 +356,7 @@ export default function SingleProductPage() {
 
             {/* Price */}
             <div className="mb-6 flex items-baseline gap-3">
-              <span className="text-4xl font-bold text-gray-900">${PRODUCT.price}</span>
+              <span className="text-4xl font-medium text-gray-900">${PRODUCT.price}</span>
               {PRODUCT.originalPrice && (
                 <span className="text-[18px] text-gray-400 line-through">${PRODUCT.originalPrice}</span>
               )}
@@ -484,12 +484,12 @@ export default function SingleProductPage() {
         >
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Customer Reviews</h2>
+              <h2 className="text-2xl font-medium text-gray-900">Customer Reviews</h2>
               <p className="mt-1 text-[14px] text-gray-500">{PRODUCT.reviews.toLocaleString()} verified reviews</p>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-center">
-                <p className="text-5xl font-bold text-gray-900">{PRODUCT.rating}</p>
+                <p className="text-5xl font-medium text-gray-900">{PRODUCT.rating}</p>
                 <Stars rating={PRODUCT.rating} size="md" />
                 <p className="mt-1 text-[12px] text-gray-400">out of 5</p>
               </div>
@@ -515,7 +515,7 @@ export default function SingleProductPage() {
               >
                 <div className="mb-3 flex items-start justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-[13px] font-bold text-white">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-[13px] font-medium text-white">
                       {r.avatar}
                     </div>
                     <div>
@@ -545,7 +545,7 @@ export default function SingleProductPage() {
           animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.35 } }}
           className="mt-20"
         >
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">You Might Also Like</h2>
+          <h2 className="mb-6 text-2xl font-medium text-gray-900">You Might Also Like</h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {RELATED.map((p) => {
               const relDiscount = p.originalPrice
@@ -570,21 +570,21 @@ export default function SingleProductPage() {
                       </span>
                     )}
                     {relDiscount && (
-                      <span className="absolute right-3 top-3 rounded-full bg-rose-500 px-2 py-0.5 text-[11px] font-bold text-white">
+                      <span className="absolute right-3 top-3 rounded-full bg-rose-500 px-2 py-0.5 text-[11px] font-medium text-white">
                         -{relDiscount}%
                       </span>
                     )}
                   </div>
                   <div className="p-4">
                     <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400">{p.category}</p>
-                    <h3 className="mb-2 text-[14px] font-bold text-gray-900 group-hover:text-gray-700 line-clamp-1">{p.name}</h3>
+                    <h3 className="mb-2 text-[14px] font-medium text-gray-900 group-hover:text-gray-700 line-clamp-1">{p.name}</h3>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <Stars rating={p.rating} />
                         <span className="text-[11px] text-gray-400">{p.rating}</span>
                       </div>
                       <div>
-                        <span className="text-[16px] font-bold text-gray-900">${p.price}</span>
+                        <span className="text-[16px] font-medium text-gray-900">${p.price}</span>
                         {"originalPrice" in p && p.originalPrice && (
                           <span className="ml-1.5 text-[12px] text-gray-400 line-through">${p.originalPrice}</span>
                         )}

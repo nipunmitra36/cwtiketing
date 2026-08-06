@@ -160,7 +160,7 @@ export default function ContactPage() {
               <HiOutlineChat className="h-3.5 w-3.5" />
               We'd love to hear from you
             </span>
-            <h1 className="mb-3 text-4xl font-bold tracking-tight text-gray-900">
+            <h1 className="mb-3 text-4xl font-medium tracking-tight text-gray-900">
               Get in Touch
             </h1>
             <p className="text-[15px] leading-relaxed text-gray-500">
@@ -182,7 +182,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.05 } }}
           >
             <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-1 text-xl font-bold text-gray-900">Send us a message</h2>
+              <h2 className="mb-1 text-xl font-medium text-gray-900">Send us a message</h2>
               <p className="mb-6 text-[13px] text-gray-500">
                 Fill in the form and we'll get back to you shortly.
               </p>
@@ -198,7 +198,7 @@ export default function ContactPage() {
                     <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100">
                       <HiOutlineCheck className="h-7 w-7 text-emerald-600" />
                     </div>
-                    <p className="text-[17px] font-bold text-gray-900">Message sent!</p>
+                    <p className="text-[17px] font-medium text-gray-900">Message sent!</p>
                     <p className="mt-1 text-[13px] text-gray-500">
                       Thanks, {form.name.split(" ")[0] || "there"}. We'll be in touch soon.
                     </p>
@@ -418,7 +418,7 @@ export default function ContactPage() {
         >
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Our Offices</h2>
+              <h2 className="text-2xl font-medium text-gray-900">Our Offices</h2>
               <p className="mt-1 text-[14px] text-gray-500">Three offices, one global team.</p>
             </div>
           </div>
@@ -473,7 +473,7 @@ export default function ContactPage() {
                   <p className="mb-0.5 text-[11px] font-semibold uppercase tracking-widest text-gray-400">
                     {office.role}
                   </p>
-                  <h3 className="mb-4 text-xl font-bold text-gray-900">{office.city}</h3>
+                  <h3 className="mb-4 text-xl font-medium text-gray-900">{office.city}</h3>
 
                   <div className="space-y-4">
                     <div className="flex gap-3">

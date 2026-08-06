@@ -66,7 +66,7 @@ export default function Solution() {
                         </span>
                         <h2
                             data-gsap
-                            className="mt-4 text-3xl font-bold leading-tight tracking-tight text-text-dark sm:text-5xl"
+                            className="mt-4 text-3xl font-medium leading-tight tracking-tight text-text-dark sm:text-5xl"
                         >
                             One system for{" "}
                             <span className="relative inline-block">
@@ -134,7 +134,7 @@ export default function Solution() {
                                             </p>
                                         </div>
                                     </div>
-                                    <span className="text-[15px] font-bold text-text-dark">
+                                    <span className="text-[15px] font-medium text-text-dark">
                                         $8,420
                                     </span>
                                 </div>
@@ -170,7 +170,7 @@ export default function Solution() {
                                             </p>
                                         </div>
                                     </div>
-                                    <span className="text-[15px] font-bold text-text-dark">
+                                    <span className="text-[15px] font-medium text-text-dark">
                                         76%
                                     </span>
                                 </div>

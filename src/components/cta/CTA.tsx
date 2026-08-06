@@ -65,7 +65,7 @@ export default function CTA() {
                 </p>
                 <h2
                     data-gsap
-                    className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl"
+                    className="text-3xl font-medium leading-tight text-white sm:text-4xl lg:text-5xl"
                 >
                     Ready to Take Your Operation Online?
                 </h2>

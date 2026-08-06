@@ -90,7 +90,7 @@ export default function CaseStudies() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+                        className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
                     >
                         Trusted by Operators{" "}
                         <span className="relative inline-block">
@@ -123,7 +123,7 @@ export default function CaseStudies() {
                                         {c.flag}
                                     </span>
                                     <div>
-                                        <h3 className="text-[16px] font-bold text-text-dark">
+                                        <h3 className="text-[16px] font-medium text-text-dark">
                                             {c.name}
                                         </h3>
                                         <p className="text-[12px] text-text-muted">

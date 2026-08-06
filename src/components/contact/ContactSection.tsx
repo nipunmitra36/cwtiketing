@@ -145,7 +145,7 @@ export default function ContactSection() {
                     <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
                         Let's get started
                     </span>
-                    <h2 className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl">
+                    <h2 className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-4xl">
                         Ready to Launch Your{" "}
                         <span className="relative inline-block">
                             <span className="relative z-10">Ticket Booking Platform</span>
@@ -180,7 +180,7 @@ export default function ContactSection() {
                                             />
                                         </svg>
                                     </div>
-                                    <p className="text-[17px] font-bold text-text-dark">
+                                    <p className="text-[17px] font-medium text-text-dark">
                                         Thank you!
                                     </p>
                                     <p className="mt-1 text-[13px] text-text-muted">

@@ -114,7 +114,7 @@ export default function Pricing() {
           </span>
           <h2
             data-gsap
-            className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+            className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
           >
             Plans Built For Every Operator
           </h2>
@@ -141,7 +141,7 @@ export default function Pricing() {
                 }`}
               >
                 {plan.highlighted && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-md shadow-brand/30">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand px-3.5 py-1 text-[10px] font-medium uppercase tracking-widest text-white shadow-md shadow-brand/30">
                     Most popular
                   </span>
                 )}
@@ -157,7 +157,7 @@ export default function Pricing() {
                     <Icon className="h-5 w-5" />
                   </span>
                   <div>
-                    <h3 className="text-lg font-bold text-text-dark">{plan.name}</h3>
+                    <h3 className="text-lg font-medium text-text-dark">{plan.name}</h3>
                     <p className="text-[12px] font-medium text-brand">{plan.tagline}</p>
                   </div>
                 </div>

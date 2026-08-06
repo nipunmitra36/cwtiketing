@@ -10,6 +10,27 @@
   --color-text-muted: #666666;
   --color-surface: #f9fafb;
   --color-surface-white: #ffffff;
+
+  --animate-marquee-left: marquee-left var(--marquee-duration, 32s) linear infinite;
+  --animate-marquee-right: marquee-right var(--marquee-duration, 40s) linear infinite;
+
+  @keyframes marquee-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 }
 
 :root {

@@ -64,7 +64,7 @@ export default function Comparison() {
           </span>
           <h2
             data-gsap
-            className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+            className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
           >
             Why Operators Move From Old Systems
           </h2>
@@ -84,13 +84,13 @@ export default function Comparison() {
           {/* Header */}
           <div className="grid grid-cols-2 border-b border-gray-100">
             <div className="px-5 py-4 sm:px-6">
-              <span className="flex items-center gap-2 text-[13px] font-bold text-text-muted sm:text-[14px]">
+              <span className="flex items-center gap-2 text-[13px] font-medium text-text-muted sm:text-[14px]">
                 <HiOutlineX className="h-4 w-4 text-rose-500" />
                 Old System
               </span>
             </div>
             <div className="border-l border-gray-100 bg-brand-light/60 px-5 py-4 sm:px-6">
-              <span className="flex items-center gap-2 text-[13px] font-bold text-brand sm:text-[14px]">
+              <span className="flex items-center gap-2 text-[13px] font-medium text-brand sm:text-[14px]">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand text-white">
                   <HiOutlineCheck className="h-3 w-3" />
                 </span>
@@ -117,7 +117,7 @@ export default function Comparison() {
                   </span>
                 </div>
                 <div className="border-l border-gray-100 bg-gradient-to-r from-white to-brand-light/50 px-5 py-4 sm:px-6">
-                  <span className="flex items-center gap-3 text-[13px] font-bold text-text-dark sm:text-[14px]">
+                  <span className="flex items-center gap-3 text-[13px] font-medium text-text-dark sm:text-[14px]">
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-white">
                       <HiOutlineCheck className="h-3.5 w-3.5" />
                     </span>

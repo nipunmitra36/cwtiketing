@@ -2,7 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { gsap } from "@/lib/gsap";
+import {
+  HiOutlineArrowRight,
+  HiOutlineMail,
+  HiOutlinePhone,
+} from "react-icons/hi";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface FooterLink {
@@ -32,7 +38,7 @@ const FOOTER_LINKS: FooterSection[] = [
       { label: "Blog", href: "/blog" },
       { label: "Case Studies", href: "/#case-studies" },
       { label: "Documentation", href: "/docs" },
-      { label: "API", href: "/docs/api" },
+      { label: "API Reference", href: "/docs/api" },
     ],
   },
   {
@@ -56,33 +62,50 @@ const SOCIAL_LINKS: FooterLink[] = [
 // ── Sub-components ───────────────────────────────────────────────────────────
 function Brand() {
   return (
-    <div className="gsap-footer-item space-y-3">
-      <span className="inline-flex items-center gap-2">
-        <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white/10 ring-1 ring-white/20">
-          <svg
-            className="h-3.5 w-3.5 text-white"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2.5}
-          >
-            <polyline points="16 18 22 12 16 6" />
-            <polyline points="8 6 2 12 8 18" />
-          </svg>
-        </span>
-        <span className="text-lg font-bold tracking-tight text-white">
-          CW Ticketing
-        </span>
-      </span>
+    <div className="gsap-footer-item space-y-5">
+      <Link href="/" className="inline-flex items-center">
+        <Image
+          src="/media/logo.png"
+          alt="CW Ticketing"
+          width={373}
+          height={70}
+          className="h-8 w-auto"
+        />
+      </Link>
 
       <p className="max-w-xs text-sm leading-relaxed text-gray-400">
-        Building scalable ticketing solutions with modern technologies and clean,
-        maintainable architecture.
+        The white-label booking platform for buses, trains, cruises, taxis, and
+        events — built for how modern transport actually moves people.
       </p>
 
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
+      <ul className="space-y-2.5 text-sm text-gray-400">
+        <li>
+          <a
+            href="mailto:sales@cwticketing.com"
+            className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5">
+              <HiOutlineMail className="h-3.5 w-3.5 text-brand" />
+            </span>
+            sales@cwticketing.com
+          </a>
+        </li>
+        <li>
+          <a
+            href="tel:+10000000000"
+            className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5">
+              <HiOutlinePhone className="h-3.5 w-3.5 text-brand" />
+            </span>
+            +1 (000) 000-0000
+          </a>
+        </li>
+      </ul>
+
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-medium text-emerald-400">
         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-        Available for projects
+        All systems operational
       </span>
     </div>
   );
@@ -91,7 +114,8 @@ function Brand() {
 function LinkColumn({ section }: { section: FooterSection }) {
   return (
     <div className="gsap-footer-item">
-      <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-gray-500">
+      <h3 className="mb-5 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-gray-300">
+        <span className="h-px w-4 bg-brand" />
         {section.title}
       </h3>
       <ul className="space-y-2.5">
@@ -99,38 +123,21 @@ function LinkColumn({ section }: { section: FooterSection }) {
           <li key={href}>
             <Link
               href={href}
-              className="group inline-flex items-center gap-1.5 text-sm text-gray-400 transition-colors duration-200 hover:text-white"
+              className="group inline-flex items-center gap-1 text-sm text-gray-400 transition-colors duration-200 hover:text-white"
             >
-              <span className="h-px w-0 bg-white transition-all duration-300 group-hover:w-3" />
-              {label}
+              <span className="relative overflow-hidden">
+                <span className="block transition-transform duration-300 group-hover:-translate-y-full">
+                  {label}
+                </span>
+                <span className="absolute left-0 top-full block text-brand transition-transform duration-300 group-hover:-translate-y-full">
+                  {label}
+                </span>
+              </span>
+              <HiOutlineArrowRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-brand group-hover:opacity-100" />
             </Link>
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-function NewsletterBox() {
-  return (
-    <div className="gsap-footer-item rounded-xl border border-white/8 bg-white/5 p-5 backdrop-blur-sm">
-      <p className="mb-1 text-sm font-semibold text-white">Stay in the loop</p>
-      <p className="mb-4 text-xs text-gray-500">
-        No spam. Useful updates only.
-      </p>
-      <div className="flex gap-2">
-        <input
-          type="email"
-          placeholder="you@email.com"
-          className="min-w-0 flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white placeholder-gray-600 outline-none ring-0 transition focus:border-white/25 focus:ring-1 focus:ring-white/20"
-        />
-        <button
-          type="button"
-          className="shrink-0 rounded-lg bg-brand px-3 py-2 text-xs font-semibold text-white transition hover:bg-brand-hover active:scale-95"
-        >
-          Subscribe
-        </button>
-      </div>
     </div>
   );
 }
@@ -140,9 +147,10 @@ function SocialLink({ label, href }: FooterLink) {
     <Link
       href={href}
       aria-label={label}
-      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-medium text-gray-400 transition-all duration-200 hover:border-white/25 hover:bg-white/10 hover:text-white active:scale-95"
+      className="group inline-flex h-9 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 text-[11px] font-medium text-gray-400 transition-all duration-200 hover:border-brand/50 hover:bg-brand/15 hover:text-white active:scale-95"
     >
       {label}
+      <HiOutlineArrowRight className="h-3 w-3 opacity-40 transition-all duration-200 group-hover:text-brand group-hover:opacity-100" />
     </Link>
   );
 }
@@ -153,7 +161,6 @@ export default function Footer() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ── Footer items: staggered fade-up ──
       const items = footerRef.current?.querySelectorAll(".gsap-footer-item");
       if (items?.length) {
         gsap.fromTo(
@@ -174,7 +181,6 @@ export default function Footer() {
         );
       }
 
-      // ── Divider line: scaleX animation ──
       const divider = footerRef.current?.querySelector(".gsap-footer-divider");
       if (divider) {
         gsap.fromTo(
@@ -193,7 +199,6 @@ export default function Footer() {
         );
       }
 
-      // ── Bottom bar: fade-up ──
       const bottomBar = footerRef.current?.querySelector(".gsap-footer-bottom");
       if (bottomBar) {
         gsap.fromTo(
@@ -218,33 +223,69 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="bg-black text-gray-100">
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+    <footer
+      ref={footerRef}
+      className="relative overflow-hidden bg-[#0b0b10] text-gray-100"
+    >
+      {/* Decorative glows */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-72 w-[44rem] -translate-x-1/2 rounded-full bg-brand/15 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-48 -right-32 h-96 w-96 rounded-full bg-brand/10 blur-3xl" />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.6) 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+        }}
+      />
 
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        {/* ── Grid ── */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-6">
-          <div className="sm:col-span-2">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* ── Main grid ── */}
+        <div className="grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-10">
+          <div className="lg:col-span-4">
             <Brand />
           </div>
           {FOOTER_LINKS.map((section) => (
-            <LinkColumn key={section.title} section={section} />
+            <div key={section.title} className="lg:col-span-2">
+              <LinkColumn section={section} />
+            </div>
           ))}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <NewsletterBox />
-          </div>
         </div>
 
-        {/* ── Divider ── */}
-        <div className="gsap-footer-divider my-10 h-px bg-gradient-to-r from-white/15 via-white/8 to-transparent" />
+        {/* ── Giant outlined wordmark ── */}
+        <div className="gsap-footer-divider select-none overflow-hidden border-t border-white/5 py-2">
+          <p
+            className="whitespace-nowrap text-center text-[clamp(3rem,11vw,9.5rem)] font-black leading-none tracking-tight text-transparent"
+            style={{
+              WebkitTextStroke: "1px rgba(255,255,255,0.08)",
+              backgroundImage:
+                "linear-gradient(to bottom, rgba(255,106,28,0.18), rgba(255,106,28,0.02))",
+              backgroundClip: "text",
+            }}
+          >
+            CW TICKETING
+          </p>
+        </div>
 
         {/* ── Bottom bar ── */}
-        <div className="gsap-footer-bottom flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="gsap-footer-bottom flex flex-col items-start gap-5 border-t border-white/10 py-7 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-xs text-gray-600">
             © {new Date().getFullYear()}{" "}
             <span className="text-gray-400">CW Ticketing</span>. All rights
             reserved.
           </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-gray-500">
+            {["Privacy", "Terms", "Cookies"].map((label) => (
+              <Link
+                key={label}
+                href="#"
+                className="transition-colors hover:text-white"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
 
           <div className="flex flex-wrap gap-2">
             {SOCIAL_LINKS.map((s) => (

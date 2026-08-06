@@ -280,7 +280,7 @@ function GridCard({ product }: { product: Product }) {
           </span>
         )}
         {discount && (
-          <span className="absolute right-3 top-3 rounded-full bg-rose-500 px-2 py-0.5 text-[11px] font-bold text-white">
+          <span className="absolute right-3 top-3 rounded-full bg-rose-500 px-2 py-0.5 text-[11px] font-medium text-white">
             -{discount}%
           </span>
         )}
@@ -303,7 +303,7 @@ function GridCard({ product }: { product: Product }) {
           {product.category}
         </p>
         <Link href={`/product/${product.id}`}>
-          <h3 className="mb-1 text-[14px] font-bold leading-snug text-gray-900 transition-colors hover:text-gray-700">
+          <h3 className="mb-1 text-[14px] font-medium leading-snug text-gray-900 transition-colors hover:text-gray-700">
             {product.name}
           </h3>
         </Link>
@@ -318,7 +318,7 @@ function GridCard({ product }: { product: Product }) {
         </div>
         <div className="mt-auto flex items-center justify-between">
           <div>
-            <span className="text-[18px] font-bold text-gray-900">${product.price}</span>
+            <span className="text-[18px] font-medium text-gray-900">${product.price}</span>
             {product.originalPrice && (
               <span className="ml-2 text-[12px] text-gray-400 line-through">
                 ${product.originalPrice}
@@ -375,7 +375,7 @@ function ListCard({ product }: { product: Product }) {
           </span>
         )}
         {discount && (
-          <span className="absolute bottom-1.5 right-1.5 rounded-full bg-rose-500 px-1.5 py-0.5 text-[9px] font-bold text-white">
+          <span className="absolute bottom-1.5 right-1.5 rounded-full bg-rose-500 px-1.5 py-0.5 text-[9px] font-medium text-white">
             -{discount}%
           </span>
         )}
@@ -387,7 +387,7 @@ function ListCard({ product }: { product: Product }) {
             {product.category}
           </p>
           <Link href={`/product/${product.id}`}>
-            <h3 className="mb-1 truncate text-[15px] font-bold text-gray-900 hover:text-gray-700">
+            <h3 className="mb-1 truncate text-[15px] font-medium text-gray-900 hover:text-gray-700">
               {product.name}
             </h3>
           </Link>
@@ -410,7 +410,7 @@ function ListCard({ product }: { product: Product }) {
 
       <div className="flex shrink-0 flex-col items-end justify-between">
         <div className="text-right">
-          <p className="text-[18px] font-bold text-gray-900">${product.price}</p>
+          <p className="text-[18px] font-medium text-gray-900">${product.price}</p>
           {product.originalPrice && (
             <p className="text-[12px] text-gray-400 line-through">${product.originalPrice}</p>
           )}
@@ -489,7 +489,7 @@ export default function ProductListPage() {
               <HiOutlineShoppingCart className="h-3.5 w-3.5" />
               {product.length} product
             </span>
-            <h1 className="mb-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 className="mb-2 text-3xl font-medium tracking-tight text-gray-900 sm:text-4xl">
               All product
             </h1>
             <p className="text-[15px] text-gray-500">

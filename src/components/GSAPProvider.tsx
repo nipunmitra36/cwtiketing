@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
+import { markSmootherReady, resetSmootherReady } from "@/lib/gsap/ready";
 
 interface GSAPProviderProps {
   children: React.ReactNode;
@@ -23,6 +24,8 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
       effects: true,
       smoothTouch: 0.1,
     });
+
+    markSmootherReady();
 
     const handleLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", handleLoad);
@@ -48,6 +51,7 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
       observer.disconnect();
       smootherRef.current?.kill();
       ScrollTrigger.getAll().forEach((t) => t.kill());
+      resetSmootherReady();
     };
   }, []);
 

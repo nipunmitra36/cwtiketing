@@ -337,7 +337,7 @@ export default function FeatureSection() {
                     <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
                         Everything you need
                     </span>
-                    <h2 className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-4xl">
+                    <h2 className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-4xl">
                         Powerful Features Built for{" "}
                         <span className="relative inline-block">
                             <span className="relative z-10">Ticketing Operators</span>
@@ -394,7 +394,7 @@ export default function FeatureSection() {
                                     {String(activeIndex + 1).padStart(2, "0")} / {features.length}
                                 </span> */}
                             </div>
-                            <h3 className="mb-3 text-2xl font-bold text-text-dark">
+                            <h3 className="mb-3 text-2xl font-medium text-text-dark">
                                 {activeFeature.title}
                             </h3>
                             <p className="mb-6 text-[15px] leading-relaxed text-text-muted">
@@ -453,7 +453,7 @@ export default function FeatureSection() {
                                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand text-white shadow-sm shadow-brand/20">
                                         <Icon className="h-6 w-6" />
                                     </div>
-                                    <h3 className="mb-2 text-[16px] font-bold text-text-dark">
+                                    <h3 className="mb-2 text-[16px] font-medium text-text-dark">
                                         {f.title}
                                     </h3>
                                     <p className="mb-4 text-[13.5px] leading-relaxed text-text-muted">

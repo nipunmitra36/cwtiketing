@@ -168,7 +168,7 @@ export default function FeatureGrid() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-text-dark sm:text-5xl"
+                        className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
                     >
                         Everything You Need
                     </h2>
@@ -196,7 +196,7 @@ export default function FeatureGrid() {
                                         <GroupIcon className="h-5 w-5" />
                                     </span>
                                     <div>
-                                        <p className="text-[15px] font-bold text-white">{group.title}</p>
+                                        <p className="text-[15px] font-medium text-white">{group.title}</p>
                                         <p className="text-[11px] text-white/70">
                                             {group.features.length} core tools
                                         </p>
@@ -216,7 +216,7 @@ export default function FeatureGrid() {
                                                     <Icon className="h-[18px] w-[18px]" />
                                                 </span>
                                                 <div>
-                                                    <h3 className="text-[14px] font-bold text-text-dark">
+                                                    <h3 className="text-[14px] font-medium text-text-dark">
                                                         {f.title}
                                                     </h3>
                                                     <p className="mt-0.5 text-[12.5px] leading-relaxed text-text-muted">

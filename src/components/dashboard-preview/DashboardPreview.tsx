@@ -83,7 +83,7 @@ export default function DashboardPreview() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"
+                        className="mt-4 text-3xl font-medium tracking-tight text-white sm:text-5xl"
                     >
                         One Platform, Five Surfaces
                     </h2>
@@ -191,7 +191,7 @@ function StatCard({
                     {delta}
                 </span>
             </div>
-            <p className="text-lg font-bold text-white">{value}</p>
+            <p className="text-lg font-medium text-white">{value}</p>
             <p className="text-[10px] text-gray-500">{label}</p>
         </div>
     );
@@ -304,7 +304,7 @@ function AdminPanel() {
                                 {events.map((ev) => (
                                     <div key={ev.name} className="flex items-center gap-3 rounded-lg border border-gray-800 bg-gray-950 p-2.5">
                                         <div className="flex h-10 w-10 shrink-0 flex-col items-center justify-center rounded-lg bg-brand/10 text-brand">
-                                            <span className="text-[12px] font-bold leading-none">{ev.day}</span>
+                                            <span className="text-[12px] font-medium leading-none">{ev.day}</span>
                                             <span className="text-[8px] font-semibold uppercase">{ev.mon}</span>
                                         </div>
                                         <div className="min-w-0 flex-1">
@@ -384,7 +384,7 @@ function AgentPortal() {
                         ].map((s) => (
                             <div key={s.label} className="flex items-center justify-between">
                                 <span className="text-[11px] text-gray-400">{s.label}</span>
-                                <span className={`text-[15px] font-bold ${s.color}`}>{s.value}</span>
+                                <span className={`text-[15px] font-medium ${s.color}`}>{s.value}</span>
                             </div>
                         ))}
                     </div>
@@ -411,7 +411,7 @@ function AgentPortal() {
                     <p className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold text-brand">
                         <HiOutlineCash className="h-3.5 w-3.5" /> Payout due
                     </p>
-                    <p className="text-2xl font-bold text-white">$422.00</p>
+                    <p className="text-2xl font-medium text-white">$422.00</p>
                     <p className="text-[10px] text-gray-400">Next payout: Friday</p>
                 </div>
 
@@ -471,7 +471,7 @@ function DriverApp() {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-[10px] text-gray-500">Driver mode</p>
-                            <p className="text-[13px] font-bold text-white">James Okoro</p>
+                            <p className="text-[13px] font-medium text-white">James Okoro</p>
                         </div>
                         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand/20 text-brand">
                             <HiOutlineUser className="h-4 w-4" />
@@ -493,7 +493,7 @@ function DriverApp() {
                         <div className="flex items-center gap-3">
                             <div className="flex-1">
                                 <p className="text-[10px] text-gray-500">From</p>
-                                <p className="text-[13px] font-bold text-white">Dhaka</p>
+                                <p className="text-[13px] font-medium text-white">Dhaka</p>
                             </div>
                             <div className="flex flex-col items-center">
                                 <svg className="h-4 w-4 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -502,7 +502,7 @@ function DriverApp() {
                             </div>
                             <div className="flex-1 text-right">
                                 <p className="text-[10px] text-gray-500">To</p>
-                                <p className="text-[13px] font-bold text-white">Chattogram</p>
+                                <p className="text-[13px] font-medium text-white">Chattogram</p>
                             </div>
                         </div>
                     </div>
@@ -596,7 +596,7 @@ function ApiPanel() {
                     <div className="divide-y divide-gray-800">
                         {endpoints.map((ep) => (
                             <div key={ep.path} className="flex items-center gap-3 px-4 py-3">
-                                <span className={`w-14 rounded-md px-2 py-1 text-center text-[9px] font-bold ${methodColor[ep.method]}`}>
+                                <span className={`w-14 rounded-md px-2 py-1 text-center text-[9px] font-medium ${methodColor[ep.method]}`}>
                                     {ep.method}
                                 </span>
                                 <code className="text-[11px] font-medium text-white">{ep.path}</code>
@@ -641,7 +641,7 @@ function PassengerApp() {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-[10px] text-gray-500">Welcome back,</p>
-                            <p className="text-[13px] font-bold text-white">Alex Carter</p>
+                            <p className="text-[13px] font-medium text-white">Alex Carter</p>
                         </div>
                         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand/20 text-brand">
                             <HiOutlineTicket className="h-4 w-4" />
@@ -659,7 +659,7 @@ function PassengerApp() {
                         <div className="flex items-center gap-3">
                             <div className="flex-1">
                                 <p className="text-[10px] text-gray-500">From</p>
-                                <p className="text-[13px] font-bold text-white">New York</p>
+                                <p className="text-[13px] font-medium text-white">New York</p>
                                 <p className="text-[9px] text-gray-500">07:00 AM</p>
                             </div>
                             <div className="flex flex-col items-center">
@@ -670,7 +670,7 @@ function PassengerApp() {
                             </div>
                             <div className="flex-1 text-right">
                                 <p className="text-[10px] text-gray-500">To</p>
-                                <p className="text-[13px] font-bold text-white">Boston</p>
+                                <p className="text-[13px] font-medium text-white">Boston</p>
                                 <p className="text-[9px] text-gray-500">01:30 PM</p>
                             </div>
                         </div>
@@ -690,11 +690,11 @@ function PassengerApp() {
                                 }`}
                             >
                                 <div>
-                                    <p className="text-[12px] font-bold text-white">{bus.name}</p>
+                                    <p className="text-[12px] font-medium text-white">{bus.name}</p>
                                     <p className="text-[10px] text-gray-500">{bus.type} • {bus.seats}</p>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <p className="text-[13px] font-bold text-brand">{bus.price}</p>
+                                    <p className="text-[13px] font-medium text-brand">{bus.price}</p>
                                     <button
                                         className={`rounded-md px-2.5 py-1 text-[9px] font-semibold transition-colors ${
                                             bus.selected ? "bg-brand text-white" : "border border-gray-700 text-gray-400"
@@ -713,7 +713,7 @@ function PassengerApp() {
                             <HiOutlineQrcode className="h-5 w-5" />
                         </div>
                         <div className="min-w-0 flex-1">
-                            <p className="text-[12px] font-bold text-white">CW-83291 • NYC → Boston</p>
+                            <p className="text-[12px] font-medium text-white">CW-83291 • NYC → Boston</p>
                             <p className="text-[10px] text-gray-400">Seat A12 • Boarding 07:00 AM</p>
                         </div>
                         <span className="rounded-full bg-brand px-2 py-1 text-[9px] font-semibold text-white">QR</span>

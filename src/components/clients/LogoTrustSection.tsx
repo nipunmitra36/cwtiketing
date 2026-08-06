@@ -8,10 +8,9 @@ import {
   HiOutlinePaperAirplane,
   HiOutlineLocationMarker,
   HiOutlineShieldCheck,
-  HiOutlineUsers,
-  HiOutlineGlobe,
-  HiOutlineTicket,
-  HiOutlineTrendingUp,
+  HiOutlineOfficeBuilding,
+  HiOutlineFlag,
+  HiOutlineSun,
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
@@ -21,20 +20,59 @@ interface Logo {
   color: string;
 }
 
+// Single row — scrolls right → left, full width
 const logos: Logo[] = [
   { name: "Coachline UK", icon: HiOutlineTruck, color: "text-emerald-600" },
   { name: "Ruta Directa", icon: HiOutlineMap, color: "text-brand" },
   { name: "Falcon Shuttle", icon: HiOutlinePaperAirplane, color: "text-sky-600" },
   { name: "Emerald Coachways", icon: HiOutlineLocationMarker, color: "text-emerald-500" },
   { name: "Pearl Transit", icon: HiOutlineShieldCheck, color: "text-rose-500" },
+  { name: "Atlas Coachlines", icon: HiOutlineOfficeBuilding, color: "text-indigo-500" },
+  { name: "Union Roadways", icon: HiOutlineFlag, color: "text-amber-500" },
+  { name: "Meridian Transit", icon: HiOutlineSun, color: "text-orange-500" },
 ];
 
-const stats = [
-  { icon: HiOutlineUsers, value: "50+", label: "Operators" },
-  { icon: HiOutlineGlobe, value: "10+", label: "Countries" },
-  { icon: HiOutlineTicket, value: "1M+", label: "Bookings processed" },
-  { icon: HiOutlineTrendingUp, value: "99.9%", label: "Uptime" },
-];
+function MarqueeRow({
+  logos,
+  direction,
+  speed = 32,
+}: {
+  logos: Logo[];
+  direction: "left" | "right";
+  speed?: number;
+}) {
+  // duplicate the array so the loop is seamless
+  const track = [...logos, ...logos];
+
+  return (
+    <div className="group/row relative overflow-hidden">
+      <div
+        className={`flex w-max items-center gap-4 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"
+          } [animation-duration:var(--marquee-duration)] group-hover/row:[animation-play-state:paused]`}
+        style={{ "--marquee-duration": `${speed}s` } as React.CSSProperties}
+      >
+        {track.map((logo, i) => {
+          const Icon = logo.icon;
+          return (
+            <div
+              key={`${logo.name}-${i}`}
+              className="flex shrink-0 items-center gap-2.5 rounded-full border border-gray-100 bg-white px-5 py-2.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)] grayscale transition-all duration-300 ease-out hover:-translate-y-0.5 hover:grayscale-0 hover:shadow-[0_8px_20px_rgba(16,24,40,0.08)]"
+            >
+              <span
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-50 transition-colors duration-300 ${logo.color}`}
+              >
+                <Icon className="h-4 w-4" />
+              </span>
+              <span className="whitespace-nowrap text-[14px] font-semibold text-gray-400 transition-colors duration-300 hover:text-text-dark">
+                {logo.name}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default function LogoTrustSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -51,7 +89,7 @@ export default function LogoTrustSection() {
           opacity: 1,
           y: 0,
           duration: 0.6,
-          stagger: 0.08,
+          stagger: 0.1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
@@ -69,7 +107,7 @@ export default function LogoTrustSection() {
     <section
       ref={sectionRef}
       id="customers"
-      className="relative border-b border-gray-100 bg-white py-14 lg:py-20"
+      className="relative overflow-hidden border-b border-gray-100 bg-white py-14 lg:py-20"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p
@@ -78,50 +116,15 @@ export default function LogoTrustSection() {
         >
           Trusted by transport companies worldwide
         </p>
+      </div>
 
-        {/* ── Logo wall ── */}
-        <div
-          data-gsap
-          className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 lg:grid-cols-5"
-        >
-          {logos.map((logo) => {
-            const Icon = logo.icon;
-            return (
-              <div
-                key={logo.name}
-                className="group flex items-center justify-center gap-2.5 grayscale transition-all duration-300 hover:grayscale-0"
-              >
-                <span
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 transition-colors duration-300 group-hover:bg-white ${logo.color}`}
-                >
-                  <Icon className="h-5 w-5" />
-                </span>
-                <span className="text-[14px] font-semibold text-gray-400 transition-colors duration-300 group-hover:text-text-dark">
-                  {logo.name}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+      {/* ── Full-width marquee ── */}
+      <div data-gsap className="relative">
+        {/* edge fade masks */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-28" />
 
-        {/* ── Stats ── */}
-        <div
-          data-gsap
-          className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-gray-100 bg-gray-100 lg:grid-cols-4"
-        >
-          {stats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div key={stat.label} className="bg-white px-6 py-6 text-center">
-                <Icon className="mx-auto mb-2 h-5 w-5 text-brand" />
-                <p className="text-2xl font-bold tracking-tight text-text-dark lg:text-3xl">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-[12px] text-text-muted sm:text-[13px]">{stat.label}</p>
-              </div>
-            );
-          })}
-        </div>
+        <MarqueeRow logos={logos} direction="left" speed={40} />
       </div>
     </section>
   );

@@ -70,7 +70,7 @@ export default function CoursesList() {
 
     return (
         <div ref={sectionRef} className="container py-8">
-            <h2 ref={headingRef} className="text-3xl font-bold text-gray-800 mb-8">All Courses</h2>
+            <h2 ref={headingRef} className="text-3xl font-medium text-gray-800 mb-8">All Courses</h2>
 
             <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {isLoading && Array.from({ length: 8 }).map((_, i) => (
@@ -98,12 +98,12 @@ function CourseCard({ course, loading }: { course?: Course; loading: boolean }) 
                         className="w-full h-48 object-cover"
                     />
                     {course?.discount_percentage! > 0 && (
-                        <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                        <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-medium px-2 py-1 rounded">
                             {course?.discount_percentage}% OFF
                         </span>
                     )}
                     {course?.is_free && (
-                        <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
+                        <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded">
                             FREE
                         </span>
                     )}
@@ -112,7 +112,7 @@ function CourseCard({ course, loading }: { course?: Course; loading: boolean }) 
                     <span className="text-xs text-brand font-semibold uppercase tracking-wide mb-1">
                         {course?.category?.name}
                     </span>
-                    <h3 className="text-sm font-bold text-gray-800 mb-2 line-clamp-2 leading-snug">
+                    <h3 className="text-sm font-medium text-gray-800 mb-2 line-clamp-2 leading-snug">
                         {course?.title}
                     </h3>
                     <p className="text-xs text-gray-500 mb-3">
@@ -135,10 +135,10 @@ function CourseCard({ course, loading }: { course?: Course; loading: boolean }) 
                     <div className="flex items-center justify-between mt-2">
                         <div>
                             {course?.is_free ? (
-                                <span className="text-green-600 font-bold text-lg">Free</span>
+                                <span className="text-green-600 font-medium text-lg">Free</span>
                             ) : (
                                 <div className="flex items-center gap-2">
-                                    <span className="text-brand font-bold text-lg">
+                                    <span className="text-brand font-medium text-lg">
                                         ৳{course?.discount_price}
                                     </span>
                                     {course?.discount_percentage! > 0 && (

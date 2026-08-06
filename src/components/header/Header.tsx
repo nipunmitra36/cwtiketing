@@ -106,7 +106,7 @@ const NAV_ITEMS: NavItem[] = [
       },
     ],
   },
-  { label: "Features", href: "/#features" },
+  { label: "Product Demo", href: "/features" },
   {
     label: "Resources",
     dropdown: [
@@ -374,7 +374,7 @@ export default function Header() {
         }`}
       >
         {/* ── Brand ── */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/media/logo.png"
             alt="CW Ticketing"
@@ -383,6 +383,9 @@ export default function Header() {
             className="h-7 w-auto sm:h-8"
             priority
           />
+          <span className="rounded-full border border-brand/20 bg-brand-light px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand">
+            Beta
+          </span>
         </Link>
 
         {/* ── Desktop Nav ── */}
