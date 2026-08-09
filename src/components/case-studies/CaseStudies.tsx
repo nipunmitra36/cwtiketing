@@ -136,10 +136,7 @@ export default function CaseStudies() {
                     className="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end"
                 >
                     <div>
-                        <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
-                            Case studies
-                        </span>
-                        <h2 className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl">
+                        <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                             Operators achieve more
                         </h2>
                     </div>

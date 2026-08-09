@@ -106,21 +106,15 @@ export default function Pricing() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <span
-            data-gsap
-            className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
-          >
-            Pricing
-          </span>
           <h2
             data-gsap
-            className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
+            className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
             Plans Built For Every Operator
           </h2>
           <p
             data-gsap
-            className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
+            className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
             Every plan is tailored to your routes and volumes. Tell us what you
             need and we&apos;ll quote it precisely.

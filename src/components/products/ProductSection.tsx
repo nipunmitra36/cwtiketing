@@ -115,13 +115,11 @@ const features: Feature[] = [
 function FeaturePanel({
     feature,
     index,
-    total,
     stacked,
     registerRef,
 }: {
     feature: Feature;
     index: number;
-    total: number;
     stacked: boolean;
     registerRef?: (el: HTMLDivElement | null) => void;
 }) {
@@ -179,7 +177,7 @@ function FeaturePanel({
             }}
             className={
                 stacked
-                    ? "absolute inset-x-0 top-[11vh] h-[78vh]"
+                    ? "absolute inset-x-0 top-[11vh] h-[max(78vh,440px)]"
                     : "relative"
             }
             style={{ zIndex: index + 1 }}
@@ -188,16 +186,7 @@ function FeaturePanel({
                 className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 bg-[#F3F4F5] sm:px-6 lg:h-full lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8 lg:py-0 lg:rounded-2xl lg:border lg:border-gray-200">
                     {/* ── Left: copy ── */}
                     <div ref={textRef} className={index % 2 === 1 ? "lg:order-2" : ""}>
-                        <span
-                            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[12px] font-medium ${isDark
-                                    ? "border-brand/20 bg-brand-light text-brand"
-                                    : "border-gray-200 bg-gray-50 text-text-muted"
-                                }`}
-                        >
-                            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")} &middot; Solutions by industry
-                        </span>
-
-                        <h3 className="mt-5 text-3xl font-medium tracking-tight text-text-dark sm:text-4xl lg:text-[42px]">
+                        <h3 className="mt-5 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                             {feature.title}
                         </h3>
                         <p className="mt-4 max-w-md text-[15px] leading-relaxed text-text-muted">
@@ -424,13 +413,10 @@ export default function ScrollFeatures() {
     return (
         <section ref={sectionRef} id="solutions" className="relative bg-white">
             <div className="mx-auto max-w-2xl px-4 pt-16 text-center sm:px-6 lg:px-8">
-                <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
-                    Solutions by industry
-                </span>
-                <h2 className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl">
+                <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                     Built for How Each Industry Actually Moves People
                 </h2>
-                <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+                <p className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
                     Scroll to see how each module works, from booking to back-office.
                 </p>
             </div>
@@ -457,7 +443,6 @@ export default function ScrollFeatures() {
                             key={f.title}
                             feature={f}
                             index={i}
-                            total={features.length}
                             stacked
                             registerRef={(el) => {
                                 cardRefs.current[i] = el;
@@ -474,7 +459,6 @@ export default function ScrollFeatures() {
                         key={f.title}
                         feature={f}
                         index={i}
-                        total={features.length}
                         stacked={false}
                     />
                 ))}

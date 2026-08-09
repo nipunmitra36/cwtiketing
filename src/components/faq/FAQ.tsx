@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import {
   HiOutlineChevronDown,
   HiOutlineArrowRight,
@@ -62,6 +62,7 @@ const supportChips = ["24/7 Support", "99.9% Uptime SLA", "Dedicated Manager"];
 export default function FAQ() {
     const sectionRef = useRef<HTMLElement>(null);
     const stickyRef = useRef<HTMLDivElement>(null);
+    const accordionRef = useRef<HTMLDivElement>(null);
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     useEffect(() => {
@@ -87,20 +88,59 @@ export default function FAQ() {
                 }
             );
 
-            // Pin the left column while the FAQ accordion scrolls (desktop only).
-            // CSS `position: sticky` does not work inside ScrollSmoother, so we
-            // pin with ScrollTrigger instead.
+            // Make the left column behave like CSS `position: sticky` while the
+            // FAQ accordion scrolls (desktop only). ScrollTrigger pins do not
+            // work reliably inside ScrollSmoother (spacer/layout jumps), so we
+            // emulate sticky by nudging the column with a transform: it stays at
+            // the top offset while the accordion scrolls, then rides up together
+            // with the last FAQ item instead of lingering until the section end.
             mm.add("(min-width: 1024px)", () => {
-                if (!stickyRef.current) return;
-                const pin = ScrollTrigger.create({
-                    trigger: stickyRef.current,
-                    start: "top top+=112",
-                    endTrigger: sectionRef.current,
-                    end: "bottom top",
-                    pin: true,
-                    anticipatePin: 1,
-                });
-                return () => pin.kill();
+                const sticky = stickyRef.current;
+                const accordion = accordionRef.current;
+                const section = sectionRef.current;
+                if (!sticky || !accordion || !section) return;
+
+                // Visual offset from the viewport top (clears the fixed header).
+                const offset = 96;
+                let appliedY = 0;
+
+                const apply = () => {
+                    const rect = sticky.getBoundingClientRect();
+                    const naturalTop = rect.top - appliedY;
+                    if (
+                        naturalTop > window.innerHeight + offset ||
+                        rect.bottom < -offset
+                    ) {
+                        if (appliedY !== 0) {
+                            appliedY = 0;
+                            sticky.style.transform = "";
+                        }
+                        return;
+                    }
+                    const elH = sticky.offsetHeight;
+                    const accBottom = accordion.getBoundingClientRect().bottom;
+                    const desired = Math.min(
+                        Math.max(naturalTop, offset),
+                        accBottom - elH
+                    );
+                    const y = desired - naturalTop;
+                    if (y !== appliedY) {
+                        appliedY = y;
+                        sticky.style.transform =
+                            y === 0 ? "" : `translate3d(0, ${y}px, 0)`;
+                    }
+                };
+
+                // Run on the global ticker every frame: ScrollTrigger callbacks
+                // do not fire reliably for a plain (non-pinning) trigger inside
+                // this ScrollSmoother setup.
+                apply();
+                gsap.ticker.add(apply);
+
+                return () => {
+                    gsap.ticker.remove(apply);
+                    sticky.style.transform = "";
+                };
             });
         }, sectionRef);
 
@@ -124,11 +164,7 @@ export default function FAQ() {
                     {/* ── Pinned left column: heading + contact card ── */}
                     <div ref={stickyRef} className="lg:pt-2">
                         <div data-gsap>
-                            <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3.5 py-1.5 text-[12px] font-medium text-brand">
-                                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                                FAQ
-                            </span>
-                            <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-text-dark sm:text-4xl">
+                            <h2 className="mt-5 text-[22px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                                 Frequently Asked{" "}
                                 <span className="relative inline-block">
                                     <span className="relative z-10">Questions</span>
@@ -197,7 +233,7 @@ export default function FAQ() {
                     </div>
 
                     {/* ── FAQ Accordion (scrolls) ── */}
-                    <div className="space-y-3">
+                    <div ref={accordionRef} className="space-y-3">
                         {faqs.map((faq, i) => {
                             const isOpen = openIndex === i;
                             return (

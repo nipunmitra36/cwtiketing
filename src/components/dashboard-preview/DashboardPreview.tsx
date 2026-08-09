@@ -79,13 +79,13 @@ export default function DashboardPreview() {
                     </span>
                     <h2
                         data-gsap
-                        className="mt-4 text-3xl font-medium tracking-tight text-white sm:text-5xl"
+                        className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-white sm:text-[28px] sm:leading-snug"
                     >
                         One Platform, Four Surfaces
                     </h2>
                     <p
                         data-gsap
-                        className="mt-3 text-[14px] leading-relaxed text-gray-400 sm:text-[15px]"
+                        className="mt-3 text-[13px] leading-relaxed text-gray-400 sm:text-[14px]"
                     >
                         Every stakeholder gets a screen built for their job — all
                         reading from the same live data.

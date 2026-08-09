@@ -58,15 +58,9 @@ export default function Solution() {
             <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <div className="grid items-center gap-12 lg:grid-cols-2">
                     <div>
-                        <span
-                            data-gsap
-                            className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
-                        >
-                            All-in-one platform
-                        </span>
                         <h2
                             data-gsap
-                            className="mt-4 text-3xl font-medium leading-tight tracking-tight text-text-dark sm:text-5xl"
+                            className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
                         >
                             One system for{" "}
                             <span className="relative inline-block">

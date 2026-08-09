@@ -334,17 +334,14 @@ export default function FeatureSection() {
 
             <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
                 <div ref={headerRef} className="mx-auto mb-10 max-w-2xl text-center">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
-                        Everything you need
-                    </span>
-                    <h2 className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-4xl">
+                    <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                         Powerful Features Built for{" "}
                         <span className="relative inline-block">
                             <span className="relative z-10">Ticketing Operators</span>
                             <span className="absolute bottom-1 left-0 right-0 h-3 rounded bg-brand/15" />
                         </span>
                     </h2>
-                    <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+                    <p className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
                         Scroll down to step through every tool, one feature at a time.
                     </p>
                 </div>

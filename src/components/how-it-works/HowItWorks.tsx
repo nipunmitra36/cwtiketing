@@ -216,13 +216,13 @@ export default function HowItWorks() {
                 <div className="mx-auto mb-14 max-w-2xl text-center">
                     <h2
                         data-gsap
-                        className="text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
+                        className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
                     >
                         Launch Your Platform in 4 Simple Steps
                     </h2>
                     <p
                         data-gsap
-                        className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
+                        className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
                     >
                         From discovery to launch, we guide you through every step.
                     </p>

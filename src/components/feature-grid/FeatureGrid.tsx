@@ -214,14 +214,10 @@ export default function WorkInContext() {
                 className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center overflow-hidden px-4 pb-0 pt-16 sm:px-6 lg:px-8"
             >
                 <div className="mx-auto mb-10 max-w-xl text-center lg:mb-14">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand">
-                        Live Operations
-                    </span>
-                    <h2 className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl">
-                        Everything about today,
-                        <br className="hidden sm:block" /> in one glance
+                    <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+                        Everything about today, in one glance
                     </h2>
-                    <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+                    <p className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
                         Bookings, routes, and revenue update in real time. Scroll to
                         watch it come together.
                     </p>

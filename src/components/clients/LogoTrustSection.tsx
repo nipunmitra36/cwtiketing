@@ -2,40 +2,45 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import {
-  HiOutlineTruck,
-  HiOutlineMap,
-  HiOutlinePaperAirplane,
-  HiOutlineLocationMarker,
-  HiOutlineShieldCheck,
-  HiOutlineOfficeBuilding,
-  HiOutlineFlag,
-  HiOutlineSun,
-} from "react-icons/hi";
-import type { IconType } from "react-icons";
 
 interface Logo {
   name: string;
-  icon: IconType;
-  color: string;
+  src: string;
 }
 
 // Single row — scrolls right → left, full width
 const logos: Logo[] = [
-  { name: "Coachline UK", icon: HiOutlineTruck, color: "text-emerald-600" },
-  { name: "Ruta Directa", icon: HiOutlineMap, color: "text-brand" },
-  { name: "Falcon Shuttle", icon: HiOutlinePaperAirplane, color: "text-sky-600" },
-  { name: "Emerald Coachways", icon: HiOutlineLocationMarker, color: "text-emerald-500" },
-  { name: "Pearl Transit", icon: HiOutlineShieldCheck, color: "text-rose-500" },
-  { name: "Atlas Coachlines", icon: HiOutlineOfficeBuilding, color: "text-indigo-500" },
-  { name: "Union Roadways", icon: HiOutlineFlag, color: "text-amber-500" },
-  { name: "Meridian Transit", icon: HiOutlineSun, color: "text-orange-500" },
+  { name: "Afrikonekta", src: "/media/client/afrikonekta.webp" },
+  { name: "Asante Rabi Express", src: "/media/client/asante-rabi-express.webp" },
+  { name: "BrandMyth", src: "/media/client/brandmyth.webp" },
+  { name: "BusBora", src: "/media/client/busbora.webp" },
+  { name: "Canvey", src: "/media/client/canvey.webp" },
+  { name: "Capital Express", src: "/media/client/capital-express.webp" },
+  { name: "Carmel Group", src: "/media/client/carmel-group.webp" },
+  { name: "Ekesons", src: "/media/client/ekesons.webp" },
+  { name: "Etiflex", src: "/media/client/etiflex.webp" },
+  { name: "Fetan Bus", src: "/media/client/fetanbus.webp" },
+  { name: "Gatwick Hoppa", src: "/media/client/gatwick-hoppa.webp" },
+  { name: "Hoba Yakpaiha", src: "/media/client/hoba-yakpaiha.webp" },
+  { name: "James", src: "/media/client/james.webp" },
+  { name: "Purabi", src: "/media/client/logo_purabi.webp" },
+  { name: "Lonex", src: "/media/client/lonex.webp" },
+  { name: "Motso", src: "/media/client/motso.webp" },
+  { name: "Musango", src: "/media/client/musango.webp" },
+  { name: "My Express", src: "/media/client/my-express.webp" },
+  { name: "Rabeya", src: "/media/client/rabeya.webp" },
+  { name: "Rakaab", src: "/media/client/rakaab.webp" },
+  { name: "Rojos", src: "/media/client/rojos-logo.webp" },
+  { name: "Six Base", src: "/media/client/six-base.webp" },
+  { name: "TopBus", src: "/media/client/topbus.webp" },
+  { name: "Yatru", src: "/media/client/yatru.webp" },
+  { name: "Zedicket", src: "/media/client/zedicket.webp" },
 ];
 
 function MarqueeRow({
   logos,
   direction,
-  speed = 32,
+  speed = 45,
 }: {
   logos: Logo[];
   direction: "left" | "right";
@@ -51,24 +56,20 @@ function MarqueeRow({
           } [animation-duration:var(--marquee-duration)] group-hover/row:[animation-play-state:paused]`}
         style={{ "--marquee-duration": `${speed}s` } as React.CSSProperties}
       >
-        {track.map((logo, i) => {
-          const Icon = logo.icon;
-          return (
-            <div
-              key={`${logo.name}-${i}`}
-              className="flex shrink-0 items-center gap-2.5 rounded-full border border-gray-100 bg-white px-5 py-2.5 shadow-[0_1px_2px_rgba(16,24,40,0.04)] grayscale transition-all duration-300 ease-out hover:-translate-y-0.5 hover:grayscale-0 hover:shadow-[0_8px_20px_rgba(16,24,40,0.08)]"
-            >
-              <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-50 transition-colors duration-300 ${logo.color}`}
-              >
-                <Icon className="h-4 w-4" />
-              </span>
-              <span className="whitespace-nowrap text-[14px] font-semibold text-gray-400 transition-colors duration-300 hover:text-text-dark">
-                {logo.name}
-              </span>
-            </div>
-          );
-        })}
+        {track.map((logo, i) => (
+          <div
+            key={`${logo.name}-${i}`}
+            className="flex shrink-0 items-center gap-3 rounded-2xl border border-gray-100 bg-white px-5 py-3 shadow-[0_1px_2px_rgba(16,24,40,0.04)] grayscale transition-all duration-300 ease-out hover:-translate-y-0.5 hover:grayscale-0 hover:shadow-[0_8px_20px_rgba(16,24,40,0.08)]"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={logo.src}
+              alt={logo.name}
+              loading="lazy"
+              className="h-9 w-auto object-contain"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -124,7 +125,7 @@ export default function LogoTrustSection() {
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-28" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-28" />
 
-        <MarqueeRow logos={logos} direction="left" speed={40} />
+        <MarqueeRow logos={logos} direction="left" speed={45} />
       </div>
     </section>
   );
