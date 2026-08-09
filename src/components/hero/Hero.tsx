@@ -20,7 +20,7 @@ import {
 function ConnectorV() {
   return (
     <div className="relative z-0 mx-auto h-8 w-8">
-      <span className="gsap-line-v absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 rounded-full bg-gradient-to-b from-brand/60 via-brand/30 to-brand/20" />
+      <span className="gsap-line-v absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 rounded-full bg-gradient-to-b from-brand/70 via-brand/40 to-brand/20 shadow-[0_0_8px_rgba(255,106,28,0.45)]" />
       <span className="gsap-dot-v absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-brand opacity-0 shadow-[0_0_10px_rgba(255,106,28,0.9)]" />
     </div>
   );
@@ -29,7 +29,7 @@ function ConnectorV() {
 function ConnectorH() {
   return (
     <div className="relative z-0 flex w-8 items-center">
-      <span className="gsap-line-h h-[2px] w-full rounded-full bg-gradient-to-r from-brand/40 via-brand/60 to-brand/40" />
+      <span className="gsap-line-h h-[2px] w-full rounded-full bg-gradient-to-r from-brand/50 via-brand/70 to-brand/50 shadow-[0_0_8px_rgba(255,106,28,0.45)]" />
       <span className="gsap-dot-h absolute left-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand opacity-0 shadow-[0_0_10px_rgba(255,106,28,0.9)]" />
     </div>
   );
@@ -98,7 +98,13 @@ function BookingEngineCard() {
   return (
     <div className="gsap-bento-card relative z-10 flex flex-[1.3] flex-col overflow-hidden rounded-2xl border border-brand/40 bg-white shadow-2xl shadow-brand/20 backdrop-blur-2xl">
       <div className="flex items-center justify-between border-b border-brand/10 bg-brand-light px-3 py-2">
-        <p className="text-[12px] font-medium text-brand">Booking Engine</p>
+        <p className="flex items-center gap-1.5 text-[12px] font-medium text-brand">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand" />
+          </span>
+          Booking Engine
+        </p>
         <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-semibold text-white">
           Core
         </span>
@@ -296,6 +302,23 @@ export default function Hero() {
         });
       }
 
+      // ── Scene: gentle idle 3D tilt for depth ──
+      const sceneTilt = bentoRef.current?.querySelector(".scene-tilt");
+      if (sceneTilt) {
+        gsap.fromTo(
+          sceneTilt,
+          { rotateX: 3, rotateY: -6, transformOrigin: "50% 20%" },
+          {
+            rotateX: -1,
+            rotateY: 4,
+            duration: 12,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+          }
+        );
+      }
+
       // ── Animated bar inside admin card ──
       const bars = bentoRef.current?.querySelectorAll(".gsap-bar");
       if (bars?.length) {
@@ -332,7 +355,6 @@ export default function Hero() {
         <video
           ref={videoRef}
           className="h-full w-full object-cover"
-          poster="/images/hero-poster.jpg"
           autoPlay
           muted
           loop
@@ -405,28 +427,37 @@ export default function Hero() {
 
           {/* ── Right: connected product ecosystem scene ── */}
           <div ref={bentoRef} className="relative hidden overflow-visible lg:block">
-            <div className="mx-auto w-full max-w-[540px]">
-              {/* Admin Dashboard */}
-              <div className="relative z-10 mx-auto w-full max-w-[400px]">
-                <AdminDashboardCard />
-              </div>
+            <div className="mx-auto w-full max-w-[540px] [perspective:1400px]">
+              {/* Ambient brand glow behind the scene */}
+              <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-3xl" />
 
-              <ConnectorV />
+              <div className="scene-tilt relative">
+                {/* Admin Dashboard */}
+                <div className="animate-hero-float">
+                  <div className="relative z-10 mx-auto w-full max-w-[400px]">
+                    <AdminDashboardCard />
+                  </div>
+                </div>
 
-              {/* Middle row: Mobile App — Booking Engine — Passenger Ticket */}
-              <div className="flex items-stretch gap-1.5">
-                <MobileAppCard />
-                <ConnectorH />
-                <BookingEngineCard />
-                <ConnectorH />
-                <PassengerTicketCard />
-              </div>
+                <ConnectorV />
 
-              <ConnectorV />
+                {/* Middle row: Mobile App — Booking Engine — Passenger Ticket */}
+                <div className="flex items-stretch gap-1.5">
+                  <MobileAppCard />
+                  <ConnectorH />
+                  <BookingEngineCard />
+                  <ConnectorH />
+                  <PassengerTicketCard />
+                </div>
 
-              {/* Analytics */}
-              <div className="relative z-10 mx-auto w-full max-w-[420px]">
-                <AnalyticsCard />
+                <ConnectorV />
+
+                {/* Analytics */}
+                <div className="animate-hero-float-slow">
+                  <div className="relative z-10 mx-auto w-full max-w-[420px]">
+                    <AnalyticsCard />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

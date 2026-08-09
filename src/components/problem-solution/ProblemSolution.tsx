@@ -45,7 +45,7 @@ export default function ProblemSolution() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          duration: 0.9,
           stagger: 0.08,
           ease: "power3.out",
           scrollTrigger: {

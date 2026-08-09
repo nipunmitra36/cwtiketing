@@ -1,8 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
-import { HiOutlineChevronDown } from "react-icons/hi";
+import Link from "next/link";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import {
+  HiOutlineChevronDown,
+  HiOutlineArrowRight,
+  HiOutlineChatAlt2,
+} from "react-icons/hi";
+import { FaWhatsapp } from "react-icons/fa";
 
 const faqs = [
     {
@@ -51,17 +57,15 @@ const faqs = [
     },
 ];
 
-const supportItems = [
-    { label: "24/7 Support", desc: "Round-the-clock assistance" },
-    { label: "SLA-Backed", desc: "99.9% uptime guarantee" },
-    { label: "Dedicated Manager", desc: "Personal account executive" },
-];
+const supportChips = ["24/7 Support", "99.9% Uptime SLA", "Dedicated Manager"];
 
 export default function FAQ() {
     const sectionRef = useRef<HTMLElement>(null);
-    const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const stickyRef = useRef<HTMLDivElement>(null);
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     useEffect(() => {
+        const mm = gsap.matchMedia();
         const ctx = gsap.context(() => {
             const el = sectionRef.current;
             if (!el) return;
@@ -72,7 +76,7 @@ export default function FAQ() {
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
+                    duration: 0.9,
                     stagger: 0.06,
                     ease: "power3.out",
                     scrollTrigger: {
@@ -82,9 +86,28 @@ export default function FAQ() {
                     },
                 }
             );
+
+            // Pin the left column while the FAQ accordion scrolls (desktop only).
+            // CSS `position: sticky` does not work inside ScrollSmoother, so we
+            // pin with ScrollTrigger instead.
+            mm.add("(min-width: 1024px)", () => {
+                if (!stickyRef.current) return;
+                const pin = ScrollTrigger.create({
+                    trigger: stickyRef.current,
+                    start: "top top+=112",
+                    endTrigger: sectionRef.current,
+                    end: "bottom top",
+                    pin: true,
+                    anticipatePin: 1,
+                });
+                return () => pin.kill();
+            });
         }, sectionRef);
 
-        return () => ctx.revert();
+        return () => {
+            ctx.revert();
+            mm.revert();
+        };
     }, []);
 
     return (
@@ -93,220 +116,156 @@ export default function FAQ() {
             id="faq"
             className="relative overflow-hidden bg-white py-16 lg:py-24"
         >
-            <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-brand-light/60 blur-3xl" />
-            <div className="absolute -bottom-40 -right-40 h-[400px] w-[400px] rounded-full bg-brand/5 blur-3xl" />
+            <div className="pointer-events-none absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-brand-light/70 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-40 -right-40 h-[400px] w-[400px] rounded-full bg-brand/5 blur-3xl" />
 
             <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-                <div className="mx-auto mb-12 max-w-2xl text-center lg:hidden">
-                    <span
-                        data-gsap
-                        className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
-                    >
-                        FAQ
-                    </span>
-                    <h2
-                        data-gsap
-                        className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
-                    >
-                        Frequently Asked Questions
-                    </h2>
-                    <p
-                        data-gsap
-                        className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
-                    >
-                        Questions operators ask before switching.
-                    </p>
-                </div>
-                <div className="grid gap-10 lg:grid-cols-[1fr_400px] lg:items-start">
-                    {/* ── FAQ Accordion ── */}
-                    <div>
-                        <div className="mb-8 hidden lg:block">
-                            <span
-                                data-gsap
-                                className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3 py-1 text-[12px] font-medium text-brand"
-                            >
+                <div className="grid gap-12 lg:grid-cols-[400px_minmax(0,1fr)] lg:items-start lg:gap-16">
+                    {/* ── Pinned left column: heading + contact card ── */}
+                    <div ref={stickyRef} className="lg:pt-2">
+                        <div data-gsap>
+                            <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-light px-3.5 py-1.5 text-[12px] font-medium text-brand">
+                                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                                 FAQ
                             </span>
-                            <h2
-                                data-gsap
-                                className="mt-4 text-3xl font-medium tracking-tight text-text-dark sm:text-5xl"
-                            >
-                                Frequently Asked Questions
+                            <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-text-dark sm:text-4xl">
+                                Frequently Asked{" "}
+                                <span className="relative inline-block">
+                                    <span className="relative z-10">Questions</span>
+                                    <span className="absolute bottom-1 left-0 z-0 h-3 w-full rounded bg-brand/15" />
+                                </span>
                             </h2>
-                            <p
-                                data-gsap
-                                className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]"
-                            >
-                                Questions operators ask before switching.
+                            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-text-muted">
+                                Everything operators ask before switching. Can&apos;t find
+                                your answer? Our team replies within minutes.
                             </p>
                         </div>
 
-                        <div className="space-y-3">
-                            {faqs.map((faq, i) => {
-                                const isOpen = openIndex === i;
-                                return (
-                                    <div
-                                        key={i}
-                                        data-gsap
-                                        className="overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-md"
+                        {/* Contact card (desktop only) */}
+                        <div
+                            data-gsap
+                            className="relative mt-8 hidden overflow-hidden rounded-3xl border border-gray-100 bg-white p-6 shadow-lg shadow-gray-200/60 lg:block"
+                        >
+                            <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-brand-light blur-2xl" />
+
+                            <div className="relative flex items-start gap-4">
+                                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand text-white shadow-lg shadow-brand/30">
+                                    <HiOutlineChatAlt2 className="h-5 w-5" />
+                                </span>
+                                <div>
+                                    <p className="text-[16px] font-semibold text-text-dark">
+                                        Still have questions?
+                                    </p>
+                                    <p className="mt-1 text-[13px] leading-relaxed text-text-muted">
+                                        Talk to a booking expert directly — no waiting,
+                                        no forms.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="relative mt-5 flex flex-col gap-2.5">
+                                <a
+                                    href="https://wa.me/8801614000401"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-[13px] font-semibold text-white shadow-md shadow-emerald-500/25 transition-all hover:brightness-105 active:scale-[0.98]"
+                                >
+                                    <FaWhatsapp className="h-4 w-4" />
+                                    Chat on WhatsApp
+                                </a>
+                                <a
+                                    href="/contact"
+                                    className="group flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-[13px] font-semibold text-text-dark transition-all hover:border-brand/40 hover:text-brand active:scale-[0.98]"
+                                >
+                                    Book a Free Demo
+                                    <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                                </a>
+                            </div>
+
+                            <div className="relative mt-5 flex flex-wrap gap-2">
+                                {supportChips.map((chip) => (
+                                    <span
+                                        key={chip}
+                                        className="inline-flex items-center gap-1.5 rounded-full bg-gray-50 px-3 py-1.5 text-[11px] font-medium text-text-muted"
                                     >
-                                        <button
-                                            onClick={() =>
-                                                setOpenIndex(isOpen ? null : i)
-                                            }
-                                            className="flex w-full items-center justify-between px-5 py-4 text-left sm:px-6"
-                                            aria-expanded={isOpen}
-                                        >
-                                            <span className="pr-4 text-[14px] font-semibold text-text-dark sm:text-[15px]">
-                                                {faq.q}
-                                            </span>
-                                            <span
-                                                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
-                                                    isOpen
-                                                        ? "bg-brand text-white"
-                                                        : "bg-gray-100 text-text-muted"
-                                                }`}
-                                            >
-                                                <HiOutlineChevronDown
-                                                    className={`h-4 w-4 transition-transform duration-300 ${
-                                                        isOpen ? "rotate-180" : ""
-                                                    }`}
-                                                />
-                                            </span>
-                                        </button>
-                                        <div
-                                            className={`transition-all duration-300 ease-out ${
+                                        <span className="h-1 w-1 rounded-full bg-emerald-500" />
+                                        {chip}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ── FAQ Accordion (scrolls) ── */}
+                    <div className="space-y-3">
+                        {faqs.map((faq, i) => {
+                            const isOpen = openIndex === i;
+                            return (
+                                <div
+                                    key={i}
+                                    data-gsap
+                                    className={`group overflow-hidden rounded-2xl border transition-all duration-300 ${
+                                        isOpen
+                                            ? "border-brand/30 bg-white shadow-lg shadow-brand/5"
+                                            : "border-gray-200 bg-white hover:border-brand/25 hover:shadow-md hover:shadow-gray-100"
+                                    }`}
+                                >
+                                    <button
+                                        onClick={() =>
+                                            setOpenIndex(isOpen ? null : i)
+                                        }
+                                        className="flex w-full items-center gap-3.5 px-4 py-4 text-left sm:px-5"
+                                        aria-expanded={isOpen}
+                                    >
+                                        <span
+                                            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[12px] font-bold transition-colors duration-300 ${
                                                 isOpen
-                                                    ? "max-h-80 opacity-100"
-                                                    : "max-h-0 opacity-0"
+                                                    ? "bg-brand text-white"
+                                                    : "bg-brand-light text-brand group-hover:bg-brand/10"
                                             }`}
                                         >
-                                            <div className="border-t border-gray-100 px-5 py-4 sm:px-6">
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                        <span className="flex-1 text-[14px] font-semibold leading-snug text-text-dark sm:text-[15px]">
+                                            {faq.q}
+                                        </span>
+                                        <span
+                                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                                                isOpen
+                                                    ? "rotate-180 border-brand bg-brand text-white"
+                                                    : "border-gray-200 text-text-muted group-hover:border-brand/40 group-hover:text-brand"
+                                            }`}
+                                        >
+                                            <HiOutlineChevronDown className="h-4 w-4" />
+                                        </span>
+                                    </button>
+                                    <div
+                                        className={`grid transition-all duration-300 ease-out ${
+                                            isOpen
+                                                ? "grid-rows-[1fr] opacity-100"
+                                                : "grid-rows-[0fr] opacity-0"
+                                        }`}
+                                    >
+                                        <div className="overflow-hidden">
+                                            <div className="border-t border-gray-100 px-4 pb-5 pt-4 sm:pl-[76px] sm:pr-6">
                                                 <p className="text-[14px] leading-relaxed text-text-muted">
                                                     {faq.a}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    {/* ── Premium Image Panel ── */}
-                    <div
-                        data-gsap
-                        className="relative hidden lg:block"
-                    >
-                        <div className="sticky top-28 overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 to-gray-950 shadow-2xl shadow-gray-900/30">
-                            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,106,28,0.12)_0%,_transparent_60%)]" />
-
-                            {/* Decorative circles */}
-                            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full border border-white/5" />
-                            <div className="pointer-events-none absolute -bottom-6 -left-6 h-28 w-28 rounded-full border border-white/5" />
-
-                            <div className="relative px-6 pb-8 pt-8">
-                                {/* Illustration area */}
-                                <div className="mb-8 flex items-center justify-center">
-                                    <div className="relative">
-                                        <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-brand to-brand-dark shadow-lg shadow-brand/30">
-                                            <svg
-                                                className="h-12 w-12 text-white"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                strokeWidth={1.5}
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <div className="absolute -bottom-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/30">
-                                            <svg
-                                                className="h-4 w-4 text-white"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                strokeWidth={2.5}
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M5 13l4 4L19 7"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
                                 </div>
+                            );
+                        })}
 
-                                <div className="mb-6 text-center">
-                                    <h3 className="text-xl font-medium text-white">
-                                        Still have questions?
-                                    </h3>
-                                    <p className="mt-2 text-[13px] leading-relaxed text-gray-400">
-                                        Our support team is ready to help you 24/7.
-                                    </p>
-                                </div>
-
-                                {/* Support features */}
-                                <div className="space-y-3">
-                                    {supportItems.map((item) => (
-                                        <div
-                                            key={item.label}
-                                            className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                                        >
-                                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand/20">
-                                                <svg
-                                                    className="h-4 w-4 text-brand"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M5 13l4 4L19 7"
-                                                    />
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <p className="text-[13px] font-semibold text-white">
-                                                    {item.label}
-                                                </p>
-                                                <p className="text-[11px] text-gray-500">
-                                                    {item.desc}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* CTA */}
-                                <a
-                                    href="/contact"
-                                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 text-[13px] font-semibold text-white transition-all hover:bg-brand-hover active:scale-[0.98]"
-                                >
-                                    Contact Support
-                                    <svg
-                                        className="h-4 w-4"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth={2}
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                                        />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
+                        {/* Bottom hint */}
+                        <p data-gsap className="pt-2 text-center text-[13px] text-text-muted">
+                            More questions?{" "}
+                            <Link href="/contact" className="font-medium text-brand transition-colors hover:text-brand-hover">
+                                Contact our team
+                            </Link>{" "}
+                            — we usually reply within a few hours.
+                        </p>
                     </div>
                 </div>
             </div>

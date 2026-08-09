@@ -225,7 +225,7 @@ export default function FeatureSection() {
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
+                    duration: 0.9,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: section,
@@ -249,7 +249,7 @@ export default function FeatureSection() {
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.6,
+                        duration: 0.9,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: section,

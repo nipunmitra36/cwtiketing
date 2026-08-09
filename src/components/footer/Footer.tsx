@@ -8,7 +8,9 @@ import {
   HiOutlineArrowRight,
   HiOutlineMail,
   HiOutlinePhone,
+  HiOutlineLocationMarker,
 } from "react-icons/hi";
+import { FaWhatsapp } from "react-icons/fa";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface FooterLink {
@@ -81,24 +83,53 @@ function Brand() {
       <ul className="space-y-2.5 text-sm text-gray-400">
         <li>
           <a
-            href="mailto:sales@cwticketing.com"
+            href="mailto:info@cwticketingsystem.com"
             className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5">
               <HiOutlineMail className="h-3.5 w-3.5 text-brand" />
             </span>
-            sales@cwticketing.com
+            info@cwticketingsystem.com
           </a>
         </li>
         <li>
           <a
-            href="tel:+10000000000"
+            href="https://wa.me/8801614000401"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5">
+              <FaWhatsapp className="h-3.5 w-3.5 text-emerald-400" />
+            </span>
+            +8801614000401
+          </a>
+        </li>
+        <li>
+          <a
+            href="tel:+8801672691228"
             className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5">
               <HiOutlinePhone className="h-3.5 w-3.5 text-brand" />
             </span>
-            +1 (000) 000-0000
+            +8801672691228
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Baitul+Aman+Housing+Society+Adabor+Mohammadpur+Dhaka"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-start gap-2.5 transition-colors hover:text-white"
+          >
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5">
+              <HiOutlineLocationMarker className="h-3.5 w-3.5 text-brand" />
+            </span>
+            <span className="leading-snug">
+              House #629-685, Road # 12, Baitul Aman Housing Society, Adabor,
+              Mohammadpur, Dhaka-1207, BD
+            </span>
           </a>
         </li>
       </ul>
@@ -169,7 +200,7 @@ export default function Footer() {
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
+            duration: 0.9,
             stagger: 0.1,
             ease: "power2.out",
             scrollTrigger: {

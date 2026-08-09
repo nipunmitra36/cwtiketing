@@ -42,7 +42,7 @@ interface NavItem {
 }
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const WHATSAPP_NUMBER = "10000000000"; // TODO: replace with your real number, digits only, with country code
+const WHATSAPP_NUMBER = "8801614000401"; // digits only, with country code
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 // ── Data ──────────────────────────────────────────────────────────────────────

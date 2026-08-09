@@ -114,7 +114,7 @@ export default function WorkInContext() {
                             {
                                 opacity: 1,
                                 y: 0,
-                                duration: 0.6,
+                                duration: 0.9,
                                 ease: "power2.out",
                                 scrollTrigger: {
                                     trigger: sectionRef.current,
@@ -274,7 +274,7 @@ export default function WorkInContext() {
 
                     {/* Avatar */}
                     <div className="absolute inset-0 flex items-end justify-center">
-                        <div ref={avatarWrapRef} className="relative h-[320px] w-[320px] sm:h-[380px] sm:w-[380px] lg:h-[min(52vh,460px)] lg:w-[min(52vh,460px)]">
+                        <div ref={avatarWrapRef} className="relative h-[380px] w-[380px] sm:h-[460px] sm:w-[460px] lg:h-[min(62vh,580px)] lg:w-[min(62vh,580px)]">
                             <div
                                 ref={glowRef}
                                 className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand/30 to-sky-400/20 blur-3xl"

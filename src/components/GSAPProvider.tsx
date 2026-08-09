@@ -19,7 +19,7 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
     smootherRef.current = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 1.5,
+      smooth: 2.2,
       speed: 2,
       effects: true,
       smoothTouch: 0.1,

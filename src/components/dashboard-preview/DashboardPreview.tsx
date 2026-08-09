@@ -16,15 +16,12 @@ import {
     HiOutlineUsers,
     HiOutlineViewGrid,
     HiOutlineCash,
-    HiOutlineCode,
-    HiOutlineKey,
     HiOutlineLink,
     HiOutlineLocationMarker,
     HiOutlineMap,
     HiOutlinePhone,
     HiOutlineQrcode,
     HiOutlineStatusOnline,
-    HiOutlineTerminal,
 } from "react-icons/hi";
 
 const tabs = [
@@ -32,7 +29,6 @@ const tabs = [
     { id: "passenger", label: "Passenger App", icon: HiOutlineDeviceMobile },
     { id: "agent", label: "Agent Portal", icon: HiOutlineCash },
     { id: "driver", label: "Driver App", icon: HiOutlineMap },
-    { id: "api", label: "API", icon: HiOutlineCode },
 ];
 
 export default function DashboardPreview() {
@@ -50,7 +46,7 @@ export default function DashboardPreview() {
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
+                    duration: 0.9,
                     stagger: 0.1,
                     ease: "power3.out",
                     scrollTrigger: {
@@ -85,7 +81,7 @@ export default function DashboardPreview() {
                         data-gsap
                         className="mt-4 text-3xl font-medium tracking-tight text-white sm:text-5xl"
                     >
-                        One Platform, Five Surfaces
+                        One Platform, Four Surfaces
                     </h2>
                     <p
                         data-gsap
@@ -124,7 +120,6 @@ export default function DashboardPreview() {
                     {activeTab === "passenger" && <PassengerApp />}
                     {activeTab === "agent" && <AgentPortal />}
                     {activeTab === "driver" && <DriverApp />}
-                    {activeTab === "api" && <ApiPanel />}
                 </div>
             </div>
         </section>
@@ -540,79 +535,6 @@ function DriverApp() {
                 </div>
             </div>
         </div>
-    );
-}
-
-function ApiPanel() {
-    const endpoints = [
-        { method: "GET", path: "/v1/routes", desc: "List routes & schedules" },
-        { method: "POST", path: "/v1/bookings", desc: "Create a booking" },
-        { method: "GET", path: "/v1/bookings/:id", desc: "Fetch a booking" },
-        { method: "POST", path: "/v1/webhooks", desc: "Subscribe to events" },
-    ];
-    const methodColor: Record<string, string> = {
-        GET: "text-emerald-400 bg-emerald-400/10",
-        POST: "text-brand bg-brand/10",
-    };
-
-    return (
-        <BrowserFrame url="docs.cwticketingsystem.com/api" badge="REST API">
-            <div className="grid gap-4 p-5 sm:p-6 lg:grid-cols-2">
-                {/* Code block */}
-                <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-950">
-                    <div className="flex items-center justify-between border-b border-gray-800 px-4 py-2.5">
-                        <span className="flex items-center gap-1.5 text-[10px] font-semibold text-gray-400">
-                            <HiOutlineTerminal className="h-3.5 w-3.5" /> Create a booking
-                        </span>
-                        <span className="flex items-center gap-1 rounded-md bg-gray-800 px-2 py-0.5 text-[9px] text-gray-400">
-                            <HiOutlineKey className="h-3 w-3 text-amber-400" /> sandbox key
-                        </span>
-                    </div>
-                    <pre className="overflow-x-auto p-4 text-[11px] leading-relaxed text-gray-300">
-{`POST /v1/bookings
-{
-  "route_id": "r_nyc_bos",
-  "seat_ids": ["A12"],
-  "passenger": {
-    "name": "Alex Carter",
-    "phone": "+1 555 0142"
-  }
-}
-
-→ 201 Created
-{
-  "booking_ref": "CW-83291",
-  "status": "confirmed",
-  "qr_token": "eyJ0eXAiOi..."
-}`}
-                    </pre>
-                </div>
-
-                {/* Endpoints */}
-                <div className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/50">
-                    <div className="border-b border-gray-800 px-4 py-2.5">
-                        <p className="text-[11px] font-semibold text-gray-300">Endpoints</p>
-                    </div>
-                    <div className="divide-y divide-gray-800">
-                        {endpoints.map((ep) => (
-                            <div key={ep.path} className="flex items-center gap-3 px-4 py-3">
-                                <span className={`w-14 rounded-md px-2 py-1 text-center text-[9px] font-medium ${methodColor[ep.method]}`}>
-                                    {ep.method}
-                                </span>
-                                <code className="text-[11px] font-medium text-white">{ep.path}</code>
-                                <span className="ml-auto hidden text-[10px] text-gray-500 sm:block">{ep.desc}</span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="flex items-center justify-between border-t border-gray-800 px-4 py-3">
-                        <span className="flex items-center gap-1.5 text-[10px] text-gray-400">
-                            <HiOutlineStatusOnline className="h-3 w-3 text-emerald-400" /> 99.9% uptime SLA
-                        </span>
-                        <span className="text-[10px] text-brand">Read docs →</span>
-                    </div>
-                </div>
-            </div>
-        </BrowserFrame>
     );
 }
 
