@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
+import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
     HiOutlineCalendar,
     HiOutlineChartSquareBar,
@@ -36,29 +36,9 @@ export default function DashboardPreview() {
     const [activeTab, setActiveTab] = useState("admin");
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const el = sectionRef.current;
-            if (!el) return;
-
-            gsap.fromTo(
-                el.querySelectorAll("[data-gsap]"),
-                { opacity: 0, y: 40 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.9,
-                    stagger: 0.1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        }, sectionRef);
-
-        return () => ctx.revert();
+        const el = sectionRef.current;
+        if (!el) return;
+        return createSectionReveal(el, { y: 40, stagger: 0.1 });
     }, []);
 
     return (

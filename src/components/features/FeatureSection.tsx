@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineTicket,
     HiOutlineViewGrid,
@@ -142,7 +143,9 @@ export default function FeatureSection() {
         if (!st) return;
         const progress = i / last;
         const target = st.start + progress * (st.end - st.start);
-        window.scrollTo({ top: target, behavior: "smooth" });
+        const smoother = ScrollSmoother.get();
+        if (smoother) smoother.scrollTo(target, true);
+        else window.scrollTo({ top: target, behavior: "smooth" });
     };
 
     const windowStart = Math.min(
@@ -178,7 +181,8 @@ export default function FeatureSection() {
 
         const mm = gsap.matchMedia();
 
-        mm.add("(min-width: 1024px)", () => {
+        const cancel = onSmootherReady(() => {
+            mm.add("(min-width: 1024px)", () => {
             // Distance the section stays pinned while scrolling through
             // every feature, one step at a time.
             const distance = last * 420;
@@ -214,6 +218,7 @@ export default function FeatureSection() {
                             trigger: section,
                             start: "top 88%",
                             toggleActions: "play none none none",
+                            once: true,
                         },
                     }
                 );
@@ -231,6 +236,7 @@ export default function FeatureSection() {
                         trigger: section,
                         start: "top 82%",
                         toggleActions: "play none none none",
+                        once: true,
                     },
                 }
             );
@@ -255,6 +261,7 @@ export default function FeatureSection() {
                             trigger: section,
                             start: "top 85%",
                             toggleActions: "play none none none",
+                            once: true,
                         },
                     }
                 );
@@ -275,6 +282,7 @@ export default function FeatureSection() {
                             trigger: section,
                             start: "top 82%",
                             toggleActions: "play none none none",
+                            once: true,
                         },
                     }
                 );
@@ -301,8 +309,12 @@ export default function FeatureSection() {
 
             return () => observer.disconnect();
         });
+        });
 
-        return () => mm.revert();
+        return () => {
+            cancel();
+            mm.revert();
+        };
     }, [last]);
 
     const ActiveIcon = features[activeIndex].icon;

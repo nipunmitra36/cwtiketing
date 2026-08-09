@@ -19,10 +19,10 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
     smootherRef.current = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 2.6,
-      speed: 1,
+      smooth: 1.2,
+      speed: 1.05,
       effects: true,
-      smoothTouch: 1.2,
+      smoothTouch: 0.9,
     });
 
     markSmootherReady();
@@ -32,21 +32,31 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
 
     const lazyImages = document.querySelectorAll("img[loading='lazy']");
 
+    // Images lazy-loading mid-scroll used to call ScrollTrigger.refresh() on
+    // every hit, forcing a full re-measure of all triggers while the user was
+    // still scrolling (layout thrash → jank). Debounce it.
+    let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+    const debouncedRefresh = () => {
+        if (refreshTimer) clearTimeout(refreshTimer);
+        refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 250);
+    };
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            ScrollTrigger.refresh();
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: "100px" }
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    debouncedRefresh();
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { rootMargin: "100px" }
     );
 
     lazyImages.forEach((img) => observer.observe(img));
 
     return () => {
+      if (refreshTimer) clearTimeout(refreshTimer);
       window.removeEventListener("load", handleLoad);
       observer.disconnect();
       smootherRef.current?.kill();

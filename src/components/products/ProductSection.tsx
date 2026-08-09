@@ -151,6 +151,7 @@ function FeaturePanel({
                         trigger: wrapper,
                         start: "top 80%",
                         toggleActions: "play none none none",
+                        once: true,
                     },
                 });
                 if (text) tl.fromTo(text, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0);
@@ -367,7 +368,7 @@ export default function ScrollFeatures() {
                         trigger: stack,
                         start: "top top",
                         end: () => "+=" + (features.length - 1) * window.innerHeight * speed,
-                        scrub: 0.6,
+                        scrub: 0.4,
                         pin: true,
                         anticipatePin: 1,
                         onUpdate: (self) => {

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap } from "@/lib/gsap";
+import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
   HiOutlineX,
   HiOutlineCheck,
@@ -35,29 +35,9 @@ export default function ProblemSolution() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const el = sectionRef.current;
-      if (!el) return;
-
-      gsap.fromTo(
-        el.querySelectorAll("[data-gsap]"),
-        { opacity: 0, y: 36 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.08,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
+    const el = sectionRef.current;
+    if (!el) return;
+    return createSectionReveal(el, { y: 36, stagger: 0.08 });
   }, []);
 
   return (

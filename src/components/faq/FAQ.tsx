@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineChevronDown,
   HiOutlineArrowRight,
@@ -67,34 +68,38 @@ export default function FAQ() {
 
     useEffect(() => {
         const mm = gsap.matchMedia();
-        const ctx = gsap.context(() => {
-            const el = sectionRef.current;
-            if (!el) return;
+        let ctx: gsap.Context | null = null;
 
-            gsap.fromTo(
-                el.querySelectorAll("[data-gsap]"),
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.9,
-                    stagger: 0.06,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
+        const cancel = onSmootherReady(() => {
+            ctx = gsap.context(() => {
+                const el = sectionRef.current;
+                if (!el) return;
 
-            // Make the left column behave like CSS `position: sticky` while the
-            // FAQ accordion scrolls (desktop only). ScrollTrigger pins do not
-            // work reliably inside ScrollSmoother (spacer/layout jumps), so we
-            // emulate sticky by nudging the column with a transform: it stays at
-            // the top offset while the accordion scrolls, then rides up together
-            // with the last FAQ item instead of lingering until the section end.
-            mm.add("(min-width: 1024px)", () => {
+                gsap.fromTo(
+                    el.querySelectorAll("[data-gsap]"),
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.9,
+                        stagger: 0.06,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 80%",
+                            toggleActions: "play none none none",
+                            once: true,
+                        },
+                    }
+                );
+
+                // Make the left column behave like CSS `position: sticky` while the
+                // FAQ accordion scrolls (desktop only). ScrollTrigger pins do not
+                // work reliably inside ScrollSmoother (spacer/layout jumps), so we
+                // emulate sticky by nudging the column with a transform: it stays at
+                // the top offset while the accordion scrolls, then rides up together
+                // with the last FAQ item instead of lingering until the section end.
+                mm.add("(min-width: 1024px)", () => {
                 const sticky = stickyRef.current;
                 const accordion = accordionRef.current;
                 const section = sectionRef.current;
@@ -142,10 +147,12 @@ export default function FAQ() {
                     sticky.style.transform = "";
                 };
             });
-        }, sectionRef);
+            }, sectionRef);
+        });
 
         return () => {
-            ctx.revert();
+            cancel();
+            ctx?.revert();
             mm.revert();
         };
     }, []);

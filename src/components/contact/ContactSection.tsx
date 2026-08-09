@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineMail,
     HiOutlinePhone,
@@ -73,52 +74,61 @@ export default function ContactSection() {
     });
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const formEl = formRef.current;
-            const infoEl = infoRef.current;
+        let ctx: gsap.Context | null = null;
 
-            if (formEl) {
-                gsap.fromTo(
-                    formEl,
-                    { opacity: 0, y: 40 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.7,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: sectionRef.current,
-                            start: "top 80%",
-                            toggleActions: "play none none none",
-                        },
-                    }
-                );
-            }
+        const cancel = onSmootherReady(() => {
+            ctx = gsap.context(() => {
+                const formEl = formRef.current;
+                const infoEl = infoRef.current;
 
-            if (infoEl) {
-                const items = infoEl.querySelectorAll("[data-info-card]");
-                if (items.length) {
+                if (formEl) {
                     gsap.fromTo(
-                        items,
-                        { opacity: 0, x: 30 },
+                        formEl,
+                        { opacity: 0, y: 40 },
                         {
                             opacity: 1,
-                            x: 0,
-                            duration: 0.5,
-                            stagger: 0.1,
-                            ease: "power2.out",
+                            y: 0,
+                            duration: 0.7,
+                            ease: "power3.out",
                             scrollTrigger: {
                                 trigger: sectionRef.current,
-                                start: "top 75%",
+                                start: "top 80%",
                                 toggleActions: "play none none none",
+                                once: true,
                             },
                         }
                     );
                 }
-            }
-        }, sectionRef);
 
-        return () => ctx.revert();
+                if (infoEl) {
+                    const items = infoEl.querySelectorAll("[data-info-card]");
+                    if (items.length) {
+                        gsap.fromTo(
+                            items,
+                            { opacity: 0, x: 30 },
+                            {
+                                opacity: 1,
+                                x: 0,
+                                duration: 0.5,
+                                stagger: 0.1,
+                                ease: "power2.out",
+                                scrollTrigger: {
+                                    trigger: sectionRef.current,
+                                    start: "top 75%",
+                                    toggleActions: "play none none none",
+                                    once: true,
+                                },
+                            }
+                        );
+                    }
+                }
+            }, sectionRef);
+        });
+
+        return () => {
+            cancel();
+            ctx?.revert();
+        };
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {

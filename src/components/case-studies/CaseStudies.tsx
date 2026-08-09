@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { gsap } from "@/lib/gsap";
+import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
     HiOutlineArrowRight,
     HiOutlineArrowLeft,
@@ -71,29 +71,9 @@ export default function CaseStudies() {
     const [atEnd, setAtEnd] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const el = sectionRef.current;
-            if (!el) return;
-
-            gsap.fromTo(
-                el.querySelectorAll("[data-gsap]"),
-                { opacity: 0, y: 40 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.9,
-                    stagger: 0.12,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        }, sectionRef);
-
-        return () => ctx.revert();
+        const el = sectionRef.current;
+        if (!el) return;
+        return createSectionReveal(el, { y: 40, stagger: 0.12 });
     }, []);
 
     const updateArrowState = () => {

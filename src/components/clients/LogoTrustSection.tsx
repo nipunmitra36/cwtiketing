@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { createSectionReveal } from "@/lib/gsap/reveal";
 
 interface Logo {
   name: string;
@@ -79,29 +79,9 @@ export default function LogoTrustSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const el = sectionRef.current;
-      if (!el) return;
-
-      gsap.fromTo(
-        el.querySelectorAll("[data-gsap]"),
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
+    const el = sectionRef.current;
+    if (!el) return;
+    return createSectionReveal(el, { y: 24, stagger: 0.1, start: "top 85%" });
   }, []);
 
   return (

@@ -297,7 +297,7 @@ export default function Hero() {
             trigger: bentoRef.current,
             start: "top bottom",
             end: "bottom top",
-            scrub: 1,
+            scrub: 0.5,
           },
         });
       }
@@ -339,7 +339,7 @@ export default function Hero() {
             trigger: sectionRef.current,
             start: "top top",
             end: "bottom top",
-            scrub: 1.5,
+            scrub: 0.8,
           },
         });
       }

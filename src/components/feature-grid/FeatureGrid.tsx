@@ -120,6 +120,7 @@ export default function WorkInContext() {
                                     trigger: sectionRef.current,
                                     start: "top 65%",
                                     toggleActions: "play none none none",
+                                    once: true,
                                 },
                             }
                         );
@@ -150,10 +151,10 @@ export default function WorkInContext() {
 
                     const tl = gsap.timeline({
                         scrollTrigger: {
-                            trigger: sectionRef.current,
-                            start: "top top",
-                            end: "+=2400",
-                            scrub: 1,
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "+=2400",
+                        scrub: 0.5,
                             pin: stage,
                             anticipatePin: 1,
                         },

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineArrowRight,
   HiOutlineMail,
@@ -191,8 +192,11 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const items = footerRef.current?.querySelectorAll(".gsap-footer-item");
+    let ctx: gsap.Context | null = null;
+
+    const cancel = onSmootherReady(() => {
+      ctx = gsap.context(() => {
+        const items = footerRef.current?.querySelectorAll(".gsap-footer-item");
       if (items?.length) {
         gsap.fromTo(
           items,
@@ -248,9 +252,13 @@ export default function Footer() {
           }
         );
       }
-    }, footerRef);
+      }, footerRef);
+      });
 
-    return () => ctx.revert();
+    return () => {
+      cancel();
+      ctx?.revert();
+    };
   }, []);
 
   return (

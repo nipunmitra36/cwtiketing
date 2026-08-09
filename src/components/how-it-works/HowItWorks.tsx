@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 
 import {
     HiOutlineChat,
@@ -77,27 +78,31 @@ export default function HowItWorks() {
     const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const el = sectionRef.current;
-            if (!el) return;
+        let ctx: gsap.Context | null = null;
 
-            // ── Content reveal ──
-            gsap.fromTo(
-                el.querySelectorAll("[data-gsap]"),
-                { opacity: 0, y: 40 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.9,
-                    stagger: 0.1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
+        const cancel = onSmootherReady(() => {
+            ctx = gsap.context(() => {
+                const el = sectionRef.current;
+                if (!el) return;
+
+                // ── Content reveal ──
+                gsap.fromTo(
+                    el.querySelectorAll("[data-gsap]"),
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.9,
+                        stagger: 0.1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 80%",
+                            toggleActions: "play none none none",
+                            once: true,
+                        },
+                    }
+                );
 
             // ── Progress fill across the steps (scrubbed) ──
             const grid = el.querySelector<HTMLElement>("[data-gsap-grid]");
@@ -111,7 +116,7 @@ export default function HowItWorks() {
                     trigger: grid,
                     start: "top 72%",
                     end: "bottom 55%",
-                    scrub: 1,
+                    scrub: 0.5,
                     onUpdate(self: ScrollTrigger) {
                         if (!nodes.length) return;
                         const current = Math.min(
@@ -146,13 +151,17 @@ export default function HowItWorks() {
                         trigger: el,
                         start: "top 70%",
                         end: "bottom 55%",
-                        scrub: 0.6,
+                        scrub: 0.4,
                     },
                 });
             }
         }, sectionRef);
+        });
 
-        return () => ctx.revert();
+        return () => {
+            cancel();
+            ctx?.revert();
+        };
     }, []);
 
     return (

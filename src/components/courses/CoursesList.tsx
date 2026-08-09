@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import { courseApi } from "@/lib/redux/features/courseApi";
 import { Skeleton } from 'boneyard-js/react'
 import { Course } from "@/types/course";
@@ -15,51 +16,57 @@ export default function CoursesList() {
 
     useEffect(() => {
         if (isLoading || error) return;
+        let ctx: gsap.Context | null = null;
 
-        const ctx = gsap.context(() => {
-            // ── Heading: fade-up ──
-            if (headingRef.current) {
-                gsap.fromTo(
-                    headingRef.current,
-                    { opacity: 0, y: 40 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.7,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: headingRef.current,
-                            start: "top 85%",
-                            toggleActions: "play none none reverse",
-                        },
-                    }
-                );
-            }
+        const cancel = onSmootherReady(() => {
+            ctx = gsap.context(() => {
+                // ── Heading: fade-up ──
+                if (headingRef.current) {
+                    gsap.fromTo(
+                        headingRef.current,
+                        { opacity: 0, y: 40 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.7,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: headingRef.current,
+                                start: "top 85%",
+                                toggleActions: "play none none reverse",
+                            },
+                        }
+                    );
+                }
 
-            // ── Course cards: staggered scale-up ──
-            const cards = gridRef.current?.querySelectorAll(".gsap-course-card");
-            if (cards?.length) {
-                gsap.fromTo(
-                    cards,
-                    { opacity: 0, y: 40, scale: 0.95 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        duration: 0.9,
-                        stagger: 0.08,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: gridRef.current,
-                            start: "top 80%",
-                            toggleActions: "play none none reverse",
-                        },
-                    }
-                );
-            }
-        }, sectionRef);
+                // ── Course cards: staggered scale-up ──
+                const cards = gridRef.current?.querySelectorAll(".gsap-course-card");
+                if (cards?.length) {
+                    gsap.fromTo(
+                        cards,
+                        { opacity: 0, y: 40, scale: 0.95 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            duration: 0.9,
+                            stagger: 0.08,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: gridRef.current,
+                                start: "top 80%",
+                                toggleActions: "play none none reverse",
+                            },
+                        }
+                    );
+                }
+            }, sectionRef);
+        });
 
-        return () => ctx.revert();
+        return () => {
+            cancel();
+            ctx?.revert();
+        };
     }, [isLoading, error, courses.length]);
 
     if (error) return (
