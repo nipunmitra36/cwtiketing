@@ -10,90 +10,9 @@ import {
   HiOutlineSearch,
   HiOutlineFire,
 } from "react-icons/hi";
+import { POSTS, type BlogPost } from "./posts";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-interface Post {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  readTime: string;
-  date: string;
-  author: { name: string; initials: string; color: string };
-  featured?: boolean;
-  accent: string; // Tailwind bg class for category chip
-}
-
-// ── Mock Data ─────────────────────────────────────────────────────────────────
-const POSTS: Post[] = [
-  {
-    slug: "nextjs-app-router-patterns",
-    title: "Advanced App Router Patterns in Next.js 14",
-    excerpt:
-      "Explore server components, parallel routes, intercepting routes, and how to architect large-scale applications without prop drilling.",
-    category: "Next.js",
-    readTime: "8 min",
-    date: "May 3, 2025",
-    author: { name: "Nipun Dev", initials: "ND", color: "bg-violet-500" },
-    featured: true,
-    accent: "bg-violet-50 text-violet-700",
-  },
-  {
-    slug: "tailwind-v4-deep-dive",
-    title: "Tailwind CSS v4 — What Actually Changed",
-    excerpt:
-      "A practical breakdown of the new CSS-first config, composable variants, and the oxide engine that makes builds 10× faster.",
-    category: "CSS",
-    readTime: "6 min",
-    date: "Apr 28, 2025",
-    author: { name: "Nipun Dev", initials: "ND", color: "bg-sky-500" },
-    accent: "bg-sky-50 text-sky-700",
-  },
-  {
-    slug: "typescript-satisfies-operator",
-    title: "The `satisfies` Operator You Should Be Using",
-    excerpt:
-      "Stop using `as` for everything. The satisfies operator preserves literal types while validating shape — here's when and why.",
-    category: "TypeScript",
-    readTime: "5 min",
-    date: "Apr 19, 2025",
-    author: { name: "Nipun Dev", initials: "ND", color: "bg-blue-500" },
-    accent: "bg-blue-50 text-blue-700",
-  },
-  {
-    slug: "react-19-use-hook",
-    title: "React 19's `use()` Hook Changes Everything",
-    excerpt:
-      "Promises, context, and async data directly inside render — no more waterfall useEffects or redundant loading states.",
-    category: "React",
-    readTime: "7 min",
-    date: "Apr 10, 2025",
-    author: { name: "Nipun Dev", initials: "ND", color: "bg-cyan-500" },
-    accent: "bg-cyan-50 text-cyan-700",
-  },
-  {
-    slug: "framer-motion-layout-animations",
-    title: "Buttery-Smooth Layout Animations with Framer Motion",
-    excerpt:
-      "layoutId, AnimatePresence, and shared element transitions explained with real production examples you can copy right now.",
-    category: "Animation",
-    readTime: "9 min",
-    date: "Mar 31, 2025",
-    author: { name: "Nipun Dev", initials: "ND", color: "bg-pink-500" },
-    accent: "bg-pink-50 text-pink-700",
-  },
-  {
-    slug: "prisma-edge-runtime",
-    title: "Running Prisma on the Edge Without Losing Your Mind",
-    excerpt:
-      "Prisma Accelerate, connection pooling, and the edge-compatible driver — setting it all up in a Next.js project from scratch.",
-    category: "Database",
-    readTime: "11 min",
-    date: "Mar 22, 2025",
-    author: { name: "Nipun Dev", initials: "ND", color: "bg-emerald-500" },
-    accent: "bg-emerald-50 text-emerald-700",
-  },
-];
+type Post = BlogPost;
 
 const ALL_CATEGORIES = ["All", ...Array.from(new Set(POSTS.map((p) => p.category)))];
 
@@ -219,7 +138,7 @@ export default function BlogListPage() {
     <main className="min-h-screen bg-gray-50">
       {/* ── Hero header ── */}
       <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pb-16 pt-24 sm:px-6 lg:pt-28 lg:px-8">
           <motion.div {...fadeUp(0)} className="text-center">
             <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-[12px] font-medium text-gray-500">
               <HiOutlineTag className="h-3.5 w-3.5" />
@@ -229,8 +148,8 @@ export default function BlogListPage() {
               The Blog
             </h1>
             <p className="mx-auto max-w-xl text-[15px] leading-relaxed text-gray-500">
-              Deep-dives into Next.js, TypeScript, and modern web engineering — written for
-              developers who care about the details.
+              Insights and guides on online bus ticketing, transport operations, and booking
+              technology — written for operators and travellers who care about the details.
             </p>
           </motion.div>
 
@@ -250,7 +169,7 @@ export default function BlogListPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
 
         {/* ── Category pills ── */}
         <motion.div {...fadeUp(0.05)} className="mb-10 flex flex-wrap gap-2">

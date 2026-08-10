@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineArrowRight,
@@ -193,6 +193,7 @@ export default function Footer() {
 
   useEffect(() => {
     let ctx: gsap.Context | null = null;
+    const refreshId = requestAnimationFrame(() => ScrollTrigger.refresh());
 
     const cancel = onSmootherReady(() => {
       ctx = gsap.context(() => {
@@ -256,6 +257,7 @@ export default function Footer() {
       });
 
     return () => {
+      cancelAnimationFrame(refreshId);
       cancel();
       ctx?.revert();
     };

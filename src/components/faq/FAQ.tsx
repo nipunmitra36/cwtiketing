@@ -187,19 +187,19 @@ export default function FAQ() {
                         {/* Contact card (desktop only) */}
                         <div
                             data-gsap
-                            className="relative mt-8 hidden overflow-hidden rounded-3xl border border-gray-100 bg-white p-6 shadow-lg shadow-gray-200/60 lg:block"
+                            className="relative mt-8 hidden overflow-hidden rounded-3xl border border-blue-900 bg-blue-900 p-6 shadow-lg shadow-blue-900/30 lg:block"
                         >
-                            <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-brand-light blur-2xl" />
+                            <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-500/30 blur-2xl" />
 
                             <div className="relative flex items-start gap-4">
-                                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand text-white shadow-lg shadow-brand/30">
+                                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-brand shadow-lg shadow-blue-950/30">
                                     <HiOutlineChatAlt2 className="h-5 w-5" />
                                 </span>
                                 <div>
-                                    <p className="text-[16px] font-semibold text-text-dark">
+                                    <p className="text-[16px] font-semibold text-white">
                                         Still have questions?
                                     </p>
-                                    <p className="mt-1 text-[13px] leading-relaxed text-text-muted">
+                                    <p className="mt-1 text-[13px] leading-relaxed text-blue-200">
                                         Talk to a booking expert directly — no waiting,
                                         no forms.
                                     </p>
@@ -218,7 +218,7 @@ export default function FAQ() {
                                 </a>
                                 <a
                                     href="/contact"
-                                    className="group flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-[13px] font-semibold text-text-dark transition-all hover:border-brand/40 hover:text-brand active:scale-[0.98]"
+                                    className="group flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-[13px] font-semibold text-white backdrop-blur transition-all hover:bg-white/20 active:scale-[0.98]"
                                 >
                                     Book a Free Demo
                                     <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />

@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useParams } from "next/navigation";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
+import { ScrollTrigger } from "@/lib/gsap";
+import { POSTS } from "../posts";
 import {
   HiOutlineArrowLeft,
   HiOutlineClock,
@@ -18,162 +21,6 @@ import {
 //   SiTwitter,
 //   SiLinkedin,
 // } from "react-icons/si";
-
-// ── Types ─────────────────────────────────────────────────────────────────────
-interface RelatedPost {
-  slug: string;
-  title: string;
-  category: string;
-  readTime: string;
-  accent: string;
-}
-
-// ── Mock Data ─────────────────────────────────────────────────────────────────
-const POST = {
-  title: "Advanced App Router Patterns in Next.js 14",
-  excerpt:
-    "Explore server components, parallel routes, intercepting routes, and how to architect large-scale applications without prop drilling.",
-  category: "Next.js",
-  readTime: "8 min",
-  date: "May 3, 2025",
-  accent: "bg-violet-50 text-violet-700",
-  accentBorder: "border-violet-200",
-  accentSolid: "bg-violet-600",
-  author: {
-    name: "Nipun Dev",
-    initials: "ND",
-    role: "Full-Stack Engineer",
-    color: "bg-violet-500",
-    bio: "Building scalable web products with Next.js, TypeScript, and a passion for clean architecture.",
-  },
-  tags: ["Next.js", "App Router", "React", "TypeScript", "Architecture"],
-  tableOfContents: [
-    { id: "intro", label: "Introduction" },
-    { id: "server-components", label: "Server Components" },
-    { id: "parallel-routes", label: "Parallel Routes" },
-    { id: "intercepting-routes", label: "Intercepting Routes" },
-    { id: "patterns", label: "Architectural Patterns" },
-    { id: "conclusion", label: "Conclusion" },
-  ],
-  sections: [
-    {
-      id: "intro",
-      heading: "Introduction",
-      body: `The Next.js App Router, introduced in v13 and stabilised in v14, fundamentally changes how we think about React applications. Instead of a single client-side component tree, you now compose a hybrid graph of server and client components — each rendered in the most efficient environment for its job.\n\nThis guide assumes you're comfortable with React fundamentals and have a basic Next.js project running. We'll go deep on the patterns that make the App Router shine at scale.`,
-      code: null,
-    },
-    {
-      id: "server-components",
-      heading: "Server Components",
-      body: `React Server Components (RSC) run exclusively on the server. They can read files, query databases, and call APIs directly — with zero JavaScript shipped to the browser for the component itself. The key insight: async/await works natively inside any server component.`,
-      code: `// app/blog/page.tsx — pure Server Component
-export default async function BlogPage() {
-  // Direct DB call — no useEffect, no loading state
-  const posts = await db.post.findMany({ orderBy: { date: "desc" } });
-
-  return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
-  );
-}`,
-    },
-    {
-      id: "parallel-routes",
-      heading: "Parallel Routes",
-      body: `Parallel routes let you render multiple pages in the same layout simultaneously using named slots (folders prefixed with @). Each slot streams independently, so a slow sidebar won't block a fast main panel.`,
-      code: `// app/dashboard/layout.tsx
-export default function DashboardLayout({
-  children,
-  analytics,   // @analytics slot
-  team,        // @team slot
-}: {
-  children: React.ReactNode;
-  analytics: React.ReactNode;
-  team: React.ReactNode;
-}) {
-  return (
-    <div className="grid grid-cols-3 gap-6">
-      <main className="col-span-2">{children}</main>
-      <aside className="space-y-4">
-        {analytics}
-        {team}
-      </aside>
-    </div>
-  );
-}`,
-    },
-    {
-      id: "intercepting-routes",
-      heading: "Intercepting Routes",
-      body: `Intercepting routes (.) (..) (...) allow you to load a route within the context of the current layout — perfect for modals that should be deep-linkable. Navigate directly to /photo/42 and you get the full page; click it from the gallery and it renders in a modal.`,
-      code: `// app/gallery/@modal/(.)photo/[id]/page.tsx
-import { PhotoModal } from "@/components/PhotoModal";
-
-export default function InterceptedPhoto({ params }: { params: { id: string } }) {
-  return <PhotoModal id={params.id} />;
-}
-
-// app/gallery/photo/[id]/page.tsx  ← full-page fallback
-export default function FullPhoto({ params }: { params: { id: string } }) {
-  return <PhotoPage id={params.id} />;
-}`,
-    },
-    {
-      id: "patterns",
-      heading: "Architectural Patterns",
-      body: `Combining these primitives unlocks composable, scalable architectures:\n\n**Data ownership at the leaf** — push data fetching as close to the component that needs it as possible. Avoid prop drilling by letting server components fetch their own data.\n\n**Collocated mutations** — use Server Actions defined in the same file as the form. No separate API route, no manual fetch.\n\n**Streaming with Suspense** — wrap expensive server components in <Suspense fallback={<Skeleton />}> to stream HTML progressively. Users see content instantly instead of waiting for the slowest query.`,
-      code: `// Collocated Server Action
-async function createPost(formData: FormData) {
-  "use server";
-  const title = formData.get("title") as string;
-  await db.post.create({ data: { title } });
-  revalidatePath("/blog");
-}
-
-export default function NewPostForm() {
-  return (
-    <form action={createPost}>
-      <input name="title" placeholder="Post title" />
-      <button type="submit">Publish</button>
-    </form>
-  );
-}`,
-    },
-    {
-      id: "conclusion",
-      heading: "Conclusion",
-      body: `The App Router isn't just a new file convention — it's a new mental model. Embrace the server/client boundary, lean into co-location, and let Suspense handle the loading states you used to write by hand.\n\nStart small: migrate one route, add one Server Action, wrap one slow component in Suspense. The architecture compounds quickly, and your codebase will thank you.`,
-      code: null,
-    },
-  ],
-};
-
-const RELATED: RelatedPost[] = [
-  {
-    slug: "react-19-use-hook",
-    title: "React 19's `use()` Hook Changes Everything",
-    category: "React",
-    readTime: "7 min",
-    accent: "bg-cyan-50 text-cyan-700",
-  },
-  {
-    slug: "typescript-satisfies-operator",
-    title: "The `satisfies` Operator You Should Be Using",
-    category: "TypeScript",
-    readTime: "5 min",
-    accent: "bg-blue-50 text-blue-700",
-  },
-  {
-    slug: "tailwind-v4-deep-dive",
-    title: "Tailwind CSS v4 — What Actually Changed",
-    category: "CSS",
-    readTime: "6 min",
-    accent: "bg-sky-50 text-sky-700",
-  },
-];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -245,6 +92,16 @@ function TableOfContents({
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function BlogPostPage() {
+  const params = useParams<{ slug: string }>();
+  const post = POSTS.find((p) => p.slug === params.slug) ?? POSTS[0];
+
+  const related = useMemo(() => {
+    const others = POSTS.filter((p) => p.slug !== post.slug);
+    const sameCat = others.filter((p) => p.category === post.category);
+    const rest = others.filter((p) => p.category !== post.category);
+    return [...sameCat, ...rest].slice(0, 3);
+  }, [post]);
+
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [likeCount, setLikeCount] = useState(148);
@@ -252,6 +109,27 @@ export default function BlogPostPage() {
   const [scrollPct, setScrollPct] = useState(0);
   const [showTop, setShowTop] = useState(false);
   const articleRef = useRef<HTMLDivElement>(null);
+  const tocRef = useRef<HTMLDivElement>(null);
+
+  // Pin the "On this page" TOC while scrolling through the article.
+  // position: sticky is unreliable here because GSAP ScrollSmoother
+  // transforms the content, so we pin via ScrollTrigger instead.
+  useEffect(() => {
+    const toc = tocRef.current;
+    const article = articleRef.current;
+    if (!toc || !article) return;
+
+    const trigger = ScrollTrigger.create({
+      trigger: article,
+      start: "top 80",
+      end: "bottom bottom",
+      pin: toc,
+      pinSpacing: false,
+      anticipatePin: 1,
+    });
+
+    return () => trigger.kill();
+  }, [post]);
 
   // Reading progress + active TOC section
   useEffect(() => {
@@ -262,7 +140,7 @@ export default function BlogPostPage() {
       setScrollPct(total > 0 ? (scrolled / total) * 100 : 0);
       setShowTop(scrolled > 400);
 
-      POST.tableOfContents.forEach(({ id }) => {
+      post.tableOfContents.forEach(({ id }) => {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
@@ -272,7 +150,7 @@ export default function BlogPostPage() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [post]);
 
   const handleLike = () => {
     setLiked((p) => !p);
@@ -288,7 +166,7 @@ export default function BlogPostPage() {
       />
 
       {/* ── Back link ── */}
-      <div className="mx-auto max-w-5xl px-4 pt-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:pt-28 lg:px-8">
         <motion.div {...fadeUp(0)}>
           <Link
             href="/blog"
@@ -301,18 +179,18 @@ export default function BlogPostPage() {
       </div>
 
       {/* ── Hero ── */}
-      <header className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+      <header className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <motion.div {...fadeUp(0.05)} className="mb-5 flex flex-wrap items-center gap-3">
-          <span className={`rounded-full px-3 py-1 text-[12px] font-semibold ${POST.accent}`}>
-            {POST.category}
+          <span className={`rounded-full px-3 py-1 text-[12px] font-semibold ${post.accent}`}>
+            {post.category}
           </span>
           <span className="flex items-center gap-1.5 text-[12px] text-gray-400">
             <HiOutlineClock className="h-3.5 w-3.5" />
-            {POST.readTime} read
+            {post.readTime} read
           </span>
           <span className="flex items-center gap-1.5 text-[12px] text-gray-400">
             <HiOutlineCalendar className="h-3.5 w-3.5" />
-            {POST.date}
+            {post.date}
           </span>
         </motion.div>
 
@@ -320,14 +198,14 @@ export default function BlogPostPage() {
           {...fadeUp(0.08)}
           className="mb-5 text-3xl font-medium leading-tight tracking-tight text-gray-900 sm:text-4xl lg:text-5xl"
         >
-          {POST.title}
+          {post.title}
         </motion.h1>
 
         <motion.p
           {...fadeUp(0.11)}
           className="mb-8 max-w-2xl text-[15px] leading-relaxed text-gray-500"
         >
-          {POST.excerpt}
+          {post.excerpt}
         </motion.p>
 
         {/* Author + actions row */}
@@ -338,13 +216,13 @@ export default function BlogPostPage() {
           {/* Author */}
           <div className="flex items-center gap-3">
             <span
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[13px] font-medium text-white ${POST.author.color}`}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[13px] font-medium text-white ${post.author.color}`}
             >
-              {POST.author.initials}
+              {post.author.initials}
             </span>
             <div>
-              <p className="text-[13px] font-semibold text-gray-900">{POST.author.name}</p>
-              <p className="text-[11px] text-gray-400">{POST.author.role}</p>
+              <p className="text-[13px] font-semibold text-gray-900">{post.author.name}</p>
+              <p className="text-[11px] text-gray-400">{post.author.role}</p>
             </div>
           </div>
 
@@ -399,31 +277,31 @@ export default function BlogPostPage() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.6, delay: 0.15 } }}
-        className="mx-auto mb-12 max-w-5xl px-4 sm:px-6 lg:px-8"
+        className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8"
       >
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand via-brand-hover to-brand-dark p-12 shadow-lg">
           <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full bg-white/10" />
           <div className="pointer-events-none absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-white/10" />
           <p className="relative text-[15px] font-medium leading-relaxed text-white/90 lg:text-[17px]">
-            "{POST.excerpt}"
+            &ldquo;{post.excerpt}&rdquo;
           </p>
         </div>
       </motion.div>
 
       {/* ── Body ── */}
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex gap-12">
 
           {/* Sticky TOC — desktop only */}
           <aside className="hidden w-52 shrink-0 lg:block">
-            <div className="sticky top-24">
-              <TableOfContents items={POST.tableOfContents} activeId={activeId} />
+            <div ref={tocRef}>
+              <TableOfContents items={post.tableOfContents} activeId={activeId} />
             </div>
           </aside>
 
           {/* Article content */}
-          <article ref={articleRef} className="min-w-0 flex-1 pb-20">
-            {POST.sections.map((section, i) => (
+          <article ref={articleRef} className="min-w-0 flex-1 pb-20 xl:max-w-3xl">
+            {post.sections.map((section, i) => (
               <motion.section
                 key={section.id}
                 id={section.id}
@@ -451,7 +329,7 @@ export default function BlogPostPage() {
             {/* Tags */}
             <div className="mb-10 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-8">
               <HiOutlineTag className="h-4 w-4 text-gray-400" />
-              {POST.tags.map((tag) => (
+              {post.tags.map((tag) => (
                 <span
                   key={tag}
                   className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-[12px] font-medium text-gray-600"
@@ -464,14 +342,14 @@ export default function BlogPostPage() {
             {/* Author bio card */}
             <div className="mb-14 flex gap-4 rounded-2xl border border-gray-200 bg-gray-50 p-6">
               <span
-                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-medium text-white ${POST.author.color}`}
+                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-medium text-white ${post.author.color}`}
               >
-                {POST.author.initials}
+                {post.author.initials}
               </span>
               <div>
-                <p className="mb-0.5 text-[14px] font-medium text-gray-900">{POST.author.name}</p>
-                <p className="mb-2 text-[12px] text-gray-400">{POST.author.role}</p>
-                <p className="text-[13px] leading-relaxed text-gray-500">{POST.author.bio}</p>
+                <p className="mb-0.5 text-[14px] font-medium text-gray-900">{post.author.name}</p>
+                <p className="mb-2 text-[12px] text-gray-400">{post.author.role}</p>
+                <p className="text-[13px] leading-relaxed text-gray-500">{post.author.bio}</p>
               </div>
             </div>
 
@@ -479,7 +357,7 @@ export default function BlogPostPage() {
             <div>
               <h3 className="mb-5 text-[15px] font-medium text-gray-900">Related articles</h3>
               <div className="grid gap-4 sm:grid-cols-3">
-                {RELATED.map((r) => (
+                {related.map((r) => (
                   <Link
                     key={r.slug}
                     href={`/blog/${r.slug}`}

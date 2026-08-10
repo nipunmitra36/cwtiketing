@@ -150,7 +150,7 @@ export default function ContactPage() {
 
       {/* ── Hero header ── */}
       <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pb-14 pt-24 sm:px-6 lg:pt-28 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } }}

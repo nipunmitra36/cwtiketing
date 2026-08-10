@@ -239,7 +239,7 @@ export default function SingleProductPage() {
 
       {/* ── Breadcrumb ── */}
       <div className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pb-3 pt-24 sm:px-6 lg:pt-28 lg:px-8">
           <div className="flex items-center gap-2 text-[13px] text-gray-400">
             <Link href="/" className="transition hover:text-gray-700">Home</Link>
             <span>/</span>
