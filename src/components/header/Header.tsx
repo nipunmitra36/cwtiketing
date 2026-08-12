@@ -53,7 +53,7 @@ const NAV_ITEMS: NavItem[] = [
       {
         label: "Bus Ticketing System",
         desc: "Routes, seats, fares & bookings",
-        href: "/services/bus-ticketing",
+        href: "/bus-ticketing-system",
         icon: <HiOutlineTruck className="h-5 w-5" />,
       },
       {
