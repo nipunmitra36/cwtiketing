@@ -330,7 +330,7 @@ function CargoMock() {
         <div className="mt-3">
           {steps.map((st) => (
             <div key={st.t} className="relative flex items-center gap-2.5 pb-3 last:pb-0">
-              {st.s !== "todo" ? (
+              {st.s === "done" ? (
                 <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                   <HiOutlineCheck className="h-2.5 w-2.5" />
                 </span>
