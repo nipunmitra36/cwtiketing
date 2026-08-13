@@ -14,7 +14,7 @@ import { FaWhatsapp } from "react-icons/fa";
 const faqs = [
     {
         q: "How long does it take to launch my booking platform?",
-        a: "Most operators go live within 4–6 weeks. The timeline depends on your requirements, integrations, and data migration. We'll provide a clear timeline during our initial consultation.",
+        a: "Most operators go live within 2–3 weeks. The timeline depends on your requirements, integrations, and data migration. We'll provide a clear timeline during our initial consultation.",
     },
     {
         q: "Can I customize the booking flow and branding?",

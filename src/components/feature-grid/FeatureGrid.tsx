@@ -4,66 +4,52 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
-    HiOutlineMap,
+    HiOutlineDeviceMobile,
     HiOutlineTicket,
-    HiOutlineChatAlt2,
-    HiOutlineTrendingUp,
-    HiOutlineTruck,
-    HiOutlineCalendar,
+    HiOutlineLocationMarker,
+    HiOutlineCog,
+    HiOutlineShoppingCart,
+    HiOutlineCreditCard,
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
 interface FloatingCard {
     icon: IconType;
     title: string;
-    subtitle: string;
     // position as % of the stage, from the relevant edges
     style: React.CSSProperties;
-    accent: "bars" | "dot" | "quote";
 }
 
 const cards: FloatingCard[] = [
     {
-        icon: HiOutlineMap,
-        title: "Route Map",
-        subtitle: "18 active routes",
+        icon: HiOutlineDeviceMobile,
+        title: "Passenger & Driver Mobile Apps",
         style: { top: "8%", left: "2%" },
-        accent: "dot",
     },
     {
         icon: HiOutlineTicket,
-        title: "Live Bookings",
-        subtitle: "482 seats sold today",
+        title: "Online Bus Ticketing & Booking",
         style: { top: "8%", right: "2%" },
-        accent: "bars",
     },
     {
-        icon: HiOutlineChatAlt2,
-        title: "Customer Chat",
-        subtitle: "“Is 6A window free?”",
+        icon: HiOutlineLocationMarker,
+        title: "Bus Tracking & Fleet Management",
         style: { top: "42%", left: "2%" },
-        accent: "quote",
     },
     {
-        icon: HiOutlineTrendingUp,
-        title: "Revenue",
-        subtitle: "৳120,760 this week",
+        icon: HiOutlineCog,
+        title: "Bus Operator Admin & Management",
         style: { top: "42%", right: "2%" },
-        accent: "bars",
     },
     {
-        icon: HiOutlineTruck,
-        title: "Driver Panel",
-        subtitle: "12 drivers on trip",
+        icon: HiOutlineShoppingCart,
+        title: "POS, Counter & Agent Management",
         style: { bottom: "14%", left: "4%" },
-        accent: "dot",
     },
     {
-        icon: HiOutlineCalendar,
-        title: "Today’s Trips",
-        subtitle: "36 departures left",
+        icon: HiOutlineCreditCard,
+        title: "Payments & Customer Notifications",
         style: { bottom: "14%", right: "4%" },
-        accent: "dot",
     },
 ];
 
@@ -128,14 +114,15 @@ export default function WorkInContext() {
                     }
 
                     // Compute how far each card needs to travel to reach the
-                    // avatar's center, so this works at any viewport size.
+                    // man's lower body (so they tuck in under him), at any
+                    // viewport size.
                     const stage = stageRef.current;
                     const avatar = avatarWrapRef.current;
                     if (!stage || !avatar) return;
 
                     const avatarBox = avatar.getBoundingClientRect();
                     const avatarCenterX = avatarBox.left + avatarBox.width / 2;
-                    const avatarCenterY = avatarBox.top + avatarBox.height / 2;
+                    const avatarCenterY = avatarBox.top + avatarBox.height * 0.85;
 
                     const deltas = cardRefs.current.map((el) => {
                         if (!el) return { dx: 0, dy: 0 };
@@ -145,7 +132,7 @@ export default function WorkInContext() {
                         return { dx: avatarCenterX - cx, dy: avatarCenterY - cy };
                     });
 
-                    gsap.set(colorAvatarRef.current, { opacity: 0, scale: 0.94 });
+                    gsap.set(colorAvatarRef.current, { opacity: 0 });
                     gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
                     gsap.set(textPanelRef.current, { opacity: 0, x: -32 });
 
@@ -153,14 +140,14 @@ export default function WorkInContext() {
                         scrollTrigger: {
                         trigger: sectionRef.current,
                         start: "top top",
-                        end: "+=2400",
+                        end: "+=1400",
                         scrub: 0.5,
                             pin: stage,
                             anticipatePin: 1,
                         },
                     });
 
-                    // Phase 1 — cards drift inward and dissolve into the avatar
+                    // Phase 1 — cards drift inward and dissolve into the man
                     tl.to(
                         cardRefs.current,
                         {
@@ -168,19 +155,23 @@ export default function WorkInContext() {
                             y: (i) => deltas[i].dy,
                             scale: 0.15,
                             opacity: 0,
-                            duration: 1,
-                            stagger: 0.05,
+                            duration: 0.85,
+                            stagger: 0.04,
                             ease: "power1.in",
                         },
                         0
                     );
 
-                    // Phase 1 — the outline avatar burns off, the color one lights up
-                    tl.to(whiteAvatarRef.current, { opacity: 0, scale: 0.9, duration: 1 }, 0.1);
+                    // Phase 1 — white cross-fades to color
+                    tl.to(
+                        whiteAvatarRef.current,
+                        { opacity: 0, duration: 1, ease: "power1.inOut" },
+                        0.05
+                    );
                     tl.to(
                         colorAvatarRef.current,
-                        { opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
-                        0.15
+                        { opacity: 1, duration: 1, ease: "power1.inOut" },
+                        0.05
                     );
                     tl.to(
                         glowRef.current,
@@ -189,11 +180,11 @@ export default function WorkInContext() {
                     );
 
                     // Phase 2 — avatar settles left, the payoff copy slides in
-                    tl.to(avatarWrapRef.current, { x: "-16%", duration: 0.7, ease: "power2.inOut" }, 1.0);
+                    tl.to(avatarWrapRef.current, { x: "-16%", duration: 0.7, ease: "power2.inOut" }, 1.1);
                     tl.to(
                         textPanelRef.current,
                         { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" },
-                        1.1
+                        1.2
                     );
                 }
             );
@@ -225,7 +216,7 @@ export default function WorkInContext() {
                 </div>
 
                 {/* Stage: floating cards + avatar + payoff copy */}
-                <div className="relative mx-auto h-[420px] w-full max-w-4xl sm:h-[480px] lg:h-[min(64vh,640px)]">
+                <div className="relative mx-auto h-[420px] w-full max-w-4xl sm:h-[480px] lg:h-[min(70vh,700px)]">
                     {/* Cards — hidden on small screens to keep things calm on mobile */}
                     <div className="pointer-events-none absolute inset-0 hidden lg:block">
                         {cards.map((card, i) => {
@@ -237,33 +228,16 @@ export default function WorkInContext() {
                                         cardRefs.current[i] = el;
                                     }}
                                     style={card.style}
-                                    className="absolute w-[180px] rounded-xl border border-gray-200 bg-white p-3 shadow-[0_1px_2px_rgba(17,17,17,0.04),0_10px_24px_-12px_rgba(17,17,17,0.16)]"
+                                    className="absolute w-[220px] rounded-xl border border-gray-200 bg-white p-3 shadow-[0_1px_2px_rgba(17,17,17,0.04),0_10px_24px_-12px_rgba(17,17,17,0.16)]"
                                 >
                                     <div className="flex items-center gap-2">
                                         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand">
                                             <Icon className="h-4 w-4" />
                                         </span>
-                                        <p className="text-[12.5px] font-medium text-text-dark">
+                                        <p className="text-[12.5px] font-medium leading-snug text-text-dark">
                                             {card.title}
                                         </p>
                                     </div>
-
-                                    {card.accent === "bars" && (
-                                        <div className="mt-2 flex items-end gap-1 pl-9">
-                                            {[6, 10, 7, 12].map((h, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className="w-2 rounded-sm bg-brand/60"
-                                                    style={{ height: h * 2 }}
-                                                />
-                                            ))}
-                                        </div>
-                                    )}
-                                    {card.accent !== "bars" && (
-                                        <p className="mt-1.5 pl-9 text-[11px] leading-snug text-text-muted">
-                                            {card.subtitle}
-                                        </p>
-                                    )}
                                 </div>
                             );
                         })}
@@ -271,7 +245,7 @@ export default function WorkInContext() {
 
                     {/* Avatar */}
                     <div className="absolute inset-0 flex items-end justify-center">
-                        <div ref={avatarWrapRef} className="relative h-[380px] w-[380px] sm:h-[460px] sm:w-[460px] lg:h-[min(62vh,580px)] lg:w-[min(62vh,580px)]">
+                        <div ref={avatarWrapRef} className="relative h-[400px] w-[400px] sm:h-[480px] sm:w-[480px] lg:h-[min(70vh,680px)] lg:w-[min(70vh,680px)]">
                             <div
                                 ref={glowRef}
                                 className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand/30 to-sky-400/20 blur-3xl"

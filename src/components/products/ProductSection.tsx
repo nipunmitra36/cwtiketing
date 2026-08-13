@@ -13,7 +13,6 @@ import {
     HiOutlineTrendingUp,
     HiOutlineCalendar,
     HiOutlineCube,
-    HiOutlineUserGroup,
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
@@ -99,16 +98,6 @@ const features: Feature[] = [
             "Live status updates keep senders, drivers, and recipients on the same page from pickup to drop-off.",
         icon: HiOutlineCube,
         variant: "dark",
-    },
-    {
-        title: "Customer Management System",
-        desc: "Centralized customer records, booking history, and support in one dashboard.",
-        stat: "1",
-        statLabel: "Single view of every customer",
-        caption:
-            "Booking history, preferences, and support tickets live in one record, not five different tools.",
-        icon: HiOutlineUserGroup,
-        variant: "light",
     },
 ];
 

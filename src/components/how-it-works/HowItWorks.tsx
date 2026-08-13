@@ -192,12 +192,12 @@ export default function HowItWorks() {
                     }
                 }
                 [data-gsap-node] {
-                    transition: background-color 0.35s ease, color 0.35s ease;
+                    transition: background-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
                 }
                 [data-gsap-node].is-active {
-                    background-color: var(--color-brand);
+                    background-image: linear-gradient(135deg, var(--color-brand), #f97316);
                     color: #ffffff;
-                    box-shadow: 0 10px 20px -8px rgba(255, 106, 28, 0.5);
+                    box-shadow: 0 14px 24px -10px rgba(255, 106, 28, 0.55);
                     animation: howitworks-node-pulse 1.8s ease-out infinite;
                 }
                 [data-gsap-node].is-active .node-badge {
@@ -206,10 +206,11 @@ export default function HowItWorks() {
                     color: var(--color-brand);
                 }
                 [data-gsap-node].is-done {
-                    background-color: var(--color-brand-light);
+                    background-image: linear-gradient(135deg, var(--color-brand-light), #ffe7d1);
                     color: var(--color-brand);
                 }
                 [data-gsap-node].is-done .node-badge {
+                    background-color: #ffffff;
                     border-color: var(--color-brand);
                     color: var(--color-brand);
                 }
@@ -223,9 +224,15 @@ export default function HowItWorks() {
 
             <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <div className="mx-auto mb-14 max-w-2xl text-center">
+                    <p
+                        data-gsap
+                        className="text-[13px] font-semibold uppercase tracking-widest text-brand"
+                    >
+                        How it works
+                    </p>
                     <h2
                         data-gsap
-                        className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+                        className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
                     >
                         Launch Your Platform in 4 Simple Steps
                     </h2>
