@@ -5,8 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
-  HiOutlineGlobeAlt,
-  HiOutlineDeviceMobile,
   HiOutlineSearch,
   HiOutlineViewGrid,
   HiOutlineCreditCard,
@@ -21,38 +19,6 @@ import {
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
-}
-
-type Tone = "brand";
-
-const toneStyles: Record<Tone, string> = {
-  brand: "from-brand to-brand-hover",
-};
-
-function FloatBadge({
-  icon: Icon,
-  label,
-  className = "",
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-  className?: string;
-}) {
-  return (
-    <div
-      data-gsap
-      className={`w-[126px] rounded-2xl border border-gray-100 bg-white p-3 text-center shadow-xl shadow-gray-900/5 ring-1 ring-gray-100 ${className}`}
-    >
-      <span
-        className={`mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${toneStyles.brand} text-white shadow-sm`}
-      >
-        <Icon className="h-4 w-4" />
-      </span>
-      <p className="text-[10.5px] font-semibold leading-tight text-text-dark">
-        {label}
-      </p>
-    </div>
-  );
 }
 
 // ── Flowchart primitives ──────────────────────────────────────────
@@ -164,17 +130,6 @@ export default function AboutHowItWorks() {
           </p>
 
           <div className="relative">
-            <FloatBadge
-              icon={HiOutlineGlobeAlt}
-              label="White-label branding"
-              className="float-left mb-3 mr-5 mt-1"
-            />
-            <FloatBadge
-              icon={HiOutlineDeviceMobile}
-              label="Web & mobile apps"
-              className="float-right ml-5 mb-3 mt-8"
-            />
-
             <p className="text-[16px] leading-[1.9] text-text-muted sm:text-[18px]">
               CW Ticketing System is a complete white-label online ticket
               booking platform designed for transport operators, travel
@@ -194,9 +149,6 @@ export default function AboutHowItWorks() {
         {/* ── How it works: branching flowchart ── */}
         <div>
           <div data-gsap className="mx-auto mb-14 max-w-2xl text-center">
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-brand">
-              How It Works
-            </p>
             <h3 className="text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
               From search to ticket, in one flow
             </h3>

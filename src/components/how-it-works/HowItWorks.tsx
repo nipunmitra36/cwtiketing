@@ -17,7 +17,6 @@ import {
     HiOutlineServer,
     HiOutlineGlobe,
     HiOutlineDeviceMobile,
-    HiOutlineChartBar,
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
@@ -46,30 +45,30 @@ const steps: Step[] = [
         icon: HiOutlineColorSwatch,
         title: "Customization",
         items: [
-            { icon: HiOutlineColorSwatch, label: "Brand colors" },
+            { icon: HiOutlineColorSwatch, label: "Unique design" },
             { icon: HiOutlineViewGrid, label: "Seat layout" },
             { icon: HiOutlineCurrencyDollar, label: "Fare rules" },
         ],
     },
     {
         num: "3",
-        icon: HiOutlineLink,
-        title: "Integration",
-        items: [
-            { icon: HiOutlineCreditCard, label: "Payment" },
-            { icon: HiOutlineChatAlt, label: "SMS" },
-            { icon: HiOutlineMap, label: "Maps" },
-            { icon: HiOutlineServer, label: "ERP" },
-        ],
-    },
-    {
-        num: "4",
         icon: HiOutlinePaperAirplane,
         title: "Launch",
         items: [
             { icon: HiOutlineGlobe, label: "Web app" },
             { icon: HiOutlineDeviceMobile, label: "Mobile apps" },
-            { icon: HiOutlineChartBar, label: "Dashboard" },
+            { icon: HiOutlineServer, label: "Admin panel" },
+        ],
+    },
+    {
+        num: "4",
+        icon: HiOutlineLink,
+        title: "Integration",
+        items: [
+            { icon: HiOutlineCreditCard, label: "Payment method" },
+            { icon: HiOutlineChatAlt, label: "SMS" },
+            { icon: HiOutlineMap, label: "Maps" },
+            { icon: HiOutlineServer, label: "Admin panel" },
         ],
     },
 ];
@@ -224,15 +223,9 @@ export default function HowItWorks() {
 
             <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <div className="mx-auto mb-14 max-w-2xl text-center">
-                    <p
-                        data-gsap
-                        className="text-[13px] font-semibold uppercase tracking-widest text-brand"
-                    >
-                        How it works
-                    </p>
                     <h2
                         data-gsap
-                        className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+                        className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
                     >
                         Launch Your Platform in 4 Simple Steps
                     </h2>
