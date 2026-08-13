@@ -112,6 +112,13 @@ const features: Feature[] = [
     },
 ];
 
+const panelThemes = [
+    { bg: "#003EA8", shade: "#002B75", border: "rgba(255,255,255,0.18)", deco: "rgba(255,255,255,0.5)", shine: "via-white/60", title: "text-white", body: "text-white/75", button: "bg-white text-[#003EA8] hover:bg-gray-100", btnShadow: "shadow-black/25" },
+    { bg: "#1F88FD", shade: "#196DCA", border: "rgba(255,255,255,0.25)", deco: "rgba(255,255,255,0.55)", shine: "via-white/70", title: "text-white", body: "text-white/80", button: "bg-white text-[#1F88FD] hover:bg-gray-100", btnShadow: "shadow-black/25" },
+    { bg: "#00BA5F", shade: "#00904A", border: "rgba(255,255,255,0.35)", deco: "rgba(255,255,255,0.55)", shine: "via-white/70", title: "text-[#062b18]", body: "text-[#062b18]/75", button: "bg-[#062b18] text-white hover:bg-black", btnShadow: "shadow-black/25" },
+    { bg: "#FFCC00", shade: "#E0B300", border: "rgba(0,0,0,0.08)", deco: "rgba(0,0,0,0.15)", shine: "via-black/25", title: "text-text-dark", body: "text-text-body", button: "bg-text-dark text-white hover:bg-black", btnShadow: "shadow-black/20" },
+];
+
 function FeaturePanel({
     feature,
     index,
@@ -128,6 +135,7 @@ function FeaturePanel({
     const textRef = useRef<HTMLDivElement>(null);
     const Icon = feature.icon;
     const isDark = feature.variant === "dark";
+    const theme = panelThemes[index % panelThemes.length];
 
     useEffect(() => {
         // In the desktop stack every card is positioned absolutely and animated
@@ -184,19 +192,62 @@ function FeaturePanel({
             style={{ zIndex: index + 1 }}
         >
             <div
-                className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 bg-[#F3F4F5] sm:px-6 lg:h-full lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8 lg:py-0 lg:rounded-2xl lg:border lg:border-gray-200">
+                style={{ backgroundImage: `linear-gradient(165deg, ${theme.bg} 0%, ${theme.shade} 100%)`, borderColor: theme.border }}
+                className="relative mx-auto grid w-full max-w-7xl gap-8 overflow-hidden px-4 py-12 sm:px-6 lg:h-full lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8 lg:py-0 lg:rounded-2xl lg:border">
+                    {/* top light */}
+                    <div
+                        aria-hidden
+                        style={{ backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.16), transparent 60%)" }}
+                        className="pointer-events-none absolute inset-x-0 top-0 h-2/3"
+                    />
+                    {/* hairline shine */}
+                    <div
+                        aria-hidden
+                        className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent ${theme.shine}`}
+                    />
+                    {/* dotted route path */}
+                    <svg
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 h-full w-full opacity-70"
+                        viewBox="0 0 1200 500"
+                        fill="none"
+                        preserveAspectRatio="none"
+                    >
+                        <path
+                            d="M -40 420 C 260 340, 420 120, 700 150 S 1080 60, 1240 120"
+                            stroke={theme.deco}
+                            strokeWidth="1.5"
+                            strokeDasharray="1 12"
+                            strokeLinecap="round"
+                        />
+                        <path
+                            d="M -40 470 C 340 400, 520 200, 820 210 S 1100 120, 1240 160"
+                            stroke={theme.deco}
+                            strokeWidth="1"
+                            strokeDasharray="1 18"
+                            strokeLinecap="round"
+                            opacity="0.6"
+                        />
+                    </svg>
+                    {/* bottom vignette */}
+                    <div
+                        aria-hidden
+                        style={{ backgroundImage: "radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.2), transparent 65%)" }}
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
+                    />
+
                     {/* ── Left: copy ── */}
                     <div ref={textRef} className={index % 2 === 1 ? "lg:order-2" : ""}>
-                        <h3 className="mt-5 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+                        <h3 className={`mt-5 text-[22px] font-medium leading-snug tracking-tight sm:text-[28px] sm:leading-snug ${theme.title}`}>
                             {feature.title}
                         </h3>
-                        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-text-muted">
+                        <p className={`mt-4 max-w-md text-[15px] leading-relaxed ${theme.body}`}>
                             {feature.desc}
                         </p>
 
                         <Link
                             href="/contact"
-                            className="mt-8 inline-flex items-center gap-2 rounded-full bg-text-dark px-5 py-2.5 text-[13px] font-semibold text-white transition-all hover:gap-2.5 hover:bg-black active:scale-95"
+                            className={`mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold shadow-lg transition-all hover:gap-2.5 active:scale-95 ${theme.button} ${theme.btnShadow}`}
                         >
                             Explore {feature.title.replace(" System", "")} Solution
                             <HiOutlineArrowRight className="h-4 w-4" />

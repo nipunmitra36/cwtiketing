@@ -279,7 +279,7 @@ export default function WorkInContext() {
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 ref={whiteAvatarRef}
-                                src="/media/white-man.avif"
+                                src="/media/white-man.png"
                                 alt=""
                                 aria-hidden="true"
                                 className="absolute inset-0 h-full w-full object-contain"
@@ -287,7 +287,7 @@ export default function WorkInContext() {
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 ref={colorAvatarRef}
-                                src="/media/color-man.avif"
+                                src="/media/color-man.png"
                                 alt="CwTicketing operator managing bookings, routes, and revenue"
                                 className="absolute inset-0 h-full w-full object-contain opacity-0"
                             />

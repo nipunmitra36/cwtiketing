@@ -1,195 +1,303 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
-  HiOutlineX,
-  HiOutlineCheck,
-  HiOutlinePhone,
-  HiOutlineDocumentText,
-  HiOutlineClock,
-  HiOutlineCurrencyDollar,
-  HiOutlineTicket,
+  HiOutlineGlobeAlt,
+  HiOutlineDeviceMobile,
+  HiOutlineSearch,
   HiOutlineViewGrid,
   HiOutlineCreditCard,
+  HiOutlineTemplate,
+  HiOutlineMap,
+  HiOutlineCurrencyDollar,
   HiOutlineChartBar,
-  HiOutlineArrowRight,
+  HiOutlineUserGroup,
+  HiOutlineClipboardList,
+  HiOutlineSparkles,
 } from "react-icons/hi";
 
-const problems = [
-  { icon: HiOutlinePhone, label: "Manual booking calls", desc: "Phone, WhatsApp, and paper logs eat hours every day." },
-  { icon: HiOutlineDocumentText, label: "Spreadsheet schedules", desc: "Outdated timetables that nobody trusts." },
-  { icon: HiOutlineClock, label: "No real-time availability", desc: "Sold-out confusion and double bookings." },
-  { icon: HiOutlineCurrencyDollar, label: "Payment tracking problems", desc: "Missed revenue and cash reconciliation headaches." },
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+type Tone = "brand";
+
+const toneStyles: Record<Tone, string> = {
+  brand: "from-brand to-brand-hover",
+};
+
+function FloatBadge({
+  icon: Icon,
+  label,
+  className = "",
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div
+      data-gsap
+      className={`w-[126px] rounded-2xl border border-gray-100 bg-white p-3 text-center shadow-xl shadow-gray-900/5 ring-1 ring-gray-100 ${className}`}
+    >
+      <span
+        className={`mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${toneStyles.brand} text-white shadow-sm`}
+      >
+        <Icon className="h-4 w-4" />
+      </span>
+      <p className="text-[10.5px] font-semibold leading-tight text-text-dark">
+        {label}
+      </p>
+    </div>
+  );
+}
+
+// ── Flowchart primitives ──────────────────────────────────────────
+
+function FlowLine() {
+  return <div data-gsap className="mx-auto h-6 w-px bg-gray-200" />;
+}
+
+function FlowNode({
+  icon: Icon,
+  label,
+  badgeClass,
+  round = false,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  badgeClass: string;
+  round?: boolean;
+}) {
+  return (
+    <div
+      data-gsap
+      className="mx-auto flex w-full max-w-[230px] items-center gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm sm:max-w-[240px]"
+    >
+      <span
+        className={`flex h-8 w-8 shrink-0 items-center justify-center text-white shadow-sm ${round ? "rounded-full" : "rounded-lg"
+          } bg-gradient-to-br ${badgeClass}`}
+      >
+        <Icon className="h-4 w-4" />
+      </span>
+      <p className="text-[12.5px] font-semibold leading-tight text-text-dark">
+        {label}
+      </p>
+    </div>
+  );
+}
+
+const passengerSteps = [
+  { icon: HiOutlineSearch, label: "Search Route", badgeClass: "from-brand to-brand-hover" },
+  { icon: HiOutlineViewGrid, label: "Select Seat", badgeClass: "from-brand to-brand-hover" },
+  { icon: HiOutlineCreditCard, label: "Online Payment", badgeClass: "from-brand to-brand-hover" },
 ];
 
-const solutions = [
-  { icon: HiOutlineTicket, label: "Automated booking", desc: "Online bookings 24/7 with instant confirmation." },
-  { icon: HiOutlineViewGrid, label: "Live seat availability", desc: "Real-time seat maps that always match reality." },
-  { icon: HiOutlineCreditCard, label: "Online payments", desc: "Multiple secure gateways accepted automatically." },
-  { icon: HiOutlineChartBar, label: "Business analytics", desc: "See sales and revenue at a glance, daily." },
+const platformModules = [
+  { icon: HiOutlineTemplate, label: "Dashboard" },
+  { icon: HiOutlineMap, label: "Routes" },
+  { icon: HiOutlineCurrencyDollar, label: "Revenue" },
+  { icon: HiOutlineChartBar, label: "Analytics" },
+  { icon: HiOutlineUserGroup, label: "Drivers" },
+  { icon: HiOutlineClipboardList, label: "Reports" },
 ];
 
-export default function ProblemSolution() {
+export default function AboutHowItWorks() {
   const sectionRef = useRef<HTMLElement>(null);
+  const forkPathRefs = useRef<Array<SVGPathElement | null>>([]);
 
+  // Base scroll-reveal for every [data-gsap] element in the section.
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    return createSectionReveal(el, { y: 36, stagger: 0.08 });
+    return createSectionReveal(el, { y: 28, stagger: 0.06 });
+  }, []);
+
+  // Draw the fork (decision → PASSENGER / ADMIN) connectors in as the
+  // flowchart scrolls into view.
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      forkPathRefs.current.forEach((path) => {
+        if (!path) return;
+        const length = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+        gsap.to(path, {
+          strokeDashoffset: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: { trigger: path, start: "top 85%" },
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      id="why-cw-ticketing"
-      className="relative overflow-hidden bg-gradient-to-b from-white to-surface py-16 lg:py-24"
+      id="about-cw-ticketing"
+      className="relative overflow-hidden bg-white py-16 lg:py-24"
     >
-      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-rose-100/50 blur-3xl" />
-      <div className="absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-emerald-100/50 blur-3xl" />
+      <div className="absolute -left-32 -top-20 h-96 w-96 rounded-full bg-brand-light/60 blur-3xl" />
+      <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-brand/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2
-            data-gsap
-            className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
-          >
-            Why Operators Move to{" "}
+        {/* ── About: flowing editorial text with floated badges ── */}
+        <div data-gsap className="mb-20">
+          
+
+          <h2 className="mb-2 max-w-3xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[30px] sm:leading-snug">
+            What is{" "}
             <span className="relative inline-block">
-              <span className="relative z-10">CW Ticketing</span>
+              <span className="relative z-10">CW Ticketing System</span>
               <span className="absolute bottom-1 left-0 right-0 h-3 rounded bg-brand/15" />
             </span>
+            ?
           </h2>
-          <p
-            data-gsap
-            className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
-          >
-            The way most transport operators sell tickets is broken. Here is
-            what changes with CW Ticketing.
+          <p className="mb-8 max-w-2xl text-[14px] font-medium text-brand sm:text-[15px]">
+            A white-label booking platform for transport &amp; mobility
+            businesses
           </p>
+
+          <div className="relative">
+            <FloatBadge
+              icon={HiOutlineGlobeAlt}
+              label="White-label branding"
+              className="float-left mb-3 mr-5 mt-1"
+            />
+            <FloatBadge
+              icon={HiOutlineDeviceMobile}
+              label="Web & mobile apps"
+              className="float-right ml-5 mb-3 mt-8"
+            />
+
+            <p className="text-[16px] leading-[1.9] text-text-muted sm:text-[18px]">
+              CW Ticketing System is a complete white-label online ticket
+              booking platform designed for transport operators, travel
+              companies, and mobility businesses. It helps businesses launch
+              their own branded booking system where passengers can search
+              routes, check seat availability, make payments, and manage
+              bookings through web and mobile apps. From bus and train
+              reservations to taxi, cruise, event, and other transportation
+              services, CW Ticketing provides the tools operators need to
+              automate ticket sales, manage daily operations, and deliver a
+              better passenger experience — from one centralized platform.
+            </p>
+          </div>
+          <div className="clear-both" />
         </div>
 
-        <div className="relative grid gap-6 lg:grid-cols-2 lg:gap-8">
-          {/* ── Before (Problem) ── */}
-          <div
-            data-gsap
-            className="group relative overflow-hidden rounded-3xl border border-rose-200 bg-white p-6 shadow-xl shadow-rose-500/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-rose-500/15 sm:p-8"
-          >
-            {/* top accent */}
-            <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-rose-400 via-rose-500 to-red-500" />
-            {/* glows */}
-            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-rose-200/40 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-rose-100/60 blur-3xl" />
-
-            <div className="relative mb-6 flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500 to-red-500 text-white shadow-lg shadow-rose-500/30">
-                <HiOutlineX className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-widest text-rose-500">
-                  Before
-                </p>
-                <h3 className="text-lg font-semibold text-text-dark">Old-School Ticketing</h3>
-              </div>
-              <span className="ml-auto rounded-full bg-rose-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-rose-500 ring-1 ring-rose-100">
-                The Problem
-              </span>
-            </div>
-
-            <ul className="relative space-y-3">
-              {problems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <li
-                    key={item.label}
-                    className="flex items-start gap-3.5 rounded-2xl border border-rose-100 bg-rose-50/40 px-4 py-3.5 transition-colors duration-200 hover:border-rose-200 hover:bg-rose-50"
-                  >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white text-rose-500 shadow-sm ring-1 ring-rose-100 transition-colors duration-200 group-hover:bg-rose-500 group-hover:text-white">
-                      <Icon className="h-4 w-4" />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-[14px] font-semibold text-text-dark">{item.label}</p>
-                      <p className="mt-0.5 text-[12.5px] leading-relaxed text-text-muted">{item.desc}</p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-
-            <div className="relative mt-5 flex items-center gap-2 rounded-xl border border-dashed border-rose-200 bg-rose-50/50 px-4 py-3">
-              <HiOutlineClock className="h-4 w-4 shrink-0 text-rose-400" />
-              <p className="text-[12.5px] font-medium text-rose-500">
-                Every day, operators quietly pay for this inefficiency.
-              </p>
-            </div>
+        {/* ── How it works: branching flowchart ── */}
+        <div>
+          <div data-gsap className="mx-auto mb-14 max-w-2xl text-center">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-brand">
+              How It Works
+            </p>
+            <h3 className="text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
+              From search to ticket, in one flow
+            </h3>
           </div>
 
-          {/* ── Divider arrow (desktop) ── */}
-          <div
-            data-gsap
-            className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:flex"
-          >
-            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-brand shadow-xl shadow-gray-900/10">
-              <HiOutlineArrowRight className="h-5 w-5" />
-            </span>
-          </div>
+          <div className="mx-auto max-w-3xl">
+            {/* Decision */}
+            <FlowNode
+              icon={HiOutlineCreditCard}
+              label="Platform"
+              badgeClass="from-brand to-brand-hover"
+              round
+            />
 
-          {/* ── After (Solution) ── */}
-          <div
-            data-gsap
-            className="group relative overflow-hidden rounded-3xl border border-emerald-200 bg-white p-6 shadow-xl shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/15 sm:p-8"
-          >
-            {/* top accent */}
-            <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-500" />
-            {/* glows */}
-            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-emerald-200/40 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full bg-emerald-100/60 blur-3xl" />
-
-            <div className="relative mb-6 flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-500/30">
-                <HiOutlineCheck className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-600">
-                  After
-                </p>
-                <h3 className="text-lg font-semibold text-text-dark">CW Ticketing</h3>
-              </div>
-              <span className="ml-auto rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-600 ring-1 ring-emerald-100">
-                The Solution
-              </span>
+            {/* Fork */}
+            <div className="relative h-14 sm:h-16">
+              <svg
+                viewBox="0 0 720 64"
+                preserveAspectRatio="none"
+                className="absolute inset-0 h-full w-full"
+              >
+                <path
+                  ref={(elm) => {
+                    forkPathRefs.current[0] = elm;
+                  }}
+                  d="M360,0 C360,32 180,32 180,64"
+                  fill="none"
+                  stroke="#FF9A5C"
+                  strokeWidth="2"
+                />
+                <path
+                  ref={(elm) => {
+                    forkPathRefs.current[1] = elm;
+                  }}
+                  d="M360,0 C360,32 540,32 540,64"
+                  fill="none"
+                  stroke="#FF9A5C"
+                  strokeWidth="2"
+                />
+              </svg>
             </div>
 
-            <ul className="relative space-y-3">
-              {solutions.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <li
-                    key={item.label}
-                    className="flex items-start gap-3.5 rounded-2xl border border-emerald-100 bg-emerald-50/40 px-4 py-3.5 transition-colors duration-200 hover:border-emerald-200 hover:bg-emerald-50"
-                  >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white text-emerald-600 shadow-sm ring-1 ring-emerald-100 transition-colors duration-200 group-hover:bg-emerald-500 group-hover:text-white">
-                      <Icon className="h-4 w-4" />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-[14px] font-semibold text-text-dark">{item.label}</p>
-                      <p className="mt-0.5 text-[12.5px] leading-relaxed text-text-muted">{item.desc}</p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
+            {/* PASSENGER / ADMIN branches */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-6">
+              <div className="flex flex-col items-center">
+                <span
+                  data-gsap
+                  className="mb-3 rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700"
+                >
+                  PASSENGER
+                </span>
+                {passengerSteps.map((node, i) => (
+                  <div key={node.label} className="w-full">
+                    <FlowNode {...node} />
+                    {i < passengerSteps.length - 1 && <FlowLine />}
+                  </div>
+                ))}
+              </div>
 
-            <Link
-              href="/features"
-              className="group/cta relative mt-5 flex items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-4 py-3 transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
-            >
-              <p className="text-[12.5px] font-semibold text-emerald-700">
-                See it live — explore the full product
-              </p>
-              <HiOutlineArrowRight className="h-4 w-4 shrink-0 text-emerald-600 transition-transform duration-200 group-hover/cta:translate-x-1" />
-            </Link>
+              <div className="flex flex-col items-center">
+                <span
+                  data-gsap
+                  className="mb-3 rounded-md border border-brand/20 bg-brand-light px-2.5 py-1 text-[11px] font-semibold text-brand"
+                >
+                  ADMIN
+                </span>
+                <div
+                  data-gsap
+                  className="w-full rounded-3xl border border-brand/20 bg-white p-4 shadow-xl shadow-brand/10"
+                >
+                  <div className="mb-4 flex items-center justify-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-light text-brand">
+                      <HiOutlineSparkles className="h-3.5 w-3.5" />
+                    </span>
+                    <p className="text-[13px] font-semibold text-text-dark">
+                      CW Ticketing Platform
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {platformModules.map((mod) => {
+                      const Icon = mod.icon;
+                      return (
+                        <div
+                          key={mod.label}
+                          data-gsap
+                          className="flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50/60 px-2.5 py-2 transition-colors duration-200 hover:border-brand/30 hover:bg-brand-light/50"
+                        >
+                          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-brand shadow-sm ring-1 ring-brand/15">
+                            <Icon className="h-3.5 w-3.5" />
+                          </span>
+                          <p className="text-[11px] font-semibold leading-tight text-text-dark">
+                            {mod.label}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
