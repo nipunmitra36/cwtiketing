@@ -46,11 +46,12 @@ const steps: Step[] = [
   {
     num: "2",
     icon: HiOutlineColorSwatch,
-    title: "Customisation",
+    title: "Customization",
     desc: "We configure your brand colours, seat layouts, ticket rules, user permissions and customer journey.",
     tags: [
-      { icon: HiOutlineColorSwatchIcon, label: "Brand" },
-      { icon: HiOutlineViewGrid, label: "Seat layouts" },
+      { icon: HiOutlineColorSwatchIcon, label: "Brand colors" },
+      { icon: HiOutlineViewGrid, label: "Seat layout" },
+      { icon: HiOutlineCurrencyDollar, label: "Fare rules" },
     ],
   },
   {
@@ -59,8 +60,9 @@ const steps: Step[] = [
     title: "Integration",
     desc: "We connect payment gateways, SMS services, mapping tools and any agreed external systems.",
     tags: [
-      { icon: HiOutlineCreditCard, label: "Payments" },
+      { icon: HiOutlineCreditCard, label: "Payment" },
       { icon: HiOutlineChatAlt2, label: "SMS" },
+      { icon: HiOutlineMap, label: "Maps" },
       { icon: HiOutlineServer, label: "ERP" },
     ],
   },
@@ -70,9 +72,10 @@ const steps: Step[] = [
     title: "Launch",
     desc: "Your branded web platform, mobile products, staff tools and administrative dashboard are prepared for use.",
     tags: [
-      { icon: HiOutlineGlobeAlt, label: "Web" },
-      { icon: HiOutlineDeviceMobile, label: "Apps" },
+      { icon: HiOutlineGlobeAlt, label: "Web app" },
+      { icon: HiOutlineDeviceMobile, label: "Mobile apps" },
       { icon: HiOutlineChartBar, label: "Dashboard" },
+      { icon: HiOutlineViewGrid, label: "Platform" },
     ],
   },
 ];
@@ -138,7 +141,7 @@ export default function Onboarding() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
           <p data-gsap className="text-[13px] font-semibold uppercase tracking-widest text-brand">
-            Onboarding
+            Onboarding Line
           </p>
           <h2
             data-gsap
@@ -150,8 +153,8 @@ export default function Onboarding() {
             data-gsap
             className="mx-auto mt-4 max-w-2xl text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            From discovery to launch, our team guides you through each stage of
-            setting up your ticketing platform.
+            Every operator follows the same line — four stations from first
+            call to live platform.
           </p>
         </div>
 

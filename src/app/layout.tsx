@@ -107,7 +107,7 @@ export default function RootLayout({
       `}
       suppressHydrationWarning
     >
-      <body className="font-sans">
+      <body className="font-sans" suppressHydrationWarning>
         <GSAPProvider>
           <Providers>
             <Header />

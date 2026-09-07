@@ -68,7 +68,6 @@ const steps: Step[] = [
             { icon: HiOutlineCreditCard, label: "Payment method" },
             { icon: HiOutlineChatAlt, label: "SMS" },
             { icon: HiOutlineMap, label: "Maps" },
-            { icon: HiOutlineServer, label: "Admin panel" },
         ],
     },
 ];

@@ -8,16 +8,14 @@ import {
   HiOutlineArrowRight,
   HiOutlinePlay,
   HiOutlineTicket,
-  HiOutlineUsers,
-  HiOutlineLocationMarker,
+  HiOutlineCheckCircle,
 } from "react-icons/hi";
-import type { IconType } from "react-icons";
-import BusLiveMap from "./BusLiveMap";
+import PlatformHub from "./PlatformHub";
 
-const STATS: { value: string; label: string; icon: IconType }[] = [
-  { value: "150K+", label: "Tickets daily", icon: HiOutlineTicket },
-  { value: "350+", label: "Operators", icon: HiOutlineUsers },
-  { value: "Multi", label: "International markets", icon: HiOutlineLocationMarker },
+const TRUST_ITEMS = [
+  "50+ Transport Companies",
+  "99.9% Platform Uptime",
+  "Android & iOS Apps Included",
 ];
 
 export default function BusHero() {
@@ -100,21 +98,21 @@ export default function BusHero() {
           <div ref={copyRef} className="max-w-2xl">
             <span className="gsap-hero-item inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-3.5 py-1.5 text-[12px] font-semibold text-brand shadow-sm">
               <HiOutlineTicket className="h-4 w-4" />
-              Bus Ticketing System
+              Route 001 · Online Bus Ticketing System
             </span>
 
             <h1 className="gsap-hero-item mt-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[50px]">
-              Bus Ticketing System for{" "}
+              Launch Your Own{" "}
               <span className="bg-gradient-to-r from-brand via-brand to-brand-dark bg-clip-text text-transparent">
-                Online Booking &amp; Reservation
+                Online Bus Booking System
               </span>{" "}
-              Software Solution
+              in Weeks
             </h1>
 
             <p className="gsap-hero-item mt-6 max-w-xl text-[15px] leading-relaxed text-text-muted sm:text-[16px]">
-              Sell tickets online, at the counter, through agents and onboard the
-              bus — all sharing the same routes, schedules, seats and payments.
-              No separate systems, no double bookings.
+              A complete white-label online bus ticketing system and reservation
+              platform for transport operators. Manage routes, seats, payments,
+              passengers and mobile apps from one bus booking software.
             </p>
 
             <div className="gsap-hero-item mt-8 flex flex-wrap items-center gap-3">
@@ -122,44 +120,36 @@ export default function BusHero() {
                 href="/contact"
                 className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
               >
-                Book a Demo
+                Start Free Consultation
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
               <Link
-                href="/features"
+                href="#see-the-platform"
                 className="group inline-flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-6 py-3.5 text-[14px] font-semibold text-text-dark shadow-sm transition-all hover:border-brand/30 hover:text-brand active:scale-[0.97]"
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-light text-brand transition-colors group-hover:bg-brand group-hover:text-white">
                   <HiOutlinePlay className="ml-px h-3 w-3" />
                 </span>
-                Explore the Platform
+                Watch Platform Demo
               </Link>
             </div>
 
-            {/* Trust stats */}
-            <div className="gsap-hero-item mt-10 flex flex-wrap gap-x-8 gap-y-5 border-t border-gray-200/80 pt-7">
-              {STATS.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <div key={s.label} className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand shadow-sm ring-1 ring-gray-100">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span>
-                      <span className="block text-[18px] font-semibold leading-none text-text-dark">
-                        {s.value}
-                      </span>
-                      <span className="mt-1 block text-[12px] text-text-muted">{s.label}</span>
-                    </span>
-                  </div>
-                );
-              })}
+            {/* Trust checklist */}
+            <div className="gsap-hero-item mt-10 flex flex-col gap-2.5 border-t border-gray-200/80 pt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-7 sm:gap-y-2">
+              {TRUST_ITEMS.map((t) => (
+                <span key={t} className="flex items-center gap-2 text-[13.5px] font-medium text-text-body">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                    <HiOutlineCheckCircle className="h-4 w-4" />
+                  </span>
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* ── Right: live bus tracking map ── */}
+          {/* ── Right: platform hub diagram ── */}
           <div ref={visualRef} className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <BusLiveMap />
+            <PlatformHub />
           </div>
         </div>
       </div>

@@ -37,6 +37,10 @@ const logos: Logo[] = [
   { name: "Zedicket", src: "/media/client/zedicket.webp" },
 ];
 
+const half = Math.ceil(logos.length / 2);
+const logosRow1: Logo[] = logos.slice(0, half);
+const logosRow2: Logo[] = logos.slice(half);
+
 function MarqueeRow({
   logos,
   direction,
@@ -59,7 +63,7 @@ function MarqueeRow({
         {track.map((logo, i) => (
           <div
             key={`${logo.name}-${i}`}
-            className="flex shrink-0 items-center gap-3 rounded-2xl border border-gray-100 bg-white px-5 py-3 shadow-[0_1px_2px_rgba(16,24,40,0.04)] grayscale transition-all duration-300 ease-out hover:-translate-y-0.5 hover:grayscale-0 hover:shadow-[0_8px_20px_rgba(16,24,40,0.08)]"
+            className="flex shrink-0 items-center gap-3 rounded-2xl border border-gray-100 bg-white px-5 py-3 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(16,24,40,0.08)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -105,7 +109,10 @@ export default function LogoTrustSection() {
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-28" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-28" />
 
-        <MarqueeRow logos={logos} direction="left" speed={45} />
+        <div className="flex flex-col gap-4">
+          <MarqueeRow logos={logosRow1} direction="left" speed={45} />
+          <MarqueeRow logos={logosRow2} direction="right" speed={45} />
+        </div>
       </div>
     </section>
   );

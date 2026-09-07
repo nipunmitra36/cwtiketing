@@ -28,21 +28,14 @@ export default function BusTicketingFaq() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-14">
           <p data-gsap className="text-[13px] font-semibold uppercase tracking-widest text-brand">
-            Frequently Asked Questions
+            FAQ
           </p>
           <h2
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Bus Ticketing System FAQ
+            Questions Operators Ask Before Switching
           </h2>
-          <p
-            data-gsap
-            className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
-          >
-            Quick answers to the questions operators ask before switching to CW
-            Ticketing System.
-          </p>
         </div>
 
         <div className="mx-auto max-w-3xl">

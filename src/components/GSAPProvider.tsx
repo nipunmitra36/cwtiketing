@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
 import { markSmootherReady, resetSmootherReady } from "@/lib/gsap/ready";
 
@@ -10,6 +11,7 @@ interface GSAPProviderProps {
 
 export default function GSAPProvider({ children }: GSAPProviderProps) {
   const smootherRef = useRef<ScrollSmoother | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const wrapper = document.getElementById("smooth-wrapper");
@@ -64,6 +66,19 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
       resetSmootherReady();
     };
   }, []);
+
+  // The layout (and this provider) stays mounted across client-side
+  // navigation, so ScrollSmoother's cached content height goes stale the
+  // moment a new page renders inside #smooth-content — the footer (and any
+  // pinned/scrubbed sections) ends up mis-measured until a hard reload.
+  // Re-measure whenever the route changes, once the new page has painted.
+  useEffect(() => {
+    if (!smootherRef.current) return;
+    const id = requestAnimationFrame(() => {
+      smootherRef.current?.refresh();
+    });
+    return () => cancelAnimationFrame(id);
+  }, [pathname]);
 
   return <>{children}</>;
 }

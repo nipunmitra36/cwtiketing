@@ -32,16 +32,19 @@ function FlowNode({
   label,
   badgeClass,
   round = false,
+  centered = false,
 }: {
   icon: React.ComponentType<{ className?: string }>;
   label: string;
   badgeClass: string;
   round?: boolean;
+  centered?: boolean;
 }) {
   return (
     <div
       data-gsap
-      className="mx-auto flex w-full max-w-[230px] items-center gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm sm:max-w-[240px]"
+      className={`mx-auto flex w-full max-w-[230px] items-center gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm sm:max-w-[240px] ${centered ? "justify-center" : ""
+        }`}
     >
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center text-white shadow-sm ${round ? "rounded-full" : "rounded-lg"
@@ -161,6 +164,7 @@ export default function AboutHowItWorks() {
               label="Platform"
               badgeClass="from-brand to-brand-hover"
               round
+              centered
             />
 
             {/* Fork */}

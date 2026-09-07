@@ -317,10 +317,14 @@ export default function Footer() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-gray-500">
-            {["Privacy", "Terms", "Cookies"].map((label) => (
+            {[
+              { label: "Privacy", href: "/privacy" },
+              { label: "Terms", href: "/terms" },
+              { label: "Cookies", href: "#" },
+            ].map(({ label, href }) => (
               <Link
                 key={label}
-                href="#"
+                href={href}
                 className="transition-colors hover:text-white"
               >
                 {label}

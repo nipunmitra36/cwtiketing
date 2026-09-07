@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
 import BusHero from "@/components/bus-ticketing/BusHero";
-import RouteManagement from "@/components/bus-ticketing/RouteManagement";
+import TrustStats from "@/components/bus-ticketing/TrustStats";
 import WhatIsBusTicketing from "@/components/bus-ticketing/WhatIsBusTicketing";
-import HowItWorks from "@/components/bus-ticketing/HowItWorks";
-import Benefits from "@/components/bus-ticketing/Benefits";
-import WhoCanUse from "@/components/bus-ticketing/WhoCanUse";
-import Ecosystem from "@/components/bus-ticketing/Ecosystem";
-import PlatformTabs from "@/components/bus-ticketing/PlatformTabs";
-import Payments from "@/components/bus-ticketing/Payments";
-import BusinessIntelligence from "@/components/bus-ticketing/BusinessIntelligence";
 import Onboarding from "@/components/bus-ticketing/Onboarding";
-import PlatformScale from "@/components/bus-ticketing/PlatformScale";
+import CapabilityGrid from "@/components/bus-ticketing/CapabilityGrid";
+import ProductDemo from "@/components/bus-ticketing/ProductDemo";
 import OperatorStories from "@/components/bus-ticketing/OperatorStories";
+import SecurityTrust from "@/components/bus-ticketing/SecurityTrust";
 import BusTicketingFaq from "@/components/bus-ticketing/BusTicketingFaq";
-import BuiltForOperations from "@/components/bus-ticketing/BuiltForOperations";
+import FinalCTA from "@/components/bus-ticketing/FinalCTA";
 import { busFaqs } from "@/components/bus-ticketing/faq-data";
 
 const PAGE_URL = "/bus-ticketing-system";
@@ -106,12 +101,10 @@ const jsonLd = {
       "@type": "ItemList",
       name: "How Does a Bus Ticketing System Work?",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Search Routes" },
-        { "@type": "ListItem", position: 2, name: "Select a Bus" },
-        { "@type": "ListItem", position: 3, name: "Choose a Seat" },
-        { "@type": "ListItem", position: 4, name: "Make Payment" },
-        { "@type": "ListItem", position: 5, name: "Receive E-Ticket" },
-        { "@type": "ListItem", position: 6, name: "Validate the Ticket" },
+        { "@type": "ListItem", position: 1, name: "Search Route" },
+        { "@type": "ListItem", position: 2, name: "Select Seat" },
+        { "@type": "ListItem", position: 3, name: "Online Payment" },
+        { "@type": "ListItem", position: 4, name: "Ticket Issued" },
       ],
     },
     {
@@ -134,20 +127,15 @@ export default function BusTicketingSystemPage() {
       />
       <main>
         <BusHero />
-        <RouteManagement />
+        <TrustStats />
         <WhatIsBusTicketing />
-        <HowItWorks />
-        <Benefits />
-        <WhoCanUse />
-        <Ecosystem />
-        <PlatformTabs />
-        <Payments />
-        <BusinessIntelligence />
         <Onboarding />
-        <PlatformScale />
+        <CapabilityGrid />
+        <ProductDemo />
         <OperatorStories />
+        <SecurityTrust />
         <BusTicketingFaq />
-        <BuiltForOperations />
+        <FinalCTA />
       </main>
     </>
   );
