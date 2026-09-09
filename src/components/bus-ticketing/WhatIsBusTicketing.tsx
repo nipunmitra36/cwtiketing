@@ -84,13 +84,10 @@ export default function WhatIsBusTicketing() {
           </p>
           <h2
             data-gsap
-            className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+            className="mx-auto mt-3 max-w-2xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            What Is CW Ticketing System?
-          </h2>
-          <p data-gsap className="mx-auto mt-4 max-w-2xl text-[14px] font-medium text-brand sm:text-[15px]">
             A web-based bus ticketing software for transport &amp; mobility businesses
-          </p>
+          </h2>
           <p
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
