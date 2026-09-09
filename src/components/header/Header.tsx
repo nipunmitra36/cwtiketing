@@ -79,7 +79,7 @@ const NAV_ITEMS: NavItem[] = [
     dropdown: [
       {
         label: "Bus Operators",
-        desc: "Intercity, shuttle & coach lines",
+        desc: "Intercity f& coach lines",
         href: "/industries/intercity-bus-booking-software",
         icon: <HiOutlineCollection className="h-5 w-5" />,
       },

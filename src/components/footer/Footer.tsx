@@ -1,10 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineArrowRight,
   HiOutlineMail,
@@ -39,9 +36,6 @@ const FOOTER_LINKS: FooterSection[] = [
     title: "Resources",
     links: [
       { label: "Blog", href: "/blog" },
-      { label: "Case Studies", href: "/#case-studies" },
-      { label: "Documentation", href: "/docs" },
-      { label: "API Reference", href: "/docs/api" },
     ],
   },
   {
@@ -189,85 +183,8 @@ function SocialLink({ label, href }: FooterLink) {
 
 // ── Main Component ────────────────────────────────────────────────────────────
 export default function Footer() {
-  const footerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    let ctx: gsap.Context | null = null;
-    const refreshId = requestAnimationFrame(() => ScrollTrigger.refresh());
-
-    const cancel = onSmootherReady(() => {
-      ctx = gsap.context(() => {
-        const items = footerRef.current?.querySelectorAll(".gsap-footer-item");
-      if (items?.length) {
-        gsap.fromTo(
-          items,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: footerRef.current,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-
-      const divider = footerRef.current?.querySelector(".gsap-footer-divider");
-      if (divider) {
-        gsap.fromTo(
-          divider,
-          { scaleX: 0, transformOrigin: "left" },
-          {
-            scaleX: 1,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: divider,
-              start: "top 90%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-
-      const bottomBar = footerRef.current?.querySelector(".gsap-footer-bottom");
-      if (bottomBar) {
-        gsap.fromTo(
-          bottomBar,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: bottomBar,
-              start: "top 95%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-      }, footerRef);
-      });
-
-    return () => {
-      cancelAnimationFrame(refreshId);
-      cancel();
-      ctx?.revert();
-    };
-  }, []);
-
   return (
-    <footer
-      ref={footerRef}
-      className="relative overflow-hidden bg-[#0b0b10] text-gray-100"
-    >
+    <footer className="relative overflow-hidden bg-[#0b0b10] text-gray-100">
       {/* Decorative glows */}
       <div className="pointer-events-none absolute -top-40 left-1/2 h-72 w-[44rem] -translate-x-1/2 rounded-full bg-brand/15 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-48 -right-32 h-96 w-96 rounded-full bg-brand/10 blur-3xl" />
