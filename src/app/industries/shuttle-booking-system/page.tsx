@@ -12,7 +12,7 @@ import FinalCTA from "@/components/shuttle-companies/FinalCTA";
 import Faq from "@/components/shuttle-companies/Faq";
 import { shuttleFaqs } from "@/components/shuttle-companies/faq-data";
 
-const PAGE_URL = "/industries/shuttle-companies";
+const PAGE_URL = "/industries/shuttle-booking-system";
 
 export const metadata: Metadata = {
   title: {
@@ -74,7 +74,7 @@ const jsonLd = {
           "@type": "ListItem",
           position: 3,
           name: "Shuttle Companies",
-          item: "https://www.cwticketingsystem.com/industries/shuttle-companies",
+          item: "https://www.cwticketingsystem.com/industries/shuttle-booking-system",
         },
       ],
     },
@@ -85,7 +85,7 @@ const jsonLd = {
       operatingSystem: "Web, Android, iOS",
       description:
         "Local & shuttle reservation software for school, office, airport and city commute routes with schedule management, fare zones, driver shifts, counter ticketing and mobile QR tickets.",
-      url: "https://www.cwticketingsystem.com/industries/shuttle-companies",
+      url: "https://www.cwticketingsystem.com/industries/shuttle-booking-system",
       publisher: {
         "@type": "Organization",
         name: "CW Ticketing System",

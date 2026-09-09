@@ -13,7 +13,7 @@ import OperatorsFinalCTA from "@/components/bus-operators/OperatorsFinalCTA";
 import OperatorsFaq from "@/components/bus-operators/OperatorsFaq";
 import { operatorFaqs } from "@/components/bus-operators/operators-faq-data";
 
-const PAGE_URL = "/industries/bus-operators";
+const PAGE_URL = "/industries/intercity-bus-booking-software";
 
 export const metadata: Metadata = {
   title: "Intercity Bus Operators | Smart Ticketing Software",
@@ -39,7 +39,7 @@ const jsonLd = {
           "@type": "ListItem",
           position: 2,
           name: "Intercity Bus Operators",
-          item: "https://www.cwticketingsystem.com/industries/bus-operators",
+          item: "https://www.cwticketingsystem.com/industries/intercity-bus-booking-software",
         },
       ],
     },

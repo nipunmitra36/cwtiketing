@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/contact`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/blog`, changeFrequency: "weekly", priority: 0.7 },
     {
-      url: `${SITE_URL}/industries/shuttle-companies`,
+      url: `${SITE_URL}/industries/shuttle-booking-system`,
       changeFrequency: "monthly",
       priority: 0.8,
     },
