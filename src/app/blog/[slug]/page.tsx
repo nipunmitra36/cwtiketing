@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -273,20 +274,25 @@ export default function BlogPostPage() {
         </motion.div>
       </header>
 
-      {/* ── Hero colour band ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: 0.6, delay: 0.15 } }}
-        className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8"
-      >
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand via-brand-hover to-brand-dark p-12 shadow-lg">
-          <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full bg-white/10" />
-          <div className="pointer-events-none absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-white/10" />
-          <p className="relative text-[15px] font-medium leading-relaxed text-white/90 lg:text-[17px]">
-            &ldquo;{post.excerpt}&rdquo;
-          </p>
-        </div>
-      </motion.div>
+      {/* ── Hero image ── */}
+      {post.image && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 0.6, delay: 0.15 } }}
+          className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8"
+        >
+          <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              priority
+              sizes="(min-width: 1280px) 1280px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </motion.div>
+      )}
 
       {/* ── Body ── */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -361,20 +367,33 @@ export default function BlogPostPage() {
                   <Link
                     key={r.slug}
                     href={`/blog/${r.slug}`}
-                    className="group rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
                   >
-                    <span
-                      className={`mb-2 inline-block rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${r.accent}`}
-                    >
-                      {r.category}
-                    </span>
-                    <p className="mb-2 text-[13px] font-semibold leading-snug text-gray-900 group-hover:text-gray-700">
-                      {r.title}
-                    </p>
-                    <span className="flex items-center gap-1 text-[11px] text-gray-400">
-                      <HiOutlineClock className="h-3 w-3" />
-                      {r.readTime} read
-                    </span>
+                    {r.image && (
+                      <div className="relative h-28 w-full overflow-hidden bg-gray-100">
+                        <Image
+                          src={r.image}
+                          alt={r.title}
+                          fill
+                          sizes="(min-width: 1024px) 25vw, 100vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                    )}
+                    <div className="flex flex-1 flex-col p-4">
+                      <span
+                        className={`mb-2 inline-block w-fit rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${r.accent}`}
+                      >
+                        {r.category}
+                      </span>
+                      <p className="mb-2 flex-1 text-[13px] font-semibold leading-snug text-gray-900 group-hover:text-gray-700">
+                        {r.title}
+                      </p>
+                      <span className="flex items-center gap-1 text-[11px] text-gray-400">
+                        <HiOutlineClock className="h-3 w-3" />
+                        {r.readTime} read
+                      </span>
+                    </div>
                   </Link>
                 ))}
               </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -32,9 +33,18 @@ function FeaturedCard({ post }: { post: Post }) {
         href={`/blog/${post.slug}`}
         className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg lg:flex-row"
       >
-        {/* Colour slab */}
+        {/* Image */}
         <div className="relative flex min-h-52 w-full shrink-0 items-end bg-gradient-to-br from-brand via-brand-hover to-brand-dark p-8 lg:w-80 lg:min-h-full">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-white backdrop-blur-sm">
+          {post.image && (
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              sizes="(min-width: 1024px) 320px, 100vw"
+              className="object-cover"
+            />
+          )}
+          <span className="absolute left-5 top-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-brand backdrop-blur-sm">
             <HiOutlineFire className="h-3.5 w-3.5" />
             Featured
           </span>
@@ -77,40 +87,56 @@ function PostCard({ post, index }: { post: Post; index: number }) {
     <motion.article {...fadeUp(0.06 + index * 0.05)}>
       <Link
         href={`/blog/${post.slug}`}
-        className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
       >
-        {/* Top row */}
-        <div className="mb-4 flex items-center justify-between">
-          <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${post.accent}`}>
-            {post.category}
-          </span>
-          <span className="flex items-center gap-1 text-[11px] text-gray-400">
-            <HiOutlineClock className="h-3 w-3" />
-            {post.readTime}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h3 className="mb-2 flex-1 text-[15px] font-medium leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-gray-700">
-          {post.title}
-        </h3>
-
-        {/* Excerpt */}
-        <p className="mb-5 line-clamp-2 text-[13px] leading-relaxed text-gray-500">
-          {post.excerpt}
-        </p>
-
-        {/* Footer */}
-        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-          <div className="flex items-center gap-2">
-            <span
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-medium text-white ${post.author.color}`}
-            >
-              {post.author.initials}
-            </span>
-            <span className="text-[12px] font-medium text-gray-600">{post.author.name}</span>
+        {/* Image */}
+        {post.image && (
+          <div className="relative h-40 w-full overflow-hidden bg-gray-100">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
           </div>
-          <span className="text-[11px] text-gray-400">{post.date}</span>
+        )}
+
+        {/* Content */}
+        <div className="flex flex-1 flex-col p-6">
+          {/* Top row */}
+          <div className="mb-4 flex items-center justify-between">
+            <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${post.accent}`}>
+              {post.category}
+            </span>
+            <span className="flex items-center gap-1 text-[11px] text-gray-400">
+              <HiOutlineClock className="h-3 w-3" />
+              {post.readTime}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h3 className="mb-2 flex-1 text-[15px] font-medium leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-gray-700">
+            {post.title}
+          </h3>
+
+          {/* Excerpt */}
+          <p className="mb-5 line-clamp-2 text-[13px] leading-relaxed text-gray-500">
+            {post.excerpt}
+          </p>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+            <div className="flex items-center gap-2">
+              <span
+                className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-medium text-white ${post.author.color}`}
+              >
+                {post.author.initials}
+              </span>
+              <span className="text-[12px] font-medium text-gray-600">{post.author.name}</span>
+            </div>
+            <span className="text-[11px] text-gray-400">{post.date}</span>
+          </div>
         </div>
       </Link>
     </motion.article>

@@ -119,18 +119,10 @@ export default function AboutHowItWorks() {
         <div data-gsap className="mb-20">
           
 
-          <h2 className="mb-2 max-w-3xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[30px] sm:leading-snug">
-            What is{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">CW Ticketing System</span>
-              <span className="absolute bottom-1 left-0 right-0 h-3 rounded bg-brand/15" />
-            </span>
-            ?
-          </h2>
-          <p className="mb-8 max-w-2xl text-[14px] font-medium text-brand sm:text-[15px]">
+          <h2 className="mb-8 max-w-3xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[30px] sm:leading-snug">
             A white-label booking platform for transport &amp; mobility
             businesses
-          </p>
+          </h2>
 
           <div className="relative">
             <p className="text-[16px] leading-[1.9] text-text-muted sm:text-[18px]">

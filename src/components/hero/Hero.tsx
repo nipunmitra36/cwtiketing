@@ -12,7 +12,6 @@ import {
   HiOutlineShieldCheck,
   HiOutlineDeviceMobile,
   HiOutlineTicket,
-  HiOutlinePlay,
   HiOutlineChartBar,
 } from "react-icons/hi";
 
@@ -397,21 +396,12 @@ export default function Hero() {
                 Start Free Consultation
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
-              <Link
-                href="/features"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-[14px] font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-[0.97]"
-              >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 transition-colors group-hover:bg-brand">
-                  <HiOutlinePlay className="ml-px h-3 w-3 text-white" />
-                </span>
-                Watch Platform Demo
-              </Link>
             </div>
 
             {/* Trust points */}
             <div className="gsap-left-item flex flex-wrap items-center gap-x-5 gap-y-2.5 border-t border-white/15 pt-6">
               {[
-                "50+ Transport Companies",
+                "2500+ Transport Companies",
                 "99.9% Platform Uptime",
                 "Android & iOS Apps Included",
               ].map((point) => (

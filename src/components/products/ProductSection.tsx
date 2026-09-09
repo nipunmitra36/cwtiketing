@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
@@ -23,6 +24,7 @@ interface Feature {
     statLabel: string;
     caption: string;
     icon: IconType;
+    image?: string;
     // "dark" / "light" alternate the card treatment so the stack reads
     // like distinct layers instead of eight identical panels.
     variant: "dark" | "light";
@@ -37,6 +39,7 @@ const features: Feature[] = [
         caption:
             "Real-time seat maps and live fares let passengers complete a booking in seconds, not minutes.",
         icon: HiOutlineTruck,
+        image: "/media/services/bus.webp",
         variant: "dark",
     },
     {
@@ -47,6 +50,7 @@ const features: Feature[] = [
         caption:
             "Live availability and instant alerts keep passengers and staff in sync at every station.",
         icon: HiOutlineClock,
+        image: "/media/services/train.webp",
         variant: "light",
     },
     {
@@ -57,6 +61,7 @@ const features: Feature[] = [
         caption:
             "Interactive deck plans and live fares turn browsing into confirmed reservations.",
         icon: HiOutlineGlobeAlt,
+        image: "/media/services/cruise.webp",
         variant: "dark",
     },
     {
@@ -67,6 +72,7 @@ const features: Feature[] = [
         caption:
             "Automated fare calculation and live tracking connect riders to the nearest driver instantly.",
         icon: HiOutlineLocationMarker,
+        image: "/media/services/taxi.webp",
         variant: "light",
     },
     {
@@ -77,6 +83,7 @@ const features: Feature[] = [
         caption:
             "Timed digital tickets spread arrivals evenly, cutting wait times at the base station.",
         icon: HiOutlineTrendingUp,
+        image: "/media/services/cable%20car.webp",
         variant: "dark",
     },
     {
@@ -277,6 +284,19 @@ function FeaturePanel({
                                         strokeLinecap="round"
                                     />
                                 </svg>
+                            )}
+
+                            {feature.image && (
+                                <div className="relative z-10 mb-6 overflow-hidden rounded-2xl border border-white/10">
+                                    <Image
+                                        src={feature.image}
+                                        alt={feature.title}
+                                        width={640}
+                                        height={360}
+                                        className="h-40 w-full object-cover sm:h-44"
+                                    />
+                                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                                </div>
                             )}
 
                             <div className="relative z-10 flex items-center justify-between">

@@ -25,6 +25,7 @@ export interface BlogPost {
   accentBorder: string;
   accentSolid: string;
   featured?: boolean;
+  image: string;
   author: BlogAuthor;
   tags: string[];
   tableOfContents: { id: string; label: string }[];
@@ -53,6 +54,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-emerald-50 text-emerald-700",
     accentBorder: "border-emerald-200",
     accentSolid: "bg-emerald-600",
+    image: "/media/blogs/what-is-a-ticket-booking-system.jpg",
     author: AUTHOR,
     tags: ["Ticketing System", "Inventory", "Payments", "Overbooking"],
     tableOfContents: [
@@ -99,6 +101,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-indigo-50 text-indigo-700",
     accentBorder: "border-indigo-200",
     accentSolid: "bg-indigo-600",
+    image: "/media/blogs/saas-vs-on-premise-solution-for-ticketing-businesses-how-to-choose-the-right-model.jpg",
     author: AUTHOR,
     tags: ["SaaS", "On-Premise", "Ticketing Software", "Cloud"],
     tableOfContents: [
@@ -159,6 +162,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-amber-50 text-amber-700",
     accentBorder: "border-amber-200",
     accentSolid: "bg-amber-600",
+    image: "/media/blogs/smart-overtime-scheduling-strategies-for-bus-operators.jpg",
     author: AUTHOR,
     tags: ["Overtime Scheduling", "Fleet Management", "Driver Safety", "Operations"],
     tableOfContents: [
@@ -233,6 +237,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-teal-50 text-teal-700",
     accentBorder: "border-teal-200",
     accentSolid: "bg-teal-600",
+    image: "/media/blogs/best-features-of-the-online-bus-ticket-booking-system.jpg",
     author: AUTHOR,
     tags: ["Customer Experience", "Bus Booking", "Mobile-First", "UX"],
     tableOfContents: [
@@ -307,6 +312,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-rose-50 text-rose-700",
     accentBorder: "border-rose-200",
     accentSolid: "bg-rose-600",
+    image: "/media/blogs/benefits-of-cwticketings-smart-fuel-management-feature.jpg",
     author: AUTHOR,
     tags: ["Fuel Management", "Cost Control", "Fleet Management", "CWTicketing"],
     tableOfContents: [
@@ -360,6 +366,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-blue-50 text-blue-700",
     accentBorder: "border-blue-200",
     accentSolid: "bg-blue-600",
+    image: "/media/blogs/web-based-bus-ticketing-system-challenges-and-their-solutions.jpg",
     author: AUTHOR,
     tags: ["Web-Based Ticketing", "API Integration", "Security", "Cloud"],
     tableOfContents: [
@@ -421,6 +428,7 @@ export const POSTS: BlogPost[] = [
     accentBorder: "border-violet-200",
     accentSolid: "bg-violet-600",
     featured: true,
+    image: "/media/blogs/online-transport-booking-system-for-stress-free-travelers.jpg",
     author: AUTHOR,
     tags: ["Transport", "Online Booking", "Travel", "Real-Time Tracking"],
     tableOfContents: [
@@ -488,6 +496,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-sky-50 text-sky-700",
     accentBorder: "border-sky-200",
     accentSolid: "bg-sky-600",
+    image: "/media/blogs/online-taxi-booking-system-benefits-of-online-taxibooking.jpg",
     author: AUTHOR,
     tags: ["Round-Trip", "One-Way", "Online Ticketing", "Travel Planning"],
     tableOfContents: [
@@ -541,6 +550,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-emerald-50 text-emerald-700",
     accentBorder: "border-emerald-200",
     accentSolid: "bg-emerald-600",
+    image: "/media/blogs/bus-ticketing-management-solution.jpg",
     author: AUTHOR,
     tags: ["Bus Ticketing", "Online Booking", "Transportation", "Boarding Points", "PDF Tickets"],
     tableOfContents: [
@@ -594,6 +604,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-amber-50 text-amber-700",
     accentBorder: "border-amber-200",
     accentSolid: "bg-amber-600",
+    image: "/media/blogs/cwticketing-parcel-management-system-effective-solution-for-package-handling.jpg",
     author: AUTHOR,
     tags: ["Parcel Management", "Package Tracking", "Logistics", "CWTicketing"],
     tableOfContents: [
@@ -647,6 +658,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-indigo-50 text-indigo-700",
     accentBorder: "border-indigo-200",
     accentSolid: "bg-indigo-600",
+    image: "/media/blogs/driver-app-benefits-solving-7-major-problems-for-bus-drivers.jpg",
     author: AUTHOR,
     tags: ["Driver App", "Fleet Management", "Bus Drivers", "Mobile Technology"],
     tableOfContents: [
@@ -693,6 +705,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-teal-50 text-teal-700",
     accentBorder: "border-teal-200",
     accentSolid: "bg-teal-600",
+    image: "/media/blogs/how-an-online-ticket-booking-software-improves-business-operations-for-small-operators.jpg",
     author: AUTHOR,
     tags: ["Small Operators", "Online Ticketing", "Business Growth", "Data Insights"],
     tableOfContents: [
@@ -781,6 +794,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-blue-50 text-blue-700",
     accentBorder: "border-blue-200",
     accentSolid: "bg-blue-600",
+    image: "/media/blogs/how-online-ticket-booking-system-improves-users-experience.jpg",
     author: AUTHOR,
     tags: ["Booking Software", "Real-Time Availability", "Payment Integration", "Double Booking"],
     tableOfContents: [
@@ -855,6 +869,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-violet-50 text-violet-700",
     accentBorder: "border-violet-200",
     accentSolid: "bg-violet-600",
+    image: "/media/blogs/how-saas-fare-collection-solves-the-traditional-ticketing-problems.jpg",
     author: AUTHOR,
     tags: ["SaaS", "Fare Collection", "Digital Payments", "Ticketing"],
     tableOfContents: [
@@ -915,6 +930,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-sky-50 text-sky-700",
     accentBorder: "border-sky-200",
     accentSolid: "bg-sky-600",
+    image: "/media/blogs/how-sto-start-a-bus-ticket-booking-business-the-gnly-guide-you-will-need.jpg",
     author: AUTHOR,
     tags: ["Bus Business", "Startup Guide", "Online Booking", "White Label"],
     tableOfContents: [
@@ -989,6 +1005,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-rose-50 text-rose-700",
     accentBorder: "border-rose-200",
     accentSolid: "bg-rose-600",
+    image: "/media/blogs/iot-fleet-management-fix-fleet-problems-and-boost-efficiency.jpg",
     author: AUTHOR,
     tags: ["IoT", "Fleet Management", "Vehicle Tracking", "Predictive Maintenance"],
     tableOfContents: [
@@ -1084,6 +1101,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-fuchsia-50 text-fuchsia-700",
     accentBorder: "border-fuchsia-200",
     accentSolid: "bg-fuchsia-600",
+    image: "/media/blogs/why-you-should-choose-cw-online-event-ticketing-system.jpg",
     author: AUTHOR,
     tags: ["Event Ticketing", "Ticket Sales", "Event Marketing", "Promotion"],
     tableOfContents: [
@@ -1165,6 +1183,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-cyan-50 text-cyan-700",
     accentBorder: "border-cyan-200",
     accentSolid: "bg-cyan-600",
+    image: "/media/blogs/online-reservation-system-a-perfect-solution-for-businesses-and-end-users .jpg",
     author: AUTHOR,
     tags: ["Online Reservation", "Booking System", "Resource Management", "Customer Experience"],
     tableOfContents: [
@@ -1218,6 +1237,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-lime-50 text-lime-700",
     accentBorder: "border-lime-200",
     accentSolid: "bg-lime-600",
+    image: "/media/blogs/online-ticket-booking-system-streamline-booking-and-boost-sales.png",
     author: AUTHOR,
     tags: ["Online Ticketing", "Booking System", "Revenue Growth", "Automation"],
     tableOfContents: [
@@ -1264,6 +1284,7 @@ export const POSTS: BlogPost[] = [
     accent: "bg-orange-50 text-orange-700",
     accentBorder: "border-orange-200",
     accentSolid: "bg-orange-600",
+    image: "/media/blogs/online-ticket-booking-system-vs-offline-sales-which-model-works-best-for-your-business.jpg",
     author: AUTHOR,
     tags: ["Online vs Offline", "Ticket Sales", "Transport Business", "Hybrid Model"],
     tableOfContents: [
