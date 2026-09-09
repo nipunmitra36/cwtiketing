@@ -77,7 +77,7 @@ const NAV_ITEMS: NavItem[] = [
       {
         label: "Event Ticketing",
         desc: "Concerts, conferences & more",
-        href: "/services/event-ticketing",
+        href: "/solutions/event-ticketing",
         icon: <HiOutlineCalendar className="h-5 w-5" />,
       },
     ],
