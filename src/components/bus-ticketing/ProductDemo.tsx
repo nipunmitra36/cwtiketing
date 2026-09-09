@@ -13,6 +13,10 @@ import {
   HiOutlineCube,
   HiOutlineQrcode,
   HiOutlineCheck,
+  HiOutlineZoomIn,
+  HiOutlineX,
+  HiOutlineChevronLeft,
+  HiOutlineChevronRight,
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
@@ -141,12 +145,31 @@ const tabs: Tab[] = [
 
 function ProductShowcase({ tab }: { tab: Tab }) {
   const [imgIndex, setImgIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const imgCount = tab.images.length;
   const safeIndex = imgCount > 0 ? imgIndex % imgCount : 0;
 
   useEffect(() => {
     setImgIndex(0);
   }, [tab.num]);
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowRight") setImgIndex((i) => (i + 1) % imgCount);
+      if (e.key === "ArrowLeft") setImgIndex((i) => (i - 1 + imgCount) % imgCount);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [lightboxOpen, imgCount]);
+
+  const prev = () => setImgIndex((i) => (i - 1 + imgCount) % imgCount);
+  const next = () => setImgIndex((i) => (i + 1) % imgCount);
 
   return (
     <div className="relative">
@@ -165,17 +188,28 @@ function ProductShowcase({ tab }: { tab: Tab }) {
             {tab.label} — {tab.title}
           </span>
         </div>
-        <div key={safeIndex} className="relative flex w-full items-center justify-center bg-white py-4">
-          {tab.images.length > 0 ? (
+
+        <button
+          type="button"
+          onClick={() => setLightboxOpen(true)}
+          aria-label="View full size"
+          className="group relative block w-full overflow-hidden bg-gray-50"
+        >
+          {imgCount > 0 && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
+              key={safeIndex}
               src={tab.images[safeIndex]}
               alt={tab.title}
-              className="mx-auto h-auto w-full rounded-lg object-contain"
+              className="mx-auto aspect-[16/9] h-auto w-full bg-white object-contain px-2 py-2"
             />
-          ) : null}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/5 to-transparent" />
-        </div>
+          )}
+          <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/20">
+            <span className="flex h-12 w-12 scale-75 items-center justify-center rounded-full bg-white/95 text-brand opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+              <HiOutlineZoomIn className="h-6 w-6" />
+            </span>
+          </span>
+        </button>
       </div>
 
       {/* floating counter badge */}
@@ -202,6 +236,78 @@ function ProductShowcase({ tab }: { tab: Tab }) {
               <img src={src} alt="" className="h-full w-full object-cover" />
             </button>
           ))}
+        </div>
+      )}
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={tab.title}
+          className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black/90 p-4 pt-24 backdrop-blur-sm sm:pt-28"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close"
+            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+          >
+            <HiOutlineX className="h-6 w-6" />
+          </button>
+
+          {imgCount > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prev();
+                }}
+                aria-label="Previous image"
+                className="absolute left-3 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-6"
+              >
+                <HiOutlineChevronLeft className="h-7 w-7" />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  next();
+                }}
+                aria-label="Next image"
+                className="absolute right-3 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-6"
+              >
+                <HiOutlineChevronRight className="h-7 w-7" />
+              </button>
+            </>
+          )}
+
+          <figure
+            className="flex w-full max-w-6xl flex-1 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-4 border-b border-gray-100 bg-gray-50 px-5 py-3">
+              <span className="truncate text-[14px] font-semibold text-text-dark">
+                {tab.title}
+              </span>
+              <span className="shrink-0 rounded-full bg-brand/10 px-3 py-1 text-[12px] font-semibold text-brand">
+                {safeIndex + 1} / {imgCount}
+              </span>
+            </div>
+            <div className="flex min-h-0 flex-1 items-center justify-center bg-gray-900 p-3 sm:p-6">
+              {imgCount > 0 && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={safeIndex}
+                  src={tab.images[safeIndex]}
+                  alt={tab.title}
+                  className="max-h-full w-auto max-w-full object-contain"
+                />
+              )}
+            </div>
+          </figure>
         </div>
       )}
     </div>

@@ -3,14 +3,9 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import { HiOutlineStar } from "react-icons/hi";
+import LogoMarquee from "../clients/LogoMarquee";
 
-interface Client {
-  name: string;
-  country: string;
-  src?: string;
-}
-
-const clients: Client[] = [
+const clients = [
   { name: "Busbora", country: "Tanzania", src: "/media/client/busbora.webp" },
   { name: "Musango", country: "Cameroon", src: "/media/client/musango.webp" },
   { name: "Rojos De Colima", country: "Mexico", src: "/media/client/rojos-logo.webp" },
@@ -50,28 +45,15 @@ export default function ClientShowcase() {
     <section ref={sectionRef} className="relative overflow-hidden bg-gray-50 py-16 lg:py-24">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+          <p data-gsap className="text-[13px] font-semibold uppercase tracking-widest text-brand">
+            Trusted by transport companies worldwide
+          </p>
+          <h2 data-gsap className="mt-2 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
             Intercity Bus Ticketing System Client List
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-          {clients.map((c) => (
-            <div
-              key={c.name}
-              data-gsap
-              className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-gray-100 bg-white px-4 py-6 text-center shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-brand/10"
-            >
-              {c.src ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={c.src} alt={c.name} loading="lazy" className="h-8 w-auto max-w-[110px] object-contain" />
-              ) : (
-                <span className="text-[15px] font-black tracking-tight text-gray-300">{c.name}</span>
-              )}
-              <span className="text-[11px] font-medium text-text-muted">{c.country}</span>
-            </div>
-          ))}
-        </div>
+        <LogoMarquee logos={clients} />
 
         {/* ── Client review ── */}
         <figure
