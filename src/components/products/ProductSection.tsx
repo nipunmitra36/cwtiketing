@@ -25,9 +25,6 @@ interface Feature {
     caption: string;
     icon: IconType;
     image?: string;
-    // "dark" / "light" alternate the card treatment so the stack reads
-    // like distinct layers instead of eight identical panels.
-    variant: "dark" | "light";
 }
 
 const features: Feature[] = [
@@ -40,7 +37,6 @@ const features: Feature[] = [
             "Real-time seat maps and live fares let passengers complete a booking in seconds, not minutes.",
         icon: HiOutlineTruck,
         image: "/media/services/bus.webp",
-        variant: "dark",
     },
     {
         title: "Train Ticketing System",
@@ -51,7 +47,6 @@ const features: Feature[] = [
             "Live availability and instant alerts keep passengers and staff in sync at every station.",
         icon: HiOutlineClock,
         image: "/media/services/train.webp",
-        variant: "light",
     },
     {
         title: "Cruise Booking System",
@@ -62,7 +57,6 @@ const features: Feature[] = [
             "Interactive deck plans and live fares turn browsing into confirmed reservations.",
         icon: HiOutlineGlobeAlt,
         image: "/media/services/cruise.webp",
-        variant: "dark",
     },
     {
         title: "Taxi Booking System",
@@ -73,7 +67,6 @@ const features: Feature[] = [
             "Automated fare calculation and live tracking connect riders to the nearest driver instantly.",
         icon: HiOutlineLocationMarker,
         image: "/media/services/taxi.webp",
-        variant: "light",
     },
     {
         title: "Cable Car Booking System",
@@ -84,7 +77,6 @@ const features: Feature[] = [
             "Timed digital tickets spread arrivals evenly, cutting wait times at the base station.",
         icon: HiOutlineTrendingUp,
         image: "/media/services/cable%20car.webp",
-        variant: "dark",
     },
     {
         title: "Event Ticketing System",
@@ -94,7 +86,6 @@ const features: Feature[] = [
         caption:
             "Digital tickets and QR scanning move attendees through the gate in half the time.",
         icon: HiOutlineCalendar,
-        variant: "light",
     },
     {
         title: "Parcel Management System",
@@ -104,16 +95,9 @@ const features: Feature[] = [
         caption:
             "Live status updates keep senders, drivers, and recipients on the same page from pickup to drop-off.",
         icon: HiOutlineCube,
-        variant: "dark",
     },
 ];
 
-const panelThemes = [
-    { bg: "#003EA8", shade: "#002B75", border: "rgba(255,255,255,0.18)", deco: "rgba(255,255,255,0.5)", shine: "via-white/60", title: "text-white", body: "text-white/75", button: "bg-white text-[#003EA8] hover:bg-gray-100", btnShadow: "shadow-black/25" },
-    { bg: "#1F88FD", shade: "#196DCA", border: "rgba(255,255,255,0.25)", deco: "rgba(255,255,255,0.55)", shine: "via-white/70", title: "text-white", body: "text-white/80", button: "bg-white text-[#1F88FD] hover:bg-gray-100", btnShadow: "shadow-black/25" },
-    { bg: "#00BA5F", shade: "#00904A", border: "rgba(255,255,255,0.35)", deco: "rgba(255,255,255,0.55)", shine: "via-white/70", title: "text-[#062b18]", body: "text-[#062b18]/75", button: "bg-[#062b18] text-white hover:bg-black", btnShadow: "shadow-black/25" },
-    { bg: "#FFCC00", shade: "#E0B300", border: "rgba(0,0,0,0.08)", deco: "rgba(0,0,0,0.15)", shine: "via-black/25", title: "text-text-dark", body: "text-text-body", button: "bg-text-dark text-white hover:bg-black", btnShadow: "shadow-black/20" },
-];
 
 function FeaturePanel({
     feature,
@@ -130,8 +114,6 @@ function FeaturePanel({
     const cardRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
     const Icon = feature.icon;
-    const isDark = feature.variant === "dark";
-    const theme = panelThemes[index % panelThemes.length];
 
     useEffect(() => {
         // In the desktop stack every card is positioned absolutely and animated
@@ -182,195 +164,56 @@ function FeaturePanel({
             }}
             className={
                 stacked
-                    ? "absolute inset-x-0 top-[11vh] h-[max(78vh,440px)]"
+                    ? "absolute inset-x-0 top-[14vh] h-[max(58vh,400px)]"
                     : "relative"
             }
             style={{ zIndex: index + 1 }}
         >
-            <div
-                style={{ backgroundImage: `linear-gradient(165deg, ${theme.bg} 0%, ${theme.shade} 100%)`, borderColor: theme.border }}
-                className="relative mx-auto grid w-full max-w-7xl gap-8 overflow-hidden px-4 py-12 sm:px-6 lg:h-full lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8 lg:py-0 lg:rounded-2xl lg:border">
-                    {/* top light */}
-                    <div
-                        aria-hidden
-                        style={{ backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.16), transparent 60%)" }}
-                        className="pointer-events-none absolute inset-x-0 top-0 h-2/3"
-                    />
-                    {/* hairline shine */}
-                    <div
-                        aria-hidden
-                        className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent ${theme.shine}`}
-                    />
-                    {/* dotted route path */}
-                    <svg
-                        aria-hidden
-                        className="pointer-events-none absolute inset-0 h-full w-full opacity-70"
-                        viewBox="0 0 1200 500"
-                        fill="none"
-                        preserveAspectRatio="none"
-                    >
-                        <path
-                            d="M -40 420 C 260 340, 420 120, 700 150 S 1080 60, 1240 120"
-                            stroke={theme.deco}
-                            strokeWidth="1.5"
-                            strokeDasharray="1 12"
-                            strokeLinecap="round"
-                        />
-                        <path
-                            d="M -40 470 C 340 400, 520 200, 820 210 S 1100 120, 1240 160"
-                            stroke={theme.deco}
-                            strokeWidth="1"
-                            strokeDasharray="1 18"
-                            strokeLinecap="round"
-                            opacity="0.6"
-                        />
-                    </svg>
-                    {/* bottom vignette */}
-                    <div
-                        aria-hidden
-                        style={{ backgroundImage: "radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.2), transparent 65%)" }}
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
-                    />
-
+            <div className="relative mx-auto grid h-full w-full max-w-7xl gap-6 overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 px-5 py-8 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-12">
                     {/* ── Left: copy ── */}
                     <div ref={textRef} className={index % 2 === 1 ? "lg:order-2" : ""}>
-                        <h3 className={`mt-5 text-[22px] font-medium leading-snug tracking-tight sm:text-[28px] sm:leading-snug ${theme.title}`}>
+                        <h3 className="text-[22px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                             {feature.title}
                         </h3>
-                        <p className={`mt-4 max-w-md text-[15px] leading-relaxed ${theme.body}`}>
+                        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-text-body">
                             {feature.desc}
                         </p>
 
                         <Link
                             href="/contact"
-                            className={`mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold shadow-lg transition-all hover:gap-2.5 active:scale-95 ${theme.button} ${theme.btnShadow}`}
+                            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-[13px] font-semibold text-white shadow-lg transition-all hover:gap-2.5 active:scale-95"
                         >
                             Explore {feature.title.replace(" System", "")} Solution
                             <HiOutlineArrowRight className="h-4 w-4" />
                         </Link>
                     </div>
 
-                    {/* ── Right: feature card ── */}
+                    {/* ── Right: full image ── */}
                     <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                         <div
                             ref={cardRef}
-                            className={`group relative overflow-hidden rounded-3xl border p-6 shadow-2xl transition-all duration-300 sm:p-8 ${
-                                isDark
-                                    ? "border-white/10 bg-gradient-to-br from-[#1a2233] to-[#0c121e] shadow-black/30"
-                                    : "border-gray-100 bg-white shadow-gray-300/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-300/60"
-                            }`}
+                            className="group relative h-64 w-full overflow-hidden rounded-2xl border border-gray-200 shadow-lg sm:h-72 lg:h-[22rem]"
                             style={{ transformOrigin: "center" }}
                         >
-                            {/* brand glow */}
-                            <div
-                                className={`pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full blur-3xl transition-opacity duration-500 ${
-                                    isDark ? "bg-brand/25" : "bg-brand/15"
-                                }`}
-                            />
-
-                            {/* faint decorative path, dark cards only */}
-                            {isDark && (
-                                <svg
-                                    className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.12]"
-                                    viewBox="0 0 600 400"
-                                    fill="none"
-                                    preserveAspectRatio="none"
-                                >
-                                    <path
-                                        d="M -20 300 C 120 260, 160 140, 300 130 S 480 40, 620 20"
-                                        stroke="white"
-                                        strokeWidth="2"
-                                        strokeDasharray="2 10"
-                                        strokeLinecap="round"
-                                    />
-                                </svg>
-                            )}
-
-                            {feature.image && (
-                                <div className="relative z-10 mb-6 overflow-hidden rounded-2xl border border-white/10">
-                                    <Image
-                                        src={feature.image}
-                                        alt={feature.title}
-                                        width={640}
-                                        height={360}
-                                        className="h-40 w-full object-cover sm:h-44"
-                                    />
-                                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                            {feature.image ? (
+                                <Image
+                                    src={feature.image}
+                                    alt={feature.title}
+                                    fill
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
+                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                            ) : (
+                                <div className="flex h-full w-full items-center justify-center bg-gray-200">
+                                    <Icon className="h-16 w-16 text-gray-400" />
                                 </div>
                             )}
-
-                            <div className="relative z-10 flex items-center justify-between">
-                                <span
-                                    className={`flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg ${
-                                        isDark
-                                            ? "bg-gradient-to-br from-brand to-brand-dark text-white shadow-brand/30"
-                                            : "bg-brand-light text-brand"
-                                    }`}
-                                >
-                                    <Icon className="h-6 w-6" />
-                                </span>
-                                <span
-                                    className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium ${
-                                        isDark ? "border-white/10 bg-white/5 text-white/70" : "border-gray-200 bg-gray-50 text-text-muted"
-                                    }`}
-                                >
-                                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                                    Live network
-                                </span>
-                            </div>
-
-                            {/* big stat */}
-                            <div className="relative z-10 mt-8 sm:mt-9">
-                                <p
-                                    className={`text-5xl font-black tracking-tight sm:text-6xl ${
-                                        isDark ? "text-white" : "text-text-dark"
-                                    }`}
-                                >
-                                    {feature.stat}
-                                </p>
-                                <p
-                                    className={`mt-1 text-[13px] font-medium ${
-                                        isDark ? "text-white/60" : "text-text-muted"
-                                    }`}
-                                >
-                                    {feature.statLabel}
-                                </p>
-                            </div>
-
-                            {/* mini seat / status grid — quick visual texture */}
-                            <div className="relative z-10 mt-8 grid grid-cols-8 gap-1.5 sm:mt-10">
-                                {Array.from({ length: 24 }).map((_, gi) => {
-                                    const on = (gi * 7 + index * 3) % 5 === 0;
-                                    return (
-                                        <div
-                                            key={gi}
-                                            className={`h-3 rounded-sm transition-all duration-300 ${
-                                                on
-                                                    ? isDark
-                                                        ? "bg-gradient-to-br from-brand to-brand-dark"
-                                                        : "bg-brand"
-                                                    : isDark
-                                                        ? "bg-white/10"
-                                                        : "bg-gray-100"
-                                            }`}
-                                        />
-                                    );
-                                })}
-                            </div>
-
-                            <div
-                                className={`relative z-10 mt-8 border-t border-dashed pt-6 sm:mt-10 ${
-                                    isDark ? "border-white/15" : "border-gray-200"
-                                }`}
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                            <span
+                                className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand shadow-lg"
                             >
-                                <p
-                                    className={`text-[13px] leading-relaxed ${
-                                        isDark ? "text-white/60" : "text-text-muted"
-                                    }`}
-                                >
-                                    {feature.caption}
-                                </p>
-                            </div>
+                                <Icon className="h-6 w-6" />
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -477,9 +320,6 @@ export default function ScrollFeatures() {
                 <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                     Built for How Each Industry Actually Moves People
                 </h2>
-                <p className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
-                    Scroll to see how each module works, from booking to back-office.
-                </p>
             </div>
 
             {/* ── progress rail (desktop only, visible only while this section is on screen) ── */}

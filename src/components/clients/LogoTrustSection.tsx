@@ -8,7 +8,6 @@ interface Logo {
   src: string;
 }
 
-// Single row — scrolls right → left, full width
 const logos: Logo[] = [
   { name: "Afrikonekta", src: "/media/client/afrikonekta.webp" },
   { name: "Asante Rabi Express", src: "/media/client/asante-rabi-express.webp" },
@@ -37,9 +36,10 @@ const logos: Logo[] = [
   { name: "Zedicket", src: "/media/client/zedicket.webp" },
 ];
 
-const half = Math.ceil(logos.length / 2);
-const logosRow1: Logo[] = logos.slice(0, half);
-const logosRow2: Logo[] = logos.slice(half);
+const third = Math.ceil(logos.length / 3);
+const logosRow1: Logo[] = logos.slice(0, third);
+const logosRow2: Logo[] = logos.slice(third, third * 2);
+const logosRow3: Logo[] = logos.slice(third * 2);
 
 function MarqueeRow({
   logos,
@@ -50,20 +50,19 @@ function MarqueeRow({
   direction: "left" | "right";
   speed?: number;
 }) {
-  // duplicate the array so the loop is seamless
   const track = [...logos, ...logos];
 
   return (
     <div className="group/row relative overflow-hidden">
       <div
-        className={`flex w-max items-center gap-4 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"
+        className={`flex w-max items-center ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"
           } [animation-duration:var(--marquee-duration)] group-hover/row:[animation-play-state:paused]`}
         style={{ "--marquee-duration": `${speed}s` } as React.CSSProperties}
       >
         {track.map((logo, i) => (
           <div
             key={`${logo.name}-${i}`}
-            className="flex shrink-0 items-center gap-3 rounded-2xl border border-gray-100 bg-white px-5 py-3 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(16,24,40,0.08)]"
+            className="mr-4 flex shrink-0 items-center gap-3 rounded-2xl border border-gray-100 bg-white px-5 py-3 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(16,24,40,0.08)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -101,17 +100,17 @@ export default function LogoTrustSection() {
         >
           Trusted by transport companies worldwide
         </p>
-      </div>
 
-      {/* ── Full-width marquee ── */}
-      <div data-gsap className="relative">
-        {/* edge fade masks */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-28" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-28" />
+        {/* ── Three-row marquee, contained to container width ── */}
+        <div data-gsap className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-20" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-20" />
 
-        <div className="flex flex-col gap-4">
-          <MarqueeRow logos={logosRow1} direction="left" speed={45} />
-          <MarqueeRow logos={logosRow2} direction="right" speed={45} />
+          <div className="flex flex-col gap-6">
+            <MarqueeRow logos={logosRow1} direction="left" speed={60} />
+            <MarqueeRow logos={logosRow2} direction="right" speed={70} />
+            <MarqueeRow logos={logosRow3} direction="left" speed={60} />
+          </div>
         </div>
       </div>
     </section>
