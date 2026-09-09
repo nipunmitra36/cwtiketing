@@ -26,6 +26,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${SITE_URL}/industries/bus-terminal-ticketing-system`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 
   const blogRoutes: MetadataRoute.Sitemap = POSTS.map((post) => ({
