@@ -6,9 +6,6 @@ import {
   HiOutlineShieldCheck,
   HiOutlineKey,
   HiOutlineEye,
-  HiOutlineCheckCircle,
-  HiOutlineLockClosed,
-  HiOutlineBadgeCheck,
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
@@ -34,13 +31,6 @@ const pillars: Pillar[] = [
     title: "Control & Visibility",
     desc: "A real-time audit log of every booking, refund and schedule change — what happened, when, and by whom.",
   },
-];
-
-const badges: { icon: IconType; label: string }[] = [
-  { icon: HiOutlineCheckCircle, label: "GDPR" },
-  { icon: HiOutlineLockClosed, label: "PCI DSS" },
-  { icon: HiOutlineBadgeCheck, label: "ISO 27001" },
-  { icon: HiOutlineShieldCheck, label: "SOC 2" },
 ];
 
 export default function SecurityTrust() {
@@ -99,25 +89,6 @@ export default function SecurityTrust() {
                 </h3>
                 <p className="mt-2.5 text-[13px] leading-relaxed text-text-muted">{p.desc}</p>
               </div>
-            );
-          })}
-        </div>
-
-        {/* Compliance badges */}
-        <div
-          data-gsap
-          className="mx-auto mt-10 flex max-w-2xl flex-wrap items-center justify-center gap-3"
-        >
-          {badges.map((b) => {
-            const Icon = b.icon;
-            return (
-              <span
-                key={b.label}
-                className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-[12.5px] font-semibold text-text-dark shadow-sm"
-              >
-                <Icon className="h-4 w-4 text-brand" />
-                {b.label}
-              </span>
             );
           })}
         </div>

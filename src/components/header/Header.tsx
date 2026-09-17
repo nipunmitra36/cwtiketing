@@ -79,22 +79,25 @@ const NAV_ITEMS: NavItem[] = [
     dropdown: [
       {
         label: "Bus Operators",
-        desc: "Intercity f& coach lines",
+        desc: "Intercity & coach lines",
         href: "/industries/intercity-bus-booking-software",
         icon: <HiOutlineCollection className="h-5 w-5" />,
       },
-      {
-        label: "Travel Agencies",
-        desc: "Multi-operator ticket retail",
-        href: "/industries/bus-terminal-ticketing-system",
-        icon: <HiOutlineGlobe className="h-5 w-5" />,
-      },
+
       {
         label: "Shuttle Companies",
         desc: "Airport & point-to-point shuttles",
         href: "/industries/shuttle-booking-system",
         icon: <HiOutlineOfficeBuilding className="h-5 w-5" />,
       },
+
+      {
+        label: "Travel Agencies",
+        desc: "Multi-operator ticket retail",
+        href: "/industries/bus-terminal-ticketing-system",
+        icon: <HiOutlineGlobe className="h-5 w-5" />,
+      },
+
     ],
   },
   {

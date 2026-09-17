@@ -33,27 +33,23 @@ const platformModules: { icon: IconType; label: string }[] = [
   { icon: HiOutlineClipboardList, label: "Reports" },
 ];
 
-const features: { num: string; icon: IconType; title: string; desc: string }[] = [
+const features: { icon: IconType; title: string; desc: string }[] = [
   {
-    num: "01",
     icon: HiOutlineTicket,
     title: "Online Booking Engine",
     desc: "Let passengers book tickets anytime through your website or branded mobile apps.",
   },
   {
-    num: "02",
     icon: HiOutlineMap,
     title: "Route & Seat Management",
     desc: "Manage schedules, routes, seat layouts, fares and availability in real time.",
   },
   {
-    num: "03",
     icon: HiOutlineCreditCard,
     title: "Payment Integration",
     desc: "Accept online payments through multiple gateways while reducing manual reconciliation.",
   },
   {
-    num: "04",
     icon: HiOutlineViewGrid,
     title: "Operator Dashboard",
     desc: "Control bookings, passengers, revenue and business insights from one place.",
@@ -118,14 +114,11 @@ export default function WhatIsBusTicketing() {
             const Icon = f.icon;
             return (
               <div
-                key={f.num}
+                key={f.title}
                 data-gsap
                 className="group relative flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white p-6 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/25 hover:shadow-xl hover:shadow-brand/10"
               >
-                <span className="pointer-events-none absolute -right-2 -top-4 select-none text-[56px] font-black leading-none text-brand/[0.06] transition-colors duration-300 group-hover:text-brand/15">
-                  {f.num}
-                </span>
-                <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-light text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand/30">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-light text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand/30">
                   <Icon className="h-6 w-6" />
                 </span>
                 <h3 className="relative mt-5 text-[15px] font-medium tracking-tight text-text-dark">

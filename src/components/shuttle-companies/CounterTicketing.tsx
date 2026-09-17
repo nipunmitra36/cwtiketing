@@ -4,34 +4,22 @@ import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
   HiOutlineTicket,
-  HiOutlineViewGrid,
-  HiOutlineQrcode,
-  HiOutlineChip,
   HiOutlineDesktopComputer,
-  HiOutlineAdjustments,
-  HiOutlinePrinter,
-  HiOutlineMap,
-  HiOutlineTrendingUp,
-  HiOutlineUserGroup,
-  HiOutlineTruck,
-  HiOutlineCash,
   HiOutlineCurrencyDollar,
 } from "react-icons/hi";
-import type { IconType } from "react-icons";
 
-const agentFeatures: { icon: IconType; label: string }[] = [
-  { icon: HiOutlineTicket, label: "Walk-in Ticket Issuance" },
-  { icon: HiOutlineViewGrid, label: "Real-Time Seat Availability" },
-  { icon: HiOutlineQrcode, label: "QR Code & Contactless Payments" },
-  { icon: HiOutlineChip, label: "Fuel Management" },
-  { icon: HiOutlineDesktopComputer, label: "Android POS Integration" },
-  { icon: HiOutlineAdjustments, label: "Dynamic Seat Plan Creator" },
-  { icon: HiOutlinePrinter, label: "E-Ticket Printing & SMS Receipts" },
-  { icon: HiOutlineMap, label: "Route & Schedule Access" },
-  { icon: HiOutlineTrendingUp, label: "Shift & Sales Tracking" },
-  { icon: HiOutlineUserGroup, label: "Multi-Agent Login with Role Control" },
-  { icon: HiOutlineTruck, label: "Fleet Management" },
-  { icon: HiOutlineCash, label: "Fare Collection Reports" },
+const MEDIA = "/media/suttle/Built for Bus Stop Agents";
+
+const agentFeatures: { image: string; label: string }[] = [
+  { image: `${MEDIA}/Walk-in Ticket Issuance.svg`, label: "Walk-in Ticket Issuance" },
+  { image: `${MEDIA}/Real-Time Seat Availability.svg`, label: "Real-Time Seat Availability" },
+  { image: `${MEDIA}/QR Code & Contactless Payments.svg`, label: "QR Code & Contactless Payments" },
+  { image: `${MEDIA}/Android POS Integration.svg`, label: "Android POS Integration" },
+  { image: `${MEDIA}/E-Ticket Printing & SMS Receipts.svg`, label: "E-Ticket Printing & SMS Receipts" },
+  { image: `${MEDIA}/Route & Schedule Access.svg`, label: "Route & Schedule Access" },
+  { image: `${MEDIA}/Shift & Sales Tracking.svg`, label: "Shift & Sales Tracking" },
+  { image: `${MEDIA}/Multi-Agent Login with Role Control.svg`, label: "Multi-Agent Login with Role Control" },
+  { image: `${MEDIA}/Fare Collection Reports.svg`, label: "Fare Collection Reports" },
 ];
 
 const SEAT_STATES = ["sold", "free", "free", "sold", "selected", "free", "sold", "free", "free", "sold", "free", "free"] as const;
@@ -178,22 +166,28 @@ export default function CounterTicketing() {
               Built for Bus Stop Agents
             </h3>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {agentFeatures.map((f) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={f.label}
-                  data-gsap
-                  className="group flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand/25 hover:shadow-lg hover:shadow-brand/10"
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-light text-brand transition-all duration-300 group-hover:bg-brand group-hover:text-white">
-                    <Icon className="h-4.5 w-4.5" />
-                  </span>
-                  <span className="text-[12.5px] font-medium leading-snug text-text-dark">{f.label}</span>
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {agentFeatures.map((f) => (
+              <div
+                key={f.label}
+                data-gsap
+                className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-gray-100 bg-gradient-to-b from-white to-brand-light/30 p-6 text-center shadow-sm shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/15"
+              >
+                <span className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-center scale-x-0 bg-gradient-to-r from-brand via-amber-400 to-brand-dark transition-transform duration-300 group-hover:scale-x-100" />
+                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-light via-white to-white p-2.5 shadow-inner ring-1 ring-brand/10 transition-transform duration-300 group-hover:scale-110">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={f.image}
+                    alt={f.label}
+                    loading="lazy"
+                    className="h-full w-full object-contain"
+                  />
+                </span>
+                <span className="text-[13.5px] font-semibold leading-snug tracking-tight text-text-dark">
+                  {f.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

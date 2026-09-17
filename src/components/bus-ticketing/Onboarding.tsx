@@ -9,7 +9,6 @@ import {
   HiOutlineColorSwatch,
   HiOutlineLink,
   HiOutlinePaperAirplane,
-  HiOutlineCheck,
   HiOutlineArrowRight,
   HiOutlineChatAlt2,
   HiOutlineViewGrid,
@@ -191,9 +190,6 @@ export default function Onboarding() {
 
                   {/* Card */}
                   <div className="relative flex-1 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand/25 hover:shadow-xl hover:shadow-brand/10 lg:mt-6 lg:w-full">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-brand">
-                      Step {step.num}
-                    </p>
                     <h3 className="mt-1 text-[15px] font-medium tracking-tight text-text-dark">
                       {step.title}
                     </h3>
@@ -246,14 +242,7 @@ export default function Onboarding() {
           </Link>
         </div>
 
-        {/* Completion line */}
-        <div data-gsap className="mt-8 flex items-center justify-center gap-2 text-[12px] font-medium text-text-muted">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-            <HiOutlineCheck className="h-3 w-3" />
-          </span>
-          Average onboarding takes 2–4 weeks, depending on scope.
         </div>
-      </div>
     </section>
   );
 }

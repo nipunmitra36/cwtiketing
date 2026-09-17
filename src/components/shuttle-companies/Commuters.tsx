@@ -3,29 +3,27 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
-  HiOutlineLocationMarker,
-  HiOutlineLightningBolt,
   HiOutlineCreditCard,
   HiOutlineBell,
   HiOutlineQrcode,
   HiOutlineRefresh,
   HiOutlineStar,
-  HiOutlineClock,
   HiOutlineDeviceMobile,
   HiOutlineMap,
   HiOutlineSearch,
 } from "react-icons/hi";
-import type { IconType } from "react-icons";
 
-const commuterFeatures: { icon: IconType; label: string }[] = [
-  { icon: HiOutlineLocationMarker, label: "Location-Based Stop Finder" },
-  { icon: HiOutlineLightningBolt, label: "Quick Buy & Ride" },
-  { icon: HiOutlineCreditCard, label: "Wallet Integration" },
-  { icon: HiOutlineBell, label: "Trip Reminders" },
-  { icon: HiOutlineQrcode, label: "Instant QR Ticket" },
-  { icon: HiOutlineRefresh, label: "Live Bus Status Updates" },
-  { icon: HiOutlineStar, label: "Save Favorite Routes" },
-  { icon: HiOutlineClock, label: "Ride History & Rebooking" },
+const MEDIA = "/media/suttle/Travel Made Effortless";
+
+const commuterFeatures: { image: string; label: string }[] = [
+  { image: `${MEDIA}/Location-Based Stop Finde.svg`, label: "Location-Based Stop Finder" },
+  { image: `${MEDIA}/Quick Buy & Ride.svg`, label: "Quick Buy & Ride" },
+  { image: `${MEDIA}/Wallet Integration.svg`, label: "Wallet Integration" },
+  { image: `${MEDIA}/Trip Reminders.svg`, label: "Trip Reminders" },
+  { image: `${MEDIA}/Instant QR Ticket.svg`, label: "Instant QR Ticket" },
+  { image: `${MEDIA}/Live Bus Status Updates.svg`, label: "Live Bus Status Updates" },
+  { image: `${MEDIA}/Save Favorite Routes.svg`, label: "Save Favorite Routes" },
+  { image: `${MEDIA}/Ride History & Rebooking.svg`, label: "Ride History & Rebooking" },
 ];
 
 export default function Commuters() {
@@ -171,24 +169,24 @@ export default function Commuters() {
             </h3>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {commuterFeatures.map((f, i) => {
-              const Icon = f.icon;
+            {commuterFeatures.map((f) => {
               return (
                 <div
                   key={f.label}
                   data-gsap
-                  className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/60 p-5 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg hover:shadow-brand/10"
+                  className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-gray-100 bg-gradient-to-b from-white to-brand-light/30 p-6 text-center shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/15"
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand shadow-sm ring-1 ring-gray-100 transition-all duration-300 group-hover:bg-brand group-hover:text-white">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span className="text-[11px] font-black tracking-widest text-gray-300 transition-colors group-hover:text-brand/50">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <p className="mt-4 text-[13.5px] font-medium leading-snug text-text-dark">{f.label}</p>
-                  <span className="absolute inset-x-5 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand to-amber-400 transition-transform duration-300 group-hover:scale-x-100" />
+                  <span className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-center scale-x-0 bg-gradient-to-r from-brand via-amber-400 to-brand-dark transition-transform duration-300 group-hover:scale-x-100" />
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-light via-white to-white p-2 shadow-inner ring-1 ring-brand/10 transition-transform duration-300 group-hover:scale-110">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={f.image}
+                      alt={f.label}
+                      loading="lazy"
+                      className="h-full w-full object-contain"
+                    />
+                  </span>
+                  <span className="text-[13px] font-semibold leading-snug tracking-tight text-text-dark">{f.label}</span>
                 </div>
               );
             })}

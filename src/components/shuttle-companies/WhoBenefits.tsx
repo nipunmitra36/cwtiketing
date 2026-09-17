@@ -2,45 +2,38 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineOfficeBuilding,
-  HiOutlineHeart,
-  HiOutlineUsers,
-  HiOutlineAcademicCap,
-  HiOutlineBriefcase,
-  HiOutlineMap,
-  HiOutlineArrowRight,
-} from "react-icons/hi";
-import type { IconType } from "react-icons";
+import { HiOutlineArrowRight } from "react-icons/hi";
 
-const audiences: { icon: IconType; label: string; highlight: string }[] = [
+const MEDIA = "/media/suttle/Who Benefits from Our Shuttle Service Ticketing System";
+
+const audiences: { image: string; label: string; highlight: string }[] = [
   {
-    icon: HiOutlineOfficeBuilding,
+    image: `${MEDIA}/City Bus Operators.svg`,
     label: "City Bus Operators",
     highlight: "Passenger Manifest",
   },
   {
-    icon: HiOutlineHeart,
+    image: `${MEDIA}/Hospital Staff Transport.svg`,
     label: "Hospital Staff Transport",
     highlight: "Route & Schedule Access",
   },
   {
-    icon: HiOutlineUsers,
+    image: `${MEDIA}/Community Shuttle Services.svg`,
     label: "Community Shuttle Services",
     highlight: "E-Ticket Printing & SMS Confirmation",
   },
   {
-    icon: HiOutlineAcademicCap,
+    image: `${MEDIA}/School Transport.svg`,
     label: "School Transport",
     highlight: "Booking by Cash, Card, or QR Code",
   },
   {
-    icon: HiOutlineBriefcase,
+    image: `${MEDIA}/Office Shuttles.svg`,
     label: "Office Shuttles",
     highlight: "POS-Compatible Interface",
   },
   {
-    icon: HiOutlineMap,
+    image: `${MEDIA}/Suburban Routes.svg`,
     label: "Suburban Routes",
     highlight: "Flexible, Frequent Local Schedules",
   },
@@ -82,37 +75,42 @@ export default function WhoBenefits() {
 
         {/* ── Ticket cards ── */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {audiences.map((a) => {
-            const Icon = a.icon;
-            return (
+          {audiences.map((a) => (
               <div
                 key={a.label}
                 data-gsap
-                className="group relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/10"
+                className="group relative overflow-hidden rounded-3xl border border-brand/10 bg-gradient-to-b from-white to-brand-light/40 p-6 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/25 hover:shadow-2xl hover:shadow-brand/15"
               >
+                {/* top accent bar */}
+                <span className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-center scale-x-0 bg-gradient-to-r from-brand via-amber-400 to-brand-dark transition-transform duration-300 group-hover:scale-x-100" />
                 {/* ticket notches */}
                 <span className="absolute -left-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-gray-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]" />
                 <span className="absolute -right-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-gray-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]" />
 
                 <div className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-light text-brand transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand/30">
-                    <Icon className="h-5 w-5" />
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-light to-white p-1.5 shadow-inner ring-1 ring-brand/10 transition-transform duration-300 group-hover:scale-110">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={a.image}
+                      alt={a.label}
+                      loading="lazy"
+                      className="h-full w-full object-contain"
+                    />
                   </span>
-                  <p className="text-[15px] font-medium tracking-tight text-text-dark">{a.label}</p>
+                  <p className="text-[15px] font-semibold tracking-tight text-text-dark">{a.label}</p>
                 </div>
 
                 {/* perforated divider */}
-                <div className="my-5 border-t-2 border-dashed border-gray-300" />
+                <div className="my-5 border-t-2 border-dashed border-brand/15" />
 
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-[12.5px] leading-snug text-text-muted">{a.highlight}</p>
+                  <p className="text-[12.5px] font-medium leading-snug text-text-muted">{a.highlight}</p>
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gray-200 text-text-muted transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-white">
                     <HiOutlineArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
               </div>
-            );
-          })}
+            ))}
         </div>
       </div>
     </section>
