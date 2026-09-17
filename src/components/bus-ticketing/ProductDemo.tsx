@@ -28,6 +28,7 @@ interface Tab {
   desc: string;
   bullets: string[];
   images: string[];
+  device?: "browser" | "phone";
 }
 
 const tabs: Tab[] = [
@@ -68,6 +69,7 @@ const tabs: Tab[] = [
       "/media/bus-ticketing/White Label Passenger App (Android & iOS) 2.webp",
       "/media/bus-ticketing/White Label Passenger App (Android & iOS) 3.webp",
     ],
+    device: "phone",
   },
   {
     num: "03",
@@ -122,6 +124,7 @@ const tabs: Tab[] = [
       "/media/bus-ticketing/Driver App 4.webp",
       "/media/bus-ticketing/Driver App 5.webp",
     ],
+    device: "phone",
   },
   {
     num: "07",
@@ -143,15 +146,23 @@ const tabs: Tab[] = [
   },
 ];
 
+const AUTO_SLIDE_MS = 3500;
+
 function ProductShowcase({ tab }: { tab: Tab }) {
   const [imgIndex, setImgIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [paused, setPaused] = useState(false);
   const imgCount = tab.images.length;
   const safeIndex = imgCount > 0 ? imgIndex % imgCount : 0;
 
+  // Auto-slide through this tab's screenshots; pause on hover/lightbox.
   useEffect(() => {
-    setImgIndex(0);
-  }, [tab.num]);
+    if (paused || lightboxOpen || imgCount <= 1) return;
+    const id = setInterval(() => {
+      setImgIndex((i) => (i + 1) % imgCount);
+    }, AUTO_SLIDE_MS);
+    return () => clearInterval(id);
+  }, [paused, lightboxOpen, imgCount]);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -170,30 +181,29 @@ function ProductShowcase({ tab }: { tab: Tab }) {
 
   const prev = () => setImgIndex((i) => (i - 1 + imgCount) % imgCount);
   const next = () => setImgIndex((i) => (i + 1) % imgCount);
+  const isPhone = tab.device === "phone";
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       {/* glow behind */}
-      <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-brand/15 via-transparent to-brand-light blur-2xl" />
+      <div
+        className={`pointer-events-none absolute rounded-[2rem] bg-gradient-to-br from-brand/15 via-transparent to-brand-light blur-2xl ${
+          isPhone ? "-inset-4" : "-inset-6"
+        }`}
+      />
 
-      {/* main browser frame */}
-      <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl shadow-gray-900/10">
-        <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50/80 px-4 py-2.5">
-          <span className="flex gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-          </span>
-          <span className="ml-2 flex flex-1 items-center rounded-lg bg-white px-3 py-1.5 text-[11px] font-medium text-text-muted ring-1 ring-gray-200">
-            {tab.label} — {tab.title}
-          </span>
-        </div>
-
+      {isPhone ? (
+        // ── Phone frame: screenshots already include the device bezel, so
+        // just show them at their natural portrait ratio, no browser chrome. ──
         <button
           type="button"
           onClick={() => setLightboxOpen(true)}
           aria-label="View full size"
-          className="group relative block w-full overflow-hidden bg-gray-50"
+          className="group relative mx-auto block w-full max-w-[260px]"
         >
           {imgCount > 0 && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -201,40 +211,66 @@ function ProductShowcase({ tab }: { tab: Tab }) {
               key={safeIndex}
               src={tab.images[safeIndex]}
               alt={tab.title}
-              className="mx-auto aspect-[16/9] h-auto w-full bg-white object-contain px-2 py-2"
+              className="mx-auto h-auto w-full object-contain drop-shadow-2xl transition-opacity duration-500"
             />
           )}
-          <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/20">
-            <span className="flex h-12 w-12 scale-75 items-center justify-center rounded-full bg-white/95 text-brand opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
-              <HiOutlineZoomIn className="h-6 w-6" />
+          <span className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-[2rem] bg-black/0 transition-colors duration-300 group-hover:bg-black/10">
+            <span className="flex h-11 w-11 scale-75 items-center justify-center rounded-full bg-white/95 text-brand opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+              <HiOutlineZoomIn className="h-5 w-5" />
             </span>
           </span>
         </button>
-      </div>
+      ) : (
+        // ── Browser frame for desktop / web-style surfaces ──
+        <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl shadow-gray-900/10">
+          <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50/80 px-4 py-2.5">
+            <span className="flex gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
+            </span>
+            <span className="ml-2 flex flex-1 items-center rounded-lg bg-white px-3 py-1.5 text-[11px] font-medium text-text-muted ring-1 ring-gray-200">
+              {tab.label} — {tab.title}
+            </span>
+          </div>
 
-      {/* floating counter badge */}
-      <div className="absolute -left-4 -top-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand text-white shadow-lg shadow-brand/30">
-        <span className="text-[13px] font-bold">{tab.num}</span>
-      </div>
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(true)}
+            aria-label="View full size"
+            className="group relative block w-full overflow-hidden bg-gray-50"
+          >
+            {imgCount > 0 && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={safeIndex}
+                src={tab.images[safeIndex]}
+                alt={tab.title}
+                className="mx-auto aspect-[16/9] h-auto w-full bg-white object-contain px-2 py-2 transition-opacity duration-500"
+              />
+            )}
+            <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/20">
+              <span className="flex h-12 w-12 scale-75 items-center justify-center rounded-full bg-white/95 text-brand opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+                <HiOutlineZoomIn className="h-6 w-6" />
+              </span>
+            </span>
+          </button>
+        </div>
+      )}
 
-      {/* thumbnails */}
+      {/* dot indicators (auto-advancing) */}
       {imgCount > 1 && (
-        <div className="mt-4 flex gap-3">
-          {tab.images.map((src, i) => (
+        <div className="mt-5 flex items-center justify-center gap-2">
+          {tab.images.map((_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => setImgIndex(i)}
-              aria-label={`View screenshot ${i + 1}`}
-              className={`group relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-300 ${
-                i === safeIndex
-                  ? "border-brand shadow-md shadow-brand/25"
-                  : "border-gray-200 opacity-70 hover:opacity-100"
+              aria-label={`Show screenshot ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-500 ${
+                i === safeIndex ? "w-6 bg-brand" : "w-1.5 bg-gray-300"
               }`}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" className="h-full w-full object-cover" />
-            </button>
+            />
           ))}
         </div>
       )}
@@ -401,15 +437,14 @@ export default function ProductDemo() {
           })}
         </div>
 
-        {/* Panel */}
-        <div ref={panelRef} className="mt-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-brand">{tab.num}</p>
-            <h3 className="mt-2 text-[20px] font-medium tracking-tight text-text-dark sm:text-[24px]">
+        {/* Panel — two-column: content left, auto-sliding showcase right */}
+        <div ref={panelRef} className="mt-10 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h3 className="text-[20px] font-medium tracking-tight text-text-dark sm:text-[24px]">
               {tab.title}
             </h3>
-            <p className="mt-3 text-[13.5px] leading-relaxed text-text-muted">{tab.desc}</p>
-            <ul className="mt-6 grid gap-x-8 gap-y-2.5 text-left sm:grid-cols-2">
+            <p className="mt-3 max-w-md text-[13.5px] leading-relaxed text-text-muted">{tab.desc}</p>
+            <ul className="mt-6 space-y-2.5">
               {tab.bullets.map((b) => (
                 <li key={b} className="flex items-start gap-2.5">
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-brand text-white">
@@ -420,8 +455,8 @@ export default function ProductDemo() {
               ))}
             </ul>
           </div>
-          <div className="mx-auto mt-10 w-full max-w-4xl">
-            <ProductShowcase tab={tab} />
+          <div className="mx-auto w-full max-w-md lg:max-w-none">
+            <ProductShowcase key={tab.num} tab={tab} />
           </div>
         </div>
       </div>

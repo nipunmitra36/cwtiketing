@@ -14,6 +14,7 @@ const clients = [
   { name: "Asante Rabi Express", country: "Tanzania", src: "/media/client/asante-rabi-express.webp" },
   { name: "Canvey", country: "United Kingdom", src: "/media/client/canvey.webp" },
   { name: "Gatwick Hoppa", country: "United Kingdom", src: "/media/client/gatwick-hoppa.webp" },
+  { name: "Airport Hopper", country: "Ireland" },
   { name: "Carmel Group", country: "Qatar", src: "/media/client/carmel-group.webp" },
   { name: "Bus Online", country: "Ukraine" },
   { name: "My Express", country: "Estonia", src: "/media/client/my-express.webp" },
