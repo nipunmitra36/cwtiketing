@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import BusHero from "@/components/bus-ticketing/BusHero";
 import TrustStats from "@/components/bus-ticketing/TrustStats";
 import WhatIsBusTicketing from "@/components/bus-ticketing/WhatIsBusTicketing";
-import Onboarding from "@/components/bus-ticketing/Onboarding";
+import HowItWorks from "@/components/shared/HowItWorks";
 import CapabilityGrid from "@/components/bus-ticketing/CapabilityGrid";
 import ProductDemo from "@/components/bus-ticketing/ProductDemo";
 import OperatorStories from "@/components/bus-ticketing/OperatorStories";
@@ -129,7 +129,7 @@ export default function BusTicketingSystemPage() {
         <BusHero />
         <TrustStats />
         <WhatIsBusTicketing />
-        <Onboarding />
+        <HowItWorks showCta />
         <CapabilityGrid />
         <ProductDemo />
         <OperatorStories />

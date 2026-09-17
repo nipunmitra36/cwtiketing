@@ -44,9 +44,17 @@ export default function Commuters() {
       <div className="pointer-events-none absolute -left-32 bottom-1/3 h-80 w-80 rounded-full bg-sky-100/60 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ── Split header ── */}
-        <div className="mb-14 grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-12">
-          <div data-gsap>
+        {/* ── Split header with section image (image left) ── */}
+        <div className="mb-14 grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <div data-gsap className="order-1 overflow-hidden rounded-3xl ring-1 ring-gray-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/media/suttle/Smarter-Travel-for-Daily-Commuters.jpg"
+              alt="Smarter travel for daily commuters"
+              className="h-[260px] w-full object-cover sm:h-[340px] lg:h-[400px]"
+            />
+          </div>
+          <div data-gsap className="order-2">
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
               Smarter Travel for{" "}
               <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
@@ -54,12 +62,12 @@ export default function Commuters() {
               </span>
             </h2>
             <span className="mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />
+            <p className="mt-6 max-w-xl text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+              CWTicketing helps riders hop on and off without the hassle. They can
+              check nearby stops, track buses in real time, and buy tickets
+              straight from their phone.
+            </p>
           </div>
-          <p data-gsap className="max-w-xl text-[14px] leading-relaxed text-text-muted sm:text-[15px] lg:justify-self-end">
-            CWTicketing helps riders hop on and off without the hassle. They can
-            check nearby stops, track buses in real time, and buy tickets
-            straight from their phone.
-          </p>
         </div>
 
         {/* ── Phone mock + copy ── */}

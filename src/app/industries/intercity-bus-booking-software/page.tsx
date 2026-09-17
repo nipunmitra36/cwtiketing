@@ -8,7 +8,8 @@ import WhoBenefits from "@/components/bus-operators/WhoBenefits";
 import WhyChoose from "@/components/bus-operators/WhyChoose";
 import ClientShowcase from "@/components/bus-operators/ClientShowcase";
 import SpecializedSystems from "@/components/bus-operators/SpecializedSystems";
-import PaymentMethods from "@/components/bus-operators/PaymentMethods";
+import ProductDemo from "@/components/bus-operators/ProductDemo";
+import PaymentGateway from "@/components/shared/PaymentGateway";
 import OperatorsFinalCTA from "@/components/bus-operators/OperatorsFinalCTA";
 import OperatorsFaq from "@/components/bus-operators/OperatorsFaq";
 import { operatorFaqs } from "@/components/bus-operators/operators-faq-data";
@@ -70,7 +71,11 @@ export default function BusOperatorsPage() {
         <WhyChoose />
         <ClientShowcase />
         <SpecializedSystems />
-        <PaymentMethods />
+        <ProductDemo />
+        <PaymentGateway
+          description="Cash, cards, wallets, and local rails — accept every payment your intercity passengers already use."
+          lockNote="Encrypted end-to-end payments across every channel"
+        />
         <OperatorsFinalCTA />
         <OperatorsFaq />
       </main>

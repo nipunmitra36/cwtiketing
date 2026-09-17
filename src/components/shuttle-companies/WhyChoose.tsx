@@ -10,26 +10,30 @@ import {
 } from "react-icons/hi";
 import type { IconType } from "react-icons";
 
-const reasons: { icon: IconType; title: string; desc: string }[] = [
+const reasons: { icon: IconType; title: string; desc: string; image: string }[] = [
   {
     icon: HiOutlineTrendingUp,
     title: "Simple to Use, Ready to Scale",
     desc: "CWTicketing keeps things easy for you and your team. From assigning seats in real-time to tracking buses live, everything works smoothly, whether you're running a few shuttles or growing your fleet.",
+    image: "/media/suttle/Simple-to-Use,-Ready-to-Scale.jpg",
   },
   {
     icon: HiOutlineShieldCheck,
     title: "Full Control, Zero Compromise",
     desc: "Your routes, your brand, your rules. CWTicketing gives you full control to set fares, manage your operations, and customize your passenger experience—without handing over your business to a third party.",
+    image: "/media/suttle/Full-Control,-Zero-Compromise.jpg",
   },
   {
     icon: HiOutlineAdjustments,
     title: "Flexible to Fit Your Business",
     desc: "CWTicketing has helped operators worldwide run their ticketing exactly the way they want. Whether managing one route or multiple networks, they've created branded portals, set custom commissions, and accepted digital payments—all without any coding.",
+    image: "/media/suttle/Flexible-to-Fit-Your-Business.jpg",
   },
   {
     icon: HiOutlineGlobeAlt,
     title: "Trusted by Shuttle Operators Worldwide",
     desc: "Operators across cities, towns, and suburbs around the globe rely on CWTicketing every day. It's a proven, reliable system that meets real transit needs no matter where their routes run.",
+    image: "/media/suttle/Trusted-by-Shuttle-Operators-Worldwide.jpg",
   },
 ];
 
@@ -87,6 +91,17 @@ export default function WhyChoose() {
               >
                 {/* corner accent */}
                 <span className={`pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-to-br ${gradientRing[i]} opacity-10 blur-2xl transition-opacity duration-300 group-hover:opacity-25`} />
+
+                {/* card image */}
+                <div className="relative mb-5 overflow-hidden rounded-2xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={r.image}
+                    alt={r.title}
+                    loading="lazy"
+                    className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
 
                 <div className="relative flex items-center gap-4">
                   <span

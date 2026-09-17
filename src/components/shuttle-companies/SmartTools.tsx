@@ -60,9 +60,17 @@ export default function SmartTools() {
       <div className="pointer-events-none absolute -left-32 bottom-10 h-80 w-80 rounded-full bg-amber-100/50 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ── Split header ── */}
-        <div className="mb-14 grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-12">
-          <div data-gsap>
+        {/* ── Split header with section image (image left) ── */}
+        <div className="mb-14 grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <div data-gsap className="order-1 overflow-hidden rounded-3xl ring-1 ring-gray-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/media/suttle/Smart-Tools-for-Local-Bus-Operators.jpg"
+              alt="Smart tools for local bus operators"
+              className="h-[260px] w-full object-cover sm:h-[340px] lg:h-[400px]"
+            />
+          </div>
+          <div data-gsap className="order-2">
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
               Smart Tools for{" "}
               <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
@@ -73,13 +81,13 @@ export default function SmartTools() {
             <p className="mt-6 text-[15px] font-semibold leading-relaxed text-text-dark">
               Local operation. Maximum efficiency.
             </p>
+            <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+              Take full control of your short-distance routes with a flexible
+              ticketing system. Manage schedules, fare zones, and shifts
+              effortlessly while boosting passenger convenience and growing your
+              ticket sales.
+            </p>
           </div>
-          <p data-gsap className="max-w-xl text-[14px] leading-relaxed text-text-muted sm:text-[15px] lg:justify-self-end">
-            Take full control of your short-distance routes with a flexible
-            ticketing system. Manage schedules, fare zones, and shifts
-            effortlessly while boosting passenger convenience and growing your
-            ticket sales.
-          </p>
         </div>
 
         {/* ── Numbered tool cards ── */}

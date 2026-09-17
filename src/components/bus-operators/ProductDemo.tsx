@@ -8,7 +8,6 @@ import {
   HiOutlineBriefcase,
   HiOutlineTemplate,
   HiOutlineTruck,
-  HiOutlineCube,
   HiOutlineQrcode,
 } from "react-icons/hi";
 
@@ -17,13 +16,13 @@ const tabs: ProductDemoTab[] = [
     num: "01",
     icon: HiOutlineGlobeAlt,
     label: "Website",
-    title: "White-Label Responsive Website",
-    desc: "A super user-friendly website that lets passengers book or cancel tickets anytime, on any device.",
+    title: "White-Label Booking Website",
+    desc: "A responsive booking site where passengers reserve intercity seats at any time, from any device.",
     bullets: [
-      "Buy / purchase ticket",
+      "Search routes & select seats",
+      "Buy / purchase ticket online",
       "Reprint & download ticket",
-      "Ticket cancel request & rescheduling",
-      "User profile & purchase history",
+      "Cancel request & rescheduling",
       "Live bus tracking",
       "Customer support",
     ],
@@ -43,7 +42,7 @@ const tabs: ProductDemoTab[] = [
     icon: HiOutlineDeviceMobile,
     label: "Passenger App",
     title: "Passenger App",
-    desc: "The full booking journey, purpose-built for a phone.",
+    desc: "The complete intercity journey, built for a phone.",
     bullets: ["Search routes & select seats", "Purchase and reprint tickets", "Reschedule journeys", "Track vehicles live"],
     images: [
       "/media/bus-ticketing/passenger app/White-Label-Passenger-App-(Android-&-iOS)-1.jpg",
@@ -56,8 +55,8 @@ const tabs: ProductDemoTab[] = [
     num: "03",
     icon: HiOutlineDesktopComputer,
     label: "Counter Panel",
-    title: "Counter Panel",
-    desc: "Everything front-desk staff need to sell and manage seats.",
+    title: "Terminal & Counter Panel",
+    desc: "Front-desk tools to sell and manage long-distance seats fast.",
     bullets: ["Sell, reserve, cancel tickets", "View passenger manifests", "Assign fleet and staff", "Review sales in real time"],
     images: [
       "/media/bus-ticketing/Web-Based Counter _ Staff _ Booth Panel.webp",
@@ -114,15 +113,6 @@ const tabs: ProductDemoTab[] = [
   },
   {
     num: "07",
-    icon: HiOutlineCube,
-    label: "Parcel Manager",
-    title: "Parcel Manager",
-    desc: "Run parcel bookings alongside passenger ticketing.",
-    bullets: ["Parcel entry & assignment", "Collection and delivery", "Live tracking", "Parcel reports"],
-    images: ["/media/bus-ticketing/Parcel Manager.webp"],
-  },
-  {
-    num: "08",
     icon: HiOutlineQrcode,
     label: "Ticket Validation",
     title: "Ticket Validation",
@@ -132,6 +122,11 @@ const tabs: ProductDemoTab[] = [
   },
 ];
 
-export default function BusTicketingProductDemo() {
-  return <ProductDemo tabs={tabs} />;
+export default function OperatorsProductDemo() {
+  return (
+    <ProductDemo
+      tabs={tabs}
+      description="From the passenger's phone to the terminal counter and the driver's seat — every surface reads from the same live data."
+    />
+  );
 }

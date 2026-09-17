@@ -41,9 +41,9 @@ export default function CounterTicketing() {
       <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-brand-light blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ── Split header ── */}
-        <div className="mb-14 grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-12">
-          <div data-gsap>
+        {/* ── Split header with section image (image right) ── */}
+        <div className="mb-14 grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <div data-gsap className="order-2 lg:order-1">
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
               Fast, Reliable Ticketing{" "}
               <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
@@ -51,11 +51,19 @@ export default function CounterTicketing() {
               </span>
             </h2>
             <span className="mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />
+            <p className="mt-6 max-w-xl text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+              Issue tickets. Assign seats. Take payments. All from one simple
+              Android POS or web browser, no hassle, no delays.
+            </p>
           </div>
-          <p data-gsap className="max-w-xl text-[14px] leading-relaxed text-text-muted sm:text-[15px] lg:justify-self-end">
-            Issue tickets. Assign seats. Take payments. All from one simple
-            Android POS or web browser, no hassle, no delays.
-          </p>
+          <div data-gsap className="order-1 overflow-hidden rounded-3xl ring-1 ring-gray-100 lg:order-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/media/suttle/Fast,-Reliable-Ticketing-at-the-Counter.jpg"
+              alt="Fast, reliable ticketing at the counter"
+              className="h-[260px] w-full object-cover sm:h-[340px] lg:h-[400px]"
+            />
+          </div>
         </div>
 
         {/* ── Copy + POS terminal ── */}
