@@ -5,7 +5,8 @@ import { createSectionReveal } from "@/lib/gsap/reveal";
 import type { IconType } from "react-icons";
 
 interface Feature {
-  icon: IconType;
+  image?: string;
+  icon?: IconType;
   label: string;
 }
 
@@ -15,7 +16,8 @@ interface ChannelSectionProps {
   title: string;
   paragraph: string;
   availableOn: string[];
-  illustrationIcon: IconType;
+  illustrationIcon?: IconType;
+  illustrationImage?: string;
   illustrationLabel: string;
   featuresHeading: string;
   features: Feature[];
@@ -29,6 +31,7 @@ export default function ChannelSection({
   paragraph,
   availableOn,
   illustrationIcon: Illustration,
+  illustrationImage,
   illustrationLabel,
   featuresHeading,
   features,
@@ -76,21 +79,31 @@ export default function ChannelSection({
           </div>
 
           <div data-gsap className={reverse ? "lg:order-1" : ""}>
-            <div className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xl shadow-gray-900/10">
-              <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gray-50/80 px-4 py-3">
-                <span className="flex gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-                </span>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-brand-light/60 to-white px-8 py-14">
-                <span className="flex h-20 w-20 items-center justify-center rounded-3xl bg-brand text-white shadow-xl shadow-brand/30">
-                  <Illustration className="h-10 w-10" />
-                </span>
-                <p className="text-center text-[12.5px] font-medium leading-snug text-text-muted">
-                  {illustrationLabel}
-                </p>
+            <div className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gray-100 bg-white">
+              <div
+                className={
+                  illustrationImage
+                    ? "flex flex-col items-center justify-center bg-gradient-to-br from-brand-light/60 to-white px-6 py-8"
+                    : "flex flex-col items-center justify-center bg-gradient-to-br from-brand-light/60 to-white px-8 py-14"
+                }
+              >
+                {illustrationImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={illustrationImage}
+                    alt={illustrationLabel}
+                    loading="lazy"
+                    className="h-auto w-full object-contain"
+                  />
+                ) : (
+                  <>
+                    {Illustration && (
+                      <span className="flex h-20 w-20 items-center justify-center rounded-3xl bg-brand text-white shadow-xl shadow-brand/30">
+                        <Illustration className="h-10 w-10" />
+                      </span>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -103,19 +116,61 @@ export default function ChannelSection({
               {featuresHeading}
             </h3>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          <div
+              className={
+                features.some((f) => f.image)
+                  ? `grid grid-cols-1 gap-4 sm:grid-cols-2 ${
+                      features.length > 6 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+                    }`
+                  : "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
+              }
+            >
             {features.map((f) => {
               const Icon = f.icon;
+              const hasImage = Boolean(f.image);
               return (
                 <div
                   key={f.label}
                   data-gsap
-                  className="flex items-center gap-2.5 rounded-xl border border-gray-100 bg-white px-3.5 py-3 shadow-sm shadow-gray-200/40"
+                  className={
+                    hasImage
+                      ? "group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-gray-100 bg-white p-6 text-center shadow-sm shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/15"
+                      : "flex items-center gap-2.5 rounded-xl border border-gray-100 bg-white px-3.5 py-3 shadow-sm shadow-gray-200/40"
+                  }
                 >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand">
-                    <Icon className="h-4 w-4" />
+                  {hasImage && (
+                    <span className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-brand to-brand-dark transition-transform duration-300 group-hover:scale-x-100" />
+                  )}
+
+                  <span
+                    className={
+                      hasImage
+                        ? "flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-brand-light via-white to-white p-2.5 shadow-inner ring-1 ring-brand/10 transition-transform duration-300 group-hover:scale-110"
+                        : "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-light text-brand"
+                    }
+                  >
+                    {f.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={f.image}
+                        alt={f.label}
+                        loading="lazy"
+                        className={hasImage ? "h-full w-full object-contain" : "h-6 w-6 object-contain"}
+                      />
+                    ) : Icon ? (
+                      <Icon className={hasImage ? "h-7 w-7 text-brand" : "h-4 w-4"} />
+                    ) : null}
                   </span>
-                  <span className="text-[12.5px] font-medium leading-snug text-text-dark">{f.label}</span>
+
+                  <span
+                    className={
+                      hasImage
+                        ? "text-[13px] font-semibold leading-snug tracking-tight text-text-dark"
+                        : "text-[12.5px] font-medium leading-snug text-text-dark"
+                    }
+                  >
+                    {f.label}
+                  </span>
                 </div>
               );
             })}

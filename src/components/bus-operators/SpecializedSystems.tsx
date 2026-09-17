@@ -2,11 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import { HiOutlineViewGrid, HiOutlineLightningBolt, HiOutlineCheck } from "react-icons/hi";
-import type { IconType } from "react-icons";
+import { HiOutlineCheck } from "react-icons/hi";
 
 interface System {
-  icon: IconType;
   title: string;
   subtitle: string;
   items: string[];
@@ -14,7 +12,6 @@ interface System {
 
 const systems: System[] = [
   {
-    icon: HiOutlineViewGrid,
     title: "Bus Ticketing Marketplace",
     subtitle: "Connecting bus operators under one platform",
     items: [
@@ -26,7 +23,6 @@ const systems: System[] = [
     ],
   },
   {
-    icon: HiOutlineLightningBolt,
     title: "Shuttle Service Booking System",
     subtitle: "Short-distance & frequent routes",
     items: [
@@ -60,32 +56,26 @@ export default function SpecializedSystems() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          {systems.map((s) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={s.title}
-                data-gsap
-                className="rounded-3xl border border-brand/20 bg-gradient-to-br from-brand-light/40 to-white p-8"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white shadow-lg shadow-brand/30">
-                  <Icon className="h-6 w-6" />
-                </span>
-                <h3 className="mt-5 text-[18px] font-medium tracking-tight text-text-dark">{s.title}</h3>
-                <p className="mt-1.5 text-[13px] font-medium text-brand">{s.subtitle}</p>
-                <ul className="mt-5 space-y-2.5">
-                  {s.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-brand text-white">
-                        <HiOutlineCheck className="h-3 w-3" />
-                      </span>
-                      <span className="text-[13.5px] leading-snug text-text-body">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+          {systems.map((s) => (
+            <div
+              key={s.title}
+              data-gsap
+              className="rounded-3xl border border-brand/20 bg-gradient-to-br from-brand-light/40 to-white p-8"
+            >
+              <h3 className="text-[18px] font-medium tracking-tight text-text-dark">{s.title}</h3>
+              <p className="mt-1.5 text-[13px] font-medium text-brand">{s.subtitle}</p>
+              <ul className="mt-5 space-y-2.5">
+                {s.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-brand text-white">
+                      <HiOutlineCheck className="h-3 w-3" />
+                    </span>
+                    <span className="text-[13.5px] leading-snug text-text-body">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </section>

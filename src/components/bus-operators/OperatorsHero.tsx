@@ -45,6 +45,16 @@ export default function OperatorsHero() {
         }}
       />
 
+      <div className="pointer-events-none absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/media/hero/bus-operators-hero-section.png"
+          alt=""
+          className="h-full w-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FDF7F2]/70 via-[#FDF7F2]/40 to-[#FDF7F2]/80" />
+      </div>
+
       <div ref={copyRef} className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <span className="gsap-hero-item inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-3.5 py-1.5 text-[12px] font-semibold text-brand shadow-sm">
           <HiOutlineGlobeAlt className="h-4 w-4" />

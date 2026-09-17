@@ -2,23 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineTruck,
-  HiOutlineGlobe,
-  HiOutlineCalendar,
-  HiOutlineOfficeBuilding,
-  HiOutlineCube,
-  HiOutlineSwitchHorizontal,
-} from "react-icons/hi";
-import type { IconType } from "react-icons";
 
-const audiences: { icon: IconType; label: string }[] = [
-  { icon: HiOutlineTruck, label: "Bus Operators" },
-  { icon: HiOutlineGlobe, label: "Travel & Tourism" },
-  { icon: HiOutlineCalendar, label: "Event Management" },
-  { icon: HiOutlineOfficeBuilding, label: "Hospitality & Hotels" },
-  { icon: HiOutlineCube, label: "Courier & Parcel Services" },
-  { icon: HiOutlineSwitchHorizontal, label: "Transportation & Logistics" },
+const MEDIA = "/media/Who Benefits from Our Inter-City Bus Ticketing System";
+
+const audiences: { image: string; label: string }[] = [
+  { image: `${MEDIA}/Bus Operators-01.svg`, label: "Bus Operators" },
+  { image: `${MEDIA}/Travel & Tourism-01.svg`, label: "Travel & Tourism" },
+  { image: `${MEDIA}/Event Management-01.svg`, label: "Event Management" },
+  { image: `${MEDIA}/Hospitality & Hotels-01.svg`, label: "Hospitality & Hotels" },
+  { image: `${MEDIA}/Courier & Parcel Services-01.svg`, label: "Courier & Parcel Services" },
+  { image: `${MEDIA}/transportation & Logistics-01.svg`, label: "Transportation & Logistics" },
 ];
 
 export default function WhoBenefits() {
@@ -41,22 +34,30 @@ export default function WhoBenefits() {
           </h2>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {audiences.map((a) => {
-            const Icon = a.icon;
-            return (
-              <div
-                key={a.label}
-                data-gsap
-                className="group flex items-center gap-4 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/25 hover:shadow-xl hover:shadow-brand/10"
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-light text-brand transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand/30">
-                  <Icon className="h-6 w-6" />
-                </span>
-                <p className="text-[15px] font-medium tracking-tight text-text-dark">{a.label}</p>
-              </div>
-            );
-          })}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {audiences.map((a) => (
+            <div
+              key={a.label}
+              data-gsap
+              className="group relative flex flex-col items-center gap-5 overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-sm shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/15"
+            >
+              <span className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-brand to-brand-dark transition-transform duration-300 group-hover:scale-x-100" />
+
+              <span className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-brand-light via-white to-white p-2.5 shadow-inner ring-1 ring-brand/10 transition-transform duration-300 group-hover:scale-110">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={a.image}
+                  alt={a.label}
+                  loading="lazy"
+                  className="h-full w-full object-contain"
+                />
+              </span>
+
+              <p className="text-[15px] font-semibold leading-snug tracking-tight text-text-dark">
+                {a.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
