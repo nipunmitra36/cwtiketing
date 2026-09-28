@@ -11,11 +11,9 @@ import {
   HiOutlineX,
   HiOutlineChevronDown,
   HiOutlineChevronRight,
-  HiOutlineCollection,
-  HiOutlineLightningBolt,
   HiOutlineCalendar,
   HiOutlineCube,
-  HiOutlineOfficeBuilding,
+  HiOutlineMap,
   HiOutlineTruck,
   HiOutlineGlobe,
   HiOutlineDocumentText,
@@ -23,7 +21,7 @@ import {
   HiOutlineBriefcase,
   HiOutlineChat,
 } from "react-icons/hi";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaBus, FaCarSide } from "react-icons/fa";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface DropMenuItem {
@@ -52,13 +50,13 @@ const NAV_ITEMS: NavItem[] = [
         label: "Bus Ticketing System",
         desc: "Routes, seats, fares & bookings",
         href: "/bus-ticketing-system",
-        icon: <HiOutlineTruck className="h-5 w-5" />,
+        icon: <FaBus className="h-4.5 w-4.5" />,
       },
       {
         label: "Taxi Booking System",
         desc: "Dispatch, tracking & fares",
         href: "/solutions/online-taxi-booking-system",
-        icon: <HiOutlineLightningBolt className="h-5 w-5" />,
+        icon: <FaCarSide className="h-4.5 w-4.5" />,
       },
       {
         label: "Event Ticketing",
@@ -81,14 +79,14 @@ const NAV_ITEMS: NavItem[] = [
         label: "Bus Operators",
         desc: "Intercity & coach lines",
         href: "/industries/intercity-bus-booking-software",
-        icon: <HiOutlineCollection className="h-5 w-5" />,
+        icon: <HiOutlineTruck className="h-5 w-5" />,
       },
 
       {
         label: "Shuttle Companies",
         desc: "Airport & point-to-point shuttles",
         href: "/industries/shuttle-booking-system",
-        icon: <HiOutlineOfficeBuilding className="h-5 w-5" />,
+        icon: <HiOutlineMap className="h-5 w-5" />,
       },
 
       {

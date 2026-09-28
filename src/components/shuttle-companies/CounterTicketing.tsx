@@ -59,30 +59,6 @@ export default function CounterTicketing() {
           </div>
         </div>
 
-        {/* ── Copy ── */}
-        <div data-gsap className="mx-auto max-w-2xl text-center">
-          <p className="text-[15px] leading-relaxed text-text-body sm:text-[16px]">
-            Your staff gets what they need to serve passengers fast and keep
-            queues moving.
-          </p>
-
-          <div className="mt-6">
-            <p className="text-[11.5px] font-semibold uppercase tracking-widest text-text-muted">
-              Available on
-            </p>
-            <div className="mt-2.5 flex flex-wrap justify-center gap-2">
-              {["Web Portal", "Android App", "Android POS"].map((a) => (
-                <span
-                  key={a}
-                  className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-[12.5px] font-medium text-text-body shadow-sm transition-colors hover:border-brand/30 hover:text-brand"
-                >
-                  {a}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* ── Feature grid ── */}
         <div className="mt-16">
           <div className="mx-auto mb-9 max-w-2xl text-center">

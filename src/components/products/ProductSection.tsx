@@ -36,7 +36,7 @@ const features: Feature[] = [
         caption:
             "Real-time seat maps and live fares let passengers complete a booking in seconds, not minutes.",
         icon: HiOutlineTruck,
-        image: `${HOME_ICONS}/bus-ticket-booking-system.svg`,
+        image: `${HOME_ICONS}/bus-booking.png`,
     },
     {
         title: "Train Ticketing System",
@@ -46,7 +46,7 @@ const features: Feature[] = [
         caption:
             "Live availability and instant alerts keep passengers and staff in sync at every station.",
         icon: HiOutlineClock,
-        image: `${HOME_ICONS}/train-ticketing-system.svg`,
+        image: `${HOME_ICONS}/train-booking.png`,
     },
     {
         title: "Cruise Booking System",
@@ -56,7 +56,7 @@ const features: Feature[] = [
         caption:
             "Interactive deck plans and live fares turn browsing into confirmed reservations.",
         icon: HiOutlineGlobeAlt,
-        image: `${HOME_ICONS}/cruise-booking-system.svg`,
+        image: `${HOME_ICONS}/curise booking.png`,
     },
     {
         title: "Taxi Booking System",
@@ -66,7 +66,7 @@ const features: Feature[] = [
         caption:
             "Automated fare calculation and live tracking connect riders to the nearest driver instantly.",
         icon: HiOutlineLocationMarker,
-        image: `${HOME_ICONS}/taxi-booking-system.svg`,
+        image: `${HOME_ICONS}/taxi-booking.png`,
     },
     {
         title: "Event Ticketing System",
@@ -76,7 +76,7 @@ const features: Feature[] = [
         caption:
             "Digital tickets and QR scanning move attendees through the gate in half the time.",
         icon: HiOutlineCalendar,
-        image: `${HOME_ICONS}/event-ticketing-system.svg`,
+        image: `${HOME_ICONS}/event.png`,
     },
     {
         title: "Parcel Management System",
@@ -86,7 +86,7 @@ const features: Feature[] = [
         caption:
             "Live status updates keep senders, drivers, and recipients on the same page from pickup to drop-off.",
         icon: HiOutlineCube,
-        image: `${HOME_ICONS}/parcel-management-system.svg`,
+        image: `${HOME_ICONS}/parcel-booking.png`,
     },
 ];
 
@@ -201,11 +201,6 @@ function FeaturePanel({
                                 </div>
                             )}
                             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                            <span
-                                className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand shadow-lg"
-                            >
-                                <Icon className="h-6 w-6" />
-                            </span>
                         </div>
                     </div>
                 </div>
