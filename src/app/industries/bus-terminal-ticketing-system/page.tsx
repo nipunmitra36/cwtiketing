@@ -148,9 +148,9 @@ export default function BusTerminalTicketingSystemPage() {
         <PassengerBookingApp />
         <WhoBenefits />
         <WhyChoose />
+        <ProductDemo />
         <ClientShowcase />
         <SpecializedSystems />
-        <ProductDemo />
         <PaymentGateway />
         <FinalCTA />
         <Faq />

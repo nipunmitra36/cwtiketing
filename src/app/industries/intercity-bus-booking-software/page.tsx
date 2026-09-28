@@ -69,9 +69,9 @@ export default function BusOperatorsPage() {
         <PassengerExperienceSection />
         <WhoBenefits />
         <WhyChoose />
+        <ProductDemo />
         <ClientShowcase />
         <SpecializedSystems />
-        <ProductDemo />
         <PaymentGateway
           description="Cash, cards, wallets, and local rails — accept every payment your intercity passengers already use."
           lockNote="Encrypted end-to-end payments across every channel"
