@@ -13,15 +13,13 @@ import {
   HiOutlineChevronRight,
   HiOutlineCalendar,
   HiOutlineCube,
-  HiOutlineMap,
   HiOutlineTruck,
-  HiOutlineGlobe,
   HiOutlineDocumentText,
   HiOutlineQuestionMarkCircle,
   HiOutlineBriefcase,
   HiOutlineChat,
 } from "react-icons/hi";
-import { FaWhatsapp, FaBus, FaCarSide } from "react-icons/fa";
+import { FaWhatsapp, FaBus, FaCarSide, FaShuttleVan, FaSuitcaseRolling } from "react-icons/fa";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface DropMenuItem {
@@ -86,14 +84,14 @@ const NAV_ITEMS: NavItem[] = [
         label: "Shuttle Companies",
         desc: "Airport & point-to-point shuttles",
         href: "/industries/shuttle-booking-system",
-        icon: <HiOutlineMap className="h-5 w-5" />,
+        icon: <FaShuttleVan className="h-4.5 w-4.5" />,
       },
 
       {
         label: "Travel Agencies",
         desc: "Multi-operator ticket retail",
         href: "/industries/bus-terminal-ticketing-system",
-        icon: <HiOutlineGlobe className="h-5 w-5" />,
+        icon: <FaSuitcaseRolling className="h-4.5 w-4.5" />,
       },
 
     ],
