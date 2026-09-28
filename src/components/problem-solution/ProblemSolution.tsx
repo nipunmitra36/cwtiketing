@@ -120,7 +120,7 @@ export default function AboutHowItWorks() {
           
 
           <h2 className="mb-8 max-w-3xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[30px] sm:leading-snug">
-            A white-label booking platform for transport &amp; mobility
+            A white-label booking system for transport &amp; mobility
             businesses
           </h2>
 

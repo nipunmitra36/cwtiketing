@@ -2,37 +2,26 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineTrendingUp,
-  HiOutlineShieldCheck,
-  HiOutlineAdjustments,
-  HiOutlineGlobeAlt,
-} from "react-icons/hi";
-import type { IconType } from "react-icons";
 
 const MEDIA = "/media/cwticketing travel agency";
 
-const reasons: { icon: IconType; title: string; desc: string; image: string }[] = [
+const reasons: { title: string; desc: string; image: string }[] = [
   {
-    icon: HiOutlineTrendingUp,
     title: "Built for Simplicity, Designed for Scale",
     desc: "CWTicketing makes complex tasks easy. From real-time seat blocking and dynamic pricing to agent management and live tracking, every feature is designed to streamline operations. Whether you're running one route or managing a large fleet, the system scales with your business.",
     image: `${MEDIA}/built-for-simplicity-designed-for-scale.jpg`,
   },
   {
-    icon: HiOutlineShieldCheck,
     title: "You're Always in Control",
     desc: "Keep full control over your routes, bookings, customer data, and brand. Set your own fares, customize your portal, and run your operation your way. CW Ticketing gives you the tools without taking over your business.",
     image: `${MEDIA}/you-are-always-in-control.jpg`,
   },
   {
-    icon: HiOutlineAdjustments,
     title: "Flexible, Customizable, Future-Ready",
     desc: "No rigid templates or one-size-fits-all restrictions. Launch multiple operator profiles, create branded portals, accept mobile payments, and set your own commission structure, no coding needed.",
     image: `${MEDIA}/flexible,-customizable,-future-ready.jpg`,
   },
   {
-    icon: HiOutlineGlobeAlt,
     title: "Trusted by Operators Across Regions",
     desc: "Used by intercity and local operators, agents, and networks across the world. With reliable performance, localized features, and strong real-world results, CWTicketing is built for the realities of transport business.",
     image: `${MEDIA}/trusted-by-operators-across-regions.jpg`,
@@ -79,7 +68,6 @@ export default function WhyChoose() {
 
         <div className="grid gap-6 sm:grid-cols-2">
           {reasons.map((r, i) => {
-            const Icon = r.icon;
             return (
               <div
                 key={r.title}
@@ -91,24 +79,17 @@ export default function WhyChoose() {
                 />
 
                 {/* card image */}
-                <div className="relative mb-5 overflow-hidden rounded-2xl">
+                <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-2xl">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={r.image}
                     alt={r.title}
                     loading="lazy"
-                    className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
-                <div className="relative flex items-center gap-4">
-                  <span
-                    className={`flex h-13 w-13 items-center justify-center rounded-2xl bg-gradient-to-br ${gradientRing[i]} text-white shadow-lg`}
-                  >
-                    <Icon className="h-6 w-6" />
-                  </span>
-                  <h3 className="text-[17px] font-medium tracking-tight text-text-dark">{r.title}</h3>
-                </div>
+                <h3 className="relative text-[17px] font-medium tracking-tight text-text-dark">{r.title}</h3>
                 <p className="relative mt-4 text-[13.5px] leading-relaxed text-text-muted">{r.desc}</p>
               </div>
             );

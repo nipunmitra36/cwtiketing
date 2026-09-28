@@ -305,13 +305,7 @@ export default function HowItWorks({
 
                   {/* Step card */}
                   <div className="relative flex-1 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm shadow-gray-200/40 transition-all duration-300 group-hover:-translate-y-1.5 group-hover:border-brand/25 group-hover:shadow-xl group-hover:shadow-brand/10 lg:mt-5 lg:w-full">
-                    <span className="pointer-events-none absolute right-4 top-2 select-none text-[48px] font-extrabold leading-none text-brand/10 transition-colors duration-300 group-hover:text-brand/20">
-                      {step.num}
-                    </span>
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-brand">
-                      Step {step.num}
-                    </p>
-                    <h3 className="mt-1 text-[15px] font-medium text-text-dark">
+                    <h3 className="text-[15px] font-medium text-text-dark">
                       {step.title}
                     </h3>
                     {step.desc ? (
