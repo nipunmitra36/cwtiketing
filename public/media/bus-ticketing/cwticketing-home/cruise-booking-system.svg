@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 500" role="img" aria-labelledby="title desc">
+  <title id="title">Redesigned cruise trip illustration</title>
+  <desc id="desc">Original vector illustration redesigned from the supplied transport concept.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F6F9FC"/><stop offset="1" stop-color="#E7F0F7"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF8A3D"/><stop offset="1" stop-color="#FF5B2E"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2A7180"/><stop offset="1" stop-color="#174A59"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  
+<rect width="750" height="500" rx="28" fill="#F7FAFC"/>
+<circle cx="610" cy="110" r="70" fill="#FFE1D2"/><circle cx="130" cy="130" r="58" fill="#E1F0F0"/>
+<path d="M45 410 H710" stroke="#7B9AA1" stroke-width="5"/>
+<path d="M74 350 C180 318 258 320 350 350 S560 385 690 350" fill="none" stroke="#C9D9DD" stroke-width="5"/>
+<!-- ship -->
+<g filter="url(#shadow)">
+ <path d="M82 302 L625 302 L569 382 Q557 398 530 398 H175 Q144 398 126 378 Z" fill="#31535D"/>
+ <path d="M112 290 L164 126 H501 L579 290 Z" fill="#fff" stroke="#31535D" stroke-width="7"/>
+ <path d="M164 126 H501 L527 168 H151 Z" fill="#EAF2F4"/>
+ <path d="M179 151 H484 M168 181 H509 M157 211 H523 M147 241 H539" stroke="#91A8AE" stroke-width="4"/>
+ <path d="M191 140 V275 M246 140 V275 M302 140 V275 M358 140 V275 M414 140 V275 M470 140 V275" stroke="#B3C4C8" stroke-width="3"/>
+ <path d="M125 302 H579" stroke="#FF7440" stroke-width="12"/>
+</g>
+<!-- travelers -->
+<g transform="translate(515 195)">
+ <circle cx="45" cy="30" r="24" fill="#A66F5B"/><path d="M23 28 C23 0 68 -4 75 27 C60 15 44 17 30 34Z" fill="#283F48"/>
+ <path d="M18 71 C30 57 60 55 74 71 L91 158 L4 158 Z" fill="#FF7440"/>
+ <path d="M30 75 L3 123" stroke="#283F48" stroke-width="11" stroke-linecap="round"/><path d="M66 76 L96 113" stroke="#283F48" stroke-width="11" stroke-linecap="round"/>
+ <path d="M30 157 L21 235 M67 157 L81 235" stroke="#283F48" stroke-width="13" stroke-linecap="round"/>
+ <path d="M8 236 H36 M68 236 H99" stroke="#283F48" stroke-width="9" stroke-linecap="round"/>
+</g>
+<g transform="translate(430 205)">
+ <circle cx="36" cy="26" r="22" fill="#D09578"/><path d="M14 26 C14 2 50 -4 60 21 C47 17 32 18 19 33Z" fill="#6B493F"/>
+ <path d="M13 66 C26 52 51 51 64 67 L74 145 L3 145 Z" fill="#F28D7B"/>
+ <path d="M25 144 L15 228 M55 144 L67 228" stroke="#283F48" stroke-width="12" stroke-linecap="round"/>
+ <path d="M3 229 H29 M54 229 H80" stroke="#283F48" stroke-width="9" stroke-linecap="round"/>
+</g>
+<!-- lifebuoy -->
+<circle cx="76" cy="405" r="40" fill="#FF7440"/><circle cx="76" cy="405" r="21" fill="#F7FAFC"/><path d="M48 377 L58 388 M94 422 L104 433" stroke="#fff" stroke-width="9"/>
+
+</svg>

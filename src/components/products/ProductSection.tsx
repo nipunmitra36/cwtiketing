@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
@@ -11,7 +10,6 @@ import {
     HiOutlineClock,
     HiOutlineGlobeAlt,
     HiOutlineLocationMarker,
-    HiOutlineTrendingUp,
     HiOutlineCalendar,
     HiOutlineCube,
 } from "react-icons/hi";
@@ -27,6 +25,8 @@ interface Feature {
     image?: string;
 }
 
+const HOME_ICONS = "/media/bus-ticketing/cwticketing-home";
+
 const features: Feature[] = [
     {
         title: "Bus Ticketing System",
@@ -36,7 +36,7 @@ const features: Feature[] = [
         caption:
             "Real-time seat maps and live fares let passengers complete a booking in seconds, not minutes.",
         icon: HiOutlineTruck,
-        image: "/media/services/bus.webp",
+        image: `${HOME_ICONS}/bus-ticket-booking-system.svg`,
     },
     {
         title: "Train Ticketing System",
@@ -46,7 +46,7 @@ const features: Feature[] = [
         caption:
             "Live availability and instant alerts keep passengers and staff in sync at every station.",
         icon: HiOutlineClock,
-        image: "/media/services/train.webp",
+        image: `${HOME_ICONS}/train-ticketing-system.svg`,
     },
     {
         title: "Cruise Booking System",
@@ -56,7 +56,7 @@ const features: Feature[] = [
         caption:
             "Interactive deck plans and live fares turn browsing into confirmed reservations.",
         icon: HiOutlineGlobeAlt,
-        image: "/media/services/cruise.webp",
+        image: `${HOME_ICONS}/cruise-booking-system.svg`,
     },
     {
         title: "Taxi Booking System",
@@ -66,17 +66,7 @@ const features: Feature[] = [
         caption:
             "Automated fare calculation and live tracking connect riders to the nearest driver instantly.",
         icon: HiOutlineLocationMarker,
-        image: "/media/services/taxi.webp",
-    },
-    {
-        title: "Cable Car Booking System",
-        desc: "Sell timed tickets online and reduce queue pressure with digital booking.",
-        stat: "70%",
-        statLabel: "Shorter queue times",
-        caption:
-            "Timed digital tickets spread arrivals evenly, cutting wait times at the base station.",
-        icon: HiOutlineTrendingUp,
-        image: "/media/services/cable%20car.webp",
+        image: `${HOME_ICONS}/taxi-booking-system.svg`,
     },
     {
         title: "Event Ticketing System",
@@ -86,6 +76,7 @@ const features: Feature[] = [
         caption:
             "Digital tickets and QR scanning move attendees through the gate in half the time.",
         icon: HiOutlineCalendar,
+        image: `${HOME_ICONS}/event-ticketing-system.svg`,
     },
     {
         title: "Parcel Management System",
@@ -95,6 +86,7 @@ const features: Feature[] = [
         caption:
             "Live status updates keep senders, drivers, and recipients on the same page from pickup to drop-off.",
         icon: HiOutlineCube,
+        image: `${HOME_ICONS}/parcel-management-system.svg`,
     },
 ];
 
@@ -196,12 +188,12 @@ function FeaturePanel({
                             style={{ transformOrigin: "center" }}
                         >
                             {feature.image ? (
-                                <Image
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
                                     src={feature.image}
                                     alt={feature.title}
-                                    fill
-                                    sizes="(max-width: 1024px) 100vw, 50vw"
-                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    loading="lazy"
+                                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
                             ) : (
                                 <div className="flex h-full w-full items-center justify-center bg-gray-200">

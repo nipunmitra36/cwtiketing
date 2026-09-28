@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+  <title id="title">Redesigned train transport illustration</title>
+  <desc id="desc">Original vector illustration redesigned from the supplied transport concept.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F6F9FC"/><stop offset="1" stop-color="#E7F0F7"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF8A3D"/><stop offset="1" stop-color="#FF5B2E"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2A7180"/><stop offset="1" stop-color="#174A59"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  
+<rect width="600" height="600" rx="36" fill="#F7FAFC"/>
+<circle cx="110" cy="108" r="45" fill="#FFE0D0"/><path d="M0 425 L600 425" stroke="#B8CCD1" stroke-width="6"/>
+<!-- skyline -->
+<g fill="#DDE8EA"><path d="M35 390 V250 H100 V390Z"/><path d="M115 390 V190 H178 V390Z"/><path d="M194 390 V270 H250 V390Z"/><path d="M270 390 V155 H335 V390Z"/><path d="M355 390 V225 H415 V390Z"/><path d="M438 390 V180 H505 V390Z"/><path d="M530 390 V250 H580 V390Z"/></g>
+<!-- bridge -->
+<path d="M42 395 H558" stroke="#6D8A92" stroke-width="12"/>
+<path d="M70 395 V510 M195 395 V510 M320 395 V510 M445 395 V510" stroke="#AFC2C7" stroke-width="12"/>
+<path d="M40 510 Q132 410 220 510 M165 510 Q257 410 345 510 M290 510 Q382 410 470 510" fill="none" stroke="#D7E3E6" stroke-width="8"/>
+<!-- train -->
+<g transform="translate(78 205) rotate(4 230 80)" filter="url(#shadow)">
+ <path d="M0 55 Q0 25 32 18 H430 Q474 22 500 67 L500 133 H0Z" fill="#fff" stroke="#243F49" stroke-width="7"/>
+ <path d="M0 55 H500 V92 H0Z" fill="#FF7540"/>
+ <path d="M28 34 H118 V82 H28Z M135 34 H225 V82 H135Z M242 34 H332 V82 H242Z M349 34 H438 V82 H349Z" fill="#355560"/>
+ <path d="M438 34 Q469 38 486 70 H438Z" fill="#24434E"/>
+ <path d="M0 133 H500" stroke="#243F49" stroke-width="10"/>
+ <circle cx="73" cy="133" r="25" fill="#243F49"/><circle cx="73" cy="133" r="11" fill="#E7EFF1"/>
+ <circle cx="418" cy="133" r="25" fill="#243F49"/><circle cx="418" cy="133" r="11" fill="#E7EFF1"/>
+ <rect x="30" y="91" width="70" height="25" fill="#FF7540"/><rect x="115" y="91" width="70" height="25" fill="#FF7540"/><rect x="200" y="91" width="70" height="25" fill="#FF7540"/><rect x="285" y="91" width="70" height="25" fill="#FF7540"/>
+</g>
+<path d="M72 154 q18 -25 36 0 M495 118 q18 -25 36 0" fill="none" stroke="#6C8D96" stroke-width="4"/>
+
+</svg>

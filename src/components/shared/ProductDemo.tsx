@@ -35,7 +35,9 @@ const AUTO_SLIDE_MS = 3500;
 function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
   const [imgIndex, setImgIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxVisible, setLightboxVisible] = useState(false);
   const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
   const imgCount = tab.images.length;
   const safeIndex = imgCount > 0 ? imgIndex % imgCount : 0;
 
@@ -57,15 +59,32 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    // Trigger the entrance transition on the next frame.
+    const id = requestAnimationFrame(() => setLightboxVisible(true));
     return () => {
+      cancelAnimationFrame(id);
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      setLightboxVisible(false);
     };
   }, [lightboxOpen, imgCount]);
 
   const prev = () => setImgIndex((i) => (i - 1 + imgCount) % imgCount);
   const next = () => setImgIndex((i) => (i + 1) % imgCount);
   const isPhone = tab.device === "phone";
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 40) {
+      if (delta < 0) next();
+      else prev();
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <div
@@ -165,69 +184,106 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
           role="dialog"
           aria-modal="true"
           aria-label={tab.title}
-          className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black/90 p-4 pt-24 backdrop-blur-sm sm:pt-28"
+          className={`fixed inset-0 z-[999] flex flex-col bg-black/95 backdrop-blur-md transition-opacity duration-300 ${
+            lightboxVisible ? "opacity-100" : "opacity-0"
+          }`}
           onClick={() => setLightboxOpen(false)}
         >
-          <button
-            type="button"
-            onClick={() => setLightboxOpen(false)}
-            aria-label="Close"
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-          >
-            <HiOutlineX className="h-6 w-6" />
-          </button>
-
-          {imgCount > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prev();
-                }}
-                aria-label="Previous image"
-                className="absolute left-3 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-6"
-              >
-                <HiOutlineChevronLeft className="h-7 w-7" />
-              </button>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  next();
-                }}
-                aria-label="Next image"
-                className="absolute right-3 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-6"
-              >
-                <HiOutlineChevronRight className="h-7 w-7" />
-              </button>
-            </>
-          )}
-
-          <figure
-            className="flex w-full max-w-6xl flex-1 flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl"
+          {/* Top bar */}
+          <div
+            className="relative flex shrink-0 items-center justify-between gap-4 px-4 py-4 sm:px-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between gap-4 border-b border-gray-100 bg-gray-50 px-5 py-3">
-              <span className="truncate text-[14px] font-semibold text-text-dark">
-                {tab.title}
-              </span>
-              <span className="shrink-0 rounded-full bg-brand/10 px-3 py-1 text-[12px] font-semibold text-brand">
-                {safeIndex + 1} / {imgCount}
-              </span>
-            </div>
-            <div className="flex min-h-0 flex-1 items-center justify-center bg-gray-900 p-3 sm:p-6">
-              {imgCount > 0 && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={safeIndex}
-                  src={tab.images[safeIndex]}
-                  alt={tab.title}
-                  className="max-h-full w-auto max-w-full object-contain"
-                />
+            <div className="min-w-0">
+              <p className="truncate text-[14px] font-semibold text-white">{tab.title}</p>
+              {imgCount > 1 && (
+                <p className="text-[11.5px] text-white/50">
+                  {safeIndex + 1} of {imgCount}
+                </p>
               )}
             </div>
-          </figure>
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(false)}
+              aria-label="Close"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white transition-all duration-200 hover:scale-105 hover:bg-white/20"
+            >
+              <HiOutlineX className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* Image stage */}
+          <div
+            className={`relative flex min-h-0 flex-1 items-center justify-center px-2 transition-all duration-300 ${
+              lightboxVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            {imgCount > 1 && (
+              <button
+                type="button"
+                onClick={prev}
+                aria-label="Previous image"
+                className="absolute left-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white/20 sm:left-5"
+              >
+                <HiOutlineChevronLeft className="h-6 w-6" />
+              </button>
+            )}
+
+            <div className="relative h-full w-full max-w-5xl">
+              {tab.images.map((src, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={src}
+                  src={src}
+                  alt={`${tab.title} — screenshot ${i + 1}`}
+                  className={`absolute inset-0 m-auto max-h-full w-auto max-w-full object-contain transition-opacity duration-500 ${
+                    i === safeIndex ? "opacity-100" : "pointer-events-none opacity-0"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {imgCount > 1 && (
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Next image"
+                className="absolute right-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white/20 sm:right-5"
+              >
+                <HiOutlineChevronRight className="h-6 w-6" />
+              </button>
+            )}
+          </div>
+
+          {/* Thumbnail rail */}
+          {imgCount > 1 && (
+            <div
+              className="shrink-0 overflow-x-auto px-4 pb-5 pt-3 sm:px-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="mx-auto flex w-max gap-2.5">
+                {tab.images.map((src, i) => (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setImgIndex(i)}
+                    aria-label={`Show screenshot ${i + 1}`}
+                    className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border-2 bg-black/40 transition-all duration-200 sm:h-16 sm:w-16 ${
+                      i === safeIndex
+                        ? "border-brand opacity-100"
+                        : "border-transparent opacity-50 hover:opacity-80"
+                    }`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt="" className="h-full w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
