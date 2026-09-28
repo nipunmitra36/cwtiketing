@@ -2,11 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineTicket,
-  HiOutlineDesktopComputer,
-  HiOutlineCurrencyDollar,
-} from "react-icons/hi";
 
 const MEDIA = "/media/suttle/Built for Bus Stop Agents";
 
@@ -21,8 +16,6 @@ const agentFeatures: { image: string; label: string }[] = [
   { image: `${MEDIA}/Multi-Agent Login with Role Control.svg`, label: "Multi-Agent Login with Role Control" },
   { image: `${MEDIA}/Fare Collection Reports.svg`, label: "Fare Collection Reports" },
 ];
-
-const SEAT_STATES = ["sold", "free", "free", "sold", "selected", "free", "sold", "free", "free", "sold", "free", "free"] as const;
 
 export default function CounterTicketing() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -66,103 +59,26 @@ export default function CounterTicketing() {
           </div>
         </div>
 
-        {/* ── Copy + POS terminal ── */}
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div data-gsap>
-            <p className="text-[15px] leading-relaxed text-text-body sm:text-[16px]">
-              Your staff gets what they need to serve passengers fast and keep
-              queues moving.
+        {/* ── Copy ── */}
+        <div data-gsap className="mx-auto max-w-2xl text-center">
+          <p className="text-[15px] leading-relaxed text-text-body sm:text-[16px]">
+            Your staff gets what they need to serve passengers fast and keep
+            queues moving.
+          </p>
+
+          <div className="mt-6">
+            <p className="text-[11.5px] font-semibold uppercase tracking-widest text-text-muted">
+              Available on
             </p>
-
-            <div className="mt-6">
-              <p className="text-[11.5px] font-semibold uppercase tracking-widest text-text-muted">
-                Available on
-              </p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {["Web Portal", "Android App", "Android POS"].map((a) => (
-                  <span
-                    key={a}
-                    className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-[12.5px] font-medium text-text-body shadow-sm transition-colors hover:border-brand/30 hover:text-brand"
-                  >
-                    {a}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* POS terminal mock */}
-          <div data-gsap>
-            <div className="relative mx-auto max-w-md">
-              <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-2xl shadow-gray-900/10">
-                {/* title bar */}
-                <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50/80 px-5 py-3">
-                  <div className="flex items-center gap-2">
-                    <span className="flex gap-1.5">
-                      <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-                    </span>
-                    <span className="ml-1 text-[11px] font-semibold uppercase tracking-widest text-text-muted">
-                      Counter POS
-                    </span>
-                  </div>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-600">
-                    <HiOutlineDesktopComputer className="h-3 w-3" />
-                    Android
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between px-5 pt-4">
-                  <p className="text-[13px] font-bold text-text-dark">Route 12 · City Loop</p>
-                  <p className="text-[11px] text-text-muted">Boarding · 08:45 AM</p>
-                </div>
-
-                {/* seat map */}
-                <div className="mx-5 mt-4 rounded-2xl border border-gray-100 bg-gray-50/70 p-4">
-                  <div className="mb-3 flex items-center justify-between">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-text-muted">
-                      Seat Availability
-                    </p>
-                    <span className="text-[11px] font-bold text-emerald-600">6 seats left</span>
-                  </div>
-                  <div className="grid grid-cols-6 gap-2">
-                    {SEAT_STATES.map((s, i) => (
-                      <span
-                        key={i}
-                        className={`flex h-8 items-center justify-center rounded-lg text-[10px] font-bold ${
-                          s === "sold"
-                            ? "bg-gray-200 text-gray-400"
-                            : s === "selected"
-                              ? "bg-brand text-white shadow-md shadow-brand/30"
-                              : "bg-white text-text-muted ring-1 ring-gray-200"
-                        }`}
-                      >
-                        {i + 1}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* ticket line + pay */}
-                <div className="mx-5 my-4 flex items-center gap-3 rounded-2xl border border-dashed border-brand/40 bg-brand-light/50 p-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand text-white">
-                    <HiOutlineTicket className="h-5 w-5" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-[12px] font-bold text-text-dark">Seat 5 · One Way</p>
-                    <p className="text-[10.5px] text-text-muted">Cash / Card / QR · $2.50</p>
-                  </div>
-                  <span className="hidden items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold text-emerald-600 sm:flex">
-                    <HiOutlineCurrencyDollar className="h-3 w-3" />
-                    Issued
-                  </span>
-                </div>
-              </div>
-
-              <p className="mt-5 max-w-[280px] text-[12.5px] font-medium leading-snug text-text-muted">
-                Passengers purchasing bus tickets at a counter
-              </p>
+            <div className="mt-2.5 flex flex-wrap justify-center gap-2">
+              {["Web Portal", "Android App", "Android POS"].map((a) => (
+                <span
+                  key={a}
+                  className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-[12.5px] font-medium text-text-body shadow-sm transition-colors hover:border-brand/30 hover:text-brand"
+                >
+                  {a}
+                </span>
+              ))}
             </div>
           </div>
         </div>

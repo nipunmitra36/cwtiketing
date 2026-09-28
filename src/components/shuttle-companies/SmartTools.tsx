@@ -8,37 +8,13 @@ import {
 
 const MEDIA = "/media/suttle/(Feature heading for Local Operators";
 
-const tools: { image: string; label: string; desc: string }[] = [
-  {
-    image: `${MEDIA}/Short Route Scheduling.svg`,
-    label: "Short Route Scheduling",
-    desc: "Plan frequent departures and keep local routes running like clockwork.",
-  },
-  {
-    image: `${MEDIA}/Stop-to-Stop Fare Management.svg`,
-    label: "Stop-to-Stop Fare Management",
-    desc: "Price every hop with zone-based and stop-to-stop fare rules.",
-  },
-  {
-    image: `${MEDIA}/Real-Time Passenger Load Monitoring.svg`,
-    label: "Real-Time Passenger Load Monitoring",
-    desc: "See exact passenger load in real time and balance your fleet accordingly.",
-  },
-  {
-    image: `${MEDIA}/Driver Shift Management.svg`,
-    label: "Driver Shift Management",
-    desc: "Assign drivers and shifts, and keep every local route fully covered.",
-  },
-  {
-    image: `${MEDIA}/Smart Reporting Tools.svg`,
-    label: "Smart Reporting Tools",
-    desc: "Track sales, loads, and route performance with clear insight.",
-  },
-  {
-    image: `${MEDIA}/Route Conflict Alerts.svg`,
-    label: "Route Conflict Alerts",
-    desc: "Get flagged instantly when schedules or stops clash across routes.",
-  },
+const tools: { image: string; label: string }[] = [
+  { image: `${MEDIA}/Short Route Scheduling.svg`, label: "Short Route Scheduling" },
+  { image: `${MEDIA}/Stop-to-Stop Fare Management.svg`, label: "Stop-to-Stop Fare Management" },
+  { image: `${MEDIA}/Real-Time Passenger Load Monitoring.svg`, label: "Real-Time Passenger Load Monitoring" },
+  { image: `${MEDIA}/Driver Shift Management.svg`, label: "Driver Shift Management" },
+  { image: `${MEDIA}/Smart Reporting Tools.svg`, label: "Smart Reporting Tools" },
+  { image: `${MEDIA}/Route Conflict Alerts.svg`, label: "Route Conflict Alerts" },
 ];
 
 export default function SmartTools() {
@@ -118,10 +94,9 @@ export default function SmartTools() {
                   </span>
                 </div>
 
-                <h3 className="relative mt-5 pr-10 text-[16px] font-semibold tracking-tight text-text-dark">
+                <h3 className="relative mt-5 flex-1 pr-10 text-[16px] font-semibold tracking-tight text-text-dark">
                   {t.label}
                 </h3>
-                <p className="relative mt-2 flex-1 text-[13.5px] leading-relaxed text-text-muted">{t.desc}</p>
 
                 <span className="relative mt-6 inline-flex h-9 w-9 items-center justify-center self-start rounded-full border border-gray-200 text-text-muted transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-white">
                   <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />

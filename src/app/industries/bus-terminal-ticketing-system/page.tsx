@@ -8,6 +8,7 @@ import WhoBenefits from "@/components/bus-marketplace/WhoBenefits";
 import WhyChoose from "@/components/bus-marketplace/WhyChoose";
 import ClientShowcase from "@/components/bus-marketplace/ClientShowcase";
 import SpecializedSystems from "@/components/bus-marketplace/SpecializedSystems";
+import ProductDemo from "@/components/bus-marketplace/ProductDemo";
 import PaymentGateway from "@/components/bus-marketplace/PaymentGateway";
 import FinalCTA from "@/components/bus-marketplace/FinalCTA";
 import Faq from "@/components/bus-marketplace/Faq";
@@ -149,6 +150,7 @@ export default function BusTerminalTicketingSystemPage() {
         <WhyChoose />
         <ClientShowcase />
         <SpecializedSystems />
+        <ProductDemo />
         <PaymentGateway />
         <FinalCTA />
         <Faq />

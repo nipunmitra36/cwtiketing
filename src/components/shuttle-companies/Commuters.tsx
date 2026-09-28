@@ -2,17 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineCreditCard,
-  HiOutlineBell,
-  HiOutlineQrcode,
-  HiOutlineRefresh,
-  HiOutlineStar,
-  HiOutlineDeviceMobile,
-  HiOutlineMap,
-  HiOutlineSearch,
-} from "react-icons/hi";
-
 const MEDIA = "/media/suttle/Travel Made Effortless";
 
 const commuterFeatures: { image: string; label: string }[] = [
@@ -70,102 +59,20 @@ export default function Commuters() {
           </div>
         </div>
 
-        {/* ── Phone mock + copy ── */}
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Phone visual */}
-          <div data-gsap>
-            <div className="relative mx-auto max-w-sm">
-              <div className="overflow-hidden rounded-[2rem] border border-gray-200 bg-gradient-to-b from-gray-50 to-white shadow-2xl shadow-gray-900/10">
-                {/* status row */}
-                <div className="flex items-center justify-between px-5 pt-5">
-                  <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-text-muted">
-                    <HiOutlineDeviceMobile className="h-3.5 w-3.5 text-brand" />
-                    Ride App
-                  </span>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-light px-2 py-0.5 text-[10px] font-semibold text-brand">
-                    <HiOutlineMap className="h-3 w-3" />
-                    Nearby
-                  </span>
-                </div>
-
-                {/* stop search */}
-                <div className="mx-4 mt-4 flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-3 py-2.5">
-                  <HiOutlineSearch className="h-4 w-4 text-brand" />
-                  <span className="text-[12px] font-medium text-text-muted">Central Station</span>
-                </div>
-
-                {/* live status */}
-                <div className="mx-4 mt-3 flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
-                  <div>
-                    <p className="text-[11px] font-medium text-text-muted">Bus 12 · Maple St</p>
-                    <p className="text-[13px] font-bold text-text-dark">Arriving in 4 min</p>
-                  </div>
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                    <HiOutlineRefresh className="h-4 w-4" />
-                  </span>
-                </div>
-
-                {/* QR ticket */}
-                <div className="mx-4 mt-3 overflow-hidden rounded-2xl bg-gradient-to-br from-brand to-brand-dark p-4 text-white shadow-xl shadow-brand/30">
-                  <div className="flex items-center justify-between">
-                    <p className="text-[11px] font-semibold uppercase tracking-wide text-white/80">
-                      Instant QR Ticket
-                    </p>
-                    <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/15">
-                      <HiOutlineQrcode className="h-4 w-4" />
-                    </span>
-                  </div>
-                  <p className="mt-3 text-[22px] font-black leading-none tracking-tight">Morning Commute</p>
-                  <div className="mt-3 flex items-center justify-between text-[11px] text-white/90">
-                    <span>Central → Riverside</span>
-                    <span>$1.80 · Valid 60 min</span>
-                  </div>
-                </div>
-
-                {/* quick actions */}
-                <div className="grid grid-cols-3 gap-2.5 px-4 py-4">
-                  {[
-                    { icon: HiOutlineCreditCard, label: "Wallet" },
-                    { icon: HiOutlineStar, label: "Favorites" },
-                    { icon: HiOutlineBell, label: "Reminders" },
-                  ].map((a) => {
-                    const Icon = a.icon;
-                    return (
-                      <div
-                        key={a.label}
-                        className="flex flex-col items-center gap-1.5 rounded-xl border border-gray-100 bg-white py-2.5 transition-colors hover:border-brand/25"
-                      >
-                        <Icon className="h-4 w-4 text-brand" />
-                        <span className="text-[10px] font-medium text-text-muted">{a.label}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <p className="mt-5 max-w-[260px] text-[12.5px] font-medium leading-snug text-text-muted">
-                Urban commuters boarding a city bus in a structured queue
-              </p>
-            </div>
-          </div>
-
-          {/* Copy */}
-          <div data-gsap>
-            <div className="mt-6">
-              <p className="text-[11.5px] font-semibold uppercase tracking-widest text-text-muted">
-                Available on
-              </p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {["Web Portal", "Android App", "Android POS"].map((a) => (
-                  <span
-                    key={a}
-                    className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-[12.5px] font-medium text-text-body shadow-sm transition-colors hover:border-brand/30 hover:text-brand"
-                  >
-                    {a}
-                  </span>
-                ))}
-              </div>
-            </div>
+        {/* ── Copy ── */}
+        <div data-gsap className="mx-auto max-w-2xl text-center">
+          <p className="text-[11.5px] font-semibold uppercase tracking-widest text-text-muted">
+            Available on
+          </p>
+          <div className="mt-2.5 flex flex-wrap justify-center gap-2">
+            {["Web Portal", "Android App", "Android POS"].map((a) => (
+              <span
+                key={a}
+                className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-[12.5px] font-medium text-text-body shadow-sm transition-colors hover:border-brand/30 hover:text-brand"
+              >
+                {a}
+              </span>
+            ))}
           </div>
         </div>
 

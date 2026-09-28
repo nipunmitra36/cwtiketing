@@ -2,48 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineTruck,
-  HiOutlineGlobeAlt,
-  HiOutlineCalendar,
-  HiOutlineCube,
-  HiOutlineLibrary,
-  HiOutlineBriefcase,
-  HiOutlineArrowRight,
-} from "react-icons/hi";
-import type { IconType } from "react-icons";
 
-const audiences: { icon: IconType; label: string; highlight: string }[] = [
-  {
-    icon: HiOutlineTruck,
-    label: "Transportation & Logistics",
-    highlight: "Multi-fleet routing and operator onboarding",
-  },
-  {
-    icon: HiOutlineGlobeAlt,
-    label: "Travel & Tourism",
-    highlight: "Multi-operator ticket retail for agencies",
-  },
-  {
-    icon: HiOutlineCalendar,
-    label: "Event Management",
-    highlight: "Chartered transport for large gatherings",
-  },
-  {
-    icon: HiOutlineCube,
-    label: "Courier & Parcel Services",
-    highlight: "Route-based parcel and cargo manifests",
-  },
-  {
-    icon: HiOutlineLibrary,
-    label: "Government & Public Services",
-    highlight: "Subsidized and public transit programs",
-  },
-  {
-    icon: HiOutlineBriefcase,
-    label: "Corporate & Employee Commute",
-    highlight: "Scheduled staff pickup and drop-off",
-  },
+const MEDIA = "/media/cwticketing travel agency/icons";
+
+const audiences: { image: string; label: string }[] = [
+  { image: `${MEDIA}/transportation-&-logistics-01.svg`, label: "Transportation & Logistics" },
+  { image: `${MEDIA}/travel-&-tourism-01.svg`, label: "Travel & Tourism" },
+  { image: `${MEDIA}/event-management.svg`, label: "Event Management" },
+  { image: `${MEDIA}/courier-&-parcel-services.svg`, label: "Courier & Parcel Services" },
+  { image: `${MEDIA}/government-&-public-servicesicon.svg`, label: "Government & Public Services" },
+  { image: `${MEDIA}/corporate-&-employee-commute.svg`, label: "Corporate & Employee Commute" },
 ];
 
 export default function WhoBenefits() {
@@ -79,36 +47,23 @@ export default function WhoBenefits() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {audiences.map((a) => {
-            const Icon = a.icon;
-            return (
-              <div
-                key={a.label}
-                data-gsap
-                className="group relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm shadow-gray-200/40 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/10"
-              >
-                <span className="absolute -left-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-gray-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]" />
-                <span className="absolute -right-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-gray-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]" />
-
-                <div className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-light text-brand transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand/30">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <p className="text-[15px] font-medium tracking-tight text-text-dark">{a.label}</p>
-                </div>
-
-                <div className="my-5 border-t-2 border-dashed border-gray-300" />
-
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-[12.5px] leading-snug text-text-muted">{a.highlight}</p>
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gray-200 text-text-muted transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-white">
-                    <HiOutlineArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {audiences.map((a) => (
+            <div
+              key={a.label}
+              data-gsap
+              className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-gray-100 bg-white p-6 text-center shadow-sm shadow-gray-200/50 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/15"
+            >
+              <span className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-center scale-x-0 bg-gradient-to-r from-brand via-amber-400 to-brand-dark transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-light via-white to-white p-2.5 shadow-inner ring-1 ring-brand/10 transition-transform duration-300 group-hover:scale-110">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={a.image} alt={a.label} loading="lazy" className="h-full w-full object-contain" />
+              </span>
+              <span className="text-[13.5px] font-semibold leading-snug tracking-tight text-text-dark">
+                {a.label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

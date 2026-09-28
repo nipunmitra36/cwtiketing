@@ -390,9 +390,6 @@ export default function Header() {
             className="h-8 w-auto"
             priority
           />
-          <span className="rounded-full border border-brand/20 bg-brand-light px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand">
-            Beta
-          </span>
         </Link>
 
         {/* ── Desktop Nav ── */}
