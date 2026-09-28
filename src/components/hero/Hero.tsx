@@ -184,7 +184,7 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftCopyRef = useRef<HTMLDivElement>(null);
   const bentoRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -329,9 +329,9 @@ export default function Hero() {
         });
       }
 
-      // ── Background video: slow parallax drift for depth ──
-      if (videoRef.current) {
-        gsap.to(videoRef.current, {
+      // ── Background glows: slow parallax drift for depth ──
+      if (bgRef.current) {
+        gsap.to(bgRef.current, {
           y: 60,
           ease: "none",
           scrollTrigger: {
@@ -348,25 +348,29 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative isolate overflow-hidden bg-gray-950">
-      {/* ── Full-bleed background video ── */}
-      <div className="absolute inset-0 -z-20 h-[calc(100%+80px)] w-full">
-        <video
-          ref={videoRef}
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src="https://cdn.prod.website-files.com/5e4ff204e7b6f80e402d407a%2F69e621412c56967915773ce6_Gorgias_hero_hp_video_V2_mp4.mp4" type="video/mp4" />
-        </video>
+    <section ref={sectionRef} className="relative isolate overflow-hidden bg-neutral-950">
+      {/* ── Dark background: near-black base + soft brand glows + faint grid ── */}
+      <div
+        ref={bgRef}
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-20 h-[calc(100%+80px)] w-full"
+      >
+        <div className="absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-brand/25 blur-[140px]" />
+        <div className="absolute -bottom-48 -left-32 h-[480px] w-[480px] rounded-full bg-amber-500/10 blur-[140px]" />
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+            maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          }}
+        />
       </div>
 
-      {/* ── Overlay: subtle darken + brand tint so copy & glass cards stay legible ── */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-black/25 to-black/50" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
-      <div className="absolute inset-0 -z-10 bg-brand/5 mix-blend-multiply" />
+      {/* ── Overlay: top/bottom vignette keeps edges deep black ── */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/70" />
 
       <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-32 sm:px-6 sm:pb-28 sm:pt-40 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -399,14 +403,15 @@ export default function Hero() {
             </div>
 
             {/* Trust points */}
-            <div className="gsap-left-item flex flex-wrap items-center gap-x-5 gap-y-2.5 border-t border-white/15 pt-6">
+            <div className="gsap-left-item grid max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-white/15 pt-6">
               {[
                 "2500+ Transport Companies",
                 "99.9% Platform Uptime",
                 "Android & iOS Apps Included",
+                "24/7 Support",
               ].map((point) => (
-                <span key={point} className="flex items-center gap-2 text-[12px] text-white/80">
-                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-brand/90">
+                <span key={point} className="flex items-start gap-2 text-[12px] leading-snug text-white/80">
+                  <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/90">
                     <HiOutlineCheck className="h-2.5 w-2.5 text-white" />
                   </span>
                   {point}

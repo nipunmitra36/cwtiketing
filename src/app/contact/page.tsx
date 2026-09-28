@@ -12,9 +12,8 @@ import {
   HiOutlineChevronDown,
   HiOutlinePaperAirplane,
   HiOutlineChat,
-  HiOutlineOfficeBuilding,
-  HiOutlineGlobeAlt,
 } from "react-icons/hi";
+import { FaWhatsapp } from "react-icons/fa";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 type FormState = "idle" | "sending" | "sent" | "error";
@@ -22,55 +21,22 @@ type FormState = "idle" | "sending" | "sent" | "error";
 // ── Constants ─────────────────────────────────────────────────────────────────
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const OFFICES = [
-  {
-    city: "San Francisco",
-    role: "Headquarters",
-    address: "116 New Montgomery St, Suite 300",
-    zip: "San Francisco, CA 94105",
-    phone: "+1 (415) 000-1234",
-    email: "sf@stellar.co",
-    hours: "Mon–Fri, 9am – 6pm PST",
-    lat: 37.7872,
-    lng: -122.4005,
-    mapEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1!2d-122.4005!3d37.7872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ3JzE0LjAiTiAxMjLCsDI0JzAxLjgiVw!5e0!3m2!1sen!2sus!4v1",
-    active: true,
-  },
-  {
-    city: "New York",
-    role: "East Coast",
-    address: "350 Fifth Avenue, Floor 21",
-    zip: "New York, NY 10118",
-    phone: "+1 (212) 000-5678",
-    email: "nyc@stellar.co",
-    hours: "Mon–Fri, 9am – 6pm EST",
-    lat: 40.7484,
-    lng: -73.9967,
-    mapEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.6!2d-73.9967!3d40.7484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ0JzU0LjIiTiA3M8KwNTknNDguMSJX!5e0!3m2!1sen!2sus!4v1",
-    active: false,
-  },
-  {
-    city: "London",
-    role: "EMEA",
-    address: "1 Canada Square, Canary Wharf",
-    zip: "London E14 5AB, UK",
-    phone: "+44 20 0000 9012",
-    email: "london@stellar.co",
-    hours: "Mon–Fri, 9am – 6pm GMT",
-    lat: 51.5049,
-    lng: -0.0196,
-    mapEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.9!2d-0.0196!3d51.5049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzE3LjYiTiAwwrAwMScxMC42Ilc!5e0!3m2!1sen!2sus!4v1",
-    active: false,
-  },
-];
+const EMAIL = "info@cwticketingsystem.com";
+const WHATSAPP = "+8801614000401";
+const MOBILE = "+8801672691228";
+
+const OFFICE = {
+  city: "Dhaka",
+  role: "Head Office",
+  address: "House #629-685, Road # 12, Baitul Aman Housing Society",
+  zip: "Adabor, Mohammadpur, Dhaka-1207, BD",
+  mapQuery: "Baitul Aman Housing Society, Adabor, Mohammadpur, Dhaka 1207",
+};
 
 const TOPICS = [
   "Sales & Pricing",
   "Technical Support",
-  "Order & Shipping",
+  "Book a Demo",
   "Press & Media",
   "Partnerships",
   "General Enquiry",
@@ -127,13 +93,14 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ContactPage() {
-  const [activeOffice, setActiveOffice] = useState(0);
   const [topic, setTopic] = useState(TOPICS[0]);
   const [topicOpen, setTopicOpen] = useState(false);
   const [formState, setFormState] = useState<FormState>("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const office = OFFICES[activeOffice];
+  const office = OFFICE;
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(office.mapQuery)}&z=16&output=embed`;
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.mapQuery)}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,7 +125,7 @@ export default function ContactPage() {
           >
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-[12px] font-medium text-gray-500">
               <HiOutlineChat className="h-3.5 w-3.5" />
-              We'd love to hear from you
+              We&apos;d love to hear from you
             </span>
             <h1 className="mb-3 text-4xl font-medium tracking-tight text-gray-900">
               Get in Touch
@@ -167,6 +134,13 @@ export default function ContactPage() {
               Have a question, a project in mind, or just want to say hello? Our team is ready and
               waiting — usually within one business day.
             </p>
+            <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[12px] font-medium text-emerald-700">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              All systems operational
+            </span>
           </motion.div>
         </div>
       </section>
@@ -184,7 +158,7 @@ export default function ContactPage() {
             <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <h2 className="mb-1 text-xl font-medium text-gray-900">Send us a message</h2>
               <p className="mb-6 text-[13px] text-gray-500">
-                Fill in the form and we'll get back to you shortly.
+                Fill in the form and we&apos;ll get back to you shortly.
               </p>
 
               <AnimatePresence mode="wait">
@@ -200,7 +174,7 @@ export default function ContactPage() {
                     </div>
                     <p className="text-[17px] font-medium text-gray-900">Message sent!</p>
                     <p className="mt-1 text-[13px] text-gray-500">
-                      Thanks, {form.name.split(" ")[0] || "there"}. We'll be in touch soon.
+                      Thanks, {form.name.split(" ")[0] || "there"}. We&apos;ll be in touch soon.
                     </p>
                     <button
                       onClick={() => { setFormState("idle"); setForm({ name: "", email: "", message: "" }); }}
@@ -346,31 +320,35 @@ export default function ContactPage() {
               {
                 icon: <HiOutlineMail className="h-5 w-5" />,
                 label: "Email us",
-                value: "hello@stellar.co",
+                value: EMAIL,
                 sub: "We reply within 1 business day",
-                href: "mailto:hello@stellar.co",
+                href: `mailto:${EMAIL}`,
                 color: "bg-sky-50 text-sky-600",
+                external: false,
+              },
+              {
+                icon: <FaWhatsapp className="h-5 w-5" />,
+                label: "WhatsApp",
+                value: WHATSAPP,
+                sub: "Chat with our team",
+                href: `https://wa.me/${WHATSAPP.slice(1)}`,
+                color: "bg-emerald-50 text-emerald-600",
+                external: true,
               },
               {
                 icon: <HiOutlinePhone className="h-5 w-5" />,
                 label: "Call us",
-                value: "+1 (415) 000-1234",
-                sub: "Mon–Fri, 9am – 6pm PST",
-                href: "tel:+14150001234",
-                color: "bg-emerald-50 text-emerald-600",
-              },
-              {
-                icon: <HiOutlineGlobeAlt className="h-5 w-5" />,
-                label: "Live chat",
-                value: "Open chat",
-                sub: "Available during business hours",
-                href: "#",
+                value: MOBILE,
+                sub: "Talk to sales or support",
+                href: `tel:${MOBILE}`,
                 color: "bg-violet-50 text-violet-600",
+                external: false,
               },
             ].map((item) => (
               <a
                 key={item.label}
                 href={item.href}
+                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${item.color}`}>
@@ -418,39 +396,13 @@ export default function ContactPage() {
         >
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-medium text-gray-900">Our Offices</h2>
-              <p className="mt-1 text-[14px] text-gray-500">Three offices, one global team.</p>
+              <h2 className="text-2xl font-medium text-gray-900">Our Office</h2>
+              <p className="mt-1 text-[14px] text-gray-500">Visit us at our Dhaka head office.</p>
             </div>
           </div>
 
-          {/* Office tab pills */}
-          <div className="mb-5 flex flex-wrap gap-2">
-            {OFFICES.map((o, i) => (
-              <button
-                key={o.city}
-                onClick={() => setActiveOffice(i)}
-                className={`flex items-center gap-2 rounded-xl border px-4 py-2 text-[13px] font-medium transition-all ${
-                  activeOffice === i
-                    ? "border-brand bg-brand text-white shadow-sm"
-                    : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
-                }`}
-              >
-                <HiOutlineOfficeBuilding className="h-4 w-4" />
-                {o.city}
-                <span className={`text-[11px] ${activeOffice === i ? "text-gray-400" : "text-gray-400"}`}>
-                  {o.role}
-                </span>
-              </button>
-            ))}
-          </div>
-
           {/* Map + office detail */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeOffice}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE } }}
-              exit={{ opacity: 0, y: -8, transition: { duration: 0.2 } }}
+          <div
               className="grid overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm lg:grid-cols-[1fr_320px]"
             >
               {/* Map iframe */}
@@ -462,13 +414,13 @@ export default function ContactPage() {
                   loading="lazy"
                   style={{ border: 0, minHeight: 360 }}
                   referrerPolicy="no-referrer-when-downgrade"
-                  src={`https://www.google.com/maps?q=${office.lat},${office.lng}&z=15&output=embed`}
+                  src={mapSrc}
                   className="absolute inset-0 h-full w-full"
                 />
               </div>
 
               {/* Office info panel */}
-              <div className="flex flex-col justify-between border-l border-gray-200 p-6">
+              <div className="flex flex-col justify-between border-t border-gray-200 p-6 lg:border-l lg:border-t-0">
                 <div>
                   <p className="mb-0.5 text-[11px] font-semibold uppercase tracking-widest text-gray-400">
                     {office.role}
@@ -485,25 +437,26 @@ export default function ContactPage() {
                     </div>
                     <div className="flex gap-3">
                       <HiOutlinePhone className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
-                      <a href={`tel:${office.phone}`} className="text-[13px] text-gray-900 hover:text-gray-600 transition">
-                        {office.phone}
-                      </a>
+                      <div className="flex flex-col gap-1">
+                        <a href={`tel:${WHATSAPP}`} className="text-[13px] text-gray-900 hover:text-gray-600 transition">
+                          {WHATSAPP}
+                        </a>
+                        <a href={`tel:${MOBILE}`} className="text-[13px] text-gray-900 hover:text-gray-600 transition">
+                          {MOBILE}
+                        </a>
+                      </div>
                     </div>
                     <div className="flex gap-3">
                       <HiOutlineMail className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
-                      <a href={`mailto:${office.email}`} className="text-[13px] text-gray-900 hover:text-gray-600 transition">
-                        {office.email}
+                      <a href={`mailto:${EMAIL}`} className="break-all text-[13px] text-gray-900 hover:text-gray-600 transition">
+                        {EMAIL}
                       </a>
-                    </div>
-                    <div className="flex gap-3">
-                      <HiOutlineClock className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
-                      <p className="text-[13px] text-gray-500">{office.hours}</p>
                     </div>
                   </div>
                 </div>
 
                 <a
-                  href={`https://maps.google.com/?q=${office.lat},${office.lng}`}
+                  href={mapLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 py-2.5 text-[13px] font-medium text-gray-700 transition hover:border-gray-300 hover:text-gray-900"
@@ -512,8 +465,7 @@ export default function ContactPage() {
                   Open in Google Maps
                 </a>
               </div>
-            </motion.div>
-          </AnimatePresence>
+          </div>
         </motion.section>
       </div>
     </main>

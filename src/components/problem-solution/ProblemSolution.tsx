@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
   HiOutlineSearch,
@@ -16,10 +16,6 @@ import {
   HiOutlineClipboardList,
   HiOutlineSparkles,
 } from "react-icons/hi";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 // ── Flowchart primitives ──────────────────────────────────────────
 
@@ -43,7 +39,7 @@ function FlowNode({
   return (
     <div
       data-gsap
-      className={`mx-auto flex w-full max-w-[230px] items-center gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm sm:max-w-[240px] ${centered ? "justify-center" : ""
+      className={`mx-auto flex w-full max-w-[230px] items-center gap-2.5 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-sm sm:max-w-[240px] sm:gap-3 sm:px-4 sm:py-3 ${centered ? "justify-center" : ""
         }`}
     >
       <span
@@ -52,7 +48,7 @@ function FlowNode({
       >
         <Icon className="h-4 w-4" />
       </span>
-      <p className="text-[12.5px] font-semibold leading-tight text-text-dark">
+      <p className="min-w-0 text-[12px] font-semibold leading-tight text-text-dark sm:text-[12.5px]">
         {label}
       </p>
     </div>
@@ -86,23 +82,30 @@ export default function AboutHowItWorks() {
   }, []);
 
   // Draw the fork (decision → PASSENGER / ADMIN) connectors in as the
-  // flowchart scrolls into view.
+  // flowchart scrolls into view. Waits for the smoother so trigger positions
+  // are measured against the smoothed scroller (otherwise they misfire on phones).
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      forkPathRefs.current.forEach((path) => {
-        if (!path) return;
-        const length = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-        gsap.to(path, {
-          strokeDashoffset: 0,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: { trigger: path, start: "top 85%" },
+    let ctx: gsap.Context | null = null;
+    const cancel = onSmootherReady(() => {
+      ctx = gsap.context(() => {
+        forkPathRefs.current.forEach((path) => {
+          if (!path) return;
+          const length = path.getTotalLength();
+          gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+          gsap.to(path, {
+            strokeDashoffset: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: { trigger: path, start: "top 85%", once: true },
+          });
         });
-      });
-    }, sectionRef);
+      }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => {
+      cancel();
+      ctx?.revert();
+    };
   }, []);
 
   return (
@@ -116,7 +119,7 @@ export default function AboutHowItWorks() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* ── About: flowing editorial text with floated badges ── */}
-        <div data-gsap className="mb-20">
+        <div data-gsap className="mb-14 sm:mb-20">
 
 
           <h2 className="mb-8 max-w-3xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[30px] sm:leading-snug">
@@ -125,7 +128,7 @@ export default function AboutHowItWorks() {
           </h2>
 
           <div className="relative">
-            <p className="text-[16px] leading-[1.9] text-text-muted sm:text-[18px]">
+            <p className="text-[15px] leading-[1.8] text-text-muted sm:text-[18px] sm:leading-[1.9]">
               CWTicketing System is a complete white-label online ticket
               booking system designed for transport operators, travel
               companies, and mobility businesses. It helps businesses launch
@@ -143,7 +146,7 @@ export default function AboutHowItWorks() {
 
         {/* ── How it works: branching flowchart ── */}
         <div>
-          <div data-gsap className="mx-auto mb-14 max-w-2xl text-center">
+          <div data-gsap className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
             <h3 className="text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
               From search to ticket, in one flow
             </h3>
@@ -213,30 +216,30 @@ export default function AboutHowItWorks() {
                 </span>
                 <div
                   data-gsap
-                  className="w-full rounded-3xl border border-brand/20 bg-white p-4 shadow-xl shadow-brand/10"
+                  className="w-full rounded-2xl border border-brand/20 bg-white p-3 shadow-xl shadow-brand/10 sm:rounded-3xl sm:p-4"
                 >
-                  <div className="mb-4 flex items-center justify-center gap-2">
+                  <div className="mb-3 flex items-center justify-center gap-2 sm:mb-4">
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-light text-brand">
                       <HiOutlineSparkles className="h-3.5 w-3.5" />
                     </span>
-                    <p className="text-[13px] font-semibold text-text-dark">
+                    <p className="text-[12px] font-semibold leading-tight text-text-dark sm:text-[13px]">
                       CWTicketing Platform
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 gap-2 min-[480px]:grid-cols-2 sm:gap-2.5">
                     {platformModules.map((mod) => {
                       const Icon = mod.icon;
                       return (
                         <div
                           key={mod.label}
                           data-gsap
-                          className="flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50/60 px-2.5 py-2 transition-colors duration-200 hover:border-brand/30 hover:bg-brand-light/50"
+                          className="flex min-w-0 items-center gap-2 rounded-xl border border-gray-100 bg-gray-50/60 px-2.5 py-2 transition-colors duration-200 hover:border-brand/30 hover:bg-brand-light/50"
                         >
                           <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-brand shadow-sm ring-1 ring-brand/15">
                             <Icon className="h-3.5 w-3.5" />
                           </span>
-                          <p className="text-[11px] font-semibold leading-tight text-text-dark">
+                          <p className="truncate text-[11px] font-semibold leading-tight text-text-dark">
                             {mod.label}
                           </p>
                         </div>

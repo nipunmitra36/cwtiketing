@@ -80,6 +80,7 @@ export default function WorkInContext() {
             mm.add(
                 {
                     isDesktop: "(min-width: 1024px)",
+                    isMobile: "(max-width: 1023.98px)",
                     reduceMotion: "(prefers-reduced-motion: reduce)",
                 },
                 (context) => {
@@ -94,22 +95,27 @@ export default function WorkInContext() {
                         gsap.set(whiteAvatarRef.current, { opacity: 0 });
                         gsap.set(glowRef.current, { opacity: 1 });
                         gsap.set(cardRefs.current, { opacity: 0, scale: 0.2 });
-                        gsap.fromTo(
-                            textPanelRef.current,
-                            { opacity: 0, y: 20 },
-                            {
-                                opacity: 1,
-                                y: 0,
-                                duration: 0.9,
-                                ease: "power2.out",
-                                scrollTrigger: {
-                                    trigger: sectionRef.current,
-                                    start: "top 65%",
-                                    toggleActions: "play none none none",
-                                    once: true,
-                                },
-                            }
-                        );
+                        if (reduceMotion) {
+                            gsap.set(textPanelRef.current, { opacity: 1, x: 0, y: 0 });
+                            return;
+                        }
+                        // Mobile: avatar pops in white → color, then the copy rises.
+                        gsap.set(colorAvatarRef.current, { opacity: 0, scale: 0.96 });
+                        gsap.set(whiteAvatarRef.current, { opacity: 1 });
+                        gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
+                        gsap.set(textPanelRef.current, { opacity: 0, x: 0, y: 24 });
+                        const tl = gsap.timeline({
+                            scrollTrigger: {
+                                trigger: stageRef.current,
+                                start: "top 70%",
+                                toggleActions: "play none none none",
+                                once: true,
+                            },
+                        });
+                        tl.to(whiteAvatarRef.current, { opacity: 0, duration: 0.8, ease: "power1.inOut" }, 0)
+                            .to(colorAvatarRef.current, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 0)
+                            .to(glowRef.current, { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }, 0.1)
+                            .to(textPanelRef.current, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 0.45);
                         return;
                     }
 
@@ -203,20 +209,20 @@ export default function WorkInContext() {
         <section ref={sectionRef} className="relative bg-gray-50">
             <div
                 ref={stageRef}
-                className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center overflow-hidden px-4 pb-0 pt-16 sm:px-6 lg:px-8"
+                className="relative mx-auto flex max-w-6xl flex-col justify-center overflow-hidden px-4 pb-16 pt-16 sm:px-6 lg:min-h-screen lg:px-8 lg:pb-0"
             >
-                <div className="mx-auto mb-10 max-w-xl text-center lg:mb-14">
+                <div className="mx-auto mb-8 max-w-xl text-center sm:mb-10 lg:mb-14">
                     <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                         Everything about today, in one glance
                     </h2>
                     <p className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
-                        Bookings, routes, and revenue update in real time. Scroll to
-                        watch it come together.
+                        Bookings, routes, and revenue update in real time.
+                        <span className="hidden lg:inline"> Scroll to watch it come together.</span>
                     </p>
                 </div>
 
                 {/* Stage: floating cards + avatar + payoff copy */}
-                <div className="relative mx-auto h-[420px] w-full max-w-4xl sm:h-[480px] lg:h-[min(70vh,700px)]">
+                <div className="relative mx-auto w-full max-w-4xl lg:h-[min(70vh,700px)]">
                     {/* Cards — hidden on small screens to keep things calm on mobile */}
                     <div className="pointer-events-none absolute inset-0 hidden lg:block">
                         {cards.map((card, i) => {
@@ -244,8 +250,8 @@ export default function WorkInContext() {
                     </div>
 
                     {/* Avatar */}
-                    <div className="absolute inset-0 flex items-end justify-center">
-                        <div ref={avatarWrapRef} className="relative h-[400px] w-[400px] sm:h-[480px] sm:w-[480px] lg:h-[min(70vh,680px)] lg:w-[min(70vh,680px)]">
+                    <div className="relative flex justify-center lg:absolute lg:inset-0 lg:items-end">
+                        <div ref={avatarWrapRef} className="relative aspect-square w-[min(80vw,320px)] sm:w-[380px] lg:h-[min(70vh,680px)] lg:w-[min(70vh,680px)]">
                             <div
                                 ref={glowRef}
                                 className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand/30 to-sky-400/20 blur-3xl"
@@ -271,9 +277,9 @@ export default function WorkInContext() {
                     {/* Payoff copy panel */}
                     <div
                         ref={textPanelRef}
-                        className="absolute inset-y-0 right-0 flex w-full max-w-xs flex-col justify-center opacity-0 lg:w-[300px]"
+                        className="relative mx-auto mt-8 flex w-full max-w-md flex-col justify-center opacity-0 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:mt-0 lg:w-[300px] lg:max-w-xs"
                     >
-                        <h3 className="text-2xl font-medium tracking-tight text-text-dark">
+                        <h3 className="text-[20px] font-medium tracking-tight text-text-dark sm:text-2xl">
                             Full control
                         </h3>
                         <p className="mt-2 text-[13.5px] leading-relaxed text-text-muted">

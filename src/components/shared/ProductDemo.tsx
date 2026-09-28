@@ -186,7 +186,7 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
           <p className="truncate text-[14px] font-semibold text-white">{tab.title}</p>
           <p className="text-[11.5px] text-white/50">
             {imgCount > 1 ? `${safeIndex + 1} of ${imgCount} · ` : ""}
-            {zoomed ? "Click to zoom out" : "Click image to zoom"}
+            {zoomed ? "Tap to zoom out" : "Tap image to zoom"}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -211,7 +211,7 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
 
       {/* Image stage */}
       <div
-        className={`relative flex min-h-0 flex-1 items-center justify-center px-14 transition-all duration-300 sm:px-20 ${
+        className={`relative flex min-h-0 flex-1 items-center justify-center px-3 transition-all duration-300 sm:px-20 ${
           lightboxVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
         onTouchStart={onTouchStart}
@@ -225,7 +225,7 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
               prev();
             }}
             aria-label="Previous image"
-            className="absolute left-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white/20 sm:left-5"
+            className="absolute left-2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/40 text-white backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white/20 sm:left-5 sm:h-11 sm:w-11 sm:bg-white/10"
           >
             <HiOutlineChevronLeft className="h-6 w-6" />
           </button>
@@ -233,7 +233,7 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
 
         <div
           className={`relative h-full w-full overflow-hidden ${
-            isPhone ? "max-w-[min(90vw,calc((100vh-220px)*0.531))]" : "max-w-6xl"
+            isPhone ? "max-w-[min(100%,calc((100dvh-220px)*0.531))]" : "max-w-6xl"
           } ${zoomed ? "cursor-zoom-out" : "cursor-zoom-in"}`}
           onClick={(e) => {
             e.stopPropagation();
@@ -270,7 +270,7 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
               next();
             }}
             aria-label="Next image"
-            className="absolute right-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white/20 sm:right-5"
+            className="absolute right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/40 text-white backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white/20 sm:right-5 sm:h-11 sm:w-11 sm:bg-white/10"
           >
             <HiOutlineChevronRight className="h-6 w-6" />
           </button>
@@ -329,16 +329,16 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
       >
         <div
           aria-hidden={isPhone}
-          className={`flex items-center gap-2.5 border-b border-gray-100 bg-gray-50/80 px-4 py-2.5 ${
+          className={`flex items-center gap-2.5 border-b border-gray-100 bg-gray-50/80 px-3 py-2.5 sm:px-4 ${
             isPhone ? "invisible" : ""
           }`}
         >
-          <span className="flex gap-1.5">
+          <span className="flex shrink-0 gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
             <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
           </span>
-          <span className="ml-2 flex flex-1 items-center rounded-lg bg-white px-3 py-1.5 text-[11px] font-medium text-text-muted ring-1 ring-gray-200">
+          <span className="ml-1 min-w-0 flex-1 truncate rounded-lg bg-white px-3 py-1.5 text-[11px] font-medium text-text-muted ring-1 ring-gray-200 sm:ml-2">
             {tab.label} — {tab.title}
           </span>
         </div>
@@ -366,8 +366,8 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
               type="button"
               onClick={() => goTo(i)}
               aria-label={`Show screenshot ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === safeIndex ? "w-6 bg-brand" : "w-1.5 bg-gray-300"
+              className={`relative h-1.5 rounded-full transition-all duration-500 before:absolute before:-inset-x-1.5 before:-inset-y-3 before:content-[''] ${
+                i === safeIndex ? "w-6 bg-brand" : "w-1.5 bg-gray-300 hover:bg-gray-400"
               }`}
             />
           ))}
@@ -433,7 +433,7 @@ export default function ProductDemo({
       <div className="pointer-events-none absolute -left-40 top-40 h-96 w-96 rounded-full bg-brand-light blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
+        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12 lg:mb-16">
           <p data-gsap className="text-[13px] font-semibold uppercase tracking-widest text-brand">
             {eyebrow}
           </p>
@@ -449,7 +449,10 @@ export default function ProductDemo({
         </div>
 
         {/* Tab rail */}
-        <div data-gsap className="flex flex-wrap justify-center gap-2">
+        <div
+          data-gsap
+          className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+        >
           {tabs.map((t, i) => {
             const Icon = t.icon;
             const isActive = i === active;
@@ -459,7 +462,7 @@ export default function ProductDemo({
                 type="button"
                 onClick={() => setActive(i)}
                 aria-pressed={isActive}
-                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[12.5px] font-semibold transition-all duration-300 ${
+                className={`inline-flex shrink-0 snap-start items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-[12.5px] font-semibold transition-all duration-300 ${
                   isActive
                     ? "border-brand bg-brand text-white shadow-md shadow-brand/30"
                     : "border-gray-200 bg-white text-text-muted hover:border-brand/30 hover:text-brand"
@@ -473,7 +476,7 @@ export default function ProductDemo({
         </div>
 
         {/* Panel — two-column: content left, auto-sliding showcase right */}
-        <div ref={panelRef} className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div ref={panelRef} className="mt-8 grid gap-8 sm:mt-10 sm:gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
             <h3 className="text-[20px] font-medium tracking-tight text-text-dark sm:text-[24px]">
               {tab.title}
@@ -490,7 +493,7 @@ export default function ProductDemo({
               ))}
             </ul>
           </div>
-          <div className="mx-auto w-full max-w-md lg:max-w-none">
+          <div className="mx-auto w-full max-w-xl lg:max-w-none">
             <ProductShowcase key={tab.num} tab={tab} />
           </div>
         </div>
