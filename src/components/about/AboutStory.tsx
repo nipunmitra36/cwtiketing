@@ -19,16 +19,16 @@ export default function AboutStory() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-16">
-          {/* What is CW Ticketing System */}
+          {/* What is CWTicketing System */}
           <div data-gsap>
             <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-light text-brand">
               <HiOutlineCube className="h-5 w-5" />
             </span>
             <h2 className="mt-5 text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
-              What Is CW Ticketing System?
+              What Is CWTicketing System?
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
-              CW Ticketing System is a modern SaaS (Software as a Service)
+              CWTicketing System is a modern SaaS (Software as a Service)
               solution designed to simplify how transportation businesses
               operate. Developed by Codeware Ltd., our system combines advanced
               technology with practical design to make ticketing and fleet
@@ -47,7 +47,7 @@ export default function AboutStory() {
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               While many industries have embraced digital transformation,
               transportation services still struggle with fragmented workflows
-              and outdated systems. CW Ticketing System was created to offer a
+              and outdated systems. CWTicketing System was created to offer a
               more streamlined, modern approach to managing transport
               operations. We offer an intelligent platform where admins, bus
               operators, counter agents, and passengers can interact smoothly,

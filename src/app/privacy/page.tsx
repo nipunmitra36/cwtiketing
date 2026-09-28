@@ -5,7 +5,7 @@ import LegalSection, { type LegalSectionData } from "@/components/legal/LegalSec
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Codeware Ltd. collects, uses, and safeguards your personal data across CW Ticketing System.",
+    "How Codeware Ltd. collects, uses, and safeguards your personal data across CWTicketing System.",
   alternates: {
     canonical: "/privacy",
   },
@@ -19,7 +19,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Information We Collect",
     intro:
-      "CW Ticketing System collects only the personal data necessary to deliver our services efficiently and in compliance with applicable laws. This includes:",
+      "CWTicketing System collects only the personal data necessary to deliver our services efficiently and in compliance with applicable laws. This includes:",
     bullets: [
       "Contact Information: such as your full name, phone number, and email address, when you fill out forms or communicate with us through the platform.",
       "Booking Information: including travel details, selected routes, transaction ID, and booking history.",
@@ -43,7 +43,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Cookies Policy",
     paragraphs: [
-      "CW Ticketing System uses cookies to enhance user experience and understand how the platform is being used.",
+      "CWTicketing System uses cookies to enhance user experience and understand how the platform is being used.",
       "At the beginning of your session, you will be notified about the use of cookies. By clicking “Accept,” you agree to the placement and use of cookies on your device.",
     ],
     intro: "Types of Cookies Used:",
@@ -59,7 +59,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Data Sharing and Disclosure",
     paragraphs: [
-      "CW Ticketing System does not sell, rent, or trade your personal information to any third parties.",
+      "CWTicketing System does not sell, rent, or trade your personal information to any third parties.",
     ],
     intro: "Limited data may be shared under the following circumstances:",
     bullets: [
@@ -72,7 +72,7 @@ const sections: LegalSectionData[] = [
   },
   {
     heading: "User Rights",
-    intro: "As a user of CW Ticketing, you are entitled to the following rights regarding your personal data:",
+    intro: "As a user of CWTicketing, you are entitled to the following rights regarding your personal data:",
     bullets: [
       "Right to Access — You may request details of the personal information we hold about you.",
       "Right to Correction — You may request updates or corrections to inaccurate or incomplete information.",
@@ -94,7 +94,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Security Measures",
     paragraphs: [
-      "CW Ticketing System implements appropriate technical and organizational measures to protect your personal data from unauthorized access, misuse, alteration, or loss. These include secure data transmission protocols, access controls, and regular system audits.",
+      "CWTicketing System implements appropriate technical and organizational measures to protect your personal data from unauthorized access, misuse, alteration, or loss. These include secure data transmission protocols, access controls, and regular system audits.",
       "While we take all reasonable precautions, no data transmission over the internet can be guaranteed to be 100% secure.",
     ],
   },
@@ -126,11 +126,11 @@ export default function PrivacyPage() {
           <p className="mt-6 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
             &ldquo;We,&rdquo; &ldquo;Us,&rdquo; &ldquo;Our,&rdquo; or
             &ldquo;Company&rdquo; refers to Codeware Ltd., the official
-            developer and operator of CW Ticketing System (also referred to as
-            &ldquo;CW Ticketing&rdquo;).
+            developer and operator of CWTicketing System (also referred to as
+            &ldquo;CWTicketing&rdquo;).
           </p>
           <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
-            CW Ticketing System is a digital ticketing solution designed to
+            CWTicketing System is a digital ticketing solution designed to
             enable efficient and secure online reservations for buses, trains,
             cable cars, cruises, taxis, and events. We are committed to
             protecting your personal data and ensuring transparency in how

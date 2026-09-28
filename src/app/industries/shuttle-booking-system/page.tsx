@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description:
       "Launch your own local & shuttle reservation software. Smart schedule, fare zone, driver shift and load management for school, office and city commute routes.",
     url: PAGE_URL,
-    siteName: "CW Ticketing System",
+    siteName: "CWTicketing System",
     locale: "en_US",
   },
   twitter: {
@@ -81,7 +81,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CW Ticketing System — Shuttle Ticketing Software",
+      name: "CWTicketing System — Shuttle Ticketing Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android, iOS",
       description:
@@ -89,7 +89,7 @@ const jsonLd = {
       url: "https://www.cwticketingsystem.com/industries/shuttle-booking-system",
       publisher: {
         "@type": "Organization",
-        name: "CW Ticketing System",
+        name: "CWTicketing System",
         url: "https://www.cwticketingsystem.com/",
       },
       offers: {

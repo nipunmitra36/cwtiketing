@@ -9,7 +9,7 @@ export default function Faq() {
       items={shuttleFaqs}
       heading="Frequently Asked Questions"
       highlight="Questions"
-      description="Straight answers about running school, office, and city commute routes with CW Ticketing."
+      description="Straight answers about running school, office, and city commute routes with CWTicketing."
     />
   );
 }

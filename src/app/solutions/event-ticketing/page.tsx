@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: PAGE_URL,
-    siteName: "CW Ticketing System",
+    siteName: "CWTicketing System",
     locale: "en_US",
   },
   twitter: {
@@ -83,7 +83,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CW Ticketing System — Event Ticketing Software",
+      name: "CWTicketing System — Event Ticketing Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android",
       description:
@@ -91,7 +91,7 @@ const jsonLd = {
       url: `${SITE_URL}${PAGE_URL}`,
       publisher: {
         "@type": "Organization",
-        name: "CW Ticketing System",
+        name: "CWTicketing System",
         url: `${SITE_URL}/`,
       },
       offers: {

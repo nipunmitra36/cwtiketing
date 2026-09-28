@@ -18,7 +18,7 @@ const PAGE_URL = "/industries/bus-terminal-ticketing-system";
 
 const TITLE = "Bus Terminal Ticketing System | Bus Booking Marketplace Software";
 const DESCRIPTION =
-  "Build your own bus booking empire with CW Ticketing's marketplace platform — onboard operators, manage commissions, and run a central control centre for your entire bus network.";
+  "Build your own bus booking empire with CWTicketing's marketplace platform — onboard operators, manage commissions, and run a central control centre for your entire bus network.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: PAGE_URL,
-    siteName: "CW Ticketing System",
+    siteName: "CWTicketing System",
     locale: "en_US",
   },
   twitter: {
@@ -84,7 +84,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CW Ticketing System — Bus Ticketing Marketplace Software",
+      name: "CWTicketing System — Bus Ticketing Marketplace Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android, iOS",
       description:
@@ -92,7 +92,7 @@ const jsonLd = {
       url: `https://www.cwticketingsystem.com${PAGE_URL}`,
       publisher: {
         "@type": "Organization",
-        name: "CW Ticketing System",
+        name: "CWTicketing System",
         url: "https://www.cwticketingsystem.com/",
       },
       offers: {

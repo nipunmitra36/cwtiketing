@@ -65,7 +65,7 @@ export default function SecurityTrust() {
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            Passenger records, fares and payments are sensitive. CW Ticketing is
+            Passenger records, fares and payments are sensitive. CWTicketing is
             built to keep them that way.
           </p>
         </div>

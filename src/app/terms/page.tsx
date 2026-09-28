@@ -6,7 +6,7 @@ import LegalSection, { type LegalSectionData } from "@/components/legal/LegalSec
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "Terms of Use governing access to and use of CW Ticketing System, a product of Codeware Ltd.",
+    "Terms of Use governing access to and use of CWTicketing System, a product of Codeware Ltd.",
   alternates: {
     canonical: "/terms",
   },
@@ -28,7 +28,7 @@ const sections: Section[] = [
   {
     heading: "User Access and Responsibilities",
     bullets: [
-      "Users may access the system through web, mobile, or designated panel interfaces provided by the operator or CW Ticketing System.",
+      "Users may access the system through web, mobile, or designated panel interfaces provided by the operator or CWTicketing System.",
       "You are responsible for maintaining the confidentiality of your login credentials and any actions taken under your account.",
       "Any misuse of the system, unauthorized access, or fraudulent activity may result in suspension or termination of access.",
     ],
@@ -38,7 +38,7 @@ const sections: Section[] = [
     bullets: [
       "All ticket bookings are subject to seat availability and operator-defined policies.",
       "Fares, schedules, and refund policies are determined by the respective operators and are displayed at the time of booking.",
-      "Payments processed through the platform are handled by authorized third-party gateways. CW Ticketing System does not store sensitive payment information and is not liable for transaction delays or failures caused by external payment systems.",
+      "Payments processed through the platform are handled by authorized third-party gateways. CWTicketing System does not store sensitive payment information and is not liable for transaction delays or failures caused by external payment systems.",
     ],
   },
   {
@@ -87,7 +87,7 @@ const sections: Section[] = [
   },
   {
     heading: "Limitation of Liability",
-    intro: "CW Ticketing System is not liable for indirect, incidental, or consequential damages arising from:",
+    intro: "CWTicketing System is not liable for indirect, incidental, or consequential damages arising from:",
     bullets: [
       "Errors in operator-provided schedules or pricing",
       "Failed or delayed payments due to third-party gateways",
@@ -103,7 +103,7 @@ const sections: Section[] = [
   {
     heading: "Changes to the Terms",
     paragraphs: [
-      "CW Ticketing System may update these Terms of Use at any time. Notice of significant changes will be provided, and continued use of the system implies acceptance of the revised terms.",
+      "CWTicketing System may update these Terms of Use at any time. Notice of significant changes will be provided, and continued use of the system implies acceptance of the revised terms.",
     ],
   },
 ];
@@ -125,7 +125,7 @@ export default function TermsPage() {
           </h1>
           <p className="mt-2 text-[12.5px] text-text-muted">Last updated: {LAST_UPDATED}</p>
           <p className="mt-6 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
-            Welcome to CW Ticketing System (&ldquo;CW Ticketing System&rdquo;,
+            Welcome to CWTicketing System (&ldquo;CWTicketing System&rdquo;,
             &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;), a product
             of Codeware Ltd. These Terms of Use (&ldquo;Terms&rdquo;) govern
             your access to and use of our website, services, and applications

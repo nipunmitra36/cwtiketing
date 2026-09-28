@@ -9,7 +9,7 @@ export default function OperatorsFaq() {
       items={operatorFaqs}
       heading="Frequently Asked Questions"
       highlight="Questions"
-      description="Straight answers about running your fleet, schedules, and operations with CW Ticketing."
+      description="Straight answers about running your fleet, schedules, and operations with CWTicketing."
     />
   );
 }

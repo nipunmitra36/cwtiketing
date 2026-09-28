@@ -31,8 +31,8 @@ const SITE_URL = "https://www.cwticketingsystem.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "CW Ticketing System | Online Ticket Booking Platform for Transport Operators",
-    template: "%s | CW Ticketing System",
+    default: "CWTicketing System | Online Ticket Booking Platform for Transport Operators",
+    template: "%s | CWTicketing System",
   },
   description:
     "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards for bus, train, cruise, taxi, and event operators.",
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     "mobile ticketing app",
     "transport operator dashboard",
   ],
-  authors: [{ name: "CW Ticketing System" }],
-  creator: "CW Ticketing System",
+  authors: [{ name: "CWTicketing System" }],
+  creator: "CWTicketing System",
   alternates: {
     canonical: "/",
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     description:
       "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards.",
     url: SITE_URL,
-    siteName: "CW Ticketing System",
+    siteName: "CWTicketing System",
     locale: "en_US",
     images: [
       {

@@ -75,7 +75,7 @@ export default function WhatIsParcelSystem() {
             from the moment it is booked until it is delivered and paid for —
             handling waybills, branch and hub transfers, rider assignment,
             live tracking, customer notifications and cash-on-delivery
-            settlement in one place. CW Ticketing&apos;s parcel management
+            settlement in one place. CWTicketing&apos;s parcel management
             solution gives courier companies, transport operators and
             logistics businesses that single source of truth.
           </p>

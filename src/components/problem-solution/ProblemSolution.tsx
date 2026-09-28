@@ -117,7 +117,7 @@ export default function AboutHowItWorks() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* ── About: flowing editorial text with floated badges ── */}
         <div data-gsap className="mb-20">
-          
+
 
           <h2 className="mb-8 max-w-3xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[30px] sm:leading-snug">
             A white-label booking system for transport &amp; mobility
@@ -126,14 +126,14 @@ export default function AboutHowItWorks() {
 
           <div className="relative">
             <p className="text-[16px] leading-[1.9] text-text-muted sm:text-[18px]">
-              CW Ticketing System is a complete white-label online ticket
+              CWTicketing System is a complete white-label online ticket
               booking system designed for transport operators, travel
               companies, and mobility businesses. It helps businesses launch
               their own branded booking system where passengers can search
               routes, check seat availability, make payments, and manage
               bookings through web and mobile apps. From bus and train
               reservations to taxi, cruise, event, and other transportation
-              services, CW Ticketing provides the tools operators need to
+              services, CWTicketing provides the tools operators need to
               automate ticket sales, manage daily operations, and deliver a
               better passenger experience — from one centralized system.
             </p>
@@ -220,7 +220,7 @@ export default function AboutHowItWorks() {
                       <HiOutlineSparkles className="h-3.5 w-3.5" />
                     </span>
                     <p className="text-[13px] font-semibold text-text-dark">
-                      CW Ticketing Platform
+                      CWTicketing Platform
                     </p>
                   </div>
 

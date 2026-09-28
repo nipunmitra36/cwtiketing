@@ -46,7 +46,7 @@ export default function Comparison() {
             data-gsap
             className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            Compare what you are working with today to what CW Ticketing
+            Compare what you are working with today to what CWTicketing
             replaces it with.
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function Comparison() {
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand text-white">
                   <HiOutlineCheck className="h-3 w-3" />
                 </span>
-                CW Ticketing
+                CWTicketing
               </span>
             </div>
           </div>
@@ -78,9 +78,8 @@ export default function Comparison() {
             {rows.map((row, i) => (
               <div
                 key={row.old}
-                className={`grid grid-cols-2 items-center ${
-                  i !== rows.length - 1 ? "border-b border-gray-100" : ""
-                }`}
+                className={`grid grid-cols-2 items-center ${i !== rows.length - 1 ? "border-b border-gray-100" : ""
+                  }`}
               >
                 <div className="px-5 py-4 sm:px-6">
                   <span className="flex items-center gap-3 text-[13px] font-medium text-gray-400 sm:text-[14px]">

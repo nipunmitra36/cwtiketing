@@ -88,7 +88,7 @@ export default function WhatIsBusTicketing() {
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            CW Ticketing System is a complete white-label online bus ticketing system
+            CWTicketing System is a complete white-label online bus ticketing system
             and reservation platform designed for transport operators, travel
             companies, and mobility businesses. As a web-based bus ticketing
             software, it helps operators launch their own branded online bus
@@ -101,7 +101,7 @@ export default function WhatIsBusTicketing() {
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
             As an online bus reservation system and bus ticket reservation
-            system, CW Ticketing provides the tools bus operators need to
+            system, CWTicketing provides the tools bus operators need to
             automate ticket sales, manage daily operations, and deliver a
             better passenger experience — from one centralized online bus
             ticket booking system.
@@ -168,13 +168,13 @@ export default function WhatIsBusTicketing() {
               </span>
             </div>
 
-            {/* CW Ticketing Platform panel */}
+            {/* CWTicketing Platform panel */}
             <div
               data-gsap
               className="rounded-3xl border border-brand/20 bg-brand-light/30 p-5"
             >
               <p className="mb-3 text-[12px] font-bold uppercase tracking-wide text-brand">
-                CW Ticketing Platform
+                CWTicketing Platform
               </p>
               <div className="grid grid-cols-2 gap-2">
                 {platformModules.map((m) => {

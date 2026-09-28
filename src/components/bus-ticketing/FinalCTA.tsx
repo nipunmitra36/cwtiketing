@@ -63,7 +63,7 @@ export default function FinalCTA() {
               Book a Demo With Our Experts
             </h2>
             <p className="mt-4 max-w-md text-[14px] leading-relaxed text-text-muted">
-              See exactly how CW Ticketing works for your operation — live,
+              See exactly how CWTicketing works for your operation — live,
               with someone who knows transport booking.
             </p>
             <ul className="mt-7 space-y-3">
@@ -172,7 +172,7 @@ export default function FinalCTA() {
                   <div>
                     <textarea
                       rows={3}
-                      placeholder="Tell us about your routes and what you'd like to manage with CW Ticketing"
+                      placeholder="Tell us about your routes and what you'd like to manage with CWTicketing"
                       value={form.message}
                       onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                       className={`${inputCls} resize-none`}
@@ -182,11 +182,10 @@ export default function FinalCTA() {
                   <button
                     type="submit"
                     disabled={formState === "sending"}
-                    className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-[14px] font-semibold transition-all active:scale-[0.98] ${
-                      formState === "sending"
+                    className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-[14px] font-semibold transition-all active:scale-[0.98] ${formState === "sending"
                         ? "cursor-not-allowed bg-gray-400 text-white"
                         : "bg-brand text-white hover:bg-brand-hover shadow-sm shadow-brand/20 hover:shadow-md hover:shadow-brand/30"
-                    }`}
+                      }`}
                   >
                     {formState === "sending" ? (
                       "Sending..."
@@ -199,7 +198,7 @@ export default function FinalCTA() {
                   </button>
 
                   <p className="text-center text-[11px] leading-relaxed text-text-muted">
-                    By submitting this form, you agree to CW Ticketing&apos;s
+                    By submitting this form, you agree to CWTicketing&apos;s
                     Privacy Policy and consent to be contacted about this
                     request.
                   </p>

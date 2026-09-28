@@ -74,7 +74,7 @@ export default function WhatIsTaxiSystem() {
             An online taxi booking system is software that manages the full
             ride cycle — a passenger requests a trip, the system dispatches the
             nearest driver, tracks the journey by GPS, calculates the fare, and
-            records payment and driver commission. CW Ticketing&apos;s taxi
+            records payment and driver commission. CWTicketing&apos;s taxi
             booking software brings booking, dispatch, fleet, drivers and
             accounts together in one online taxi management system.
           </p>

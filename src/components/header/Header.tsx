@@ -372,15 +372,15 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-50 w-full px-3 pt-3 sm:px-4 sm:pt-5">
       <div
         className={`mx-auto flex h-14 w-full max-w-7xl items-center justify-between rounded-full border pl-3 pr-2 transition-all duration-300 sm:pl-4 sm:pr-3 ${scrolled
-            ? "border-gray-200 bg-white shadow-lg shadow-gray-900/10"
-            : "border-gray-100 bg-white shadow-md shadow-gray-900/5"
+          ? "border-gray-200 bg-white shadow-lg shadow-gray-900/10"
+          : "border-gray-100 bg-white shadow-md shadow-gray-900/5"
           }`}
       >
         {/* ── Brand ── */}
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/media/logo.png"
-            alt="CW Ticketing"
+            alt="CWTicketing"
             width={130}
             height={32}
             className="h-8 w-auto"

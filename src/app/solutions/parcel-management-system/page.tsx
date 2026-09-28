@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: PAGE_URL,
-    siteName: "CW Ticketing System",
+    siteName: "CWTicketing System",
     locale: "en_US",
   },
   twitter: {
@@ -78,7 +78,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CW Ticketing System — Parcel Management Solution",
+      name: "CWTicketing System — Parcel Management Solution",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android",
       description:
@@ -86,7 +86,7 @@ const jsonLd = {
       url: `${SITE_URL}${PAGE_URL}`,
       publisher: {
         "@type": "Organization",
-        name: "CW Ticketing System",
+        name: "CWTicketing System",
         url: `${SITE_URL}/`,
       },
       offers: {
@@ -114,7 +114,7 @@ const jsonLd = {
       "@type": "HowTo",
       name: "How the Parcel Management System Works",
       description:
-        "The five stages a parcel moves through in the CW Ticketing parcel management system, from counter booking to delivery and cash settlement.",
+        "The five stages a parcel moves through in the CWTicketing parcel management system, from counter booking to delivery and cash settlement.",
       step: [
         {
           "@type": "HowToStep",

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: PAGE_URL,
-    siteName: "CW Ticketing System",
+    siteName: "CWTicketing System",
     locale: "en_US",
   },
   twitter: {
@@ -78,7 +78,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CW Ticketing System — Online Taxi Booking Software",
+      name: "CWTicketing System — Online Taxi Booking Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android, iOS",
       description:
@@ -86,7 +86,7 @@ const jsonLd = {
       url: `${SITE_URL}${PAGE_URL}`,
       publisher: {
         "@type": "Organization",
-        name: "CW Ticketing System",
+        name: "CWTicketing System",
         url: `${SITE_URL}/`,
       },
       offers: {
@@ -114,7 +114,7 @@ const jsonLd = {
       "@type": "HowTo",
       name: "How an Online Taxi Reservation System Works",
       description:
-        "The five stages of a trip in the CW Ticketing online taxi booking system, from ride request to fare settlement.",
+        "The five stages of a trip in the CWTicketing online taxi booking system, from ride request to fare settlement.",
       step: [
         {
           "@type": "HowToStep",

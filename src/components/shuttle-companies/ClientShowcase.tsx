@@ -80,7 +80,7 @@ export default function ClientShowcase() {
             ))}
           </div>
           <blockquote className="relative mx-auto mt-5 max-w-2xl text-[16px] font-medium leading-relaxed text-text-body sm:text-[18px]">
-            &ldquo;CW Ticketing transformed our bus booking operations. The
+            &ldquo;CWTicketing transformed our bus booking operations. The
             marketplace platform allowed us to scale rapidly while maintaining
             excellent customer service.&rdquo;
           </blockquote>

@@ -9,7 +9,7 @@ export default function Faq() {
       items={marketplaceFaqs}
       heading="Frequently Asked Questions"
       highlight="Questions"
-      description="Straight answers about onboarding operators, managing commissions, and running a bus ticketing marketplace with CW Ticketing."
+      description="Straight answers about onboarding operators, managing commissions, and running a bus ticketing marketplace with CWTicketing."
     />
   );
 }

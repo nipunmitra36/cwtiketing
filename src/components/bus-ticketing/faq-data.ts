@@ -6,11 +6,11 @@ export interface BusFaq {
 export const busFaqs: BusFaq[] = [
   {
     q: "What is a white-label ticket booking platform?",
-    a: "A white-label ticket booking platform is a ready-built booking system that you rebrand as your own — your logo, colors and domain — so passengers book through your brand while CW Ticketing runs the underlying technology.",
+    a: "A white-label ticket booking platform is a ready-built booking system that you rebrand as your own — your logo, colors and domain — so passengers book through your brand while CWTicketing runs the underlying technology.",
   },
   {
     q: "Can I launch my own branded booking app?",
-    a: "Yes. We can deliver a fully white-labeled website and Android and iOS apps under your brand, so passengers book, track and manage tickets without ever seeing the CW Ticketing name.",
+    a: "Yes. We can deliver a fully white-labeled website and Android and iOS apps under your brand, so passengers book, track and manage tickets without ever seeing the CWTicketing name.",
   },
   {
     q: "Does it support multiple operators?",

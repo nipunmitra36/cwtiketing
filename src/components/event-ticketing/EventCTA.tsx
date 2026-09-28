@@ -206,11 +206,10 @@ export default function EventCTA() {
                   <button
                     type="submit"
                     disabled={formState === "sending"}
-                    className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-[14px] font-semibold transition-all active:scale-[0.98] ${
-                      formState === "sending"
+                    className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-[14px] font-semibold transition-all active:scale-[0.98] ${formState === "sending"
                         ? "cursor-not-allowed bg-gray-400 text-white"
                         : "bg-brand text-white shadow-sm shadow-brand/20 hover:bg-brand-hover hover:shadow-md hover:shadow-brand/30"
-                    }`}
+                      }`}
                   >
                     {formState === "sending" ? (
                       "Sending..."
@@ -223,7 +222,7 @@ export default function EventCTA() {
                   </button>
 
                   <p className="text-center text-[11px] leading-relaxed text-text-muted">
-                    By submitting this form, you agree to CW Ticketing&apos;s
+                    By submitting this form, you agree to CWTicketing&apos;s
                     Privacy Policy and consent to be contacted about this request.
                   </p>
                 </form>

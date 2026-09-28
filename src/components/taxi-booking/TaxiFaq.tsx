@@ -38,7 +38,7 @@ export default function TaxiFaq() {
             <span className="mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />
             <p className="mt-6 max-w-md text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               Straight answers about ride booking, driver dispatch, fare rules
-              and commission settlement with CW Ticketing.
+              and commission settlement with CWTicketing.
             </p>
 
             <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50/60 p-6 shadow-sm">
@@ -65,11 +65,10 @@ export default function TaxiFaq() {
                 <div
                   key={faq.q}
                   data-gsap
-                  className={`group overflow-hidden rounded-2xl border transition-all duration-300 ${
-                    isOpen
+                  className={`group overflow-hidden rounded-2xl border transition-all duration-300 ${isOpen
                       ? "border-brand/30 bg-white shadow-lg shadow-brand/5"
                       : "border-gray-200 bg-white hover:border-brand/25 hover:shadow-md hover:shadow-gray-100"
-                  }`}
+                    }`}
                 >
                   <button
                     type="button"
@@ -78,11 +77,10 @@ export default function TaxiFaq() {
                     aria-expanded={isOpen}
                   >
                     <span
-                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[12px] font-bold transition-colors duration-300 ${
-                        isOpen
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[12px] font-bold transition-colors duration-300 ${isOpen
                           ? "bg-brand text-white"
                           : "bg-brand-light text-brand group-hover:bg-brand/10"
-                      }`}
+                        }`}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -90,19 +88,17 @@ export default function TaxiFaq() {
                       {faq.q}
                     </span>
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
-                        isOpen
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${isOpen
                           ? "rotate-180 border-brand bg-brand text-white"
                           : "border-gray-200 text-text-muted group-hover:border-brand/40 group-hover:text-brand"
-                      }`}
+                        }`}
                     >
                       <HiOutlineChevronDown className="h-4 w-4" />
                     </span>
                   </button>
                   <div
-                    className={`grid transition-all duration-300 ease-out ${
-                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
+                    className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
                   >
                     <div className="overflow-hidden">
                       <div className="border-t border-gray-100 px-4 pb-5 pt-4 sm:pl-[76px] sm:pr-6">

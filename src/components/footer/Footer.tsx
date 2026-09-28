@@ -63,7 +63,7 @@ function Brand() {
       <Link href="/" className="inline-flex items-center">
         <Image
           src="/media/logo.png"
-          alt="CW Ticketing"
+          alt="CWTicketing"
           width={373}
           height={70}
           className="h-8 w-auto"
@@ -221,7 +221,7 @@ export default function Footer() {
               backgroundClip: "text",
             }}
           >
-            CW TICKETING
+            CWTicketing
           </p>
         </div>
 
@@ -229,7 +229,7 @@ export default function Footer() {
         <div className="gsap-footer-bottom flex flex-col items-start gap-5 border-t border-white/10 py-7 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-xs text-gray-600">
             © {new Date().getFullYear()}{" "}
-            <span className="text-gray-400">CW Ticketing</span>. All rights
+            <span className="text-gray-400">CWTicketing</span>. All rights
             reserved.
           </p>
 

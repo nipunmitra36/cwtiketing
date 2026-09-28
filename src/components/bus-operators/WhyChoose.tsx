@@ -60,7 +60,7 @@ export default function WhyChoose() {
           >
             Why Choose{" "}
             <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
-              CW Ticketing
+              CWTicketing
             </span>
           </h2>
           <span className="mx-auto mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />

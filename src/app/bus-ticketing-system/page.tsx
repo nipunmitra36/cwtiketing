@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     absolute: "Bus Ticketing System | Online Bus Booking & Reservation Software",
   },
   description:
-    "Manage routes, schedules, seats, bookings, payments and passengers with CW Ticketing's powerful bus ticketing system. Request a demo today.",
+    "Manage routes, schedules, seats, bookings, payments and passengers with CWTicketing's powerful bus ticketing system. Request a demo today.",
   keywords: [
     "bus ticketing software",
     "bus ticket booking system",
@@ -45,16 +45,16 @@ export const metadata: Metadata = {
     type: "website",
     title: "Bus Ticketing System | Online Bus Booking & Reservation Software",
     description:
-      "Manage routes, schedules, seats, bookings, payments and passengers with CW Ticketing's powerful bus ticketing system. Request a demo today.",
+      "Manage routes, schedules, seats, bookings, payments and passengers with CWTicketing's powerful bus ticketing system. Request a demo today.",
     url: PAGE_URL,
-    siteName: "CW Ticketing System",
+    siteName: "CWTicketing System",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "Bus Ticketing System | Online Bus Booking & Reservation Software",
     description:
-      "Manage routes, schedules, seats, bookings, payments and passengers with CW Ticketing's powerful bus ticketing system. Request a demo today.",
+      "Manage routes, schedules, seats, bookings, payments and passengers with CWTicketing's powerful bus ticketing system. Request a demo today.",
   },
   robots: {
     index: true,
@@ -79,7 +79,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CW Ticketing System — Bus Ticketing Software",
+      name: "CWTicketing System — Bus Ticketing Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android, iOS",
       description:
@@ -87,7 +87,7 @@ const jsonLd = {
       url: "https://www.cwticketingsystem.com/bus-ticketing-system",
       publisher: {
         "@type": "Organization",
-        name: "CW Ticketing System",
+        name: "CWTicketing System",
         url: "https://www.cwticketingsystem.com/",
       },
       offers: {

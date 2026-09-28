@@ -19,7 +19,7 @@ const PAGE_URL = "/industries/intercity-bus-booking-software";
 export const metadata: Metadata = {
   title: "Intercity Bus Operators | Smart Ticketing Software",
   description:
-    "Power your intercity bus operations with smart ticketing — automate bookings, manage routes and terminals, and expand your reach with CW Ticketing.",
+    "Power your intercity bus operations with smart ticketing — automate bookings, manage routes and terminals, and expand your reach with CWTicketing.",
   alternates: {
     canonical: PAGE_URL,
   },

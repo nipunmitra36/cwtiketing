@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
@@ -45,10 +45,11 @@ export default function FaqSection({
     return createSectionReveal(el, { y: 30, stagger: 0.06 });
   }, []);
 
-  // CSS `position: sticky` doesn't work on elements inside ScrollSmoother's
-  // transformed content wrapper, so the left column is pinned with
-  // ScrollTrigger instead — it stays in place while the taller FAQ list
-  // scrolls past, then releases once the grid's bottom reaches the viewport.
+  // CSS `position: sticky` doesn't hold on elements inside ScrollSmoother's
+  // transformed content wrapper, so the left column is kept in view with a
+  // scrubbed transform instead: it translates down in lockstep with the
+  // scroll (canceling it out, i.e. visually "stuck") until it has traveled
+  // exactly as far as the taller right column, then scrolls away normally.
   useEffect(() => {
     const grid = gridRef.current;
     const leftCol = leftColRef.current;
@@ -57,22 +58,32 @@ export default function FaqSection({
     let mm: gsap.MatchMedia | null = null;
 
     const cancel = onSmootherReady(() => {
-      console.log("[faq-pin] onSmootherReady fired");
       mm = gsap.matchMedia();
       mm.add("(min-width: 1024px)", () => {
-        console.log("[faq-pin] matchMedia matched, creating ScrollTrigger", grid, leftCol);
-        const st = ScrollTrigger.create({
-          trigger: grid,
-          start: "top top+=96",
-          end: "bottom bottom",
-          pin: leftCol,
-          pinSpacing: false,
-          onToggle: (self) => console.log("[faq-pin] onToggle isActive=", self.isActive),
-          onUpdate: (self) => console.log("[faq-pin] progress=", self.progress.toFixed(2)),
-        });
-        console.log("[faq-pin] ScrollTrigger created, start/end:", st.start, st.end);
+        // The translate must cover exactly as much raw scroll distance as it
+        // needs to travel — the offset between the two columns' heights —
+        // for a 1:1 cancel-out (any other `end` under/over-compensates).
+        const distance = Math.max(0, grid.offsetHeight - leftCol.offsetHeight);
+        console.log("[faq-sticky-v2] distance=", distance, "gridH=", grid.offsetHeight, "leftH=", leftCol.offsetHeight);
+        if (!distance) return;
 
-        return () => st.kill();
+        const tween = gsap.fromTo(
+          leftCol,
+          { y: 0 },
+          {
+            y: distance,
+            ease: "none",
+            scrollTrigger: {
+              trigger: grid,
+              start: "top top+=96",
+              end: `+=${distance}`,
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+
+        return () => tween.scrollTrigger?.kill();
       });
     });
 

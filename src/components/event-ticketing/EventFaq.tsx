@@ -8,7 +8,7 @@ export default function EventFaq() {
     <FaqSection
       items={eventFaqs}
       heading="What Event Hosts Ask Us First"
-      description="Straight answers about launching your online event ticketing platform, payments, and promotions with CW Ticketing."
+      description="Straight answers about launching your online event ticketing platform, payments, and promotions with CWTicketing."
     />
   );
 }

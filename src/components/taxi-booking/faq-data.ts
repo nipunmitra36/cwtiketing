@@ -38,6 +38,6 @@ export const taxiFaqs: TaxiFaq[] = [
   },
   {
     q: "Can the apps be branded for my own taxi company?",
-    a: "Yes. The passenger app, driver app and web booking portal all carry your company name, logo and colours. You run your own brand while CW Ticketing provides the booking, dispatch and payment infrastructure behind it.",
+    a: "Yes. The passenger app, driver app and web booking portal all carry your company name, logo and colours. You run your own brand while CWTicketing provides the booking, dispatch and payment infrastructure behind it.",
   },
 ];

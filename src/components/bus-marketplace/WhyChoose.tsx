@@ -13,7 +13,7 @@ const reasons: { title: string; desc: string; image: string }[] = [
   },
   {
     title: "You're Always in Control",
-    desc: "Keep full control over your routes, bookings, customer data, and brand. Set your own fares, customize your portal, and run your operation your way. CW Ticketing gives you the tools without taking over your business.",
+    desc: "Keep full control over your routes, bookings, customer data, and brand. Set your own fares, customize your portal, and run your operation your way. CWTicketing gives you the tools without taking over your business.",
     image: `${MEDIA}/you-are-always-in-control.jpg`,
   },
   {
@@ -60,7 +60,7 @@ export default function WhyChoose() {
           >
             Why Choose{" "}
             <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
-              CW Ticketing
+              CWTicketing
             </span>
           </h2>
           <span className="mx-auto mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />
