@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { onSmootherReady } from "@/lib/gsap/ready";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
   HiOutlineChevronDown,
@@ -33,12 +35,51 @@ export default function FaqSection({
   description,
 }: FaqSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
     return createSectionReveal(el, { y: 30, stagger: 0.06 });
+  }, []);
+
+  // CSS `position: sticky` doesn't work on elements inside ScrollSmoother's
+  // transformed content wrapper, so the left column is pinned with
+  // ScrollTrigger instead — it stays in place while the taller FAQ list
+  // scrolls past, then releases once the grid's bottom reaches the viewport.
+  useEffect(() => {
+    const grid = gridRef.current;
+    const leftCol = leftColRef.current;
+    if (!grid || !leftCol) return;
+
+    let mm: gsap.MatchMedia | null = null;
+
+    const cancel = onSmootherReady(() => {
+      console.log("[faq-pin] onSmootherReady fired");
+      mm = gsap.matchMedia();
+      mm.add("(min-width: 1024px)", () => {
+        console.log("[faq-pin] matchMedia matched, creating ScrollTrigger", grid, leftCol);
+        const st = ScrollTrigger.create({
+          trigger: grid,
+          start: "top top+=96",
+          end: "bottom bottom",
+          pin: leftCol,
+          pinSpacing: false,
+          onToggle: (self) => console.log("[faq-pin] onToggle isActive=", self.isActive),
+          onUpdate: (self) => console.log("[faq-pin] progress=", self.progress.toFixed(2)),
+        });
+        console.log("[faq-pin] ScrollTrigger created, start/end:", st.start, st.end);
+
+        return () => st.kill();
+      });
+    });
+
+    return () => {
+      cancel();
+      mm?.revert();
+    };
   }, []);
 
   return (
@@ -51,9 +92,9 @@ export default function FaqSection({
       <div className="pointer-events-none absolute -bottom-40 -right-40 h-[400px] w-[400px] rounded-full bg-brand/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[400px_minmax(0,1fr)] lg:items-start lg:gap-16">
+        <div ref={gridRef} className="grid gap-12 lg:grid-cols-[400px_minmax(0,1fr)] lg:items-start lg:gap-16">
           {/* ── Left column: heading + contact card ── */}
-          <div className="lg:pt-2">
+          <div ref={leftColRef} className="lg:pt-2">
             <div data-gsap>
               <p className="text-[13px] font-semibold uppercase tracking-widest text-brand">
                 {eyebrow}

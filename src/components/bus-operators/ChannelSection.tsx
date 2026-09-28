@@ -15,7 +15,6 @@ interface ChannelSectionProps {
   tone: "white" | "gray";
   title: string;
   paragraph: string;
-  availableOn: string[];
   illustrationIcon?: IconType;
   illustrationImage?: string;
   illustrationLabel: string;
@@ -29,7 +28,6 @@ export default function ChannelSection({
   tone,
   title,
   paragraph,
-  availableOn,
   illustrationIcon: Illustration,
   illustrationImage,
   illustrationLabel,
@@ -60,22 +58,6 @@ export default function ChannelSection({
             <p className="mt-4 max-w-lg text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               {paragraph}
             </p>
-
-            <div className="mt-6">
-              <p className="text-[11.5px] font-semibold uppercase tracking-widest text-brand">
-                Available on
-              </p>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                {availableOn.map((a) => (
-                  <span
-                    key={a}
-                    className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-[12.5px] font-medium text-text-body"
-                  >
-                    {a}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
 
           <div data-gsap className={reverse ? "lg:order-1" : ""}>

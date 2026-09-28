@@ -13,7 +13,6 @@ export default function PassengerExperienceSection() {
       reverse
       title="Smarter Travel Between Cities"
       paragraph="CWTicketing lets your passengers easily find, compare, and book tickets for long-distance travel. See real-time availability, choose from multiple operators, and receive instant booking confirmations."
-      availableOn={["Web Portal", "Android App", "Android POS"]}
       illustrationImage={`${MEDIA}/smarter-travel-between-cities.png`}
       illustrationLabel="Traveler walking toward a city bus with mobile ticketing and QR code"
       featuresHeading="Smart & Seamless Travel Experience"

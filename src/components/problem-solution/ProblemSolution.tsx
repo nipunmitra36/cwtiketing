@@ -127,7 +127,7 @@ export default function AboutHowItWorks() {
           <div className="relative">
             <p className="text-[16px] leading-[1.9] text-text-muted sm:text-[18px]">
               CW Ticketing System is a complete white-label online ticket
-              booking platform designed for transport operators, travel
+              booking system designed for transport operators, travel
               companies, and mobility businesses. It helps businesses launch
               their own branded booking system where passengers can search
               routes, check seat availability, make payments, and manage
@@ -135,7 +135,7 @@ export default function AboutHowItWorks() {
               reservations to taxi, cruise, event, and other transportation
               services, CW Ticketing provides the tools operators need to
               automate ticket sales, manage daily operations, and deliver a
-              better passenger experience — from one centralized platform.
+              better passenger experience — from one centralized system.
             </p>
           </div>
           <div className="clear-both" />

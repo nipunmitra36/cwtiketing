@@ -12,7 +12,6 @@ export default function CounterBookingSection() {
       tone="white"
       title="Easy Counter Booking for Intercity Routes"
       paragraph="CWTicketing makes it simple for ticket counters and terminals to book city-to-city routes in real time. Sell tickets, issue receipts, handle walk-in passengers, and check seat availability instantly. Fast, accurate, and convenient — so you can provide the best counter service every time."
-      availableOn={["Web Portal", "Android App", "Android POS"]}
       illustrationImage={`${MEDIA}/easy-counter-booking-for-intercity-routes.png`}
       illustrationLabel="Staff managing intercity bus bookings on a computer"
       featuresHeading="Reliable Tools for Intercity Terminals"

@@ -384,7 +384,7 @@ export default function Hero() {
             {/* Sub-copy */}
             <p className="gsap-left-item mb-8 max-w-lg text-[15px] leading-relaxed text-white/75 sm:text-[16px]">
               A complete white-label booking system for transport operators. Manage routes,
-              seats, payments, passengers, and mobile apps from one powerful platform.
+              seats, payments, passengers, and mobile apps from one powerful software.
             </p>
 
             {/* CTA row */}
