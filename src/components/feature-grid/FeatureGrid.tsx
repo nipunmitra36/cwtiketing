@@ -214,11 +214,11 @@ export default function WorkInContext() {
                 ref={stageRef}
                 className="relative mx-auto flex max-w-6xl flex-col justify-center overflow-hidden px-4 py-14 sm:px-6 sm:py-16 lg:min-h-screen lg:px-8 lg:pb-0"
             >
-                <div className="mx-auto mb-6 max-w-xl text-center sm:mb-10 lg:mb-14">
-                    <h2 className="text-balance text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug lg:text-[32px]">
+                <div className="mx-auto mb-6 max-w-xl text-center sm:mb-10 sm:max-w-none lg:mb-14">
+                    <h2 className="text-balance text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:whitespace-nowrap sm:text-[28px] sm:leading-snug lg:text-[32px]">
                         Everything about today, in one glance
                     </h2>
-                    <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+                    <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:whitespace-nowrap sm:text-[15px]">
                         Bookings, routes, and revenue update in real time.
                         <span className="hidden lg:inline"> Scroll to watch it come together.</span>
                     </p>

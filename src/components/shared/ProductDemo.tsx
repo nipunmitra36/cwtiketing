@@ -47,6 +47,27 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
   const safeIndex = imgCount > 0 ? imgIndex % imgCount : 0;
   const isPhone = tab.device === "phone";
 
+  // Portrait images (e.g. a phone mockup inside a website tab) look wrong inside
+  // the browser chrome, so those slides drop the frame and show the image bare.
+  const [portrait, setPortrait] = useState<Record<string, boolean>>({});
+  useEffect(() => {
+    if (isPhone) return;
+    let cancelled = false;
+    tab.images.forEach((src) => {
+      const probe = new Image();
+      probe.onload = () => {
+        if (!cancelled && probe.naturalHeight > probe.naturalWidth) {
+          setPortrait((p) => ({ ...p, [src]: true }));
+        }
+      };
+      probe.src = src;
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [tab.images, isPhone]);
+  const bare = !isPhone && !!portrait[tab.images[safeIndex]];
+
   // Auto-slide through this tab's screenshots; pause on hover/lightbox.
   useEffect(() => {
     if (paused || lightboxOpen || imgCount <= 1) return;
@@ -154,7 +175,9 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
       className={`absolute object-contain will-change-transform ${
         isPhone
           ? "left-1/2 top-[3%] h-[94%] w-auto max-w-none drop-shadow-xl"
-          : "inset-0 h-full w-full bg-white p-2"
+          : portrait[src]
+            ? "inset-0 h-full w-full py-1 drop-shadow-xl"
+            : "inset-0 h-full w-full bg-white p-2"
       }`}
     />
   ));
@@ -322,15 +345,18 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
       {/* Every tab keeps the browser frame's footprint so phone and web tabs match
           in size. Phone tabs hide the chrome (screenshots already include the
           device bezel) and let the coverflow fill the whole area. */}
+      <div className="relative">
       <div
-        className={`relative overflow-hidden rounded-2xl ${
-          isPhone ? "" : "border border-gray-100 bg-white shadow-2xl shadow-gray-900/10"
+        className={`relative overflow-hidden rounded-2xl border transition-[background-color,border-color,box-shadow] duration-500 ${
+          isPhone || bare
+            ? "border-transparent bg-transparent shadow-none"
+            : "border-gray-100 bg-white shadow-2xl shadow-gray-900/10"
         }`}
       >
         <div
-          aria-hidden={isPhone}
-          className={`flex items-center gap-2.5 border-b border-gray-100 bg-gray-50/80 px-3 py-2.5 sm:px-4 ${
-            isPhone ? "invisible" : ""
+          aria-hidden={isPhone || bare}
+          className={`flex items-center gap-2.5 border-b border-gray-100 bg-gray-50/80 px-3 py-2.5 transition-opacity duration-500 sm:px-4 ${
+            isPhone ? "invisible" : bare ? "opacity-0" : "opacity-100"
           }`}
         >
           <span className="flex shrink-0 gap-1.5">
@@ -348,13 +374,36 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
           onClick={openLightbox}
           aria-label="View full size"
           className={`group block cursor-zoom-in overflow-hidden ${
-            isPhone ? "absolute inset-0 h-full w-full" : "relative aspect-[16/9] w-full bg-white"
+            isPhone ? "absolute inset-0 h-full w-full" : "relative aspect-[16/9] w-full"
           }`}
         >
           {slides}
           {zoomHint}
         </button>
         {isPhone && <div aria-hidden className="aspect-[16/9] w-full" />}
+      </div>
+
+      {/* Prev / next arrows */}
+      {imgCount > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="Previous screenshot"
+            className="absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white/90 text-text-dark shadow-lg shadow-gray-900/10 backdrop-blur transition-all duration-200 hover:scale-105 hover:border-brand hover:bg-brand hover:text-white active:scale-95 sm:-left-5 sm:h-11 sm:w-11"
+          >
+            <HiOutlineChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Next screenshot"
+            className="absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white/90 text-text-dark shadow-lg shadow-gray-900/10 backdrop-blur transition-all duration-200 hover:scale-105 hover:border-brand hover:bg-brand hover:text-white active:scale-95 sm:-right-5 sm:h-11 sm:w-11"
+          >
+            <HiOutlineChevronRight className="h-5 w-5" />
+          </button>
+        </>
+      )}
       </div>
 
       {/* dot indicators (auto-advancing) */}

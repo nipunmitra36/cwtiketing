@@ -25,7 +25,7 @@ interface Feature {
     image?: string;
 }
 
-const HOME_ICONS = "/media/bus-ticketing/cwticketing-home";
+const SERVICE_IMAGES = "/media/services";
 
 const features: Feature[] = [
     {
@@ -36,7 +36,7 @@ const features: Feature[] = [
         caption:
             "Real-time seat maps and live fares let passengers complete a booking in seconds, not minutes.",
         icon: HiOutlineTruck,
-        image: `${HOME_ICONS}/bus-booking.png`,
+        image: `${SERVICE_IMAGES}/bus.jpg`,
     },
     {
         title: "Train Ticketing System",
@@ -46,7 +46,7 @@ const features: Feature[] = [
         caption:
             "Live availability and instant alerts keep passengers and staff in sync at every station.",
         icon: HiOutlineClock,
-        image: `${HOME_ICONS}/train-booking.png`,
+        image: `${SERVICE_IMAGES}/train.jpg`,
     },
     {
         title: "Cruise Booking System",
@@ -56,7 +56,7 @@ const features: Feature[] = [
         caption:
             "Interactive deck plans and live fares turn browsing into confirmed reservations.",
         icon: HiOutlineGlobeAlt,
-        image: `${HOME_ICONS}/curise booking.png`,
+        image: `${SERVICE_IMAGES}/curise.jpg`,
     },
     {
         title: "Taxi Booking System",
@@ -66,7 +66,7 @@ const features: Feature[] = [
         caption:
             "Automated fare calculation and live tracking connect riders to the nearest driver instantly.",
         icon: HiOutlineLocationMarker,
-        image: `${HOME_ICONS}/taxi-booking.png`,
+        image: `${SERVICE_IMAGES}/taxi.jpg`,
     },
     {
         title: "Event Ticketing System",
@@ -76,7 +76,7 @@ const features: Feature[] = [
         caption:
             "Digital tickets and QR scanning move attendees through the gate in half the time.",
         icon: HiOutlineCalendar,
-        image: `${HOME_ICONS}/event.png`,
+        image: `${SERVICE_IMAGES}/events.jpg`,
     },
     {
         title: "Parcel Management System",
@@ -86,7 +86,7 @@ const features: Feature[] = [
         caption:
             "Live status updates keep senders, drivers, and recipients on the same page from pickup to drop-off.",
         icon: HiOutlineCube,
-        image: `${HOME_ICONS}/parcel-booking.png`,
+        image: `${SERVICE_IMAGES}/parcel.jpg`,
     },
 ];
 
@@ -183,7 +183,7 @@ function FeaturePanel({
                     <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                         <div
                             ref={cardRef}
-                            className="group relative h-64 w-full overflow-hidden rounded-2xl border border-gray-200 shadow-lg sm:h-72 lg:h-[22rem]"
+                            className="group relative mx-auto aspect-[77/46] w-full max-w-xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg lg:max-w-none"
                             style={{ transformOrigin: "center" }}
                         >
                             {feature.image ? (
@@ -199,7 +199,6 @@ function FeaturePanel({
                                     <Icon className="h-16 w-16 text-gray-400" />
                                 </div>
                             )}
-                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                         </div>
                     </div>
                 </div>
@@ -302,10 +301,16 @@ export default function ScrollFeatures() {
 
     return (
         <section ref={sectionRef} id="solutions" className="relative bg-white">
-            <div className="mx-auto max-w-2xl px-4 pt-16 text-center sm:px-6 lg:px-8">
-                <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+            <div className="mx-auto max-w-7xl px-4 pt-20 text-center sm:px-6 sm:pt-24 lg:px-8 lg:pt-28">
+                <p className="text-[12px] font-semibold uppercase tracking-widest text-brand sm:text-[13px]">
+                    Solutions
+                </p>
+                <h2 className="mt-3 text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[26px] md:whitespace-nowrap lg:text-[34px]">
                     Built for How Each Industry Actually Moves People
                 </h2>
+                <p className="mx-auto mt-4 max-w-3xl text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
+                    One platform, shaped around the way each transport business sells tickets and runs its day.
+                </p>
             </div>
 
             {/* ── progress rail (desktop only, visible only while this section is on screen) ── */}
