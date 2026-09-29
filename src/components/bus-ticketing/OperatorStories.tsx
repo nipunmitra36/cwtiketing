@@ -5,8 +5,10 @@ import { createSectionReveal } from "@/lib/gsap/reveal";
 import { HiOutlineArrowRight } from "react-icons/hi";
 
 const story = {
-  name: "Metrolane",
+  name: "Asante Rabi Express",
+  country: "Tanzania",
   type: "Bus",
+  logo: "/media/client/asante-rabi-express.webp",
   before: "Old manual booking",
   statValue: "40%",
   statLabel: "more online bookings",
@@ -45,25 +47,28 @@ export default function OperatorStories() {
 
         <figure
           data-gsap
-          className="relative overflow-hidden rounded-[2rem] border border-gray-100 bg-gray-50/60 p-8 sm:p-10"
+          className="relative overflow-hidden rounded-[2rem] border border-gray-100 bg-gray-50/60 p-6 sm:p-10"
         >
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand to-brand-dark text-[16px] font-bold text-white shadow-md shadow-brand/25">
-                {story.name.charAt(0)}
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-gray-100 bg-white p-1.5 shadow-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={story.logo} alt="" className="h-full w-full object-contain" />
               </span>
               <span>
                 <span className="block text-[15px] font-semibold text-text-dark">{story.name}</span>
-                <span className="block text-[12px] text-text-muted">{story.type}</span>
+                <span className="block text-[12px] text-text-muted">
+                  {story.country} · {story.type}
+                </span>
               </span>
             </div>
 
-            <div className="flex items-center gap-3">
-              <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[12px] font-medium text-text-muted">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <span className="whitespace-nowrap rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[12px] font-medium text-text-muted">
                 Before: {story.before}
               </span>
-              <HiOutlineArrowRight className="h-4 w-4 shrink-0 text-brand" />
-              <span className="flex items-baseline gap-1.5 rounded-full bg-brand px-3 py-1.5 text-white shadow-md shadow-brand/25">
+              <HiOutlineArrowRight className="hidden h-4 w-4 shrink-0 text-brand sm:block" />
+              <span className="flex items-baseline gap-1.5 whitespace-nowrap rounded-full bg-brand px-3 py-1.5 text-white shadow-md shadow-brand/25">
                 <span className="text-[16px] font-bold leading-none">{story.statValue}</span>
                 <span className="text-[11.5px] font-medium">{story.statLabel}</span>
               </span>

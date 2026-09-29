@@ -14,10 +14,9 @@ type CaseStudy = {
     name: string;
     country: string;
     category: string;
-    gradient: string; // tailwind gradient classes for the photo panel
+    logo: string;
+    gradient: string; // tailwind gradient classes for the highlight panel
     quote?: string;
-    quoteHighlight?: string;
-    author?: string;
     stat?: string;
     statLabel?: string;
     desc: string;
@@ -27,40 +26,39 @@ type CaseStudy = {
 const cases: CaseStudy[] = [
     {
         type: "quote",
-        name: "Coachline UK",
+        name: "TopBus",
         country: "United Kingdom",
         category: "Intercity coach",
+        logo: "/media/client/topbus.webp",
         gradient: "from-gray-900 via-gray-800 to-gray-950",
         quote:
             "We replaced three separate booking tools with one platform that runs all 150 routes.",
-        quoteHighlight: "one platform",
-        author: "— Priya Shah, Head of Operations",
         desc: "Migrated from a legacy system, cutting booking time by 60% across the network.",
-        href: "/case-studies/coachline-uk",
+        href: "/case-studies/topbus",
     },
     {
         type: "stat",
-        name: "Lagos Move",
-        country: "Nigeria",
+        name: "BusBora",
+        country: "Tanzania",
         category: "Mobility marketplace",
+        logo: "/media/client/busbora.webp",
         gradient: "from-brand-light via-brand-light to-white",
         stat: "3x",
         statLabel: "revenue growth in 6 months",
         desc: "Scaled from 50 to 500+ vehicles with real-time tracking and dispatch.",
-        href: "/case-studies/lagos-move",
+        href: "/case-studies/busbora",
     },
     {
         type: "quote",
-        name: "Falcon Shuttle",
-        country: "UAE",
+        name: "Canvey Xpress",
+        country: "United Kingdom",
         category: "Airport transfers",
+        logo: "/media/client/canvey.webp",
         gradient: "from-slate-900 via-slate-800 to-black",
         quote:
             "Automated dispatch and passenger alerts fixed our late-pickup problem in a week.",
-        quoteHighlight: "in a week",
-        author: "— Omar Al Farsi, Fleet Manager",
         desc: "On-time performance jumped after switching from manual radio dispatch.",
-        href: "/case-studies/falcon-shuttle",
+        href: "/case-studies/canvey-xpress",
     },
 ];
 
@@ -155,11 +153,6 @@ export default function CaseStudies() {
                                         <p className="text-[15px] font-medium leading-snug text-white sm:text-[16px]">
                                             {c.quote}
                                         </p>
-                                        {c.author && (
-                                            <p className="mt-4 text-[12px] leading-snug text-gray-400">
-                                                {c.author}
-                                            </p>
-                                        )}
                                     </div>
                                 ) : (
                                     <div>
@@ -183,12 +176,14 @@ export default function CaseStudies() {
                             {/* Customer details */}
                             <div className="flex flex-1 flex-col gap-4 border-t border-gray-100 p-5 sm:border-l sm:border-t-0 sm:p-6">
                                 <div className="flex items-center gap-3">
-                                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-light text-[13px] font-semibold text-brand">
-                                        {c.name
-                                            .split(" ")
-                                            .map((w) => w[0])
-                                            .join("")
-                                            .slice(0, 2)}
+                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-gray-100 bg-white p-1">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src={c.logo}
+                                            alt=""
+                                            loading="lazy"
+                                            className="h-full w-full object-contain"
+                                        />
                                     </span>
                                     <div className="min-w-0">
                                         <p className="truncate text-[14px] font-semibold text-text-dark">
