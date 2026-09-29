@@ -86,22 +86,22 @@ export default function Pricing() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2
+          <h1
             data-gsap
-            className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+            className="mt-4 text-[28px] font-semibold leading-tight tracking-tight text-text-dark sm:text-[36px] lg:text-[44px]"
           >
             Plans Built For Every Operator
-          </h2>
+          </h1>
           <p
             data-gsap
-            className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
+            className="mt-4 text-[15px] leading-relaxed text-text-muted sm:text-[16px]"
           >
             Every plan is tailored to your routes and volumes. Tell us what you
             need and we&apos;ll quote it precisely.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="mx-auto grid max-w-md gap-6 lg:max-w-none lg:grid-cols-3">
           {plans.map((plan) => {
             const Icon = plan.icon;
             return (
@@ -174,7 +174,10 @@ export default function Pricing() {
 
         <p data-gsap className="mt-8 text-center text-[12.5px] text-text-muted">
           No long-term contracts. Volume pricing for large fleets.{" "}
-          <Link href="/contact" className="font-semibold text-brand hover:text-brand-hover">
+          <Link
+            href="/contact"
+            className="-my-2.5 inline-flex items-center py-2.5 font-semibold text-brand hover:text-brand-hover"
+          >
             Talk to sales →
           </Link>
         </p>

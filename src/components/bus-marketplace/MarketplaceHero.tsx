@@ -84,7 +84,7 @@ export default function MarketplaceHero() {
           manage, and grow a bus ticketing network.
         </p>
 
-        <div className="gsap-hero-item mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="gsap-hero-item mt-8 flex flex-col gap-3 [&>*]:justify-center sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
           <Link
             href="/contact"
             className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"

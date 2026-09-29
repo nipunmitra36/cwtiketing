@@ -57,15 +57,15 @@ export default function DashboardPreview() {
                     >
                         Product demo
                     </span>
-                    <h2
+                    <h1
                         data-gsap
-                        className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-white sm:text-[28px] sm:leading-snug"
+                        className="mt-4 text-[28px] font-semibold leading-tight tracking-tight text-white sm:text-[36px] lg:text-[44px]"
                     >
                         One Platform, Four Surfaces
-                    </h2>
+                    </h1>
                     <p
                         data-gsap
-                        className="mt-3 text-[13px] leading-relaxed text-gray-400 sm:text-[14px]"
+                        className="mt-4 text-[15px] leading-relaxed text-gray-400 sm:text-[16px]"
                     >
                         Every stakeholder gets a screen built for their job — all
                         reading from the same live data.

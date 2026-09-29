@@ -16,6 +16,7 @@ const TRUST_ITEMS = [
   "Any Event — Concerts to Conferences",
   "Instant QR Ticket Validation",
   "Secure Local & Global Payments",
+  "24/7 Support",
 ];
 
 export default function EventHero() {
@@ -113,7 +114,7 @@ export default function EventHero() {
               build the exact event you have in mind.
             </p>
 
-            <div className="gsap-hero-item mt-8 flex flex-wrap items-center gap-3">
+            <div className="gsap-hero-item mt-8 flex flex-col gap-3 [&>*]:justify-center sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="/contact"
                 className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
@@ -133,7 +134,7 @@ export default function EventHero() {
             </div>
 
             {/* Trust checklist */}
-            <div className="gsap-hero-item mt-10 flex flex-col gap-2.5 border-t border-gray-200/80 pt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-7 sm:gap-y-2">
+            <div className="gsap-hero-item mt-10 grid max-w-xl gap-2.5 border-t border-gray-200/80 pt-7 sm:grid-cols-2 sm:gap-x-7 sm:gap-y-3">
               {TRUST_ITEMS.map((t) => (
                 <span
                   key={t}

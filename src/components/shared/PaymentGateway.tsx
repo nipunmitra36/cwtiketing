@@ -7,6 +7,8 @@ import { HiOutlineLockClosed } from "react-icons/hi";
 interface Method {
   image: string;
   label: string;
+  /** Portrait logo (taller than wide): fill the tile height so it stays legible */
+  tall?: boolean;
 }
 
 interface PaymentGatewayProps {
@@ -23,6 +25,8 @@ const MEDIA = "/media/payment method";
 const defaultMethods: Method[] = [
   { image: `${MEDIA}/amar-pay.png`, label: "AmarPay" },
   { image: `${MEDIA}/m-pesa.png`, label: "M-Pesa" },
+  { image: `${MEDIA}/MTN.png`, label: "MTN Mobile Money", tall: true },
+  { image: `${MEDIA}/orange money.png`, label: "Orange Money", tall: true },
   { image: `${MEDIA}/bkash.png`, label: "bKash" },
   { image: `${MEDIA}/rocket.png`, label: "Rocket" },
   { image: `${MEDIA}/npay.png`, label: "nPay" },
@@ -113,7 +117,7 @@ export default function PaymentGateway({
                   alt={m.label}
                   title={m.label}
                   loading="lazy"
-                  className="h-9 w-auto max-w-[130px] object-contain"
+                  className={`${m.tall ? "h-[52px]" : "h-9"} w-auto max-w-[130px] object-contain`}
                 />
               </span>
             ))}

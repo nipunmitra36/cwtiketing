@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap, playOnce } from "@/lib/gsap";
+import Link from "next/link";
+import { gsap, playOnce, ScrollSmoother } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
@@ -15,7 +16,11 @@ import {
   HiOutlineUserGroup,
   HiOutlineClipboardList,
   HiOutlineSparkles,
+  HiOutlineArrowRight,
+  HiOutlineTicket,
+  HiOutlineCube,
 } from "react-icons/hi";
+import { FaBus, FaTrain, FaTaxi, FaShip } from "react-icons/fa";
 
 // ── Flowchart primitives ──────────────────────────────────────────
 
@@ -63,6 +68,23 @@ function MobileConnector() {
     </div>
   );
 }
+
+// Modes named in the About copy
+const transportModes = [
+  { icon: FaBus, label: "Bus" },
+  { icon: FaTrain, label: "Train" },
+  { icon: FaTaxi, label: "Taxi" },
+  { icon: FaShip, label: "Cruise" },
+  { icon: HiOutlineTicket, label: "Event" },
+  { icon: HiOutlineCube, label: "Parcel" },
+];
+
+// Same figures as the home hero
+const aboutStats = [
+  { value: "2500+", label: "Transport companies" },
+  { value: "99.9%", label: "Platform uptime" },
+  { value: "24/7", label: "Support" },
+];
 
 const passengerSteps = [
   { icon: HiOutlineSearch, label: "Search Route", badgeClass: "from-brand to-brand-hover" },
@@ -128,30 +150,115 @@ export default function AboutHowItWorks() {
       <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-brand/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* ── About: flowing editorial text with floated badges ── */}
-        <div data-gsap className="mb-12 sm:mb-16 lg:mb-20">
+        {/* ── About: premium two-column intro ── */}
+        <div className="mb-16 grid items-center gap-10 sm:mb-20 lg:mb-24 lg:grid-cols-12 lg:gap-14">
+          {/* Copy */}
+          <div className="lg:col-span-7">
+            <span
+              data-gsap
+              className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white/80 px-3.5 py-1.5 text-[12px] font-semibold uppercase tracking-widest text-brand shadow-sm backdrop-blur"
+            >
+              <HiOutlineSparkles className="h-3.5 w-3.5" />
+              About CWTicketing
+            </span>
 
+            <h2
+              data-gsap
+              className="mt-5 text-[28px] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[36px] lg:text-[44px]"
+            >
+              A white-label booking system for{" "}
+              <span className="bg-gradient-to-r from-brand to-amber-500 bg-clip-text text-transparent">
+                transport &amp; mobility
+              </span>{" "}
+              businesses
+            </h2>
 
-          <h2 className="mb-5 max-w-3xl text-balance text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:mb-8 sm:text-[30px] sm:leading-snug lg:text-[34px]">
-            A white-label booking system for transport &amp; mobility
-            businesses
-          </h2>
+            <div data-gsap className="mt-6 space-y-4 text-[15px] leading-[1.8] text-text-muted sm:text-[16.5px]">
+              <p>
+                <span className="font-medium text-text-dark">CWTicketing System</span> is a
+                complete white-label online ticket booking system designed for transport
+                operators, travel companies, and mobility businesses. It helps businesses
+                launch their own branded booking system where passengers can search routes,
+                check seat availability, make payments, and manage bookings through web and
+                mobile apps.
+              </p>
+              <p>
+                From bus and train reservations to taxi, cruise, event, and other
+                transportation services, CWTicketing provides the tools operators need to
+                automate ticket sales, manage daily operations, and deliver a better passenger
+                experience — from one centralized system.
+              </p>
+            </div>
 
-          <div className="relative">
-            <p className="max-w-4xl text-[15px] leading-[1.75] text-text-muted sm:text-[17px] sm:leading-[1.85] lg:text-[18px]">
-              CWTicketing System is a complete white-label online ticket
-              booking system designed for transport operators, travel
-              companies, and mobility businesses. It helps businesses launch
-              their own branded booking system where passengers can search
-              routes, check seat availability, make payments, and manage
-              bookings through web and mobile apps. From bus and train
-              reservations to taxi, cruise, event, and other transportation
-              services, CWTicketing provides the tools operators need to
-              automate ticket sales, manage daily operations, and deliver a
-              better passenger experience — from one centralized system.
-            </p>
+            <div data-gsap className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
+              >
+                Book a Demo
+                <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="#solutions"
+                onClick={(e) => {
+                  // The page scrolls through ScrollSmoother, so native hash jumps don't apply
+                  const smoother = ScrollSmoother.get();
+                  if (!smoother) return;
+                  e.preventDefault();
+                  smoother.scrollTo("#solutions", true, "top 80px");
+                }}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-3.5 text-[14px] font-semibold text-text-dark transition-colors hover:border-brand/30 hover:text-brand"
+              >
+                Explore solutions
+              </Link>
+            </div>
           </div>
-          <div className="clear-both" />
+
+          {/* Showcase card */}
+          <div data-gsap className="relative lg:col-span-5">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-brand/20 via-amber-200/30 to-transparent blur-2xl"
+            />
+            <div className="relative overflow-hidden rounded-[2rem] border border-gray-200/80 bg-white/90 p-5 shadow-2xl shadow-gray-900/10 backdrop-blur sm:p-7">
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/50 to-transparent" />
+
+              <div className="flex items-center justify-between">
+                <p className="text-[15px] font-semibold text-text-dark">One platform, every mode</p>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[11.5px] font-medium text-emerald-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  White-label
+                </span>
+              </div>
+
+              <div className="mt-5 grid grid-cols-3 gap-2.5 sm:gap-3">
+                {transportModes.map(({ icon: Icon, label }) => (
+                  <div
+                    key={label}
+                    className="group flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-gray-50/70 px-2 py-4 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/30 hover:bg-brand-light/60"
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand shadow-sm ring-1 ring-brand/15 transition-colors group-hover:bg-brand group-hover:text-white">
+                      <Icon className="h-[18px] w-[18px]" />
+                    </span>
+                    <span className="text-[12.5px] font-semibold text-text-dark">{label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 grid grid-cols-3 divide-x divide-gray-100 border-t border-gray-100 pt-5">
+                {aboutStats.map((s) => (
+                  <div key={s.label} className="px-2 text-center first:pl-0 last:pr-0">
+                    <p className="text-[20px] font-semibold tracking-tight text-text-dark sm:text-[24px]">
+                      {s.value}
+                    </p>
+                    <p className="mt-0.5 text-[11.5px] leading-snug text-text-muted sm:text-[12px]">
+                      {s.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* ── How it works: branching flowchart ── */}

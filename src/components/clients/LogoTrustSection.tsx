@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import LogoWall from "./LogoWall";
+import CountryMarquee from "./CountryMarquee";
 import { clients } from "./clients-data";
 
 export default function LogoTrustSection() {
@@ -37,6 +38,8 @@ export default function LogoTrustSection() {
         </div>
 
         <LogoWall logos={clients} />
+
+        <CountryMarquee className="mt-10 sm:mt-12 lg:mt-14" />
       </div>
     </section>
   );

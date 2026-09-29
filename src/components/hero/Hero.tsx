@@ -15,6 +15,52 @@ import {
   HiOutlineChartBar,
 } from "react-icons/hi";
 
+// Product ecosystem illustration (Admin Dashboard, Booking Engine, Mobile App,
+// Passenger Ticket, Analytics) is switched off for now — the hero shows centred
+// copy only. Set to true to bring the illustration back; nothing was deleted.
+const SHOW_PRODUCT_SCENE = false;
+
+// Optional background video. Drop a short, muted, looping clip (MP4, ~720p,
+// under ~5 MB) into /public/media/hero and set its path here, e.g.
+// "/media/hero/hero-bg.mp4". Leave empty to keep the plain dark background.
+// encodeURI because the file name has a space and brackets
+const HERO_VIDEO = encodeURI("/media/video/hero (2).mp4");
+const HERO_VIDEO_POSTER = ""; // optional still frame shown while it loads
+
+// ── Background video ──────────────────────────────────────────────────────────
+function HeroVideo() {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  // Only play when the visitor hasn't asked for less motion or less data;
+  // otherwise the poster (or the dark background) is shown instead.
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection?.saveData;
+    if (reduceMotion || saveData) return;
+    video.play().catch(() => {});
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      src={HERO_VIDEO}
+      poster={HERO_VIDEO_POSTER || undefined}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden
+      onError={(e) => {
+        e.currentTarget.style.display = "none";
+      }}
+      className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover opacity-85"
+    />
+  );
+}
+
 // ── Connectors (animated network lines) ──────────────────────────────────────
 function ConnectorV() {
   return (
@@ -369,15 +415,23 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── Overlay: top/bottom vignette keeps edges deep black ── */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/70" />
+      {HERO_VIDEO && <HeroVideo />}
 
-      <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 sm:pb-24 sm:pt-36 lg:px-8 lg:pb-28 lg:pt-40">
-        <div className="grid items-center gap-12 sm:gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-10 xl:gap-12">
-          {/* ── Left: Copy (GSAP fade-up) ── */}
-          <div ref={leftCopyRef} className="flex flex-col sm:items-center sm:text-center lg:items-start lg:text-left">
+      {/* ── Overlay: top/bottom vignette keeps edges deep black (and keeps the
+          headline readable over the video when one is set) ── */}
+      <div
+        className={`absolute inset-0 -z-10 bg-gradient-to-b ${HERO_VIDEO ? "from-black/55 via-black/30 to-black/65" : "from-black/60 via-transparent to-black/70"
+          }`}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-32 sm:px-6 sm:pb-28 sm:pt-40 lg:px-8 lg:pb-32 lg:pt-44">
+        <div
+          className={`grid items-center gap-12 sm:gap-14 ${SHOW_PRODUCT_SCENE ? "lg:grid-cols-[1.1fr_1fr] lg:gap-10 xl:gap-12" : ""}`}
+        >
+          {/* ── Copy (GSAP fade-up) ── */}
+          <div ref={leftCopyRef} className="flex flex-col items-center text-center [text-shadow:0_2px_16px_rgba(0,0,0,0.45)]">
             {/* Headline */}
-            <h1 className="gsap-left-item mb-5 max-w-2xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-white min-[400px]:text-[2.25rem] sm:text-5xl lg:text-[2.6rem] xl:text-[52px]">
+            <h1 className="gsap-left-item mb-5 max-w-5xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-white min-[400px]:text-[2.25rem] sm:mb-6 sm:text-5xl lg:text-6xl xl:text-[4.25rem]">
               Launch Your Own{" "}
               <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-brand-light bg-clip-text text-transparent">
                 Online Ticket Booking
@@ -386,13 +440,13 @@ export default function Hero() {
             </h1>
 
             {/* Sub-copy */}
-            <p className="gsap-left-item mb-8 max-w-lg text-[15px] leading-relaxed text-white/75 sm:text-[16px]">
+            <p className="gsap-left-item mb-8 max-w-2xl text-[15px] leading-relaxed text-white/75 sm:mb-10 sm:text-[17px] lg:text-[18px]">
               A complete white-label booking system for transport operators. Manage routes,
               seats, payments, passengers, and mobile apps from one powerful software.
             </p>
 
             {/* CTA row */}
-            <div className="gsap-left-item mb-8 flex flex-wrap items-center gap-3">
+            <div className="gsap-left-item mb-10 flex w-full flex-wrap items-center justify-center gap-3">
               <Link
                 href="/contact"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 min-[400px]:w-auto text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
@@ -403,14 +457,14 @@ export default function Hero() {
             </div>
 
             {/* Trust points */}
-            <div className="gsap-left-item grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-white/15 pt-6 sm:text-left">
+            <div className="gsap-left-item grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-white/15 pt-6 text-left sm:max-w-xl sm:gap-x-8 lg:flex lg:max-w-4xl lg:flex-wrap lg:justify-center lg:gap-y-3">
               {[
                 "2500+ Transport Companies",
                 "99.9% Platform Uptime",
                 "Android & iOS Apps Included",
                 "24/7 Support",
               ].map((point) => (
-                <span key={point} className="flex items-start gap-2 text-[12px] leading-snug text-white/80">
+                <span key={point} className="flex items-start gap-2 text-[12.5px] leading-snug text-white/80 sm:items-center sm:text-[14px]">
                   <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/90">
                     <HiOutlineCheck className="h-2.5 w-2.5 text-white" />
                   </span>
@@ -420,7 +474,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── Right: connected product ecosystem scene ── */}
+          {/* ── Right: connected product ecosystem scene (hidden — see SHOW_PRODUCT_SCENE) ── */}
+          {SHOW_PRODUCT_SCENE && (
           <div ref={bentoRef} className="relative overflow-visible">
             <div className="mx-auto w-full max-w-[400px] [perspective:1400px] sm:max-w-[540px]">
               {/* Ambient brand glow behind the scene */}
@@ -465,6 +520,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </section>
