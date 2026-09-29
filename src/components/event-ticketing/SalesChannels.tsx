@@ -324,7 +324,7 @@ export default function SalesChannels() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Three Channels That Maximize Your Ticket Sales
+            Three Channels That Maximize Your <span className="text-gradient-brand">Ticket Sales</span>
           </h2>
           <p
             data-gsap

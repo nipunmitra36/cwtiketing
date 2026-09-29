@@ -120,7 +120,7 @@ export default function TaxiJourney() {
             data-gsap
             className="mt-3 text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]"
           >
-            How an Online Taxi Reservation System Works
+            How an <span className="text-gradient-brand">Online Taxi Reservation System</span> Works
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Five stages from request to receipt — every one of them recorded

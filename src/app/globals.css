@@ -128,6 +128,14 @@ body {
   }
 }
 
+/* Brand gradient for highlighted words in headings (brand → amber-500) */
+.text-gradient-brand {
+  background-image: linear-gradient(to right, #ff6a1c, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .text-primary {
   color: var(--color-brand);
 }

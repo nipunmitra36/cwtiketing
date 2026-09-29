@@ -61,7 +61,7 @@ export default function WhoBenefits() {
           <div data-gsap>
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
               Who Benefits from Our{" "}
-              <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
+              <span className="text-gradient-brand">
                 Shuttle Service Ticketing System
               </span>
             </h2>

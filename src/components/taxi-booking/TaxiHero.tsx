@@ -93,7 +93,7 @@ export default function TaxiHero() {
 
             <h1 className="gsap-hero-item mt-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[50px]">
               An{" "}
-              <span className="bg-gradient-to-r from-brand via-brand to-brand-dark bg-clip-text text-transparent">
+              <span className="text-gradient-brand">
                 Online Taxi Booking System
               </span>{" "}
               That Runs Your Whole Fleet

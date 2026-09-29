@@ -46,7 +46,7 @@ export default function Commuters() {
           <div data-gsap className="order-2">
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
               Smarter Travel for{" "}
-              <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
+              <span className="text-gradient-brand">
                 Daily Commuters
               </span>
             </h2>

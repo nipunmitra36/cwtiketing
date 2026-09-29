@@ -61,7 +61,7 @@ export default function DashboardPreview() {
                         data-gsap
                         className="mt-4 text-[28px] font-semibold leading-tight tracking-tight text-white sm:text-[36px] lg:text-[44px]"
                     >
-                        One Platform, Four Surfaces
+                        One Platform, <span className="text-gradient-brand">Four Surfaces</span>
                     </h1>
                     <p
                         data-gsap

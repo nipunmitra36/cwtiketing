@@ -306,7 +306,7 @@ export default function ScrollFeatures() {
                     Solutions
                 </p>
                 <h2 className="mt-3 text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[26px] md:whitespace-nowrap lg:text-[34px]">
-                    Built for How Each Industry Actually Moves People
+                    Built for How Each Industry <span className="text-gradient-brand">Actually Moves People</span>
                 </h2>
                 <p className="mx-auto mt-4 max-w-3xl text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
                     One platform, shaped around the way each transport business sells tickets and runs its day.

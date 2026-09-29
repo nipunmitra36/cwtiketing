@@ -90,7 +90,7 @@ export default function Pricing() {
             data-gsap
             className="mt-4 text-[28px] font-semibold leading-tight tracking-tight text-text-dark sm:text-[36px] lg:text-[44px]"
           >
-            Plans Built For Every Operator
+            Plans Built For <span className="text-gradient-brand">Every Operator</span>
           </h1>
           <p
             data-gsap

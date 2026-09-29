@@ -167,7 +167,7 @@ export default function AboutHowItWorks() {
               className="mt-5 text-[28px] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[36px] lg:text-[44px]"
             >
               A white-label booking system for{" "}
-              <span className="bg-gradient-to-r from-brand to-amber-500 bg-clip-text text-transparent">
+              <span className="text-gradient-brand">
                 transport &amp; mobility
               </span>{" "}
               businesses
@@ -265,7 +265,7 @@ export default function AboutHowItWorks() {
         <div>
           <div data-gsap className="mx-auto mb-8 max-w-2xl text-center sm:mb-12 lg:mb-14">
             <h3 className="text-balance text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px] lg:text-[28px]">
-              From search to ticket, in one flow
+              From search to ticket, <span className="text-gradient-brand">in one flow</span>
             </h3>
           </div>
 

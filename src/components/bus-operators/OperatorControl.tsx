@@ -43,7 +43,7 @@ export default function OperatorControl() {
           {/* ── Copy ── */}
           <div data-gsap>
             <h2 className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
-              Take Control of Long-Distance Bus Operations
+              Take Control of <span className="text-gradient-brand">Long-Distance</span> Bus Operations
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               CWTicketing gives intercity bus operators the tools to run

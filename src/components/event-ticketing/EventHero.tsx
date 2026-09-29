@@ -102,7 +102,7 @@ export default function EventHero() {
 
             <h1 className="gsap-hero-item mt-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[50px]">
               Make Your Events Shine with a{" "}
-              <span className="bg-gradient-to-r from-brand via-brand to-brand-dark bg-clip-text text-transparent">
+              <span className="text-gradient-brand">
                 Smart Online Event Ticketing System
               </span>
             </h1>

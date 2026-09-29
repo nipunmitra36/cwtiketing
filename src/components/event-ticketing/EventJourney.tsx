@@ -124,7 +124,7 @@ export default function EventJourney() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Five Steps to a Sold-Out Event
+            Five Steps to a <span className="text-gradient-brand">Sold-Out Event</span>
           </h2>
         </div>
 

@@ -28,7 +28,7 @@ export default function VisionTeam() {
               <HiOutlineEye className="h-6 w-6" />
             </span>
             <h2 className="mt-6 text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
-              Our Vision
+              Our <span className="text-gradient-brand">Vision</span>
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               We envision a future where transport management is no longer a
@@ -53,7 +53,7 @@ export default function VisionTeam() {
               <HiOutlineUserGroup className="h-6 w-6" />
             </span>
             <h2 className="mt-6 text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
-              The People Behind the Platform
+              The People Behind <span className="text-gradient-brand">the Platform</span>
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               CWTicketing System is powered by a multidisciplinary team of

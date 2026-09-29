@@ -40,7 +40,7 @@ export default function Comparison() {
             data-gsap
             className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Why Operators Move From Old Systems
+            Why Operators <span className="text-gradient-brand">Move From Old Systems</span>
           </h2>
           <p
             data-gsap

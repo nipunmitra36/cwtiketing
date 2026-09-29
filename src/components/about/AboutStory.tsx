@@ -25,7 +25,7 @@ export default function AboutStory() {
               <HiOutlineCube className="h-5 w-5" />
             </span>
             <h2 className="mt-5 text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
-              What Is CWTicketing System?
+              What Is <span className="text-gradient-brand">CWTicketing System</span>?
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               CWTicketing System is a modern SaaS (Software as a Service)
@@ -42,7 +42,7 @@ export default function AboutStory() {
               <HiOutlineLightBulb className="h-5 w-5" />
             </span>
             <h2 className="mt-5 text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
-              Why We Exist
+              Why <span className="text-gradient-brand">We Exist</span>
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               While many industries have embraced digital transformation,

@@ -216,7 +216,7 @@ export default function WorkInContext() {
             >
                 <div className="mx-auto mb-6 max-w-xl text-center sm:mb-10 sm:max-w-none lg:mb-14">
                     <h2 className="text-balance text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:whitespace-nowrap sm:text-[28px] sm:leading-snug lg:text-[32px]">
-                        Everything about today, in one glance
+                        Everything about today, <span className="text-gradient-brand">in one glance</span>
                     </h2>
                     <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:whitespace-nowrap sm:text-[15px]">
                         Bookings, routes, and revenue update in real time.

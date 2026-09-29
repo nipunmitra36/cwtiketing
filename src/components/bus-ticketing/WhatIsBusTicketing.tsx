@@ -82,7 +82,7 @@ export default function WhatIsBusTicketing() {
             data-gsap
             className="mx-auto mt-3 max-w-2xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            A web-based bus ticketing software for transport &amp; mobility businesses
+            A web-based bus ticketing software for <span className="text-gradient-brand">transport &amp; mobility</span> businesses
           </h2>
           <p
             data-gsap

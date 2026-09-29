@@ -318,7 +318,7 @@ export default function TaxiChannels() {
             data-gsap
             className="mt-3 text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]"
           >
-            Built for Riders, Drivers and Dispatchers
+            Built for <span className="text-gradient-brand">Riders, Drivers and Dispatchers</span>
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Three interfaces, one live trip record — what the rider sees, what

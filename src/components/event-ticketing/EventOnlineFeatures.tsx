@@ -91,7 +91,7 @@ export default function EventOnlineFeatures() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Everything Your Event Needs, From Setup to the Front Gate
+            Everything Your Event Needs, <span className="text-gradient-brand">From Setup to the Front Gate</span>
           </h2>
           <p
             data-gsap

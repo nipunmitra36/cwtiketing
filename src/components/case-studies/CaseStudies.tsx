@@ -116,7 +116,7 @@ export default function CaseStudies() {
                 >
                     <div>
                         <h2 className="text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug lg:text-[32px]">
-                            Operators achieve more
+                            Operators <span className="text-gradient-brand">achieve more</span>
                         </h2>
                     </div>
                     <Link

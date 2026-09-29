@@ -323,7 +323,7 @@ export default function ParcelChannels() {
             data-gsap
             className="mt-3 text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]"
           >
-            Built for the Counter, the Road and the Head Office
+            Built for the Counter, the Road and <span className="text-gradient-brand">the Head Office</span>
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Every role gets the interface it actually needs — all reading and

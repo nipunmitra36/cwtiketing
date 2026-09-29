@@ -87,7 +87,7 @@ export default function PaymentGateway({
             }`}
           >
             {heading}{" "}
-            <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
+            <span className="text-gradient-brand">
               {headingHighlight}
             </span>
           </h2>

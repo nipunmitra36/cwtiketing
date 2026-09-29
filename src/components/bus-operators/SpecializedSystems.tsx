@@ -51,7 +51,7 @@ export default function SpecializedSystems() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
-            Specialized Booking Systems
+            Specialized <span className="text-gradient-brand">Booking Systems</span>
           </h2>
         </div>
 

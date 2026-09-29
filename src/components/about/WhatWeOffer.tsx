@@ -41,7 +41,7 @@ export default function WhatWeOffer() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            A Multi-Channel Ticketing Platform
+            A <span className="text-gradient-brand">Multi-Channel</span> Ticketing Platform
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Bus, train, cruise, event, and more — combining functionality with

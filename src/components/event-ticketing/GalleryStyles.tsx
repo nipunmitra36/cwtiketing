@@ -333,7 +333,7 @@ export default function GalleryStyles() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-white sm:text-[28px] sm:leading-snug"
           >
-            Catered to Fit Any Type of Gallery Arrangement
+            Catered to Fit Any Type of <span className="text-gradient-brand">Gallery Arrangement</span>
           </h2>
           <p
             data-gsap

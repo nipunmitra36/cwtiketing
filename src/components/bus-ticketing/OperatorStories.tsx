@@ -41,7 +41,7 @@ export default function OperatorStories() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Operators Who Made the Switch
+            Operators Who <span className="text-gradient-brand">Made the Switch</span>
           </h2>
         </div>
 

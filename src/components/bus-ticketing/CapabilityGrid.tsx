@@ -70,7 +70,7 @@ export default function CapabilityGrid() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Everything You Need, Grouped by Job
+            Everything You Need, <span className="text-gradient-brand">Grouped by Job</span>
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Sixteen capabilities, organized around the four things operators

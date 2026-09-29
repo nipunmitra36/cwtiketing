@@ -30,7 +30,7 @@ export default function WhoBenefits() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
-            Who Benefits from Our Inter-City Bus Ticketing System
+            Who Benefits from Our <span className="text-gradient-brand">Inter-City Bus Ticketing System</span>
           </h2>
         </div>
 

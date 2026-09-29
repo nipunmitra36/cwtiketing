@@ -59,7 +59,7 @@ export default function SecurityTrust() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Your Operations, Your Control
+            Your Operations, <span className="text-gradient-brand">Your Control</span>
           </h2>
           <p
             data-gsap

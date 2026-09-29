@@ -433,7 +433,11 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
 export default function ProductDemo({
   tabs,
   eyebrow = "Product Demo",
-  heading = "One Platform, Every Surface Your Business Runs On",
+  heading = (
+    <>
+      One Platform, <span className="text-gradient-brand">Every Surface</span> Your Business Runs On
+    </>
+  ),
   description = "From the passenger's phone to the driver's seat to your back office — every surface reads from the same live data.",
 }: ProductDemoProps) {
   const sectionRef = useRef<HTMLElement>(null);
