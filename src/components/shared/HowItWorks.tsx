@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap, ScrollTrigger, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineChat,
@@ -117,8 +117,7 @@ export default function HowItWorks({
             scrollTrigger: {
               trigger: el,
               start: "top 80%",
-              toggleActions: "play none none none",
-              once: true,
+              ...playOnce,
             },
           }
         );

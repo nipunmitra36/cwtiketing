@@ -372,12 +372,12 @@ export default function Hero() {
       {/* ── Overlay: top/bottom vignette keeps edges deep black ── */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/70" />
 
-      <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-32 sm:px-6 sm:pb-28 sm:pt-40 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+      <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 sm:pb-24 sm:pt-36 lg:px-8 lg:pb-28 lg:pt-40">
+        <div className="grid items-center gap-12 sm:gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-10 xl:gap-12">
           {/* ── Left: Copy (GSAP fade-up) ── */}
-          <div ref={leftCopyRef} className="flex flex-col">
+          <div ref={leftCopyRef} className="flex flex-col sm:items-center sm:text-center lg:items-start lg:text-left">
             {/* Headline */}
-            <h1 className="gsap-left-item mb-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-[2.75rem] xl:text-[52px]">
+            <h1 className="gsap-left-item mb-5 max-w-2xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-white min-[400px]:text-[2.25rem] sm:text-5xl lg:text-[2.6rem] xl:text-[52px]">
               Launch Your Own{" "}
               <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-brand-light bg-clip-text text-transparent">
                 Online Ticket Booking
@@ -395,7 +395,7 @@ export default function Hero() {
             <div className="gsap-left-item mb-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 min-[400px]:w-auto text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
               >
                 Start Free Consultation
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -403,7 +403,7 @@ export default function Hero() {
             </div>
 
             {/* Trust points */}
-            <div className="gsap-left-item grid max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-white/15 pt-6">
+            <div className="gsap-left-item grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-white/15 pt-6 sm:text-left">
               {[
                 "2500+ Transport Companies",
                 "99.9% Platform Uptime",
@@ -421,8 +421,8 @@ export default function Hero() {
           </div>
 
           {/* ── Right: connected product ecosystem scene ── */}
-          <div ref={bentoRef} className="relative hidden overflow-visible lg:block">
-            <div className="mx-auto w-full max-w-[540px] [perspective:1400px]">
+          <div ref={bentoRef} className="relative overflow-visible">
+            <div className="mx-auto w-full max-w-[400px] [perspective:1400px] sm:max-w-[540px]">
               {/* Ambient brand glow behind the scene */}
               <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-3xl" />
 
@@ -437,12 +437,21 @@ export default function Hero() {
                 <ConnectorV />
 
                 {/* Middle row: Mobile App — Booking Engine — Passenger Ticket */}
-                <div className="flex items-stretch gap-1.5">
-                  <MobileAppCard />
-                  <ConnectorH />
+                {/* Phones show only the core engine; side cards join from sm up */}
+                <div className="mx-auto flex max-w-[280px] items-stretch gap-1.5 sm:max-w-none">
+                  <div className="hidden flex-1 sm:flex">
+                    <MobileAppCard />
+                  </div>
+                  <div className="hidden sm:flex">
+                    <ConnectorH />
+                  </div>
                   <BookingEngineCard />
-                  <ConnectorH />
-                  <PassengerTicketCard />
+                  <div className="hidden sm:flex">
+                    <ConnectorH />
+                  </div>
+                  <div className="hidden flex-1 sm:flex">
+                    <PassengerTicketCard />
+                  </div>
                 </div>
 
                 <ConnectorV />

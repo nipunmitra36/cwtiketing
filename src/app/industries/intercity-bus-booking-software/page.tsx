@@ -6,7 +6,7 @@ import CounterBookingSection from "@/components/bus-operators/CounterBookingSect
 import PassengerExperienceSection from "@/components/bus-operators/PassengerExperienceSection";
 import WhoBenefits from "@/components/bus-operators/WhoBenefits";
 import WhyChoose from "@/components/bus-operators/WhyChoose";
-import ClientShowcase from "@/components/bus-operators/ClientShowcase";
+import LogoTrustSection from "@/components/clients/LogoTrustSection";
 import SpecializedSystems from "@/components/bus-operators/SpecializedSystems";
 import ProductDemo from "@/components/bus-operators/ProductDemo";
 import PaymentGateway from "@/components/shared/PaymentGateway";
@@ -70,7 +70,7 @@ export default function BusOperatorsPage() {
         <WhoBenefits />
         <WhyChoose />
         <ProductDemo />
-        <ClientShowcase />
+        <LogoTrustSection />
         <SpecializedSystems />
         <PaymentGateway
           description="Cash, cards, wallets, and local rails — accept every payment your intercity passengers already use."

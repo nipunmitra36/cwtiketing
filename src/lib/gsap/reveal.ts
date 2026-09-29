@@ -1,4 +1,4 @@
-import { gsap } from "./index";
+import { gsap, playOnce } from "./index";
 import { onSmootherReady } from "./ready";
 
 export interface SectionRevealOptions {
@@ -17,7 +17,7 @@ export interface SectionRevealOptions {
  * before the smoother exists makes them fire at the wrong visual position
  * (early, late, or not at all) which reads as janky/laggy scrolling.
  *
- * Non-reverse reveals use `once: true` so each trigger kills itself after its
+ * Non-reverse reveals use `playOnce` so each trigger is discarded after its
  * first play — no per-frame scroll processing for finished sections.
  *
  * Returns a cleanup function (safe to return from a `useEffect`).
@@ -51,8 +51,7 @@ export function createSectionReveal(
           scrollTrigger: {
             trigger: section,
             start,
-            toggleActions: reverse ? "play none none reverse" : "play none none none",
-            ...(reverse ? {} : { once: true }),
+            ...(reverse ? { toggleActions: "play none none reverse" } : playOnce),
           },
         }
       );

@@ -6,7 +6,7 @@ import Commuters from "@/components/shuttle-companies/Commuters";
 import WhoBenefits from "@/components/shuttle-companies/WhoBenefits";
 import WhyChoose from "@/components/shuttle-companies/WhyChoose";
 import ProductDemo from "@/components/shuttle-companies/ProductDemo";
-import ClientShowcase from "@/components/shuttle-companies/ClientShowcase";
+import LogoTrustSection from "@/components/clients/LogoTrustSection";
 import SpecializedSystems from "@/components/shuttle-companies/SpecializedSystems";
 import PaymentGateway from "@/components/shuttle-companies/PaymentGateway";
 import FinalCTA from "@/components/shuttle-companies/FinalCTA";
@@ -125,7 +125,7 @@ export default function ShuttleCompaniesPage() {
         <WhoBenefits />
         <WhyChoose />
         <ProductDemo />
-        <ClientShowcase />
+        <LogoTrustSection />
         <SpecializedSystems />
         <PaymentGateway />
         <FinalCTA />

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
+import { gsap, ScrollTrigger, ScrollSmoother, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineArrowRight,
@@ -128,8 +128,7 @@ function FeaturePanel({
                     scrollTrigger: {
                         trigger: wrapper,
                         start: "top 80%",
-                        toggleActions: "play none none none",
-                        once: true,
+                        ...playOnce,
                     },
                 });
                 if (text) tl.fromTo(text, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0);

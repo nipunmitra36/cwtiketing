@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineSearch,
@@ -75,8 +75,7 @@ export default function TaxiJourney() {
             scrollTrigger: {
               trigger: el,
               start: "top 80%",
-              toggleActions: "play none none none",
-              once: true,
+              ...playOnce,
             },
           }
         );

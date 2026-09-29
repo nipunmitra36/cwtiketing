@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
+import { gsap, ScrollTrigger, ScrollSmoother, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineTicket,
@@ -217,8 +217,7 @@ export default function FeatureSection() {
                         scrollTrigger: {
                             trigger: section,
                             start: "top 88%",
-                            toggleActions: "play none none none",
-                            once: true,
+                            ...playOnce,
                         },
                     }
                 );
@@ -235,8 +234,7 @@ export default function FeatureSection() {
                     scrollTrigger: {
                         trigger: section,
                         start: "top 82%",
-                        toggleActions: "play none none none",
-                        once: true,
+                        ...playOnce,
                     },
                 }
             );
@@ -260,8 +258,7 @@ export default function FeatureSection() {
                         scrollTrigger: {
                             trigger: section,
                             start: "top 85%",
-                            toggleActions: "play none none none",
-                            once: true,
+                            ...playOnce,
                         },
                     }
                 );
@@ -281,8 +278,7 @@ export default function FeatureSection() {
                         scrollTrigger: {
                             trigger: section,
                             start: "top 82%",
-                            toggleActions: "play none none none",
-                            once: true,
+                            ...playOnce,
                         },
                     }
                 );

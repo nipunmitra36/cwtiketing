@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineDeviceMobile,
@@ -68,6 +68,7 @@ export default function WorkInContext() {
     const colorAvatarRef = useRef<HTMLImageElement>(null);
     const textPanelRef = useRef<HTMLDivElement>(null);
     const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const mobileGridRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         let ctx: gsap.Context | null = null;
@@ -104,18 +105,20 @@ export default function WorkInContext() {
                         gsap.set(whiteAvatarRef.current, { opacity: 1 });
                         gsap.set(glowRef.current, { opacity: 0, scale: 0.8 });
                         gsap.set(textPanelRef.current, { opacity: 0, x: 0, y: 24 });
+                        const tiles = mobileGridRef.current?.children ?? [];
+                        gsap.set(tiles, { opacity: 0, y: 16 });
                         const tl = gsap.timeline({
                             scrollTrigger: {
                                 trigger: stageRef.current,
                                 start: "top 70%",
-                                toggleActions: "play none none none",
-                                once: true,
+                                ...playOnce,
                             },
                         });
                         tl.to(whiteAvatarRef.current, { opacity: 0, duration: 0.8, ease: "power1.inOut" }, 0)
                             .to(colorAvatarRef.current, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 0)
                             .to(glowRef.current, { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }, 0.1)
-                            .to(textPanelRef.current, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 0.45);
+                            .to(tiles, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "power2.out" }, 0.35)
+                            .to(textPanelRef.current, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 0.6);
                         return;
                     }
 
@@ -209,13 +212,13 @@ export default function WorkInContext() {
         <section ref={sectionRef} className="relative bg-gray-50">
             <div
                 ref={stageRef}
-                className="relative mx-auto flex max-w-6xl flex-col justify-center overflow-hidden px-4 pb-16 pt-16 sm:px-6 lg:min-h-screen lg:px-8 lg:pb-0"
+                className="relative mx-auto flex max-w-6xl flex-col justify-center overflow-hidden px-4 py-14 sm:px-6 sm:py-16 lg:min-h-screen lg:px-8 lg:pb-0"
             >
-                <div className="mx-auto mb-8 max-w-xl text-center sm:mb-10 lg:mb-14">
-                    <h2 className="mt-4 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+                <div className="mx-auto mb-6 max-w-xl text-center sm:mb-10 lg:mb-14">
+                    <h2 className="text-balance text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug lg:text-[32px]">
                         Everything about today, in one glance
                     </h2>
-                    <p className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
+                    <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
                         Bookings, routes, and revenue update in real time.
                         <span className="hidden lg:inline"> Scroll to watch it come together.</span>
                     </p>
@@ -250,8 +253,20 @@ export default function WorkInContext() {
                     </div>
 
                     {/* Avatar */}
-                    <div className="relative flex justify-center lg:absolute lg:inset-0 lg:items-end">
-                        <div ref={avatarWrapRef} className="relative aspect-square w-[min(80vw,320px)] sm:w-[380px] lg:h-[min(70vh,680px)] lg:w-[min(70vh,680px)]">
+                    <div className="relative flex justify-center overflow-hidden rounded-3xl border border-gray-200 bg-gradient-to-b from-white to-brand-light/40 pt-8 shadow-[0_1px_2px_rgba(17,17,17,0.04),0_16px_40px_-20px_rgba(17,17,17,0.2)] lg:absolute lg:inset-0 lg:items-end lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-none lg:pt-0 lg:shadow-none">
+                        {/* Phone/tablet floating badges */}
+                        <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/90 px-2.5 py-1 text-[11.5px] font-medium text-text-dark shadow-sm backdrop-blur lg:hidden">
+                            <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                            </span>
+                            Live updates
+                        </span>
+                        <span className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-text-dark px-3 py-1.5 text-[11.5px] font-medium text-white shadow-lg lg:hidden">
+                            <HiOutlineCog className="h-3.5 w-3.5 text-brand" />
+                            6 tools, 1 dashboard
+                        </span>
+                        <div ref={avatarWrapRef} className="relative aspect-square w-[min(66vw,260px)] sm:w-[320px] lg:h-[min(70vh,680px)] lg:w-[min(70vh,680px)]">
                             <div
                                 ref={glowRef}
                                 className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand/30 to-sky-400/20 blur-3xl"
@@ -274,22 +289,42 @@ export default function WorkInContext() {
                         </div>
                     </div>
 
+                    {/* Phone/tablet: the six tools as a grid (desktop shows them floating) */}
+                    <div ref={mobileGridRef} className="mt-3 grid grid-cols-2 gap-2.5 sm:mt-4 sm:grid-cols-3 sm:gap-3 lg:hidden">
+                        {cards.map((card) => {
+                            const Icon = card.icon;
+                            return (
+                                <div
+                                    key={card.title}
+                                    className="flex flex-col gap-2.5 rounded-2xl border border-gray-200 bg-white p-3.5 shadow-[0_1px_2px_rgba(17,17,17,0.04)]"
+                                >
+                                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-light text-brand">
+                                        <Icon className="h-[18px] w-[18px]" />
+                                    </span>
+                                    <p className="text-[13px] font-medium leading-snug text-text-dark">
+                                        {card.title}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
+
                     {/* Payoff copy panel */}
                     <div
                         ref={textPanelRef}
-                        className="relative mx-auto mt-8 flex w-full max-w-md flex-col justify-center opacity-0 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:mt-0 lg:w-[300px] lg:max-w-xs"
+                        className="relative mt-3 flex w-full flex-col justify-center rounded-3xl bg-text-dark p-5 opacity-0 sm:mt-4 sm:p-6 lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:w-[300px] lg:max-w-xs lg:rounded-none lg:bg-transparent lg:p-0"
                     >
-                        <h3 className="text-[20px] font-medium tracking-tight text-text-dark sm:text-2xl">
+                        <h3 className="text-[20px] font-medium tracking-tight text-white sm:text-2xl lg:text-text-dark">
                             Full control
                         </h3>
-                        <p className="mt-2 text-[13.5px] leading-relaxed text-text-muted">
+                        <p className="mt-2 text-[14px] leading-relaxed text-gray-400 lg:text-text-muted">
                             One dashboard replaces the spreadsheets, group chats, and
                             phone calls it used to take to run a fleet.
                         </p>
-                        <ul className="mt-4 space-y-2.5">
+                        <ul className="mt-5 space-y-3 border-t border-white/10 pt-4 lg:mt-4 lg:space-y-2.5 lg:border-0 lg:pt-0">
                             {checklist.map((item) => (
                                 <li key={item} className="flex items-start gap-2.5">
-                                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand">
+                                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand text-white lg:bg-brand-light lg:text-brand">
                                         <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none">
                                             <path
                                                 d="M2 6.2 4.7 9 10 3"
@@ -300,7 +335,7 @@ export default function WorkInContext() {
                                             />
                                         </svg>
                                     </span>
-                                    <span className="text-[12.5px] leading-snug text-text-dark">
+                                    <span className="text-[13.5px] leading-snug text-gray-200 lg:text-[13px] lg:text-text-dark">
                                         {item}
                                     </span>
                                 </li>

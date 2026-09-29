@@ -6,7 +6,7 @@ import CounterBookingTools from "@/components/bus-marketplace/CounterBookingTool
 import PassengerBookingApp from "@/components/bus-marketplace/PassengerBookingApp";
 import WhoBenefits from "@/components/bus-marketplace/WhoBenefits";
 import WhyChoose from "@/components/bus-marketplace/WhyChoose";
-import ClientShowcase from "@/components/bus-marketplace/ClientShowcase";
+import LogoTrustSection from "@/components/clients/LogoTrustSection";
 import SpecializedSystems from "@/components/bus-marketplace/SpecializedSystems";
 import ProductDemo from "@/components/bus-marketplace/ProductDemo";
 import PaymentGateway from "@/components/bus-marketplace/PaymentGateway";
@@ -149,7 +149,7 @@ export default function BusTerminalTicketingSystemPage() {
         <WhoBenefits />
         <WhyChoose />
         <ProductDemo />
-        <ClientShowcase />
+        <LogoTrustSection />
         <SpecializedSystems />
         <PaymentGateway />
         <FinalCTA />

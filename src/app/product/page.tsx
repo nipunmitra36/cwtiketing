@@ -600,23 +600,23 @@ export default function ProductListPage() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex w-full items-center gap-2 sm:w-auto">
                 {/* Mobile search */}
-                <div className="relative lg:hidden">
+                <div className="relative min-w-0 flex-1 sm:flex-none lg:hidden">
                   <HiOutlineSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Search…"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="w-36 rounded-xl border border-gray-200 bg-white py-2 pl-9 pr-3 text-[13px] text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-400"
+                    className="w-full rounded-xl border border-gray-200 bg-white py-2 pl-9 sm:w-36 pr-3 text-[13px] text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-400"
                   />
                 </div>
 
                 <SortDropdown value={sort} onChange={setSort} />
 
                 {/* View toggle */}
-                <div className="flex overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                <div className="flex shrink-0 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
                   {(["grid", "list"] as const).map((v) => (
                     <button
                       key={v}

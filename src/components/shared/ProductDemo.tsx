@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { gsap } from "@/lib/gsap";
+import { gsap, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineCheck,
@@ -389,6 +389,7 @@ export default function ProductDemo({
 }: ProductDemoProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -406,7 +407,7 @@ export default function ProductDemo({
             duration: 0.8,
             stagger: 0.06,
             ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 80%", toggleActions: "play none none none", once: true },
+            scrollTrigger: { trigger: el, start: "top 80%", ...playOnce },
           }
         );
       }, sectionRef);
@@ -422,13 +423,24 @@ export default function ProductDemo({
     gsap.fromTo(panelRef.current, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" });
   }, [active]);
 
+  // Phones: keep the selected tab centred in the horizontally scrolling rail
+  useEffect(() => {
+    const rail = railRef.current;
+    const btn = rail?.children[active] as HTMLElement | undefined;
+    if (!rail || !btn || rail.scrollWidth <= rail.clientWidth) return;
+    rail.scrollTo({
+      left: btn.offsetLeft - (rail.clientWidth - btn.offsetWidth) / 2,
+      behavior: "smooth",
+    });
+  }, [active]);
+
   const tab = tabs[active];
 
   return (
     <section
       ref={sectionRef}
       id="see-the-platform"
-      className="relative overflow-hidden bg-gray-50 py-16 lg:py-24"
+      className="relative overflow-hidden bg-gray-50 py-14 sm:py-16 lg:py-24"
     >
       <div className="pointer-events-none absolute -left-40 top-40 h-96 w-96 rounded-full bg-brand-light blur-3xl" />
 
@@ -439,19 +451,20 @@ export default function ProductDemo({
           </p>
           <h2
             data-gsap
-            className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+            className="mt-3 text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug lg:text-[32px]"
           >
             {heading}
           </h2>
-          <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
+          <p data-gsap className="mx-auto mt-4 max-w-2xl text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
             {description}
           </p>
         </div>
 
         {/* Tab rail */}
         <div
+          ref={railRef}
           data-gsap
-          className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+          className="-mx-4 flex scroll-px-4 snap-x gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
         >
           {tabs.map((t, i) => {
             const Icon = t.icon;
@@ -462,7 +475,7 @@ export default function ProductDemo({
                 type="button"
                 onClick={() => setActive(i)}
                 aria-pressed={isActive}
-                className={`inline-flex shrink-0 snap-start items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-[12.5px] font-semibold transition-all duration-300 ${
+                className={`inline-flex shrink-0 snap-start items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2.5 text-[13px] font-semibold sm:py-2 sm:text-[12.5px] transition-all duration-300 ${
                   isActive
                     ? "border-brand bg-brand text-white shadow-md shadow-brand/30"
                     : "border-gray-200 bg-white text-text-muted hover:border-brand/30 hover:text-brand"
@@ -476,24 +489,24 @@ export default function ProductDemo({
         </div>
 
         {/* Panel — two-column: content left, auto-sliding showcase right */}
-        <div ref={panelRef} className="mt-8 grid gap-8 sm:mt-10 sm:gap-10 lg:grid-cols-2 lg:gap-16">
-          <div>
+        <div ref={panelRef} className="mt-6 grid items-center gap-8 sm:mt-10 sm:gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="order-last min-w-0 lg:order-none">
             <h3 className="text-[20px] font-medium tracking-tight text-text-dark sm:text-[24px]">
               {tab.title}
             </h3>
-            <p className="mt-3 max-w-md text-[13.5px] leading-relaxed text-text-muted">{tab.desc}</p>
-            <ul className="mt-6 space-y-2.5">
+            <p className="mt-3 text-[14px] leading-relaxed text-text-muted lg:max-w-md">{tab.desc}</p>
+            <ul className="mt-5 grid gap-x-6 gap-y-2.5 sm:mt-6 sm:grid-cols-2 lg:grid-cols-1">
               {tab.bullets.map((b) => (
                 <li key={b} className="flex items-start gap-2.5">
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-brand text-white">
                     <HiOutlineCheck className="h-3 w-3" />
                   </span>
-                  <span className="text-[13.5px] leading-snug text-text-body">{b}</span>
+                  <span className="text-[14px] leading-snug text-text-body">{b}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="mx-auto w-full max-w-xl lg:max-w-none">
+          <div className="mx-auto w-full min-w-0 max-w-xl lg:max-w-none">
             <ProductShowcase key={tab.num} tab={tab} />
           </div>
         </div>

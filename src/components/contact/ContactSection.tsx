@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineMail,
@@ -93,8 +93,7 @@ export default function ContactSection() {
                             scrollTrigger: {
                                 trigger: sectionRef.current,
                                 start: "top 80%",
-                                toggleActions: "play none none none",
-                                once: true,
+                                ...playOnce,
                             },
                         }
                     );
@@ -115,8 +114,7 @@ export default function ContactSection() {
                                 scrollTrigger: {
                                     trigger: sectionRef.current,
                                     start: "top 75%",
-                                    toggleActions: "play none none none",
-                                    once: true,
+                                    ...playOnce,
                                 },
                             }
                         );

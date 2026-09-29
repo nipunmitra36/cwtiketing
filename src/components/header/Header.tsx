@@ -175,6 +175,20 @@ const mobileItemVariants: Variants = {
   }),
 };
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function scrollToHash(href: string) {
+  const hash = href.split("#")[1];
+  if (!hash) return;
+  const smoother = ScrollSmoother.get();
+  if (smoother) smoother.scrollTo(`#${hash}`, true);
+  else document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+}
+
+function isActive(item: NavItem, pathname: string) {
+  const hrefs = item.dropdown ? item.dropdown.map((d) => d.href) : [item.href!];
+  return hrefs.some((h) => !h.includes("#") && (pathname === h || pathname.startsWith(`${h}/`)));
+}
+
 // ── Dropdown Menu (desktop) ───────────────────────────────────────────────────
 function DesktopDropMenu({
   items,
@@ -183,6 +197,7 @@ function DesktopDropMenu({
   items: DropMenuItem[];
   align?: "left" | "right";
 }) {
+  const pathname = usePathname();
   const notchClass =
     align === "right"
       ? "right-6"
@@ -204,7 +219,9 @@ function DesktopDropMenu({
           <Link
             key={item.href}
             href={item.href}
-            className="group flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-brand-light"
+            aria-current={pathname === item.href ? "page" : undefined}
+            className={`group flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:bg-brand-light ${pathname === item.href ? "bg-brand-light" : ""
+              }`}
           >
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 transition-colors group-hover:bg-brand group-hover:text-white">
               {item.icon}
@@ -230,18 +247,16 @@ function DesktopNavItem({ item, align }: { item: NavItem; align: "left" | "right
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isHome = usePathname() === "/";
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const active = isActive(item, pathname);
 
-  const scrollToHash = (href: string) => {
-    const hash = href.split("#")[1];
-    if (!hash) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(hash, true);
-    else {
-      const el = document.getElementById(hash);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // Close the dropdown after navigating to one of its pages
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
+    setOpen(false);
+  }
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -249,8 +264,15 @@ function DesktopNavItem({ item, align }: { item: NavItem; align: "left" | "right
         setOpen(false);
       }
     };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("keydown", onKey);
+    };
   }, []);
 
   useEffect(() => {
@@ -259,8 +281,8 @@ function DesktopNavItem({ item, align }: { item: NavItem; align: "left" | "right
     };
   }, []);
 
-  const linkClass =
-    "flex items-center gap-1 text-[13.5px] font-medium text-text-body transition-colors duration-150 hover:text-text-dark";
+  const linkClass = `flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-[13.5px] font-medium transition-colors duration-150 hover:text-brand xl:px-3 ${active ? "text-brand" : "text-text-body"
+    }`;
 
   if (item.dropdown) {
     return (
@@ -331,8 +353,10 @@ function WhatsAppButton({ className = "" }: { className?: string }) {
 // ── Main Header ───────────────────────────────────────────────────────────────
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const isHome = usePathname() === "/";
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -340,26 +364,51 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The mobile menu only exists below lg (1024px)
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth >= 768) setMobileOpen(false);
+      if (window.innerWidth >= 1024) setMobileOpen(false);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const closeMobile = () => setMobileOpen(false);
+  // Close on navigation (including browser back/forward)
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
+    setMobileOpen(false);
+  }
 
-  const scrollToHash = (href: string) => {
-    const hash = href.split("#")[1];
-    if (!hash) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(hash, true);
-    else {
-      const el = document.getElementById(hash);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+  // Opening expands the group that contains the current page
+  const toggleMobile = () => {
+    if (!mobileOpen) {
+      const current = NAV_ITEMS.find((item) => item.dropdown && isActive(item, pathname));
+      setOpenGroup(current?.label ?? null);
     }
+    setMobileOpen((p) => !p);
   };
+
+  // While open: freeze page scroll and close on Escape
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const smoother = ScrollSmoother.get();
+    smoother?.paused(true);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      smoother?.paused(false);
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [mobileOpen]);
+
+  const closeMobile = () => setMobileOpen(false);
 
   const handleMobileNav = (href: string) => {
     if (isHome && href.includes("#")) {
@@ -369,27 +418,43 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full px-3 pt-3 sm:px-4 sm:pt-5">
+    <header className="fixed inset-x-0 top-0 z-50 w-full px-3 pt-3 sm:px-4 sm:pt-4 lg:pt-5">
+      {/* Backdrop — tap outside the mobile menu to close it */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={closeMobile}
+            aria-hidden="true"
+            className="fixed inset-0 -z-10 bg-gray-900/20 backdrop-blur-[2px] lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
       <div
-        className={`mx-auto flex h-14 w-full max-w-7xl items-center justify-between rounded-full border pl-3 pr-2 transition-all duration-300 sm:pl-4 sm:pr-3 ${scrolled
+        className={`mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-3 rounded-full border pl-4 pr-2 transition-all duration-300 lg:h-[60px] lg:pl-5 ${scrolled
           ? "border-gray-200 bg-white shadow-lg shadow-gray-900/10"
           : "border-gray-100 bg-white shadow-md shadow-gray-900/5"
           }`}
       >
         {/* ── Brand ── */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" aria-label="CWTicketing home" className="flex shrink-0 items-center gap-2">
           <Image
             src="/media/logo.png"
             alt="CWTicketing"
             width={130}
             height={32}
-            className="h-8 w-auto"
+            className="h-7 w-auto sm:h-8"
             priority
           />
         </Link>
 
         {/* ── Desktop Nav ── */}
-        <nav className="hidden items-center gap-6 xl:gap-7 lg:flex">
+        <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1.5">
           {NAV_ITEMS.map((item, i) => (
             <DesktopNavItem
               key={item.label}
@@ -400,8 +465,8 @@ export default function Header() {
         </nav>
 
         {/* ── Desktop CTA ── */}
-        <div className="hidden items-center gap-2.5 lg:flex">
-          <WhatsAppButton />
+        <div className="hidden shrink-0 items-center gap-2 lg:flex xl:gap-2.5">
+          <WhatsAppButton className="lg:px-3 xl:px-4" />
           <Link
             href="/contact"
             className="rounded-full bg-brand px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-brand/30 transition-all hover:bg-brand-hover active:scale-95"
@@ -410,12 +475,20 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* ── Mobile toggle ── */}
-        <button
-          onClick={() => setMobileOpen((p) => !p)}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-text-body transition-colors hover:border-gray-300 hover:text-text-dark lg:hidden"
-          aria-label="Toggle menu"
+        {/* ── Mobile actions ── */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            href="/contact"
+            className="hidden rounded-full bg-brand px-4 py-2 text-[13px] font-semibold text-white shadow-md shadow-brand/30 transition-colors hover:bg-brand-hover sm:inline-flex"
+          >
+            Book Demo
+          </Link>
+          <button
+          onClick={toggleMobile}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-text-body transition-colors hover:border-gray-300 hover:text-text-dark"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
         >
           <AnimatePresence mode="wait" initial={false}>
             {mobileOpen ? (
@@ -440,86 +513,134 @@ export default function Header() {
               </motion.span>
             )}
           </AnimatePresence>
-        </button>
+          </button>
+        </div>
       </div>
 
       {/* ── Mobile Menu — floating panel under the pill ── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-menu"
             variants={mobileMenuVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="mx-auto mt-2 max-w-7xl overflow-hidden rounded-[28px] border border-gray-200 bg-white shadow-2xl shadow-gray-900/10 lg:hidden"
+            className="mx-auto mt-2 max-w-7xl overflow-hidden rounded-[24px] border border-gray-200 bg-white shadow-2xl shadow-gray-900/10 sm:mr-0 sm:max-w-sm lg:hidden"
           >
-            <nav className="space-y-0.5 px-4 py-4">
-              {NAV_ITEMS.map((item, i) => (
+            {/* Scrolls inside itself so every item is reachable on short screens */}
+            <div className="max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain">
+              <nav aria-label="Mobile" className="px-3 pb-3 pt-2">
+                {NAV_ITEMS.map((item, i) => {
+                  const active = isActive(item, pathname);
+                  const expanded = openGroup === item.label;
+                  return (
+                    <motion.div
+                      key={item.label}
+                      custom={i}
+                      variants={mobileItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="border-b border-gray-100 last:border-b-0"
+                    >
+                      {item.dropdown ? (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => setOpenGroup(expanded ? null : item.label)}
+                            aria-expanded={expanded}
+                            className={`flex w-full items-center justify-between rounded-xl px-3 py-3.5 text-left text-[15px] font-medium transition-colors hover:bg-gray-50 ${active ? "text-brand" : "text-text-dark"
+                              }`}
+                          >
+                            {item.label}
+                            <motion.span
+                              animate={{ rotate: expanded ? 180 : 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="text-gray-400"
+                            >
+                              <HiOutlineChevronDown className="h-4 w-4" />
+                            </motion.span>
+                          </button>
+                          <AnimatePresence initial={false}>
+                            {expanded && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.22, ease: EASE }}
+                                className="overflow-hidden"
+                              >
+                                <div className="space-y-0.5 pb-2">
+                                  {item.dropdown.map((d) => {
+                                    const current = pathname === d.href;
+                                    return (
+                                      <Link
+                                        key={d.href}
+                                        href={d.href}
+                                        onClick={() => handleMobileNav(d.href)}
+                                        aria-current={current ? "page" : undefined}
+                                        className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-brand-light ${current ? "bg-brand-light" : ""
+                                          }`}
+                                      >
+                                        <span
+                                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors group-hover:bg-brand group-hover:text-white ${current ? "bg-brand text-white" : "bg-gray-100 text-gray-500"
+                                            }`}
+                                        >
+                                          {d.icon}
+                                        </span>
+                                        <span className="min-w-0 flex-1">
+                                          <span
+                                            className={`block text-[14px] font-medium leading-tight ${current ? "text-brand" : "text-text-body"
+                                              }`}
+                                          >
+                                            {d.label}
+                                          </span>
+                                          <span className="mt-0.5 block text-[12px] leading-tight text-text-muted">
+                                            {d.desc}
+                                          </span>
+                                        </span>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </>
+                      ) : (
+                        <Link
+                          href={item.href!}
+                          onClick={() => handleMobileNav(item.href!)}
+                          aria-current={active ? "page" : undefined}
+                          className={`block rounded-xl px-3 py-3.5 text-[15px] font-medium transition-colors hover:bg-gray-50 ${active ? "text-brand" : "text-text-dark"
+                            }`}
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </motion.div>
+                  );
+                })}
+
+                {/* Mobile CTAs */}
                 <motion.div
-                  key={item.label}
-                  custom={i}
+                  custom={NAV_ITEMS.length}
                   variants={mobileItemVariants}
                   initial="hidden"
                   animate="visible"
+                  className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-1"
                 >
-                  {item.dropdown ? (
-                    <div>
-                      <p className="px-3 pb-1 pt-3 text-[11px] font-semibold uppercase tracking-widest text-text-muted">
-                        {item.label}
-                      </p>
-                      <div className="space-y-0.5">
-                        {item.dropdown.map((d) => (
-                          <Link
-                            key={d.href}
-                            href={d.href}
-                            onClick={() => handleMobileNav(d.href)}
-                            className="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-gray-50"
-                          >
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 transition-colors group-hover:bg-brand group-hover:text-white">
-                              {d.icon}
-                            </span>
-                            <span className="min-w-0 flex-1">
-                              <span className="block text-[13px] font-medium text-text-body">
-                                {d.label}
-                              </span>
-                              <span className="block text-[11px] text-text-muted">
-                                {d.desc}
-                              </span>
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <Link
-                      href={item.href!}
-                      onClick={() => handleMobileNav(item.href!)}
-                      className="block rounded-xl px-3 py-2.5 text-[14px] font-medium text-text-body transition-colors hover:bg-gray-50 hover:text-text-dark"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
+                  <WhatsAppButton className="w-full justify-center px-3" />
+                  <Link
+                    href="/contact"
+                    onClick={closeMobile}
+                    className="flex items-center justify-center rounded-full bg-brand px-3 py-2.5 text-center text-[13.5px] font-semibold text-white transition-colors hover:bg-brand-hover sm:hidden"
+                  >
+                    Book Demo
+                  </Link>
                 </motion.div>
-              ))}
-
-              {/* Mobile CTAs */}
-              <motion.div
-                custom={NAV_ITEMS.length}
-                variants={mobileItemVariants}
-                initial="hidden"
-                animate="visible"
-                className="!mt-4 flex flex-col gap-2 border-t border-gray-100 pt-4"
-              >
-                <WhatsAppButton className="w-full justify-center" />
-                <Link
-                  href="/contact"
-                  onClick={closeMobile}
-                  className="w-full rounded-full bg-brand px-4 py-2.5 text-center text-[13.5px] font-semibold text-white transition-colors hover:bg-brand-hover"
-                >
-                  Book Demo
-                </Link>
-              </motion.div>
-            </nav>
+              </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
