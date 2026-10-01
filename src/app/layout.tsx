@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { vanillaSans } from "@/fonts/vanillaSans";
 import { Poppins, Montserrat, Google_Sans } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 import Providers from "./providers";
 import GSAPProvider from "../components/GSAPProvider";
@@ -26,8 +27,6 @@ const googleSans = Google_Sans({
   variable: "--font-google-sans",
 });
 
-
-const SITE_URL = "https://www.cwticketingsystem.com";
 
 const GA_MEASUREMENT_ID = "G-MR7P7F18JZ";
 const CLARITY_PROJECT_ID = "r0vk6a74tt";

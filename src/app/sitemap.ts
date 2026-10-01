@@ -1,60 +1,63 @@
 import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/lib/site";
 import { POSTS } from "./blog/posts";
 
-const SITE_URL = "https://www.cwticketingsystem.com";
+type ChangeFrequency = NonNullable<
+  MetadataRoute.Sitemap[number]["changeFrequency"]
+>;
+
+interface PageRoute {
+  path: string;
+  changeFrequency: ChangeFrequency;
+  priority: number;
+}
+
+// Paths that must never reach the sitemap: staging leftovers and the
+// e-commerce template demo that still ships with this starter.
+const EXCLUDED_PREFIXES = ["/product", "/products", "/industries", "/solutions"];
+
+const pageRoutes: PageRoute[] = [
+  // ── Highest-value commercial pages ──
+  { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/bus-ticketing-system", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/intercity-bus-booking-software", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/bus-terminal-ticketing-system", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/shuttle-booking-system", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/online-taxi-booking-system", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/event-ticketing", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/parcel-management-system", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/pricing", changeFrequency: "weekly", priority: 0.85 },
+  { path: "/features", changeFrequency: "monthly", priority: 0.8 },
+
+  // ── Supporting content ──
+  { path: "/blog", changeFrequency: "daily", priority: 0.8 },
+  { path: "/about", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
+
+  // ── Legal ──
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1 },
-    {
-      url: `${SITE_URL}/bus-ticketing-system`,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/event-ticketing`,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/parcel-management-system`,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/online-taxi-booking-system`,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    { url: `${SITE_URL}/features`, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/pricing`, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/about`, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/contact`, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/blog`, changeFrequency: "weekly", priority: 0.7 },
-    {
-      url: `${SITE_URL}/shuttle-booking-system`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/bus-terminal-ticketing-system`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/intercity-bus-booking-software`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${SITE_URL}/terms`, changeFrequency: "yearly", priority: 0.3 },
-  ];
+  const staticRoutes: MetadataRoute.Sitemap = pageRoutes
+    .filter(({ path }) => !EXCLUDED_PREFIXES.some((p) => path.startsWith(p)))
+    .map(({ path, changeFrequency, priority }) => ({
+      url: absoluteUrl(path),
+      changeFrequency,
+      priority,
+    }));
 
+  // `lastModified` is omitted on purpose: these pages have no tracked revision
+  // date, and a build-time `new Date()` would tell Google they all changed on
+  // every deploy. Google treats lastmod as a hint, so omitting it is safer than
+  // reporting a false one.
   const blogRoutes: MetadataRoute.Sitemap = POSTS.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
+    url: absoluteUrl(`/blog/${post.slug}`),
     lastModified: new Date(post.date),
     changeFrequency: "monthly",
-    priority: 0.6,
+    priority: post.featured ? 0.7 : 0.6,
+    images: [absoluteUrl(post.image)],
   }));
 
   return [...staticRoutes, ...blogRoutes];
