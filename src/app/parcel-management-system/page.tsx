@@ -11,7 +11,7 @@ import ParcelCTA from "@/components/parcel-management/ParcelCTA";
 import { parcelFaqs } from "@/components/parcel-management/faq-data";
 
 const SITE_URL = "https://www.cwticketingsystem.com";
-const PAGE_URL = "/solutions/parcel-management-system";
+const PAGE_URL = "/parcel-management-system";
 
 const TITLE = "Parcel Management System | Complete Parcel Management Solution";
 const DESCRIPTION =
@@ -67,10 +67,9 @@ const jsonLd = {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: "Solutions", item: `${SITE_URL}/solutions` },
         {
           "@type": "ListItem",
-          position: 3,
+          position: 2,
           name: "Parcel Management System",
           item: `${SITE_URL}${PAGE_URL}`,
         },

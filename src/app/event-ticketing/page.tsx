@@ -9,7 +9,7 @@ import EventCTA from "@/components/event-ticketing/EventCTA";
 import { eventFaqs } from "@/components/event-ticketing/event-faq-data";
 
 const SITE_URL = "https://www.cwticketingsystem.com";
-const PAGE_URL = "/solutions/event-ticketing";
+const PAGE_URL = "/event-ticketing";
 
 const TITLE =
   "Event Ticketing System | Online Event Ticket Booking Software";
@@ -70,12 +70,6 @@ const jsonLd = {
         {
           "@type": "ListItem",
           position: 2,
-          name: "Solutions",
-          item: `${SITE_URL}/solutions`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
           name: "Event Ticketing System",
           item: `${SITE_URL}${PAGE_URL}`,
         },

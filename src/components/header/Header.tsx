@@ -53,19 +53,19 @@ const NAV_ITEMS: NavItem[] = [
       {
         label: "Taxi Booking System",
         desc: "Dispatch, tracking & fares",
-        href: "/solutions/online-taxi-booking-system",
+        href: "/online-taxi-booking-system",
         icon: <FaCarSide className="h-4.5 w-4.5" />,
       },
       {
         label: "Event Ticketing",
         desc: "Concerts, conferences & more",
-        href: "/solutions/event-ticketing",
+        href: "/event-ticketing",
         icon: <HiOutlineCalendar className="h-5 w-5" />,
       },
       {
         label: "Parcel Management System",
         desc: "Parcel booking, tracking & COD",
-        href: "/solutions/parcel-management-system",
+        href: "/parcel-management-system",
         icon: <HiOutlineCube className="h-5 w-5" />,
       },
     ],
@@ -76,21 +76,21 @@ const NAV_ITEMS: NavItem[] = [
       {
         label: "Bus Operators",
         desc: "Intercity & coach lines",
-        href: "/industries/intercity-bus-booking-software",
+        href: "/intercity-bus-booking-software",
         icon: <HiOutlineTruck className="h-5 w-5" />,
       },
 
       {
         label: "Shuttle Companies",
         desc: "Airport & point-to-point shuttles",
-        href: "/industries/shuttle-booking-system",
+        href: "/shuttle-booking-system",
         icon: <FaShuttleVan className="h-4.5 w-4.5" />,
       },
 
       {
         label: "Travel Agencies",
         desc: "Multi-operator ticket retail",
-        href: "/industries/bus-terminal-ticketing-system",
+        href: "/bus-terminal-ticketing-system",
         icon: <FaSuitcaseRolling className="h-4.5 w-4.5" />,
       },
 

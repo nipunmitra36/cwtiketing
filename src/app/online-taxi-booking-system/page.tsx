@@ -11,7 +11,7 @@ import TaxiCTA from "@/components/taxi-booking/TaxiCTA";
 import { taxiFaqs } from "@/components/taxi-booking/faq-data";
 
 const SITE_URL = "https://www.cwticketingsystem.com";
-const PAGE_URL = "/solutions/online-taxi-booking-system";
+const PAGE_URL = "/online-taxi-booking-system";
 
 const TITLE = "Online Taxi Booking System | Taxi Booking Software";
 const DESCRIPTION =
@@ -67,10 +67,9 @@ const jsonLd = {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: "Solutions", item: `${SITE_URL}/solutions` },
         {
           "@type": "ListItem",
-          position: 3,
+          position: 2,
           name: "Online Taxi Booking System",
           item: `${SITE_URL}${PAGE_URL}`,
         },

@@ -12,17 +12,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/solutions/event-ticketing`,
+      url: `${SITE_URL}/event-ticketing`,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/solutions/parcel-management-system`,
+      url: `${SITE_URL}/parcel-management-system`,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/solutions/online-taxi-booking-system`,
+      url: `${SITE_URL}/online-taxi-booking-system`,
       changeFrequency: "weekly",
       priority: 0.9,
     },
@@ -32,15 +32,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/contact`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/blog`, changeFrequency: "weekly", priority: 0.7 },
     {
-      url: `${SITE_URL}/industries/shuttle-booking-system`,
+      url: `${SITE_URL}/shuttle-booking-system`,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/industries/bus-terminal-ticketing-system`,
+      url: `${SITE_URL}/bus-terminal-ticketing-system`,
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${SITE_URL}/intercity-bus-booking-software`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/terms`, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const blogRoutes: MetadataRoute.Sitemap = POSTS.map((post) => ({

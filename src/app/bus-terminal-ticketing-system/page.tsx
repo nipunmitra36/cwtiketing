@@ -14,7 +14,7 @@ import FinalCTA from "@/components/bus-marketplace/FinalCTA";
 import Faq from "@/components/bus-marketplace/Faq";
 import { marketplaceFaqs } from "@/components/bus-marketplace/faq-data";
 
-const PAGE_URL = "/industries/bus-terminal-ticketing-system";
+const PAGE_URL = "/bus-terminal-ticketing-system";
 
 const TITLE = "Bus Terminal Ticketing System | Bus Booking Marketplace Software";
 const DESCRIPTION =
@@ -71,12 +71,6 @@ const jsonLd = {
         {
           "@type": "ListItem",
           position: 2,
-          name: "Industries",
-          item: "https://www.cwticketingsystem.com/industries",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
           name: "Bus Terminal Ticketing System",
           item: `https://www.cwticketingsystem.com${PAGE_URL}`,
         },

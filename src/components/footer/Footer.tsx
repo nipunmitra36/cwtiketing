@@ -8,12 +8,25 @@ import {
   HiOutlinePhone,
   HiOutlineLocationMarker,
 } from "react-icons/hi";
-import { FaWhatsapp } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaLinkedinIn,
+  FaPinterestP,
+} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface FooterLink {
   label: string;
   href: string;
+}
+
+interface SocialLink extends FooterLink {
+  icon: React.ReactNode;
+  hoverBg: string;
 }
 
 interface FooterSection {
@@ -50,10 +63,43 @@ const FOOTER_LINKS: FooterSection[] = [
   },
 ];
 
-const SOCIAL_LINKS: FooterLink[] = [
-  { label: "Facebook", href: "#" },
-  { label: "LinkedIn", href: "#" },
-  { label: "GitHub", href: "#" },
+const SOCIAL_LINKS: SocialLink[] = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/cwticketingsystem/",
+    icon: <FaFacebookF className="h-4 w-4" />,
+    hoverBg: "hover:bg-[#1877F2]",
+  },
+  {
+    label: "X (Twitter)",
+    href: "https://twitter.com/CwTicket",
+    icon: <FaXTwitter className="h-4 w-4" />,
+    hoverBg: "hover:bg-black",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/cw_ticketing/",
+    icon: <FaInstagram className="h-4 w-4" />,
+    hoverBg: "hover:bg-[#E4405F]",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/channel/UCaKRQhi40r6Q7CQ2tDg82pQ",
+    icon: <FaYoutube className="h-4 w-4" />,
+    hoverBg: "hover:bg-[#FF0000]",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/cwticketingsystem/",
+    icon: <FaLinkedinIn className="h-4 w-4" />,
+    hoverBg: "hover:bg-[#0A66C2]",
+  },
+  {
+    label: "Pinterest",
+    href: "https://www.pinterest.com/cwticketing/",
+    icon: <FaPinterestP className="h-4 w-4" />,
+    hoverBg: "hover:bg-[#E60023]",
+  },
 ];
 
 // ── Sub-components ───────────────────────────────────────────────────────────
@@ -168,16 +214,18 @@ function LinkColumn({ section }: { section: FooterSection }) {
   );
 }
 
-function SocialLink({ label, href }: FooterLink) {
+function SocialIconLink({ label, href, icon, hoverBg }: SocialLink) {
   return (
-    <Link
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
       href={href}
       aria-label={label}
-      className="group inline-flex h-9 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 text-[11px] font-medium text-gray-400 transition-all duration-200 hover:border-brand/50 hover:bg-brand/15 hover:text-white active:scale-95"
+      title={label}
+      className={`group flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-all duration-200 hover:border-transparent hover:text-white active:scale-95 ${hoverBg}`}
     >
-      {label}
-      <HiOutlineArrowRight className="h-3 w-3 opacity-40 transition-all duration-200 group-hover:text-brand group-hover:opacity-100" />
-    </Link>
+      {icon}
+    </a>
   );
 }
 
@@ -237,7 +285,6 @@ export default function Footer() {
             {[
               { label: "Privacy", href: "/privacy" },
               { label: "Terms", href: "/terms" },
-              { label: "Cookies", href: "#" },
             ].map(({ label, href }) => (
               <Link
                 key={label}
@@ -249,9 +296,9 @@ export default function Footer() {
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {SOCIAL_LINKS.map((s) => (
-              <SocialLink key={s.label} {...s} />
+              <SocialIconLink key={s.label} {...s} />
             ))}
           </div>
         </div>

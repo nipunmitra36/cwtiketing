@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { vanillaSans } from "@/fonts/vanillaSans";
 import { Poppins, Montserrat, Google_Sans } from "next/font/google";
 import "./globals.css";
@@ -27,6 +28,35 @@ const googleSans = Google_Sans({
 
 
 const SITE_URL = "https://www.cwticketingsystem.com";
+
+const GA_MEASUREMENT_ID = "G-MR7P7F18JZ";
+const CLARITY_PROJECT_ID = "r0vk6a74tt";
+const IDESK_CHAT_ACCOUNT = "1720436169000";
+const IDESK_CHAT_CSS = "https://static.idesk360.com/chat/stylesheet.css";
+const IDESK_CHAT_BUNDLE = "https://static.idesk360.com/chat/bundle.js";
+
+const IDESK_CHAT_SCRIPT = `(function (d, w) {
+  if (w.$_iDesk_Web_Chat_API) return;
+  var r = (w.$_iDesk_Web_Chat_API = function (c) {
+    r._.push(c);
+  });
+  r._ = [];
+  w.__iDeskWebChat_account = "${IDESK_CHAT_ACCOUNT}";
+  w.__iDeskWebChat_version = 2;
+  var link = d.createElement("link");
+  link.href = "${IDESK_CHAT_CSS}";
+  link.rel = "stylesheet";
+  d.head.appendChild(link);
+  var webchat = d.createElement("div");
+  webchat.setAttribute("id", "webchat");
+  d.body.appendChild(webchat);
+  var rc = d.createElement("script");
+  rc.type = "text/javascript";
+  rc.async = true;
+  rc.src = "${IDESK_CHAT_BUNDLE}";
+  var s = d.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(rc, s);
+})(document, window);`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -89,6 +119,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+
+  verification: {
+    google: "J6ELoOXH34EA6ONzlcHBBg24vgZf2lWz29QyFMh4Kw4",
+  },
 };
 export default function RootLayout({
   children,
@@ -107,6 +141,28 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans" suppressHydrationWarning>
+        {/* Microsoft Clarity */}
+        <Script id="clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`}
+        </Script>
+
+        {/* Google tag (gtag.js) */}
+        <Script
+          id="ga-src"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-config" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+        </Script>
+
         <GSAPProvider>
           <Providers>
             <Header />
@@ -119,6 +175,11 @@ export default function RootLayout({
           </Providers>
         </GSAPProvider>
         <BackToTop />
+
+        {/* iDesk360 Live Chat */}
+        <Script id="idesk-chat" strategy="afterInteractive">
+          {IDESK_CHAT_SCRIPT}
+        </Script>
       </body>
     </html>
   );
