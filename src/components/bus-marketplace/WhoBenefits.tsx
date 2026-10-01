@@ -3,15 +3,15 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/cwticketing travel agency/icons";
+const MEDIA = "/media/cwticketing-travel-agency/icons";
 
 const audiences: { image: string; label: string }[] = [
-  { image: `${MEDIA}/transportation-&-logistics-01.svg`, label: "Transportation & Logistics" },
-  { image: `${MEDIA}/travel-&-tourism-01.svg`, label: "Travel & Tourism" },
+  { image: `${MEDIA}/transportation-and-logistics-01.svg`, label: "Transportation & Logistics" },
+  { image: `${MEDIA}/travel-and-tourism-01.svg`, label: "Travel & Tourism" },
   { image: `${MEDIA}/event-management.svg`, label: "Event Management" },
-  { image: `${MEDIA}/courier-&-parcel-services.svg`, label: "Courier & Parcel Services" },
-  { image: `${MEDIA}/government-&-public-servicesicon.svg`, label: "Government & Public Services" },
-  { image: `${MEDIA}/corporate-&-employee-commute.svg`, label: "Corporate & Employee Commute" },
+  { image: `${MEDIA}/courier-and-parcel-services.svg`, label: "Courier & Parcel Services" },
+  { image: `${MEDIA}/government-and-public-servicesicon.svg`, label: "Government & Public Services" },
+  { image: `${MEDIA}/corporate-and-employee-commute.svg`, label: "Corporate & Employee Commute" },
 ];
 
 export default function WhoBenefits() {

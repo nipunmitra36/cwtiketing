@@ -2,17 +2,17 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-const MEDIA = "/media/suttle/Travel Made Effortless";
+const MEDIA = "/media/suttle/travel-made-effortless";
 
 const commuterFeatures: { image: string; label: string }[] = [
-  { image: `${MEDIA}/Location-Based Stop Finde.svg`, label: "Location-Based Stop Finder" },
-  { image: `${MEDIA}/Quick Buy & Ride.svg`, label: "Quick Buy & Ride" },
-  { image: `${MEDIA}/Wallet Integration.svg`, label: "Wallet Integration" },
-  { image: `${MEDIA}/Trip Reminders.svg`, label: "Trip Reminders" },
-  { image: `${MEDIA}/Instant QR Ticket.svg`, label: "Instant QR Ticket" },
-  { image: `${MEDIA}/Live Bus Status Updates.svg`, label: "Live Bus Status Updates" },
-  { image: `${MEDIA}/Save Favorite Routes.svg`, label: "Save Favorite Routes" },
-  { image: `${MEDIA}/Ride History & Rebooking.svg`, label: "Ride History & Rebooking" },
+  { image: `${MEDIA}/location-based-stop-finde.svg`, label: "Location-Based Stop Finder" },
+  { image: `${MEDIA}/quick-buy-and-ride.svg`, label: "Quick Buy & Ride" },
+  { image: `${MEDIA}/wallet-integration.svg`, label: "Wallet Integration" },
+  { image: `${MEDIA}/trip-reminders.svg`, label: "Trip Reminders" },
+  { image: `${MEDIA}/instant-qr-ticket.svg`, label: "Instant QR Ticket" },
+  { image: `${MEDIA}/live-bus-status-updates.svg`, label: "Live Bus Status Updates" },
+  { image: `${MEDIA}/save-favorite-routes.svg`, label: "Save Favorite Routes" },
+  { image: `${MEDIA}/ride-history-and-rebooking.svg`, label: "Ride History & Rebooking" },
 ];
 
 export default function Commuters() {

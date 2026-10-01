@@ -3,7 +3,7 @@
 import ChannelSection from "./ChannelSection";
 
 const MEDIA = "/media/bus-operators";
-const FEATURE_MEDIA = "/media/Reliable Tools for Intercity Terminals";
+const FEATURE_MEDIA = "/media/reliable-tools-for-intercity-terminals";
 
 export default function CounterBookingSection() {
   return (
@@ -16,12 +16,12 @@ export default function CounterBookingSection() {
       illustrationLabel="Staff managing intercity bus bookings on a computer"
       featuresHeading="Reliable Tools for Intercity Terminals"
       features={[
-        { image: `${FEATURE_MEDIA}/Seat Availability Check-01.svg`, label: "Seat Availability Check" },
-        { image: `${FEATURE_MEDIA}/Multi-City Route Access-01.svg`, label: "Multi-City Route Access" },
-        { image: `${FEATURE_MEDIA}/Walk-in Booking & Payment-01.svg`, label: "Walk-in Booking & Payment" },
-        { image: `${FEATURE_MEDIA}/Multi-Agent Role Controls-01.svg`, label: "Multi-Agent Role Controls" },
-        { image: `${FEATURE_MEDIA}/POS Support & Receipt Printing.svg`, label: "POS Support & Receipt Printing" },
-        { image: `${FEATURE_MEDIA}/Real-Time Ticket Cancellation & Refund.svg`, label: "Real-Time Ticket Cancellation & Refund" },
+        { image: `${FEATURE_MEDIA}/seat-availability-check-01.svg`, label: "Seat Availability Check" },
+        { image: `${FEATURE_MEDIA}/multi-city-route-access-01.svg`, label: "Multi-City Route Access" },
+        { image: `${FEATURE_MEDIA}/walk-in-booking-and-payment-01.svg`, label: "Walk-in Booking & Payment" },
+        { image: `${FEATURE_MEDIA}/multi-agent-role-controls-01.svg`, label: "Multi-Agent Role Controls" },
+        { image: `${FEATURE_MEDIA}/pos-support-and-receipt-printing.svg`, label: "POS Support & Receipt Printing" },
+        { image: `${FEATURE_MEDIA}/real-time-ticket-cancellation-and-refund.svg`, label: "Real-Time Ticket Cancellation & Refund" },
       ]}
     />
   );

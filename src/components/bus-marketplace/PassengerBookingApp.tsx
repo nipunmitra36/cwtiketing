@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/cwticketing travel agency/icons";
+const MEDIA = "/media/cwticketing-travel-agency/icons";
 
 const passengerFeatures: { image: string; label: string }[] = [
   { image: `${MEDIA}/smart-search.svg`, label: "Smart Search" },
@@ -11,8 +11,8 @@ const passengerFeatures: { image: string; label: string }[] = [
   { image: `${MEDIA}/real-tIme-availability.svg`, label: "Real-Time Availability" },
   { image: `${MEDIA}/multicurrency.svg`, label: "Multicurrency" },
   { image: `${MEDIA}/price-and-route-comparison.svg`, label: "Price and Route Comparison" },
-  { image: `${MEDIA}/e-tickets-&-notifications.svg`, label: "E-Tickets & Notifications" },
-  { image: `${MEDIA}/rating-&-reviews.svg`, label: "Rating & Reviews" },
+  { image: `${MEDIA}/e-tickets-and-notifications.svg`, label: "E-Tickets & Notifications" },
+  { image: `${MEDIA}/rating-and-reviews.svg`, label: "Rating & Reviews" },
   { image: `${MEDIA}/multilingual-01.svg`, label: "Multilingual" },
   { image: `${MEDIA}/ticket-purchase.svg`, label: "Ticket Purchase" },
   { image: `${MEDIA}/available-payment-gateway.svg`, label: "Available Payment Gateways" },
@@ -43,7 +43,7 @@ export default function PassengerBookingApp() {
           <div data-gsap className="order-1 overflow-hidden rounded-3xl ring-1 ring-gray-100">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/media/cwticketing travel agency/fast-flexible-and-friendly-bus-booking.jpg"
+              src="/media/cwticketing-travel-agency/fast-flexible-and-friendly-bus-booking.jpg"
               alt="Fast, flexible, and friendly bus booking"
               className="h-[260px] w-full object-cover sm:h-[340px] lg:h-[400px]"
             />

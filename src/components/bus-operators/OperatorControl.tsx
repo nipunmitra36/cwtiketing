@@ -3,15 +3,15 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/Who Benefits from Our Inter-City Bus Ticketing System";
+const MEDIA = "/media/who-benefits-from-our-inter-city-bus-ticketing-system";
 
 const smartFeatures: { image: string; label: string }[] = [
-  { image: `${MEDIA}/Bus Operators-01.svg`, label: "Route Optimization" },
-  { image: `${MEDIA}/Travel & Tourism-01.svg`, label: "Long-Haul Fleet Scheduling" },
-  { image: `${MEDIA}/transportation & Logistics-01.svg`, label: "Intercity Stop Management" },
-  { image: `${MEDIA}/Hospitality & Hotels-01.svg`, label: "Passenger Reports & Analytics" },
-  { image: `${MEDIA}/Event Management-01.svg`, label: "Partner Commission Settings" },
-  { image: `${MEDIA}/Courier & Parcel Services-01.svg`, label: "SMS & Email Trip Notifications" },
+  { image: `${MEDIA}/bus-operators-01.svg`, label: "Route Optimization" },
+  { image: `${MEDIA}/travel-and-tourism-01.svg`, label: "Long-Haul Fleet Scheduling" },
+  { image: `${MEDIA}/transportation-and-logistics-01.svg`, label: "Intercity Stop Management" },
+  { image: `${MEDIA}/hospitality-and-hotels-01.svg`, label: "Passenger Reports & Analytics" },
+  { image: `${MEDIA}/event-management-01.svg`, label: "Partner Commission Settings" },
+  { image: `${MEDIA}/courier-and-parcel-services-01.svg`, label: "SMS & Email Trip Notifications" },
 ];
 
 export default function OperatorControl() {

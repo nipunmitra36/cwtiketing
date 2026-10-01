@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/cwticketing travel agency/icons";
+const MEDIA = "/media/cwticketing-travel-agency/icons";
 
 const tools: { image: string; label: string }[] = [
   { image: `${MEDIA}/business-dashboard.svg`, label: "Business Dashboard" },
@@ -37,7 +37,7 @@ export default function OperatorFleetTools() {
           <div data-gsap className="order-1 overflow-hidden rounded-3xl ring-1 ring-gray-100">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/media/cwticketing travel agency/smart-tools-for-modern-bus-operators.jpg"
+              src="/media/cwticketing-travel-agency/smart-tools-for-modern-bus-operators.jpg"
               alt="Smart tools for modern bus operators"
               className="h-[260px] w-full object-cover sm:h-[340px] lg:h-[400px]"
             />

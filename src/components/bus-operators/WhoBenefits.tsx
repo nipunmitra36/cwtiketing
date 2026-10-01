@@ -3,15 +3,15 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/Who Benefits from Our Inter-City Bus Ticketing System";
+const MEDIA = "/media/who-benefits-from-our-inter-city-bus-ticketing-system";
 
 const audiences: { image: string; label: string }[] = [
-  { image: `${MEDIA}/Bus Operators-01.svg`, label: "Bus Operators" },
-  { image: `${MEDIA}/Travel & Tourism-01.svg`, label: "Travel & Tourism" },
-  { image: `${MEDIA}/Event Management-01.svg`, label: "Event Management" },
-  { image: `${MEDIA}/Hospitality & Hotels-01.svg`, label: "Hospitality & Hotels" },
-  { image: `${MEDIA}/Courier & Parcel Services-01.svg`, label: "Courier & Parcel Services" },
-  { image: `${MEDIA}/transportation & Logistics-01.svg`, label: "Transportation & Logistics" },
+  { image: `${MEDIA}/bus-operators-01.svg`, label: "Bus Operators" },
+  { image: `${MEDIA}/travel-and-tourism-01.svg`, label: "Travel & Tourism" },
+  { image: `${MEDIA}/event-management-01.svg`, label: "Event Management" },
+  { image: `${MEDIA}/hospitality-and-hotels-01.svg`, label: "Hospitality & Hotels" },
+  { image: `${MEDIA}/courier-and-parcel-services-01.svg`, label: "Courier & Parcel Services" },
+  { image: `${MEDIA}/transportation-and-logistics-01.svg`, label: "Transportation & Logistics" },
 ];
 
 export default function WhoBenefits() {

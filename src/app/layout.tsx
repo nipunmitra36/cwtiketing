@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { vanillaSans } from "@/fonts/vanillaSans";
 import { Poppins, Montserrat, Google_Sans } from "next/font/google";
@@ -59,6 +59,15 @@ const IDESK_CHAT_SCRIPT = `(function (d, w) {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "CWTicketing",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   title: {
     default: "CWTicketing System | Online Ticket Booking Platform for Transport Operators",
     template: "%s | CWTicketing System",
@@ -123,6 +132,13 @@ export const metadata: Metadata = {
     google: "J6ELoOXH34EA6ONzlcHBBg24vgZf2lWz29QyFMh4Kw4",
   },
 };
+export const viewport: Viewport = {
+  themeColor: "#FF6A1C",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: {

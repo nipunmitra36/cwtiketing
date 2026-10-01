@@ -3,18 +3,18 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/suttle/Built for Bus Stop Agents";
+const MEDIA = "/media/suttle/built-for-bus-stop-agents";
 
 const agentFeatures: { image: string; label: string }[] = [
-  { image: `${MEDIA}/Walk-in Ticket Issuance.svg`, label: "Walk-in Ticket Issuance" },
-  { image: `${MEDIA}/Real-Time Seat Availability.svg`, label: "Real-Time Seat Availability" },
-  { image: `${MEDIA}/QR Code & Contactless Payments.svg`, label: "QR Code & Contactless Payments" },
-  { image: `${MEDIA}/Android POS Integration.svg`, label: "Android POS Integration" },
-  { image: `${MEDIA}/E-Ticket Printing & SMS Receipts.svg`, label: "E-Ticket Printing & SMS Receipts" },
-  { image: `${MEDIA}/Route & Schedule Access.svg`, label: "Route & Schedule Access" },
-  { image: `${MEDIA}/Shift & Sales Tracking.svg`, label: "Shift & Sales Tracking" },
-  { image: `${MEDIA}/Multi-Agent Login with Role Control.svg`, label: "Multi-Agent Login with Role Control" },
-  { image: `${MEDIA}/Fare Collection Reports.svg`, label: "Fare Collection Reports" },
+  { image: `${MEDIA}/walk-in-ticket-issuance.svg`, label: "Walk-in Ticket Issuance" },
+  { image: `${MEDIA}/real-time-seat-availability.svg`, label: "Real-Time Seat Availability" },
+  { image: `${MEDIA}/qr-code-and-contactless-payments.svg`, label: "QR Code & Contactless Payments" },
+  { image: `${MEDIA}/android-pos-integration.svg`, label: "Android POS Integration" },
+  { image: `${MEDIA}/e-ticket-printing-and-sms-receipts.svg`, label: "E-Ticket Printing & SMS Receipts" },
+  { image: `${MEDIA}/route-and-schedule-access.svg`, label: "Route & Schedule Access" },
+  { image: `${MEDIA}/shift-and-sales-tracking.svg`, label: "Shift & Sales Tracking" },
+  { image: `${MEDIA}/multi-agent-login-with-role-control.svg`, label: "Multi-Agent Login with Role Control" },
+  { image: `${MEDIA}/fare-collection-reports.svg`, label: "Fare Collection Reports" },
 ];
 
 export default function CounterTicketing() {

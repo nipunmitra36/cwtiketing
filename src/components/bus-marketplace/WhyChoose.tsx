@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/cwticketing travel agency";
+const MEDIA = "/media/cwticketing-travel-agency";
 
 const reasons: { title: string; desc: string; image: string }[] = [
   {

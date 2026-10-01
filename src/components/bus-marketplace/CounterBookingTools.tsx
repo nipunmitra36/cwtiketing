@@ -3,13 +3,13 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/cwticketing travel agency/icons";
+const MEDIA = "/media/cwticketing-travel-agency/icons";
 
 const counterFeatures: { image: string; label: string }[] = [
   { image: `${MEDIA}/Walk-in Ticket.svg`, label: "Walk-in Ticket Issuance" },
   { image: `${MEDIA}/passenger-manifest.svg`, label: "Passenger Manifest" },
-  { image: `${MEDIA}/route-&-schedule-access.svg`, label: "Route & Schedule Access" },
-  { image: `${MEDIA}/e-ticket-printing-&-sms-confirmation.svg`, label: "E-Ticket Printing & SMS Confirmation" },
+  { image: `${MEDIA}/route-and-schedule-access.svg`, label: "Route & Schedule Access" },
+  { image: `${MEDIA}/e-ticket-printing-and-sms-confirmation.svg`, label: "E-Ticket Printing & SMS Confirmation" },
   { image: `${MEDIA}/booking-by-cash-card-or-qr-code.svg`, label: "Booking by Cash, Card, or QR Code" },
   { image: `${MEDIA}/pos-compatible-interface.svg`, label: "POS-Compatible Interface" },
   { image: `${MEDIA}/fleet-staff-assignment.svg`, label: "Fleet/Staff Assignment" },
@@ -56,7 +56,7 @@ export default function CounterBookingTools() {
           <div data-gsap className="order-1 overflow-hidden rounded-3xl ring-1 ring-gray-100 lg:order-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/media/cwticketing travel agency/sell-smarter-and-serve-faster-with-less-effort.jpg"
+              src="/media/cwticketing-travel-agency/sell-smarter-and-serve-faster-with-less-effort.jpg"
               alt="Sell smarter and serve faster with less effort"
               className="h-[260px] w-full object-cover sm:h-[340px] lg:h-[400px]"
             />

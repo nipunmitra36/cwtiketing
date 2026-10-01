@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const MEDIA = "/media/cwticketing travel agency/icons";
+const MEDIA = "/media/cwticketing-travel-agency/icons";
 
 const controls: { image: string; label: string }[] = [
   { image: `${MEDIA}/operator-onboarding.svg`, label: "Operator Onboarding" },
-  { image: `${MEDIA}/analytics-&-reports.svg`, label: "Analytics & Reports" },
+  { image: `${MEDIA}/analytics-and-reports.svg`, label: "Analytics & Reports" },
   { image: `${MEDIA}/content-management.svg`, label: "Content Management System" },
   { image: `${MEDIA}/dispute-resolution-01.svg`, label: "Dispute Resolution" },
   { image: `${MEDIA}/commission-management.svg`, label: "Commission Management" },
@@ -56,7 +56,7 @@ export default function AdminControlCentre() {
           <div data-gsap className="order-1 overflow-hidden rounded-3xl ring-1 ring-gray-100 lg:order-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/media/cwticketing travel agency/end-to-end-control-for-marketplace-owners.jpg"
+              src="/media/cwticketing-travel-agency/end-to-end-control-for-marketplace-owners.jpg"
               alt="End-to-end control for marketplace owners"
               className="h-[260px] w-full object-cover sm:h-[340px] lg:h-[400px]"
             />

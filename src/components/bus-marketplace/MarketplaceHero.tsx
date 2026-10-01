@@ -54,7 +54,7 @@ export default function MarketplaceHero() {
       <div className="pointer-events-none absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/media/cwticketing travel agency/travel-agencies-hero-image.jpg"
+          src="/media/cwticketing-travel-agency/travel-agencies-hero-image.jpg"
           alt=""
           className="h-full w-full object-cover opacity-60"
         />
