@@ -3,8 +3,6 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
-const logos = ["Metrolane", "TransitOne"];
-
 const stats = [
   { value: "50+", label: "Operators" },
   { value: "10+", label: "Countries" },
@@ -34,20 +32,6 @@ export default function TrustStats() {
         >
           Trusted by transport companies worldwide
         </p>
-
-        <div
-          data-gsap
-          className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-14 gap-y-5"
-        >
-          {logos.map((name) => (
-            <span
-              key={name}
-              className="text-[19px] font-black tracking-tight text-gray-300 transition-colors duration-300 hover:text-text-dark sm:text-[22px]"
-            >
-              {name}
-            </span>
-          ))}
-        </div>
 
         <div
           data-gsap

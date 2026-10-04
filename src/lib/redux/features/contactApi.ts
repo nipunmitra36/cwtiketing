@@ -1,19 +1,18 @@
 import { baseApi } from "@/lib/redux/api/baseApi";
+import { CONTACT_API_BASE_URL, CONTACT_API_ENDPOINT, type ContactPayload } from "@/lib/contact";
 
 export const contactApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getContact: builder.query({
-      query: () => "contact/",
-    }),
-
-    createContact: builder.mutation({
+    createContact: builder.mutation<unknown, ContactPayload>({
       query: (body) => ({
-        url: "contact/store",
+        // Absolute URL: the contacts endpoint lives on a different host than baseApi.
+        url: `${CONTACT_API_BASE_URL}${CONTACT_API_ENDPOINT}`,
         method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
         body,
       }),
     }),
   }),
 });
 
-export const { useGetContactQuery, useCreateContactMutation } = contactApi;
+export const { useCreateContactMutation } = contactApi;

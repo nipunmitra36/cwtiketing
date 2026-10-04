@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   HiOutlineLocationMarker,
@@ -12,11 +11,20 @@ import {
   HiOutlineChevronDown,
   HiOutlinePaperAirplane,
   HiOutlineChat,
+  HiOutlineExclamation,
 } from "react-icons/hi";
 import { FaWhatsapp } from "react-icons/fa";
+import {
+  CONTACT_FORM_ENDPOINT,
+  CONTACT_TOPICS,
+  type ContactFieldErrors,
+  type ContactResponse,
+} from "@/lib/contact";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
-type FormState = "idle" | "sending" | "sent" | "error";
+type FormStatus = "idle" | "sending" | "sent";
+
+const EMPTY_FORM = { full_name: "", email: "", message: "" };
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -33,14 +41,7 @@ const OFFICE = {
   mapQuery: "Baitul Aman Housing Society, Adabor, Mohammadpur, Dhaka 1207",
 };
 
-const TOPICS = [
-  "Sales & Pricing",
-  "Technical Support",
-  "Book a Demo",
-  "Press & Media",
-  "Partnerships",
-  "General Enquiry",
-];
+const TOPICS = CONTACT_TOPICS;
 
 const FAQS = [
   {
@@ -67,7 +68,9 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <div className="border-b border-gray-200 last:border-0">
       <button
+        type="button"
         onClick={() => setOpen((p) => !p)}
+        aria-expanded={open}
         className="flex w-full items-center justify-between py-4 text-left text-[14px] font-semibold text-gray-900"
       >
         {q}
@@ -93,27 +96,118 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ContactPage() {
-  const [topic, setTopic] = useState(TOPICS[0]);
+  const [topic, setTopic] = useState<string>(TOPICS[0]);
   const [topicOpen, setTopicOpen] = useState(false);
-  const [formState, setFormState] = useState<FormState>("idle");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const topicRef = useRef<HTMLDivElement>(null);
+
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [honeypot, setHoneypot] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
+  const [formError, setFormError] = useState<string | null>(null);
+  const [sentTo, setSentTo] = useState<string>("");
 
   const office = OFFICE;
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(office.mapQuery)}&z=16&output=embed`;
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.mapQuery)}`;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    if (!topicOpen) return;
+
+    const onPointerDown = (e: MouseEvent | TouchEvent) => {
+      if (!topicRef.current?.contains(e.target as Node)) setTopicOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setTopicOpen(false);
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [topicOpen]);
+
+  const sending = status === "sending";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormState("sending");
-    await new Promise((r) => setTimeout(r, 1400));
-    setFormState("sent");
+    if (sending) return;
+
+    setStatus("sending");
+    setFormError(null);
+    setFieldErrors({});
+
+    try {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: form.full_name.trim(),
+          email: form.email.trim(),
+          topic,
+          message: form.message.trim(),
+          website: honeypot,
+        }),
+      });
+
+      const data = (await response.json().catch(() => null)) as ContactResponse | null;
+
+      if (response.ok && data?.ok) {
+        setSentTo(form.email.trim());
+        setForm(EMPTY_FORM);
+        setHoneypot("");
+        setStatus("sent");
+        return;
+      }
+
+      if (data && !data.ok) {
+        if (data.fieldErrors) setFieldErrors(data.fieldErrors);
+        setFormError(data.message);
+        setStatus("idle");
+        return;
+      }
+
+      setFormError(
+        "We couldn't send your message just now. Please try again, or email us directly.",
+      );
+      setStatus("idle");
+    } catch {
+      setFormError(
+        `We couldn't reach our servers. Please check your connection and try again, or email ${EMAIL}.`,
+      );
+      setStatus("idle");
+    }
+  };
+
+  const resetForm = () => {
+    setStatus("idle");
+    setForm(EMPTY_FORM);
+    setFieldErrors({});
+    setFormError(null);
+    setSentTo("");
+    setHoneypot("");
+    setTopic(TOPICS[0]);
   };
 
   const inputCls =
-    "w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-[13px] text-gray-900 placeholder-gray-400 outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-gray-900/10";
+    "w-full rounded-xl border bg-white px-4 py-2.5 text-[13px] text-gray-900 placeholder-gray-400 outline-none transition focus:ring-2 focus:ring-brand/15";
+  const okCls = "border-gray-200 focus:border-brand focus:ring-brand/15";
+  const errCls = "border-rose-300 focus:border-rose-400 focus:ring-rose-100";
+  const fieldCls = (field: keyof typeof EMPTY_FORM) =>
+    `${inputCls} ${fieldErrors[field] ? errCls : okCls}`;
+  const errorTextCls = "mt-1.5 text-[12px] font-medium text-rose-600";
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <p className="sr-only" role="status" aria-live="polite">
+        {status === "sent"
+          ? "Thank you. Your message has been sent to our team."
+          : formError ?? ""}
+      </p>
 
       {/* ── Hero header ── */}
       <section className="border-b border-gray-200 bg-white">
@@ -162,23 +256,47 @@ export default function ContactPage() {
               </p>
 
               <AnimatePresence mode="wait">
-                {formState === "sent" ? (
+                {status === "sent" ? (
                   <motion.div
                     key="success"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1, transition: { duration: 0.35, ease: EASE } }}
-                    className="flex flex-col items-center justify-center py-16 text-center"
+                    exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
+                    className="flex flex-col items-center justify-center py-14 text-center"
                   >
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100">
-                      <HiOutlineCheck className="h-7 w-7 text-emerald-600" />
+                    <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
+                      <HiOutlineCheck className="h-8 w-8 text-emerald-600" />
                     </div>
-                    <p className="text-[17px] font-medium text-gray-900">Message sent!</p>
-                    <p className="mt-1 text-[13px] text-gray-500">
-                      Thanks, {form.name.split(" ")[0] || "there"}. We&apos;ll be in touch soon.
+                    <p className="text-[20px] font-semibold tracking-tight text-gray-900">
+                      Thank you — message received.
+                    </p>
+                    <p className="mt-2 max-w-sm text-[13px] leading-relaxed text-gray-500">
+                      Thanks for reaching out about{" "}
+                      <span className="font-semibold text-gray-700">{topic}</span>. Our team has
+                      your enquiry and will reply to{" "}
+                      <span className="font-semibold text-gray-700">{sentTo}</span> within one
+                      business day — usually a lot sooner.
+                    </p>
+                    <p className="mt-4 max-w-sm rounded-xl bg-brand-light px-4 py-3 text-[12px] leading-relaxed text-brand-dark">
+                      Need it handled urgently? Call{" "}
+                      <a href={`tel:${MOBILE}`} className="font-semibold underline">
+                        {MOBILE}
+                      </a>{" "}
+                      or message us on{" "}
+                      <a
+                        href={`https://wa.me/${WHATSAPP.slice(1)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold underline"
+                      >
+                        WhatsApp
+                      </a>
+                      .
                     </p>
                     <button
-                      onClick={() => { setFormState("idle"); setForm({ name: "", email: "", message: "" }); }}
-                      className="mt-6 rounded-xl border border-gray-200 px-5 py-2 text-[13px] font-medium text-gray-600 transition hover:border-gray-300 hover:text-gray-900"
+                      type="button"
+                      onClick={resetForm}
+                      className="mt-7 rounded-xl border border-gray-200 px-5 py-2 text-[13px] font-medium text-gray-600 transition hover:border-gray-300 hover:text-gray-900"
                     >
                       Send another message
                     </button>
@@ -189,48 +307,104 @@ export default function ContactPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     onSubmit={handleSubmit}
-                    className="space-y-4"
+                    noValidate
+                    className="relative space-y-4"
                   >
+                    {formError && (
+                      <div
+                        role="alert"
+                        className="flex items-start gap-2.5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-[13px] text-rose-700"
+                      >
+                        <HiOutlineExclamation className="mt-0.5 h-4 w-4 shrink-0" />
+                        <span>{formError}</span>
+                      </div>
+                    )}
+
                     {/* Name + Email */}
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label className="mb-1.5 block text-[12px] font-semibold text-gray-700">
+                        <label htmlFor="full_name" className="mb-1.5 block text-[12px] font-semibold text-gray-700">
                           Full name <span className="text-rose-500">*</span>
                         </label>
                         <input
+                          id="full_name"
+                          name="full_name"
                           required
-                          type="text"
+                          autoComplete="name"
+                          maxLength={120}
                           placeholder="Alex Johnson"
-                          value={form.name}
-                          onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                          className={inputCls}
+                          value={form.full_name}
+                          onChange={(e) => setForm((f) => ({ ...f, full_name: e.target.value }))}
+                          aria-invalid={Boolean(fieldErrors.full_name)}
+                          aria-describedby={fieldErrors.full_name ? "full_name-error" : undefined}
+                          className={fieldCls("full_name")}
                         />
+                        {fieldErrors.full_name && (
+                          <p id="full_name-error" className={errorTextCls}>
+                            {fieldErrors.full_name}
+                          </p>
+                        )}
                       </div>
                       <div>
-                        <label className="mb-1.5 block text-[12px] font-semibold text-gray-700">
+                        <label htmlFor="email" className="mb-1.5 block text-[12px] font-semibold text-gray-700">
                           Email address <span className="text-rose-500">*</span>
                         </label>
                         <input
-                          required
+                          id="email"
+                          name="email"
                           type="email"
+                          required
+                          autoComplete="email"
+                          maxLength={180}
                           placeholder="alex@example.com"
                           value={form.email}
                           onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                          className={inputCls}
+                          aria-invalid={Boolean(fieldErrors.email)}
+                          aria-describedby={fieldErrors.email ? "email-error" : undefined}
+                          className={fieldCls("email")}
                         />
+                        {fieldErrors.email && (
+                          <p id="email-error" className={errorTextCls}>
+                            {fieldErrors.email}
+                          </p>
+                        )}
                       </div>
                     </div>
 
+                    {/* Honeypot — hidden from people, tempting for bots */}
+                    <div className="absolute h-0 w-0 overflow-hidden opacity-0" aria-hidden="true">
+                      <label htmlFor="website">Website</label>
+                      <input
+                        id="website"
+                        name="website"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                      />
+                    </div>
+
                     {/* Topic */}
-                    <div>
-                      <label className="mb-1.5 block text-[12px] font-semibold text-gray-700">
-                        Topic
+                    <div ref={topicRef}>
+                      <label
+                        id="topic-label"
+                        className="mb-1.5 block text-[12px] font-semibold text-gray-700"
+                      >
+                        Topic <span className="text-rose-500">*</span>
                       </label>
                       <div className="relative">
                         <button
                           type="button"
                           onClick={() => setTopicOpen((p) => !p)}
-                          className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-[13px] text-gray-900 outline-none transition hover:border-gray-300 focus:border-gray-400 focus:ring-2 focus:ring-gray-900/10"
+                          aria-haspopup="listbox"
+                          aria-expanded={topicOpen}
+                          aria-labelledby="topic-label"
+                          className={`flex w-full items-center justify-between rounded-xl border bg-white px-4 py-2.5 text-[13px] text-gray-900 outline-none transition ${
+                            fieldErrors.topic
+                              ? "border-rose-300 focus:border-rose-400 focus:ring-2 focus:ring-rose-100"
+                              : "border-gray-200 hover:border-gray-300 focus:border-brand focus:ring-2 focus:ring-brand/15"
+                          }`}
                         >
                           {topic}
                           <HiOutlineChevronDown
@@ -240,6 +414,7 @@ export default function ContactPage() {
                         <AnimatePresence>
                           {topicOpen && (
                             <motion.div
+                              role="listbox"
                               initial={{ opacity: 0, y: 6, scale: 0.97 }}
                               animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.18, ease: EASE } }}
                               exit={{ opacity: 0, y: 4, scale: 0.97, transition: { duration: 0.12 } }}
@@ -248,6 +423,8 @@ export default function ContactPage() {
                               {TOPICS.map((t) => (
                                 <button
                                   type="button"
+                                  role="option"
+                                  aria-selected={t === topic}
                                   key={t}
                                   onClick={() => { setTopic(t); setTopicOpen(false); }}
                                   className={`flex w-full items-center justify-between px-4 py-2.5 text-[13px] transition-colors hover:bg-gray-50 ${
@@ -262,33 +439,49 @@ export default function ContactPage() {
                           )}
                         </AnimatePresence>
                       </div>
+                      {fieldErrors.topic && <p className={errorTextCls}>{fieldErrors.topic}</p>}
                     </div>
 
                     {/* Message */}
                     <div>
-                      <label className="mb-1.5 block text-[12px] font-semibold text-gray-700">
+                      <label htmlFor="message" className="mb-1.5 block text-[12px] font-semibold text-gray-700">
                         Message <span className="text-rose-500">*</span>
                       </label>
                       <textarea
+                        id="message"
+                        name="message"
                         required
                         rows={5}
+                        maxLength={2000}
                         placeholder="Tell us how we can help…"
                         value={form.message}
                         onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                        className={`${inputCls} resize-none`}
+                        aria-invalid={Boolean(fieldErrors.message)}
+                        aria-describedby={fieldErrors.message ? "message-error" : undefined}
+                        className={`${fieldCls("message")} resize-none`}
                       />
+                      {fieldErrors.message ? (
+                        <p id="message-error" className={errorTextCls}>
+                          {fieldErrors.message}
+                        </p>
+                      ) : (
+                        <p className="mt-1.5 text-[12px] text-gray-400">
+                          The more detail you share, the faster we can point you to the right person.
+                        </p>
+                      )}
                     </div>
 
                     <button
                       type="submit"
-                      disabled={formState === "sending"}
+                      disabled={sending}
+                      aria-busy={sending}
                       className={`flex w-full items-center justify-center gap-2 rounded-xl py-3 text-[14px] font-semibold transition-all active:scale-[0.98] ${
-                        formState === "sending"
-                          ? "bg-gray-400 text-white cursor-not-allowed"
+                        sending
+                          ? "cursor-not-allowed bg-gray-400 text-white"
                           : "bg-brand text-white hover:bg-brand-hover"
                       }`}
                     >
-                      {formState === "sending" ? (
+                      {sending ? (
                         <>
                           <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -303,6 +496,10 @@ export default function ContactPage() {
                         </>
                       )}
                     </button>
+
+                    <p className="text-center text-[11px] leading-relaxed text-gray-400">
+                      We only use your details to reply to this enquiry. No spam, ever.
+                    </p>
                   </motion.form>
                 )}
               </AnimatePresence>
@@ -465,6 +662,25 @@ export default function ContactPage() {
                   Open in Google Maps
                 </a>
               </div>
+          </div>
+        </motion.section>
+
+        {/* ── FAQ ── */}
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.26 } }}
+          className="mt-14"
+        >
+          <div className="mb-6">
+            <h2 className="text-2xl font-medium text-gray-900">Frequently asked questions</h2>
+            <p className="mt-1 text-[14px] text-gray-500">
+              Quick answers before you hit send.
+            </p>
+          </div>
+          <div className="max-w-3xl rounded-2xl border border-gray-200 bg-white px-6 py-2 shadow-sm sm:px-8">
+            {FAQS.map((faq) => (
+              <FaqItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
           </div>
         </motion.section>
       </div>
