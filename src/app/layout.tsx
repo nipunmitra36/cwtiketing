@@ -69,23 +69,11 @@ export const metadata: Metadata = {
     telephone: false,
   },
   title: {
-    default: "CWTicketing System | Online Ticket Booking Platform for Transport Operators",
+    default: "Build Online Ticket Booking Platform for Transport Operators",
     template: "%s | CWTicketing System",
   },
   description:
     "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards for bus, train, cruise, taxi, and event operators.",
-  keywords: [
-    "ticketing system",
-    "online ticket booking software",
-    "bus ticket booking system",
-    "train booking platform",
-    "transport management software",
-    "seat selection software",
-    "transit ticketing",
-    "payment gateway integration",
-    "mobile ticketing app",
-    "transport operator dashboard",
-  ],
   authors: [{ name: "CWTicketing System" }],
   creator: "CWTicketing System",
   alternates: {

@@ -23,6 +23,7 @@ interface Feature {
     caption: string;
     icon: IconType;
     image?: string;
+    href?: string;
 }
 
 const SERVICE_IMAGES = "/media/services";
@@ -37,6 +38,7 @@ const features: Feature[] = [
             "Real-time seat maps and live fares let passengers complete a booking in seconds, not minutes.",
         icon: HiOutlineTruck,
         image: `${SERVICE_IMAGES}/bus.jpg`,
+        href: "/bus-ticketing-system",
     },
     {
         title: "Train Ticketing System",
@@ -67,6 +69,7 @@ const features: Feature[] = [
             "Automated fare calculation and live tracking connect riders to the nearest driver instantly.",
         icon: HiOutlineLocationMarker,
         image: `${SERVICE_IMAGES}/taxi.jpg`,
+        href: "/online-taxi-booking-system",
     },
     {
         title: "Event Ticketing System",
@@ -77,6 +80,7 @@ const features: Feature[] = [
             "Digital tickets and QR scanning move attendees through the gate in half the time.",
         icon: HiOutlineCalendar,
         image: `${SERVICE_IMAGES}/events.jpg`,
+        href: "/event-ticketing-system",
     },
     {
         title: "Parcel Management System",
@@ -87,6 +91,7 @@ const features: Feature[] = [
             "Live status updates keep senders, drivers, and recipients on the same page from pickup to drop-off.",
         icon: HiOutlineCube,
         image: `${SERVICE_IMAGES}/parcel.jpg`,
+        href: "/parcel-management-system",
     },
 ];
 
@@ -171,7 +176,7 @@ function FeaturePanel({
                         </p>
 
                         <Link
-                            href="/contact"
+                            href={feature.href ?? "/contact-us"}
                             className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-[13px] font-semibold text-white shadow-lg transition-all hover:gap-2.5 active:scale-95"
                         >
                             Explore {feature.title.replace(" System", "")} Solution

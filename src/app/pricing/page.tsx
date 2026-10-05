@@ -1,3 +1,12 @@
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Pricing | CWTicketing System",
+  description:
+    "Transparent pricing for CWTicketing System. Choose the plan that fits your transport business needs.",
+  canonical: "/pricing",
+});
+
 import Pricing from "@/components/pricing/Pricing";
 
 export default function PricingPage() {

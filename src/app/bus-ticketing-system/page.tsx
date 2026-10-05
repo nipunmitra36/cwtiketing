@@ -1,4 +1,12 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Bus Ticketing System | Online Bus Booking Software",
+  description:
+    "Launch your branded bus ticketing system with seat selection, routes, fares, payments, mobile apps, and admin dashboard for bus operators.",
+  canonical: "/bus-ticketing-system",
+});
+
 import BusHero from "@/components/bus-ticketing/BusHero";
 import TrustStats from "@/components/bus-ticketing/TrustStats";
 import WhatIsBusTicketing from "@/components/bus-ticketing/WhatIsBusTicketing";
@@ -10,57 +18,6 @@ import SecurityTrust from "@/components/bus-ticketing/SecurityTrust";
 import BusTicketingFaq from "@/components/bus-ticketing/BusTicketingFaq";
 import FinalCTA from "@/components/bus-ticketing/FinalCTA";
 import { busFaqs } from "@/components/bus-ticketing/faq-data";
-
-const PAGE_URL = "/bus-ticketing-system";
-
-export const metadata: Metadata = {
-  title: {
-    absolute: "Bus Ticketing System | Online Bus Booking & Reservation Software",
-  },
-  description:
-    "Manage routes, schedules, seats, bookings, payments and passengers with CWTicketing's powerful bus ticketing system. Request a demo today.",
-  keywords: [
-    "bus ticketing software",
-    "bus ticket booking system",
-    "bus reservation system",
-    "bus booking software",
-    "bus ticket reservation system",
-    "online bus ticketing system",
-    "online bus booking system",
-    "bus ticketing platform",
-    "bus seat reservation system",
-    "bus route management software",
-    "bus ticket POS system",
-    "bus ticketing mobile app",
-    "bus ticketing admin panel",
-    "bus ticket QR code validation",
-    "bus fleet tracking software",
-    "bus payment gateway integration",
-    "white label bus ticketing system",
-  ],
-  alternates: {
-    canonical: PAGE_URL,
-  },
-  openGraph: {
-    type: "website",
-    title: "Bus Ticketing System | Online Bus Booking & Reservation Software",
-    description:
-      "Manage routes, schedules, seats, bookings, payments and passengers with CWTicketing's powerful bus ticketing system. Request a demo today.",
-    url: PAGE_URL,
-    siteName: "CWTicketing System",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Bus Ticketing System | Online Bus Booking & Reservation Software",
-    description:
-      "Manage routes, schedules, seats, bookings, payments and passengers with CWTicketing's powerful bus ticketing system. Request a demo today.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
 
 const jsonLd = {
   "@context": "https://schema.org",

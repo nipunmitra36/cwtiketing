@@ -98,7 +98,7 @@ export default function BusHero() {
           <div ref={copyRef} className="max-w-2xl">
             <span className="gsap-hero-item inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-3.5 py-1.5 text-[12px] font-semibold text-brand shadow-sm">
               <HiOutlineTicket className="h-4 w-4" />
-              Route 001 · Online Bus Ticketing System
+              Online Bus Ticketing System
             </span>
 
             <h1 className="gsap-hero-item mt-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[50px]">
@@ -117,7 +117,7 @@ export default function BusHero() {
 
             <div className="gsap-hero-item mt-8 flex flex-col gap-3 [&>*]:justify-center sm:flex-row sm:flex-wrap sm:items-center">
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
               >
                 Start Free Consultation

@@ -1,4 +1,12 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Parcel Management System | Courier & Delivery Software",
+  description:
+    "Complete parcel management system for couriers & logistics. Track parcels, manage hubs, automate billing & notifications.",
+  canonical: "/parcel-management-system",
+});
+
 import ParcelHero from "@/components/parcel-management/ParcelHero";
 import WhatIsParcelSystem from "@/components/parcel-management/WhatIsParcelSystem";
 import ParcelFeatures from "@/components/parcel-management/ParcelFeatures";
@@ -12,53 +20,6 @@ import { parcelFaqs } from "@/components/parcel-management/faq-data";
 
 const SITE_URL = "https://www.cwticketingsystem.com";
 const PAGE_URL = "/parcel-management-system";
-
-const TITLE = "Parcel Management System | Complete Parcel Management Solution";
-const DESCRIPTION =
-  "A complete parcel management system for courier and transport businesses — parcel booking, barcoded waybills, real-time tracking, branch and rider management, and cash on delivery settlement. Book a free demo.";
-
-export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESCRIPTION,
-  keywords: [
-    "parcel management solution",
-    "parcel management system",
-    "parcel management software",
-    "courier management system",
-    "courier management software",
-    "parcel tracking system",
-    "parcel booking software",
-    "parcel delivery management system",
-    "cash on delivery management software",
-    "waybill management system",
-    "logistics parcel software",
-    "branch and hub management software",
-    "delivery rider management app",
-    "parcel management system for bus operators",
-    "online parcel booking system",
-    "white label parcel management software",
-  ],
-  alternates: {
-    canonical: PAGE_URL,
-  },
-  openGraph: {
-    type: "website",
-    title: TITLE,
-    description: DESCRIPTION,
-    url: PAGE_URL,
-    siteName: "CWTicketing System",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
 
 const jsonLd = {
   "@context": "https://schema.org",

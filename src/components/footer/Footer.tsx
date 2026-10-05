@@ -39,10 +39,10 @@ const FOOTER_LINKS: FooterSection[] = [
   {
     title: "Solutions",
     links: [
-      { label: "Bus Booking Software", href: "/product/bus-ticketing" },
-      { label: "Train Booking Software", href: "/product/train-ticketing" },
-      { label: "Cruise Booking Software", href: "/product/cruise-booking" },
-      { label: "Taxi Booking Software", href: "/product/taxi-booking" },
+      { label: "Bus Ticketing System", href: "/bus-ticketing-system" },
+      { label: "Taxi Booking System", href: "/online-taxi-booking-system" },
+      { label: "Event Ticketing", href: "/event-ticketing-system" },
+      { label: "Parcel Management System", href: "/parcel-management-system" },
     ],
   },
   {
@@ -54,11 +54,11 @@ const FOOTER_LINKS: FooterSection[] = [
   {
     title: "Company",
     links: [
-      { label: "About", href: "/about" },
-      { label: "Contact", href: "/contact" },
+      { label: "About", href: "/about-us" },
+      { label: "Contact", href: "/contact-us" },
       { label: "Careers", href: "/careers" },
-      { label: "Privacy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms & Conditions", href: "/terms-and-condition" },
     ],
   },
 ];
@@ -117,8 +117,10 @@ function Brand() {
       </Link>
 
       <p className="max-w-xs text-sm leading-relaxed text-gray-400">
-        The white-label booking platform for buses, trains, cruises, taxis, and
-        events — built for how modern transport actually moves people.
+        CWTicketing is a leading ticket booking software Development Company. We
+        excel at providing various ticket booking products and services for
+        public transport and Event. Our company offers scalable and flexible
+        ticket booking services to travel companies all around the world.
       </p>
 
       <ul className="space-y-2.5 text-sm text-gray-400">
@@ -283,8 +285,8 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-gray-500">
             {[
-              { label: "Privacy", href: "/privacy" },
-              { label: "Terms", href: "/terms" },
+              { label: "Privacy Policy", href: "/privacy-policy" },
+              { label: "Terms & Conditions", href: "/terms-and-condition" },
             ].map(({ label, href }) => (
               <Link
                 key={label}

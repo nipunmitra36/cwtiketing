@@ -21,12 +21,12 @@ import {
   type ContactResponse,
 } from "@/lib/contact";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+// ─── Types ─────────────────────────────────────────────────────────────────────
 type FormStatus = "idle" | "sending" | "sent";
 
 const EMPTY_FORM = { full_name: "", email: "", message: "" };
 
-// ── Constants ─────────────────────────────────────────────────────────────────
+// ─── Constants ─────────────────────────────────────────────────────────────────
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const EMAIL = "info@cwticketingsystem.com";
@@ -62,7 +62,7 @@ const FAQS = [
   },
 ];
 
-// ── FAQ Accordion ─────────────────────────────────────────────────────────────
+// ─── FAQ Accordion ─────────────────────────────────────────────────────────────
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -94,8 +94,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
-export default function ContactPage() {
+// ─── Page ──────────────────────────────────────────────────────────────────────
+export default function ContactClient() {
   const [topic, setTopic] = useState<string>(TOPICS[0]);
   const [topicOpen, setTopicOpen] = useState(false);
   const topicRef = useRef<HTMLDivElement>(null);
@@ -206,10 +206,10 @@ export default function ContactPage() {
       <p className="sr-only" role="status" aria-live="polite">
         {status === "sent"
           ? "Thank you. Your message has been sent to our team."
-          : formError ?? ""}
+          : (formError ?? "")}
       </p>
 
-      {/* ── Hero header ── */}
+      {/* ─── Hero header ─── */}
       <section className="border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 pb-14 pt-24 sm:px-6 lg:pt-28 lg:px-8">
           <motion.div
@@ -240,11 +240,9 @@ export default function ContactPage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-
-        {/* ── Top grid: form + info ── */}
+        {/* ─── Top grid: form + info ─── */}
         <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
-
-          {/* ── Contact Form ── */}
+          {/* ─── Contact Form ─── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.05 } }}
@@ -323,7 +321,10 @@ export default function ContactPage() {
                     {/* Name + Email */}
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="full_name" className="mb-1.5 block text-[12px] font-semibold text-gray-700">
+                        <label
+                          htmlFor="full_name"
+                          className="mb-1.5 block text-[12px] font-semibold text-gray-700"
+                        >
                           Full name <span className="text-rose-500">*</span>
                         </label>
                         <input
@@ -346,7 +347,10 @@ export default function ContactPage() {
                         )}
                       </div>
                       <div>
-                        <label htmlFor="email" className="mb-1.5 block text-[12px] font-semibold text-gray-700">
+                        <label
+                          htmlFor="email"
+                          className="mb-1.5 block text-[12px] font-semibold text-gray-700"
+                        >
                           Email address <span className="text-rose-500">*</span>
                         </label>
                         <input
@@ -426,7 +430,10 @@ export default function ContactPage() {
                                   role="option"
                                   aria-selected={t === topic}
                                   key={t}
-                                  onClick={() => { setTopic(t); setTopicOpen(false); }}
+                                  onClick={() => {
+                                    setTopic(t);
+                                    setTopicOpen(false);
+                                  }}
                                   className={`flex w-full items-center justify-between px-4 py-2.5 text-[13px] transition-colors hover:bg-gray-50 ${
                                     t === topic ? "font-semibold text-gray-900" : "text-gray-600"
                                   }`}
@@ -444,7 +451,10 @@ export default function ContactPage() {
 
                     {/* Message */}
                     <div>
-                      <label htmlFor="message" className="mb-1.5 block text-[12px] font-semibold text-gray-700">
+                      <label
+                        htmlFor="message"
+                        className="mb-1.5 block text-[12px] font-semibold text-gray-700"
+                      >
                         Message <span className="text-rose-500">*</span>
                       </label>
                       <textarea
@@ -453,7 +463,7 @@ export default function ContactPage() {
                         required
                         rows={5}
                         maxLength={2000}
-                        placeholder="Tell us how we can help…"
+                        placeholder="Tell us how we can help&hellip;"
                         value={form.message}
                         onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                         aria-invalid={Boolean(fieldErrors.message)}
@@ -483,11 +493,26 @@ export default function ContactPage() {
                     >
                       {sending ? (
                         <>
-                          <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                          <svg
+                            className="h-4 w-4 animate-spin"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            />
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v8z"
+                            />
                           </svg>
-                          Sending…
+                          Sending&hellip;
                         </>
                       ) : (
                         <>
@@ -506,7 +531,7 @@ export default function ContactPage() {
             </div>
           </motion.div>
 
-          {/* ── Contact Info ── */}
+          {/* ─── Contact Info ─── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.12 } }}
@@ -548,14 +573,16 @@ export default function ContactPage() {
                 {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
               >
-                <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${item.color}`}>
+                <div
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${item.color}`}
+                >
                   {item.icon}
                 </div>
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400">
                     {item.label}
                   </p>
-                  <p className="text-[14px] font-semibold text-gray-900 truncate">{item.value}</p>
+                  <p className="truncate text-[14px] font-semibold text-gray-900">{item.value}</p>
                   <p className="text-[12px] text-gray-400">{item.sub}</p>
                 </div>
               </a>
@@ -574,9 +601,14 @@ export default function ContactPage() {
                 { day: "Saturday", hours: "10:00 am – 2:00 pm" },
                 { day: "Sunday", hours: "Closed" },
               ].map((r) => (
-                <div key={r.day} className="flex justify-between py-1.5 text-[13px] border-b border-gray-100 last:border-0">
+                <div
+                  key={r.day}
+                  className="flex justify-between border-b border-gray-100 py-1.5 text-[13px] last:border-0"
+                >
                   <span className="text-gray-600">{r.day}</span>
-                  <span className={`font-medium ${r.hours === "Closed" ? "text-gray-400" : "text-gray-900"}`}>
+                  <span
+                    className={`font-medium ${r.hours === "Closed" ? "text-gray-400" : "text-gray-900"}`}
+                  >
                     {r.hours}
                   </span>
                 </div>
@@ -585,7 +617,7 @@ export default function ContactPage() {
           </motion.div>
         </div>
 
-        {/* ── Offices + Map ── */}
+        {/* ─── Offices + Map ─── */}
         <motion.section
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.2 } }}
@@ -599,73 +631,80 @@ export default function ContactPage() {
           </div>
 
           {/* Map + office detail */}
-          <div
-              className="grid overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm lg:grid-cols-[1fr_320px]"
-            >
-              {/* Map iframe */}
-              <div className="relative min-h-[360px] overflow-hidden">
-                <iframe
-                  title={`${office.city} office map`}
-                  width="100%"
-                  height="100%"
-                  loading="lazy"
-                  style={{ border: 0, minHeight: 360 }}
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={mapSrc}
-                  className="absolute inset-0 h-full w-full"
-                />
-              </div>
+          <div className="grid overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm lg:grid-cols-[1fr_320px]">
+            {/* Map iframe */}
+            <div className="relative min-h-[360px] overflow-hidden">
+              <iframe
+                title={`${office.city} office map`}
+                width="100%"
+                height="100%"
+                loading="lazy"
+                style={{ border: 0, minHeight: 360 }}
+                referrerPolicy="no-referrer-when-downgrade"
+                src={mapSrc}
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
 
-              {/* Office info panel */}
-              <div className="flex flex-col justify-between border-t border-gray-200 p-6 lg:border-l lg:border-t-0">
-                <div>
-                  <p className="mb-0.5 text-[11px] font-semibold uppercase tracking-widest text-gray-400">
-                    {office.role}
-                  </p>
-                  <h3 className="mb-4 text-xl font-medium text-gray-900">{office.city}</h3>
+            {/* Office info panel */}
+            <div className="flex flex-col justify-between border-t border-gray-200 p-6 lg:border-l lg:border-t-0">
+              <div>
+                <p className="mb-0.5 text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+                  {office.role}
+                </p>
+                <h3 className="mb-4 text-xl font-medium text-gray-900">{office.city}</h3>
 
-                  <div className="space-y-4">
-                    <div className="flex gap-3">
-                      <HiOutlineLocationMarker className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
-                      <div>
-                        <p className="text-[13px] font-medium text-gray-900">{office.address}</p>
-                        <p className="text-[13px] text-gray-500">{office.zip}</p>
-                      </div>
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <HiOutlineLocationMarker className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                    <div>
+                      <p className="text-[13px] font-medium text-gray-900">{office.address}</p>
+                      <p className="text-[13px] text-gray-500">{office.zip}</p>
                     </div>
-                    <div className="flex gap-3">
-                      <HiOutlinePhone className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
-                      <div className="flex flex-col gap-1">
-                        <a href={`tel:${WHATSAPP}`} className="text-[13px] text-gray-900 hover:text-gray-600 transition">
-                          {WHATSAPP}
-                        </a>
-                        <a href={`tel:${MOBILE}`} className="text-[13px] text-gray-900 hover:text-gray-600 transition">
-                          {MOBILE}
-                        </a>
-                      </div>
-                    </div>
-                    <div className="flex gap-3">
-                      <HiOutlineMail className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
-                      <a href={`mailto:${EMAIL}`} className="break-all text-[13px] text-gray-900 hover:text-gray-600 transition">
-                        {EMAIL}
+                  </div>
+                  <div className="flex gap-3">
+                    <HiOutlinePhone className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                    <div className="flex flex-col gap-1">
+                      <a
+                        href={`tel:${WHATSAPP}`}
+                        className="text-[13px] text-gray-900 transition hover:text-gray-600"
+                      >
+                        {WHATSAPP}
+                      </a>
+                      <a
+                        href={`tel:${MOBILE}`}
+                        className="text-[13px] text-gray-900 transition hover:text-gray-600"
+                      >
+                        {MOBILE}
                       </a>
                     </div>
                   </div>
+                  <div className="flex gap-3">
+                    <HiOutlineMail className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                    <a
+                      href={`mailto:${EMAIL}`}
+                      className="break-all text-[13px] text-gray-900 transition hover:text-gray-600"
+                    >
+                      {EMAIL}
+                    </a>
+                  </div>
                 </div>
-
-                <a
-                  href={mapLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 py-2.5 text-[13px] font-medium text-gray-700 transition hover:border-gray-300 hover:text-gray-900"
-                >
-                  <HiOutlineLocationMarker className="h-4 w-4" />
-                  Open in Google Maps
-                </a>
               </div>
+
+              <a
+                href={mapLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 py-2.5 text-[13px] font-medium text-gray-700 transition hover:border-gray-300 hover:text-gray-900"
+              >
+                <HiOutlineLocationMarker className="h-4 w-4" />
+                Open in Google Maps
+              </a>
+            </div>
           </div>
         </motion.section>
 
-        {/* ── FAQ ── */}
+        {/* ─── FAQ ─── */}
         <motion.section
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.26 } }}
@@ -673,9 +712,7 @@ export default function ContactPage() {
         >
           <div className="mb-6">
             <h2 className="text-2xl font-medium text-gray-900">Frequently asked questions</h2>
-            <p className="mt-1 text-[14px] text-gray-500">
-              Quick answers before you hit send.
-            </p>
+            <p className="mt-1 text-[14px] text-gray-500">Quick answers before you hit send.</p>
           </div>
           <div className="max-w-3xl rounded-2xl border border-gray-200 bg-white px-6 py-2 shadow-sm sm:px-8">
             {FAQS.map((faq) => (

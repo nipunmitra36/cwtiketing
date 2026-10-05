@@ -1,4 +1,13 @@
-'use client';
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Online Ticket Booking System for Bus, Train & Transport Operators",
+  description:
+    "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards for transport operators.",
+  canonical: "/",
+});
+
+
 
 import Hero from "@/components/hero/Hero";
 import LogoTrustSection from "@/components/clients/LogoTrustSection";
@@ -25,3 +34,4 @@ export default function Home() {
     </main>
   );
 }
+

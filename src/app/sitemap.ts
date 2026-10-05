@@ -24,19 +24,19 @@ const pageRoutes: PageRoute[] = [
   { path: "/bus-terminal-ticketing-system", changeFrequency: "weekly", priority: 0.9 },
   { path: "/shuttle-booking-system", changeFrequency: "weekly", priority: 0.9 },
   { path: "/online-taxi-booking-system", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/event-ticketing", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/event-ticketing-system", changeFrequency: "weekly", priority: 0.9 },
   { path: "/parcel-management-system", changeFrequency: "weekly", priority: 0.9 },
   { path: "/pricing", changeFrequency: "weekly", priority: 0.85 },
-  { path: "/features", changeFrequency: "monthly", priority: 0.8 },
 
   // ── Supporting content ──
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
-  { path: "/about", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/about-us", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/contact-us", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/careers", changeFrequency: "monthly", priority: 0.6 },
 
   // ── Legal ──
-  { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
-  { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/terms-and-condition", changeFrequency: "yearly", priority: 0.2 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

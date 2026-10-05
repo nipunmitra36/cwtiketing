@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap, playOnce, ScrollSmoother } from "@/lib/gsap";
+import { gsap, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
@@ -192,24 +192,11 @@ export default function AboutHowItWorks() {
 
             <div data-gsap className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
               >
                 Book a Demo
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                href="#solutions"
-                onClick={(e) => {
-                  // The page scrolls through ScrollSmoother, so native hash jumps don't apply
-                  const smoother = ScrollSmoother.get();
-                  if (!smoother) return;
-                  e.preventDefault();
-                  smoother.scrollTo("#solutions", true, "top 80px");
-                }}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-3.5 text-[14px] font-semibold text-text-dark transition-colors hover:border-brand/30 hover:text-brand"
-              >
-                Explore solutions
               </Link>
             </div>
           </div>

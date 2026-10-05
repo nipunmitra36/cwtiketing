@@ -120,7 +120,7 @@ export default function CaseStudies() {
                         </h2>
                     </div>
                     <Link
-                        href="/contact"
+                        href="/contact-us"
                         className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gray-200 px-5 py-2.5 text-[13px] font-medium text-text-dark transition-colors hover:border-brand/30 hover:text-brand"
                     >
                         Contact sales

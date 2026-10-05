@@ -104,7 +104,7 @@ export default function Comparison() {
 
         <div data-gsap className="mt-8 text-center">
           <Link
-            href="/contact"
+            href="/contact-us"
             className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[13.5px] font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/35 active:scale-95"
           >
             Make the switch

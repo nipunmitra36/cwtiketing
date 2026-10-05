@@ -448,7 +448,7 @@ export default function Hero() {
             {/* CTA row */}
             <div className="gsap-left-item mb-10 flex w-full flex-wrap items-center justify-center gap-3">
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 min-[400px]:w-auto text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
               >
                 Start Free Consultation

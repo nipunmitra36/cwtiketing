@@ -1,19 +1,14 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Privacy Policy | CWTicketing System",
+  description:
+    "Read the CWTicketing System privacy policy covering data collection, use, and protection.",
+  canonical: "/privacy-policy",
+});
+
 import { HiOutlineShieldCheck } from "react-icons/hi";
 import LegalSection, { type LegalSectionData } from "@/components/legal/LegalSection";
-
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "How Codeware Ltd. collects, uses, and safeguards your personal data across CWTicketing System.",
-  alternates: {
-    canonical: "/privacy",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
 
 const sections: LegalSectionData[] = [
   {

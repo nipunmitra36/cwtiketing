@@ -73,7 +73,7 @@ export default function FinalCTA() {
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold text-brand shadow-lg shadow-black/20 transition-all hover:bg-gray-100 active:scale-95"
               >
                 Book a Demo

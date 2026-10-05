@@ -1,4 +1,12 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Event Ticketing System | Online Event Booking Software",
+  description:
+    "Launch your own online event ticketing system with seat mapping, QR check-in, sales channels, and real-time reporting.",
+  canonical: "/event-ticketing-system",
+});
+
 import EventHero from "@/components/event-ticketing/EventHero";
 import EventOnlineFeatures from "@/components/event-ticketing/EventOnlineFeatures";
 import EventJourney from "@/components/event-ticketing/EventJourney";
@@ -9,56 +17,7 @@ import EventCTA from "@/components/event-ticketing/EventCTA";
 import { eventFaqs } from "@/components/event-ticketing/event-faq-data";
 
 const SITE_URL = "https://www.cwticketingsystem.com";
-const PAGE_URL = "/event-ticketing";
-
-const TITLE =
-  "Event Ticketing System | Online Event Ticket Booking Software";
-const DESCRIPTION =
-  "Sell tickets online for concerts, conferences and any event with CW's event ticketing system — multiple ticket types, secure payment gateways, SMS verification and QR ticket validation.";
-
-export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESCRIPTION,
-  keywords: [
-    "event ticketing system",
-    "online event ticketing system",
-    "event ticket booking system",
-    "event ticketing software",
-    "event ticket management system",
-    "sell tickets online",
-    "concert ticketing system",
-    "conference ticketing software",
-    "event ticketing system in Bangladesh",
-    "QR ticket validation",
-    "ticket validation checker",
-    "SMS verification ticketing",
-    "custom ticket design",
-    "event ticketing admin dashboard",
-    "android app for ticket checking",
-    "event seat map software",
-    "white label event ticketing system",
-  ],
-  alternates: {
-    canonical: PAGE_URL,
-  },
-  openGraph: {
-    type: "website",
-    title: TITLE,
-    description: DESCRIPTION,
-    url: PAGE_URL,
-    siteName: "CWTicketing System",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const PAGE_URL = "/event-ticketing-system";
 
 const jsonLd = {
   "@context": "https://schema.org",

@@ -15,11 +15,11 @@ import {
   HiOutlineCube,
   HiOutlineTruck,
   HiOutlineDocumentText,
-  HiOutlineQuestionMarkCircle,
   HiOutlineBriefcase,
   HiOutlineChat,
 } from "react-icons/hi";
-import { FaWhatsapp, FaBus, FaCarSide, FaShuttleVan, FaSuitcaseRolling } from "react-icons/fa";
+import { FaWhatsapp, FaBus, FaCarSide, FaShuttleVan } from "react-icons/fa";
+import { IoTicketOutline } from "react-icons/io5";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface DropMenuItem {
@@ -59,7 +59,7 @@ const NAV_ITEMS: NavItem[] = [
       {
         label: "Event Ticketing",
         desc: "Concerts, conferences & more",
-        href: "/event-ticketing",
+        href: "/event-ticketing-system",
         icon: <HiOutlineCalendar className="h-5 w-5" />,
       },
       {
@@ -91,7 +91,7 @@ const NAV_ITEMS: NavItem[] = [
         label: "Travel Agencies",
         desc: "Multi-operator ticket retail",
         href: "/bus-terminal-ticketing-system",
-        icon: <FaSuitcaseRolling className="h-4.5 w-4.5" />,
+        icon: <IoTicketOutline className="h-4.5 w-4.5" />,
       },
 
     ],
@@ -105,12 +105,6 @@ const NAV_ITEMS: NavItem[] = [
         href: "/blog",
         icon: <HiOutlineDocumentText className="h-5 w-5" />,
       },
-      {
-        label: "FAQ",
-        desc: "Quick answers to common questions",
-        href: "/#faq",
-        icon: <HiOutlineQuestionMarkCircle className="h-5 w-5" />,
-      },
     ],
   },
   { label: "Pricing", href: "/pricing" },
@@ -120,13 +114,13 @@ const NAV_ITEMS: NavItem[] = [
       {
         label: "About Us",
         desc: "Who we are & what we do",
-        href: "/about",
+        href: "/about-us",
         icon: <HiOutlineBriefcase className="h-5 w-5" />,
       },
       {
         label: "Contact",
         desc: "Talk to our team",
-        href: "/contact",
+        href: "/contact-us",
         icon: <HiOutlineChat className="h-5 w-5" />,
       },
     ],
@@ -468,7 +462,7 @@ export default function Header() {
         <div className="hidden shrink-0 items-center gap-2 lg:flex xl:gap-2.5">
           <WhatsAppButton className="lg:px-3 xl:px-4" />
           <Link
-            href="/contact"
+            href="/contact-us"
             className="rounded-full bg-brand px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-brand/30 transition-all hover:bg-brand-hover active:scale-95"
           >
             Book Demo
@@ -478,7 +472,7 @@ export default function Header() {
         {/* ── Mobile actions ── */}
         <div className="flex items-center gap-2 lg:hidden">
           <Link
-            href="/contact"
+            href="/contact-us"
             className="hidden rounded-full bg-brand px-4 py-2 text-[13px] font-semibold text-white shadow-md shadow-brand/30 transition-colors hover:bg-brand-hover sm:inline-flex"
           >
             Book Demo
@@ -632,7 +626,7 @@ export default function Header() {
                 >
                   <WhatsAppButton className="w-full justify-center px-3" />
                   <Link
-                    href="/contact"
+                    href="/contact-us"
                     onClick={closeMobile}
                     className="flex items-center justify-center rounded-full bg-brand px-3 py-2.5 text-center text-[13.5px] font-semibold text-white transition-colors hover:bg-brand-hover sm:hidden"
                   >

@@ -48,7 +48,7 @@ export default function TaxiFaq() {
                 timelines for your taxi service.
               </p>
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group mt-4 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-[13.5px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover active:scale-95"
               >
                 Contact Our Team

@@ -17,7 +17,7 @@ interface PaymentGatewayProps {
   eyebrow?: string;
   description?: string;
   methods?: Method[];
-  lockNote?: string;
+  lockNote?: string | false;
 }
 
 const MEDIA = "/media/payment method";
@@ -55,7 +55,7 @@ export default function PaymentGateway({
   eyebrow,
   description = "Accept every payment your riders already use — cards, wallets, and contactless.",
   methods = defaultMethods,
-  lockNote = "Encrypted end-to-end payments on every channel",
+  lockNote,
 }: PaymentGatewayProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -124,10 +124,12 @@ export default function PaymentGateway({
           </div>
         </div>
 
-        <p data-gsap className="mx-auto mt-6 flex items-center justify-center gap-1.5 text-[11.5px] text-text-muted">
-          <HiOutlineLockClosed className="h-3.5 w-3.5" />
-          {lockNote}
-        </p>
+        {lockNote && (
+          <p data-gsap className="mx-auto mt-6 flex items-center justify-center gap-1.5 text-[11.5px] text-text-muted">
+            <HiOutlineLockClosed className="h-3.5 w-3.5" />
+            {lockNote}
+          </p>
+        )}
       </div>
     </section>
   );

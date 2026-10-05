@@ -1,18 +1,17 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "About Us | CWTicketing System",
+  description:
+    "Learn about CWTicketing System, a product of Codeware Ltd., built to empower transport operators with a modern, scalable online ticket booking platform.",
+  canonical: "/about-us",
+});
+
 import AboutHero from "@/components/about/AboutHero";
 import AboutStory from "@/components/about/AboutStory";
 import WhatWeOffer from "@/components/about/WhatWeOffer";
 import VisionTeam from "@/components/about/VisionTeam";
 import MoveForwardCTA from "@/components/about/MoveForwardCTA";
-
-export const metadata: Metadata = {
-  title: "About Us",
-  description:
-    "CWTicketing System is a modern SaaS platform by Codeware Ltd. that simplifies how transportation businesses operate — from booking and fleet management to payments and reporting.",
-  alternates: {
-    canonical: "/about",
-  },
-};
 
 export default function AboutPage() {
   return (

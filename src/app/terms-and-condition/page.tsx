@@ -1,20 +1,15 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Terms & Conditions | CWTicketing System",
+  description:
+    "Terms of Use governing access to and use of CWTicketing System.",
+  canonical: "/terms-and-condition",
+});
+
 import Link from "next/link";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import LegalSection, { type LegalSectionData } from "@/components/legal/LegalSection";
-
-export const metadata: Metadata = {
-  title: "Terms & Conditions",
-  description:
-    "Terms of Use governing access to and use of CWTicketing System, a product of Codeware Ltd.",
-  alternates: {
-    canonical: "/terms",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
 
 type Section = LegalSectionData;
 

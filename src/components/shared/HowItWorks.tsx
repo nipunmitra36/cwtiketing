@@ -350,7 +350,7 @@ export default function HowItWorks({
               <p className="mt-0.5 text-[13px] text-text-muted">{ctaText}</p>
             </div>
             <Link
-              href="/contact"
+              href="/contact-us"
               className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-brand px-6 py-3 text-[13.5px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover active:scale-95"
             >
               {ctaLabel}

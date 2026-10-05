@@ -1,4 +1,12 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Intercity Bus Booking Software | Bus Ticketing System",
+  description:
+    "Complete intercity bus booking software with route management, fleet, online sales, agent panel, and real-time reporting.",
+  canonical: "/intercity-bus-booking-software",
+});
+
 
 import OperatorsHero from "@/components/bus-operators/OperatorsHero";
 import OperatorControl from "@/components/bus-operators/OperatorControl";
@@ -7,7 +15,9 @@ import PassengerExperienceSection from "@/components/bus-operators/PassengerExpe
 import WhoBenefits from "@/components/bus-operators/WhoBenefits";
 import WhyChoose from "@/components/bus-operators/WhyChoose";
 import LogoTrustSection from "@/components/clients/LogoTrustSection";
-import SpecializedSystems from "@/components/bus-operators/SpecializedSystems";
+import SpecializedSystems, {
+  type SpecializedSystemsProps,
+} from "@/components/shared/SpecializedSystems";
 import ProductDemo from "@/components/bus-operators/ProductDemo";
 import PaymentGateway from "@/components/shared/PaymentGateway";
 import OperatorsFinalCTA from "@/components/bus-operators/OperatorsFinalCTA";
@@ -16,18 +26,34 @@ import { operatorFaqs } from "@/components/bus-operators/operators-faq-data";
 
 const PAGE_URL = "/intercity-bus-booking-software";
 
-export const metadata: Metadata = {
-  title: "Intercity Bus Operators | Smart Ticketing Software",
-  description:
-    "Power your intercity bus operations with smart ticketing — automate bookings, manage routes and terminals, and expand your reach with CWTicketing.",
-  alternates: {
-    canonical: PAGE_URL,
+const SPECIALIZED_SYSTEMS: SpecializedSystemsProps["systems"] = [
+  {
+    icon: "marketplace",
+    title: "Bus Ticketing Marketplace",
+    subtitle: "Connecting bus operators under one platform",
+    href: "/bus-terminal-ticketing-system",
+    items: [
+      "Multi-Operator Management Dashboard",
+      "Dynamic Pricing & Seat Plan Engine",
+      "Real-Time Analytics & Reports",
+      "POS-Compatible & QR-Based Ticketing",
+      "Passenger Experience Tools",
+    ],
   },
-  robots: {
-    index: true,
-    follow: true,
+  {
+    icon: "shuttle",
+    title: "Shuttle Service Booking System",
+    subtitle: "Short-distance & frequent routes",
+    href: "/shuttle-booking-system",
+    items: [
+      "Frequent schedule management",
+      "Quick boarding passes",
+      "Corporate account integration",
+      "Subscription-based booking",
+      "Airport/hotel partnerships",
+    ],
   },
-};
+];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -71,7 +97,7 @@ export default function BusOperatorsPage() {
         <WhyChoose />
         <ProductDemo />
         <LogoTrustSection />
-        <SpecializedSystems />
+        <SpecializedSystems systems={SPECIALIZED_SYSTEMS} />
         <PaymentGateway
           description="Cash, cards, wallets, and local rails — accept every payment your intercity passengers already use."
           lockNote="Encrypted end-to-end payments across every channel"

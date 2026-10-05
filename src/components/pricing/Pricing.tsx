@@ -104,7 +104,7 @@ export default function Pricing() {
 
                 <div className="mt-auto space-y-2.5 pt-2">
                   <Link
-                    href="/contact"
+                    href="/contact-us"
                     className={`flex w-full items-center justify-center rounded-xl px-5 py-3 text-[13.5px] font-semibold transition-all active:scale-[0.98] ${
                       highlighted
                         ? "bg-brand text-white shadow-lg shadow-brand/30 hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40"
@@ -125,16 +125,6 @@ export default function Pricing() {
             );
           })}
         </div>
-
-        <p data-gsap className="mt-8 text-center text-[12.5px] text-text-muted">
-          No long-term contracts. Volume pricing for large fleets.{" "}
-          <Link
-            href="/contact"
-            className="-my-2.5 inline-flex items-center py-2.5 font-semibold text-brand hover:text-brand-hover"
-          >
-            Talk to sales →
-          </Link>
-        </p>
       </div>
     </section>
   );

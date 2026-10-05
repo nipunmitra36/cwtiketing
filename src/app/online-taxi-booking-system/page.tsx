@@ -1,4 +1,12 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Online Taxi Booking System | Taxi Dispatch Software",
+  description:
+    "Branded online taxi booking system with dispatch, driver app, rider app, fare management, and real-time tracking.",
+  canonical: "/online-taxi-booking-system",
+});
+
 import TaxiHero from "@/components/taxi-booking/TaxiHero";
 import WhatIsTaxiSystem from "@/components/taxi-booking/WhatIsTaxiSystem";
 import TaxiFeatures from "@/components/taxi-booking/TaxiFeatures";
@@ -12,53 +20,6 @@ import { taxiFaqs } from "@/components/taxi-booking/faq-data";
 
 const SITE_URL = "https://www.cwticketingsystem.com";
 const PAGE_URL = "/online-taxi-booking-system";
-
-const TITLE = "Online Taxi Booking System | Taxi Booking Software";
-const DESCRIPTION =
-  "A complete online taxi booking system and taxi booking software — app and web ride booking, automatic driver dispatch, live GPS tracking, fare metering, and driver commission settlement. Book a free demo.";
-
-export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESCRIPTION,
-  keywords: [
-    "online taxi booking system",
-    "taxi booking software",
-    "online taxi management system",
-    "online taxi reservation system",
-    "taxi booking management software",
-    "taxi dispatch software",
-    "taxi management system",
-    "cab booking software",
-    "ride hailing software",
-    "taxi booking app development",
-    "taxi fleet management software",
-    "taxi driver app",
-    "automatic taxi dispatch system",
-    "taxi fare calculation software",
-    "white label taxi booking system",
-    "corporate taxi booking system",
-  ],
-  alternates: {
-    canonical: PAGE_URL,
-  },
-  openGraph: {
-    type: "website",
-    title: TITLE,
-    description: DESCRIPTION,
-    url: PAGE_URL,
-    siteName: "CWTicketing System",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
 
 const jsonLd = {
   "@context": "https://schema.org",

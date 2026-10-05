@@ -1,4 +1,12 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Bus Terminal Ticketing System | Manage Departures & Bookings",
+  description:
+    "Cloud-based bus terminal ticketing system to manage counters, schedules, departures, ticket sales and passenger flow.",
+  canonical: "/bus-terminal-ticketing-system",
+});
+
 import MarketplaceHero from "@/components/bus-marketplace/MarketplaceHero";
 import AdminControlCentre from "@/components/bus-marketplace/AdminControlCentre";
 import OperatorFleetTools from "@/components/bus-marketplace/OperatorFleetTools";
@@ -7,7 +15,9 @@ import PassengerBookingApp from "@/components/bus-marketplace/PassengerBookingAp
 import WhoBenefits from "@/components/bus-marketplace/WhoBenefits";
 import WhyChoose from "@/components/bus-marketplace/WhyChoose";
 import LogoTrustSection from "@/components/clients/LogoTrustSection";
-import SpecializedSystems from "@/components/bus-marketplace/SpecializedSystems";
+import SpecializedSystems, {
+  type SpecializedSystemsProps,
+} from "@/components/shared/SpecializedSystems";
 import ProductDemo from "@/components/bus-marketplace/ProductDemo";
 import PaymentGateway from "@/components/bus-marketplace/PaymentGateway";
 import FinalCTA from "@/components/bus-marketplace/FinalCTA";
@@ -16,50 +26,34 @@ import { marketplaceFaqs } from "@/components/bus-marketplace/faq-data";
 
 const PAGE_URL = "/bus-terminal-ticketing-system";
 
-const TITLE = "Bus Terminal Ticketing System | Bus Booking Marketplace Software";
-const DESCRIPTION =
-  "Build your own bus booking empire with CWTicketing's marketplace platform — onboard operators, manage commissions, and run a central control centre for your entire bus network.";
-
-export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESCRIPTION,
-  keywords: [
-    "bus terminal ticketing system",
-    "bus ticketing marketplace software",
-    "bus booking marketplace platform",
-    "multi-operator bus booking system",
-    "OTA bus ticketing software",
-    "bus network management software",
-    "operator onboarding software",
-    "commission management software",
-    "white label bus ticketing marketplace",
-    "bus ticketing admin dashboard",
-    "travel agency bus booking system",
-    "bus terminal management software",
-    "bus ticketing super admin panel",
-    "multi-operator dashboard software",
-  ],
-  alternates: {
-    canonical: PAGE_URL,
+const SPECIALIZED_SYSTEMS: SpecializedSystemsProps["systems"] = [
+  {
+    icon: "intercity",
+    title: "Intercity Bus Booking System",
+    subtitle: "Long-distance travel made simple",
+    href: "/intercity-bus-booking-software",
+    items: [
+      "Multi-city route planning",
+      "Advanced seat selection",
+      "Meal & amenity booking",
+      "Real-time GPS tracking",
+      "Flexible cancellation policy",
+    ],
   },
-  openGraph: {
-    type: "website",
-    title: TITLE,
-    description: DESCRIPTION,
-    url: PAGE_URL,
-    siteName: "CWTicketing System",
-    locale: "en_US",
+  {
+    icon: "shuttle",
+    title: "Shuttle Service Booking System",
+    subtitle: "Short-distance & frequent routes",
+    href: "/shuttle-booking-system",
+    items: [
+      "Frequent schedule management",
+      "Quick boarding passes",
+      "Corporate account integration",
+      "Subscription-based booking",
+      "Airport/hotel partnerships",
+    ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -144,7 +138,7 @@ export default function BusTerminalTicketingSystemPage() {
         <WhyChoose />
         <ProductDemo />
         <LogoTrustSection />
-        <SpecializedSystems />
+        <SpecializedSystems systems={SPECIALIZED_SYSTEMS} />
         <PaymentGateway />
         <FinalCTA />
         <Faq />

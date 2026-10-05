@@ -1,4 +1,12 @@
-import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Shuttle Booking System | Online Shuttle Reservation Software",
+  description:
+    "Shuttle booking system for schools, companies & airports. Manage routes, schedules, seats, and online reservations.",
+  canonical: "/shuttle-booking-system",
+});
+
 import ShuttleHero from "@/components/shuttle-companies/ShuttleHero";
 import SmartTools from "@/components/shuttle-companies/SmartTools";
 import CounterTicketing from "@/components/shuttle-companies/CounterTicketing";
@@ -7,61 +15,13 @@ import WhoBenefits from "@/components/shuttle-companies/WhoBenefits";
 import WhyChoose from "@/components/shuttle-companies/WhyChoose";
 import ProductDemo from "@/components/shuttle-companies/ProductDemo";
 import LogoTrustSection from "@/components/clients/LogoTrustSection";
-import SpecializedSystems from "@/components/shuttle-companies/SpecializedSystems";
+import SpecializedSystems from "@/components/shared/SpecializedSystems";
 import PaymentGateway from "@/components/shuttle-companies/PaymentGateway";
 import FinalCTA from "@/components/shuttle-companies/FinalCTA";
 import Faq from "@/components/shuttle-companies/Faq";
 import { shuttleFaqs } from "@/components/shuttle-companies/faq-data";
 
 const PAGE_URL = "/shuttle-booking-system";
-
-export const metadata: Metadata = {
-  title: {
-    absolute: "Shuttle Company Ticketing Software | Local & Shuttle Reservation System",
-  },
-  description:
-    "Launch your own local & shuttle reservation software. Smart schedule, fare zone, driver shift and load management for school, office and city commute routes. Book a demo today.",
-  keywords: [
-    "shuttle ticketing software",
-    "shuttle booking system",
-    "local shuttle reservation software",
-    "shuttle company software",
-    "city commute ticketing system",
-    "school shuttle booking software",
-    "office shuttle booking system",
-    "airport shuttle booking software",
-    "shuttle route management software",
-    "short route scheduling software",
-    "stop to stop fare management",
-    "driver shift management software",
-    "shuttle ticketing platform",
-    "shuttle POS system",
-    "shuttle QR code ticketing",
-    "white label shuttle booking platform",
-  ],
-  alternates: {
-    canonical: PAGE_URL,
-  },
-  openGraph: {
-    type: "website",
-    title: "Shuttle Company Ticketing Software | Local & Shuttle Reservation System",
-    description:
-      "Launch your own local & shuttle reservation software. Smart schedule, fare zone, driver shift and load management for school, office and city commute routes.",
-    url: PAGE_URL,
-    siteName: "CWTicketing System",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Shuttle Company Ticketing Software | Local & Shuttle Reservation System",
-    description:
-      "Launch your own local & shuttle reservation software. Smart schedule, fare zone, driver shift and load management for school, office and city commute routes.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
 
 const jsonLd = {
   "@context": "https://schema.org",

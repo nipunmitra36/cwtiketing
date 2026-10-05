@@ -1,5 +1,6 @@
 import { HiOutlineTruck } from "react-icons/hi";
-import { FaShuttleVan, FaSuitcaseRolling } from "react-icons/fa";
+import { FaShuttleVan } from "react-icons/fa";
+import { IoTicketOutline } from "react-icons/io5";
 import type { IconType } from "react-icons";
 
 export interface Industry {
@@ -60,7 +61,7 @@ export const industries: Industry[] = [
     tagline: "Multi-operator ticket retail",
     desc: "Sell and manage inventory across many operators from a single control centre, with commission rules, per-operator administration, and your own branded marketplace.",
     href: "/bus-terminal-ticketing-system",
-    icon: FaSuitcaseRolling,
+    icon: IoTicketOutline,
     modules: [
       "Counter/Staff Ticketing for Each operator",
       "Administration for Each Operator",

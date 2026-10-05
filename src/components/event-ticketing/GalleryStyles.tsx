@@ -466,7 +466,7 @@ export default function GalleryStyles() {
                 </div>
 
                 <Link
-                  href="/contact"
+                  href="/contact-us"
                   className="group mt-auto inline-flex items-center gap-2 pt-8 text-[13px] font-semibold text-brand transition-colors hover:text-white"
                 >
                   Request this arrangement

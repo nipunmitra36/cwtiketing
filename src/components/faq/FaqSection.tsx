@@ -160,7 +160,7 @@ export default function FaqSection({
                   Chat on WhatsApp
                 </a>
                 <Link
-                  href="/contact"
+                  href="/contact-us"
                   className="group flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-[13px] font-semibold text-white backdrop-blur transition-all hover:bg-white/20 active:scale-[0.98]"
                 >
                   Book a Free Demo
@@ -244,7 +244,7 @@ export default function FaqSection({
             <p data-gsap className="pt-2 text-center text-[13px] text-text-muted">
               More questions?{" "}
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="font-medium text-brand transition-colors hover:text-brand-hover"
               >
                 Contact our team
