@@ -1,7 +1,6 @@
 import {
   CONTACT_API_BASE_URL,
   CONTACT_API_ENDPOINT,
-  type ContactField,
   type ContactFieldErrors,
   type ContactPayload,
   type ContactResponse,
@@ -73,16 +72,16 @@ function parseJson(text: string): unknown {
 }
 
 /** Pull `{ errors: { field: ["msg"] } }` out of an upstream validation payload. */
-function readUpstreamFieldErrors(body: unknown): ContactFieldErrors {
+function readUpstreamFieldErrors(body: unknown): Record<string, string> {
   if (typeof body !== "object" || body === null || !("errors" in body)) return {};
 
   const errors = (body as { errors?: unknown }).errors;
   if (typeof errors !== "object" || errors === null) return {};
 
-  const fieldErrors: ContactFieldErrors = {};
+  const fieldErrors: Record<string, string> = {};
   const record = errors as Record<string, unknown>;
 
-  for (const field of Object.keys(record) as ContactField[]) {
+  for (const field of Object.keys(record)) {
     const raw = record[field];
     const first = Array.isArray(raw) ? raw[0] : raw;
     if (typeof first === "string" && first.trim()) {
@@ -113,14 +112,14 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   // Cloudflare Turnstile verification (skipped only when no secret is configured).
+  const turnstileToken = readString(body["cf-turnstile-response"]);
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
   if (turnstileSecret) {
-    const token = readString(body["cf-turnstile-response"]);
-    if (!token) {
+    if (!turnstileToken) {
       return jsonResponse({ ok: false, message: CAPTCHA_MISSING }, 400);
     }
     const remoteIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
-    if (!(await verifyTurnstile(token, remoteIp))) {
+    if (!(await verifyTurnstile(turnstileToken, remoteIp))) {
       return jsonResponse({ ok: false, message: CAPTCHA_FAILED }, 400);
     }
   } else {
@@ -151,18 +150,33 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  // If upstream is not configured/reachable, simulate success for local/dev to make contact form work
-  const shouldSimulate = process.env.NODE_ENV !== "production" || !process.env.CONTACT_API_BASE_URL;
-  
+  // The upstream API verifies the Turnstile token itself — a submission
+  // without one can never be accepted, so fail fast with a clear message.
+  if (!turnstileToken) {
+    return jsonResponse({ ok: false, message: CAPTCHA_MISSING }, 400);
+  }
+
+  // The upstream endpoint only parses form-encoded bodies (a JSON body comes
+  // through empty and is rejected as "all fields required").
+  const upstreamForm = new URLSearchParams();
+  upstreamForm.set("full_name", payload.full_name);
+  upstreamForm.set("email", payload.email);
+  upstreamForm.set("topic", payload.topic);
+  upstreamForm.set("message", payload.message);
+  upstreamForm.set("cf-turnstile-response", turnstileToken);
+
+  // Simulate success only for local/dev when upstream cannot be reached at all.
+  const shouldSimulate = process.env.NODE_ENV !== "production";
+
   let upstream: Response | null = null;
   try {
     upstream = await fetch(upstreamUrl(), {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: JSON.stringify(payload),
+      body: upstreamForm.toString(),
       cache: "no-store",
       signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
     });
@@ -181,7 +195,19 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   if (upstream.status === 422 || upstream.status === 400) {
-    const fieldErrorsFromApi = readUpstreamFieldErrors(upstreamBody);
+    const upstreamErrors = readUpstreamFieldErrors(upstreamBody);
+
+    if (upstreamErrors["cf-turnstile-response"]) {
+      console.warn("[contact] upstream rejected the turnstile token");
+      return jsonResponse({ ok: false, message: CAPTCHA_FAILED }, 400);
+    }
+
+    const fieldErrorsFromApi: ContactFieldErrors = {};
+    for (const field of ["full_name", "email", "topic", "message"] as const) {
+      const message = upstreamErrors[field];
+      if (message) fieldErrorsFromApi[field] = message;
+    }
+
     if (Object.keys(fieldErrorsFromApi).length > 0) {
       return jsonResponse(
         { ok: false, message: "Please fix the highlighted fields and try again.", fieldErrors: fieldErrorsFromApi },
@@ -195,8 +221,5 @@ export async function POST(request: Request): Promise<Response> {
     body: upstreamBody,
   });
 
-  if (shouldSimulate) {
-    return jsonResponse({ ok: true }, 200);
-  }
   return jsonResponse({ ok: false, message: GENERIC_FAILURE }, 502);
 }

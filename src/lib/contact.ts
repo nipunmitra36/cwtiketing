@@ -1,10 +1,12 @@
 /**
  * Shared contract between the /contact form and the `/api/contact` route handler.
- * Kept free of `process.env` so it is safe to import from both server and client code.
+ * Safe to import from both server and client code.
  */
 
+import { API_BASE_URL } from "@/lib/api";
+
 /** Default API origin. The route handler prefers CONTACT_API_BASE_URL when set. */
-export const CONTACT_API_BASE_URL = "https://api.cwticketingsystem.com";
+export const CONTACT_API_BASE_URL = API_BASE_URL;
 
 /** Upstream path, relative to the origin. */
 export const CONTACT_API_ENDPOINT = "/api/v1/contacts";

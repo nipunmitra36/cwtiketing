@@ -285,7 +285,7 @@ export default function ContactClient() {
                       <HiOutlineCheck className="h-8 w-8 text-emerald-600" />
                     </div>
                     <p className="text-[20px] font-semibold tracking-tight text-gray-900">
-                      Thank you — message received.
+                      Your message has been submitted.
                     </p>
                     <p className="mt-2 max-w-sm text-[13px] leading-relaxed text-gray-500">
                       Thanks for reaching out about{" "}
@@ -507,7 +507,7 @@ export default function ContactClient() {
                         onVerify={(token) => {
                           setTurnstileToken(token);
                           setFormError((prev) =>
-                            prev && prev.startsWith("Captcha") ? null : prev,
+                            prev && /captcha/i.test(prev) ? null : prev,
                           );
                         }}
                         onExpire={() => {
