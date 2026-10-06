@@ -20,7 +20,11 @@ type CaseStudy = {
     stat?: string;
     statLabel?: string;
     desc: string;
-    href: string;
+    /**
+     * Case-study page. Leave unset until the page exists: the button then
+     * renders as plain text, so crawlers don't find a link to a 404.
+     */
+    href?: string;
 };
 
 const cases: CaseStudy[] = [
@@ -34,7 +38,6 @@ const cases: CaseStudy[] = [
         quote:
             "We replaced three separate booking tools with one platform that runs all 150 routes.",
         desc: "Migrated from a legacy system, cutting booking time by 60% across the network.",
-        href: "/case-studies/topbus",
     },
     {
         type: "stat",
@@ -46,7 +49,6 @@ const cases: CaseStudy[] = [
         stat: "3x",
         statLabel: "revenue growth in 6 months",
         desc: "Scaled from 50 to 500+ vehicles with real-time tracking and dispatch.",
-        href: "/case-studies/busbora",
     },
     {
         type: "quote",
@@ -58,7 +60,6 @@ const cases: CaseStudy[] = [
         quote:
             "Automated dispatch and passenger alerts fixed our late-pickup problem in a week.",
         desc: "On-time performance jumped after switching from manual radio dispatch.",
-        href: "/case-studies/canvey-xpress",
     },
 ];
 
@@ -164,13 +165,20 @@ export default function CaseStudies() {
                                         </p>
                                     </div>
                                 )}
-                                <Link
-                                    href={c.href}
-                                    className="mt-6 inline-flex w-fit items-center gap-1.5 text-[13px] font-semibold text-brand transition-colors hover:text-brand-hover"
-                                >
-                                    Read case study
-                                    <HiOutlineArrowLongRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                                </Link>
+                                {c.href ? (
+                                    <Link
+                                        href={c.href}
+                                        className="mt-6 inline-flex w-fit items-center gap-1.5 text-[13px] font-semibold text-brand transition-colors hover:text-brand-hover"
+                                    >
+                                        Read case study
+                                        <HiOutlineArrowLongRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                                    </Link>
+                                ) : (
+                                    <span className="mt-6 inline-flex w-fit cursor-default items-center gap-1.5 text-[13px] font-semibold text-brand">
+                                        Read case study
+                                        <HiOutlineArrowLongRight className="h-4 w-4" />
+                                    </span>
+                                )}
                             </div>
 
                             {/* Customer details */}

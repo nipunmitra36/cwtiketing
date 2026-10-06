@@ -16,9 +16,9 @@ export default function TurnstileWidget({ onVerify, onExpire, onError }: Turnsti
       onSuccess={onVerify}
       onExpire={onExpire}
       onError={onError}
-      // Invisible for most visitors; a checkbox appears only if Cloudflare
-      // needs an interaction. Expired tokens refresh without user action.
-      options={{ appearance: "interaction-only", refreshExpired: "auto", theme: "light" }}
+      // Always shown so visitors can see the form is protected; "flexible"
+      // stretches it to the form width. Expired tokens refresh on their own.
+      options={{ appearance: "always", size: "flexible", refreshExpired: "auto", theme: "light" }}
     />
   );
 }

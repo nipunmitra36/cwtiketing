@@ -475,7 +475,7 @@ export default function ContactClient() {
                     </div>
 
                     {/* Cloudflare Turnstile — bot protection */}
-                    <div className="flex justify-center pt-1">
+                    <div className="min-h-[65px] pt-1">
                       <TurnstileWidget
                         key={captchaKey}
                         onVerify={(token) => {
