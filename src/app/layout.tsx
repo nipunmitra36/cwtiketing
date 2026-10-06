@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   },
   title: {
     default: "Build Online Ticket Booking Platform for Transport Operators",
-    template: "%s | CWTicketing System",
+    template: "%s",
   },
   description:
     "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards for bus, train, cruise, taxi, and event operators.",
