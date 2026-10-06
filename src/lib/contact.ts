@@ -45,6 +45,15 @@ export type ContactResponse =
   | { ok: true }
   | { ok: false; message: string; fieldErrors?: ContactFieldErrors };
 
+/** What was sent and what came back — shown by the contact page's `?debug=1` panel. */
+export type ContactDebugInfo = {
+  url: string;
+  payload: Record<string, string>;
+  status: number | "network error";
+  response: unknown;
+  at: string;
+};
+
 const GENERIC_FAILURE =
   "We couldn't deliver your message just now. Please try again in a moment, or email us directly.";
 
@@ -69,24 +78,44 @@ function readFieldErrors(body: unknown): Record<string, string> {
 export async function submitContact(
   payload: ContactPayload,
   turnstileToken: string,
+  onDebug?: (info: ContactDebugInfo) => void,
 ): Promise<ContactResponse> {
+  const requestBody = { ...payload, "cf-turnstile-response": turnstileToken };
+  const debug = (status: ContactDebugInfo["status"], response: unknown) =>
+    onDebug?.({
+      url: CONTACT_FORM_ENDPOINT,
+      payload: requestBody,
+      status,
+      response,
+      at: new Date().toLocaleString(),
+    });
+
   let res: Response;
   try {
     res = await fetch(CONTACT_FORM_ENDPOINT, {
       method: "POST",
       headers: { Accept: "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify({ ...payload, "cf-turnstile-response": turnstileToken }),
+      body: JSON.stringify(requestBody),
     });
-  } catch {
+  } catch (reason) {
+    debug("network error", String(reason));
     return {
       ok: false,
       message: "We couldn't reach our servers. Please check your connection and try again.",
     };
   }
 
+  const text = await res.text().catch(() => "");
+  let body: unknown = null;
+  try {
+    body = text ? JSON.parse(text) : null;
+  } catch {
+    body = text;
+  }
+  debug(res.status, body);
+
   if (res.ok) return { ok: true };
 
-  const body: unknown = await res.json().catch(() => null);
   const errors = readFieldErrors(body);
 
   if (errors["cf-turnstile-response"]) {

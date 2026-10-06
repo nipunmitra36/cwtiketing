@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   HiOutlineLocationMarker,
@@ -15,12 +15,19 @@ import {
 } from "react-icons/hi";
 import { FaWhatsapp } from "react-icons/fa";
 import TurnstileWidget from "@/components/TurnstileWidget";
-import { CONTACT_TOPICS, submitContact, type ContactFieldErrors } from "@/lib/contact";
+import {
+  CONTACT_TOPICS,
+  submitContact,
+  type ContactDebugInfo,
+  type ContactFieldErrors,
+} from "@/lib/contact";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type FormStatus = "idle" | "sending" | "sent";
 
 const EMPTY_FORM = { full_name: "", email: "", message: "" };
+
+const noopSubscribe = () => () => {};
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -104,6 +111,13 @@ export default function ContactClient() {
   const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [sentTo, setSentTo] = useState<string>("");
+  // `?debug=1` shows the exact payload sent and the API's reply under the form.
+  const debugMode = useSyncExternalStore(
+    noopSubscribe,
+    () => new URLSearchParams(window.location.search).get("debug") === "1",
+    () => false,
+  );
+  const [debugInfo, setDebugInfo] = useState<ContactDebugInfo | null>(null);
 
   const office = OFFICE;
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(office.mapQuery)}&z=16&output=embed`;
@@ -155,6 +169,10 @@ export default function ContactClient() {
             message: form.message.trim(),
           },
           turnstileToken,
+          (info) => {
+            console.info("[contact] submit", info);
+            setDebugInfo(info);
+          },
         );
 
     // Tokens are single-use: always get a fresh one for the next attempt.
@@ -540,6 +558,40 @@ export default function ContactClient() {
                   </motion.form>
                 )}
               </AnimatePresence>
+
+              {debugMode && (
+                <div className="mt-6 rounded-xl border border-dashed border-gray-300 bg-gray-50 p-4 font-mono text-[11px] leading-relaxed text-gray-700">
+                  <p className="mb-2 font-sans text-[12px] font-semibold text-gray-900">
+                    Debug: last submit
+                  </p>
+                  {debugInfo ? (
+                    <>
+                      <p>
+                        POST {debugInfo.url} · {debugInfo.at}
+                      </p>
+                      <p
+                        className={`mt-1 font-semibold ${
+                          typeof debugInfo.status === "number" && debugInfo.status < 300
+                            ? "text-emerald-700"
+                            : "text-rose-700"
+                        }`}
+                      >
+                        Status: {debugInfo.status}
+                      </p>
+                      <p className="mt-3 font-sans font-semibold">Payload</p>
+                      <pre className="overflow-x-auto whitespace-pre-wrap break-all">
+                        {JSON.stringify(debugInfo.payload, null, 2)}
+                      </pre>
+                      <p className="mt-3 font-sans font-semibold">Response</p>
+                      <pre className="overflow-x-auto whitespace-pre-wrap break-all">
+                        {JSON.stringify(debugInfo.response, null, 2)}
+                      </pre>
+                    </>
+                  ) : (
+                    <p>Submit the form to see the payload and the API response here.</p>
+                  )}
+                </div>
+              )}
             </div>
           </motion.div>
 
