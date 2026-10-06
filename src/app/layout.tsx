@@ -165,8 +165,14 @@ export default function RootLayout({
       </head>
       <body className="font-sans" suppressHydrationWarning>
         {/* Microsoft Clarity */}
+        {/*
+          Skipped for crawlers (`is-bot`, set by the <head> script): Clarity's
+          tracking pixels (c.clarity.ms/c.gif, c.bing.com/c.gif) are blocked
+          for Googlebot and show up as "Page resources could not be loaded" in
+          Search Console. Bots also shouldn't count as recorded sessions.
+        */}
         <Script id="clarity" strategy="afterInteractive">
-          {`(function(c,l,a,r,i,t,y){
+          {`if(!document.documentElement.classList.contains("is-bot"))(function(c,l,a,r,i,t,y){
     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
     t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
