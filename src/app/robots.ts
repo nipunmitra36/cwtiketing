@@ -8,14 +8,17 @@ import { absoluteUrl } from "@/lib/site";
  *   ship a real catalogue under these paths, remove them here.
  * - `/industries`, `/solutions` — permanently redirected in next.config.ts.
  *   Blocking the old paths stops crawlers burning budget on the redirect chain.
- * - Next.js internals and query-string noise that never render distinct pages.
+ * - Query-string noise that never renders distinct pages.
+ *
+ * `/_next/` is explicitly allowed: it serves the CSS, JS and optimised images
+ * (`/_next/image?url=…`) Google needs to render the page. Blocking it makes
+ * Googlebot see unstyled HTML. The longer `Allow` rule beats `/*?*`.
  */
 const DISALLOW = [
   "/product/",
   "/products/",
   "/industries/",
   "/solutions/",
-  "/_next/",
   "/*?*",
 ];
 
@@ -24,7 +27,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", "/_next/"],
         disallow: DISALLOW,
       },
       // Ad crawlers hit the marketing pages on every request; keeping them out

@@ -3,6 +3,7 @@ import Script from "next/script";
 import { vanillaSans } from "@/fonts/vanillaSans";
 import { Poppins, Montserrat, Google_Sans } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
+import { BOT_UA_PATTERN } from "@/lib/gsap/botPattern";
 import "./globals.css";
 import Providers from "./providers";
 import GSAPProvider from "../components/GSAPProvider";
@@ -151,10 +152,14 @@ export default function RootLayout({
           `no-js` to keep that content visible for anyone without JS — this
           blocking script swaps it out before the body paints, so the hidden
           state is never seen and never left behind.
+
+          Crawlers get `is-bot` instead: they render JS but never scroll, so
+          scroll reveals would leave sections invisible in Google's snapshot.
+          globals.css forces that content visible for them.
         */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.remove("no-js")`,
+            __html: `(function(c){c.remove("no-js");if(/${BOT_UA_PATTERN}/i.test(navigator.userAgent))c.add("is-bot")})(document.documentElement.classList)`,
           }}
         />
       </head>

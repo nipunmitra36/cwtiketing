@@ -189,6 +189,40 @@ body {
   opacity: 1;
 }
 
+/*
+ * Crawlers (tagged `is-bot` by the inline <head> script) never scroll, so
+ * scroll-triggered reveals never fire for them and Google's rendered snapshot
+ * showed blank sections. Force every animated content element visible.
+ * `!important` is required to beat the inline `opacity: 0` GSAP writes for
+ * `from`/`fromTo` tweens. Purely decorative pieces (beams, dots, moving cars)
+ * are left out on purpose.
+ */
+.is-bot [data-gsap],
+.is-bot .gsap-reveal,
+.is-bot .gsap-reveal-up,
+.is-bot .gsap-reveal-left,
+.is-bot .gsap-reveal-right,
+.is-bot .gsap-reveal-scale,
+.is-bot .gsap-hero-item,
+.is-bot .gsap-hero-visual,
+.is-bot .gsap-hero-widget,
+.is-bot .gsap-left-item,
+.is-bot .gsap-bento-card,
+.is-bot .gsap-course-card,
+.is-bot .gsap-parcel-card,
+.is-bot .gsap-parcel-step,
+.is-bot .gsap-ride-card,
+.is-bot .gsap-ticket-card,
+.is-bot .gsap-ticket-badge,
+.is-bot .gsap-hub-node,
+.is-bot .gsap-footer-item,
+.is-bot .gsap-footer-divider,
+.is-bot .gsap-footer-bottom {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
 .gsap-reveal {
   opacity: 0;
   visibility: hidden;

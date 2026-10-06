@@ -29,7 +29,17 @@ export const playOnce = {
  */
 export function prefersReducedMotion(): boolean {
   if (typeof window === "undefined" || !window.matchMedia) return false;
+  if (isBot()) return true;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
+ * True for crawlers. They never scroll, so scroll-triggered reveals would
+ * leave `[data-gsap]` content at `opacity: 0` in their rendered snapshot.
+ */
+export function isBot(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.documentElement.classList.contains("is-bot");
 }
 
 export { gsap, ScrollTrigger, ScrollSmoother };

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { gsap, ScrollTrigger, ScrollSmoother } from "@/lib/gsap";
+import { gsap, ScrollTrigger, ScrollSmoother, isBot } from "@/lib/gsap";
 import { markSmootherReady, resetSmootherReady } from "@/lib/gsap/ready";
 
 interface GSAPProviderProps {
@@ -26,6 +26,14 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
   useEffect(() => {
     const wrapper = document.getElementById("smooth-wrapper");
     const content = document.getElementById("smooth-content");
+    if (isBot()) {
+      // Crawlers never scroll. Skip the smoother (its fixed-position wrapper
+      // can clip a tall render viewport), release queued reveals, and show
+      // everything.
+      markSmootherReady();
+      revealAll();
+      return;
+    }
     if (!wrapper || !content) {
       // Reveals wait on the smoother, so without one nothing would ever
       // animate them in — and `[data-gsap]` ships at `opacity: 0`. Un-hide
