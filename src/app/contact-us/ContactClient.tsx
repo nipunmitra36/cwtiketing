@@ -141,7 +141,7 @@ export default function ContactClient() {
     if (sending) return;
 
     if (!turnstileToken) {
-      setFormError("Please complete the captcha verification before sending.");
+      setFormError("Verifying you're human — please wait a moment and press Send again (captcha).");
       return;
     }
 
@@ -510,11 +510,12 @@ export default function ContactClient() {
                             prev && /captcha/i.test(prev) ? null : prev,
                           );
                         }}
-                        onExpire={() => {
+                        // The widget refreshes expired tokens on its own.
+                        onExpire={() => setTurnstileToken("")}
+                        onError={() => {
                           setTurnstileToken("");
-                          setFormError("Captcha expired. Please verify again and resubmit.");
+                          setFormError("Captcha couldn't load. Please refresh the page and try again.");
                         }}
-                        onError={() => setTurnstileToken("")}
                       />
                     </div>
 

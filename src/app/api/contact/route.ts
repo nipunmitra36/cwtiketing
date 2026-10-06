@@ -7,8 +7,6 @@ import {
 } from "@/lib/contact";
 
 const UPSTREAM_TIMEOUT_MS = 12_000;
-const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-const TURNSTILE_TIMEOUT_MS = 8_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const GENERIC_FAILURE =
@@ -19,32 +17,6 @@ const CAPTCHA_MISSING =
 
 const CAPTCHA_FAILED =
   "Captcha verification failed. Please try again, or email us directly.";
-
-/** Verify a Turnstile token against Cloudflare's siteverify endpoint. */
-async function verifyTurnstile(token: string, remoteIp: string | null): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return false;
-
-  const form = new URLSearchParams();
-  form.set("secret", secret);
-  form.set("response", token);
-  if (remoteIp) form.set("remoteip", remoteIp);
-
-  try {
-    const res = await fetch(TURNSTILE_VERIFY_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: form.toString(),
-      cache: "no-store",
-      signal: AbortSignal.timeout(TURNSTILE_TIMEOUT_MS),
-    });
-    const data = (await res.json().catch(() => null)) as { success?: boolean } | null;
-    return Boolean(data?.success);
-  } catch (reason) {
-    console.error("[contact] turnstile verification request failed", reason);
-    return false;
-  }
-}
 
 function upstreamUrl(): string {
   const origin = process.env.CONTACT_API_BASE_URL?.replace(/\/+$/, "") || CONTACT_API_BASE_URL;
@@ -111,20 +83,9 @@ export async function POST(request: Request): Promise<Response> {
     return jsonResponse({ ok: true }, 200);
   }
 
-  // Cloudflare Turnstile verification (skipped only when no secret is configured).
+  // Turnstile tokens are single-use: the upstream API runs siteverify itself,
+  // so verifying here as well would burn the token and make every submission fail.
   const turnstileToken = readString(body["cf-turnstile-response"]);
-  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
-  if (turnstileSecret) {
-    if (!turnstileToken) {
-      return jsonResponse({ ok: false, message: CAPTCHA_MISSING }, 400);
-    }
-    const remoteIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
-    if (!(await verifyTurnstile(turnstileToken, remoteIp))) {
-      return jsonResponse({ ok: false, message: CAPTCHA_FAILED }, 400);
-    }
-  } else {
-    console.warn("[contact] TURNSTILE_SECRET_KEY not set — skipping Turnstile verification");
-  }
 
   const payload: ContactPayload = {
     full_name: readString(body.full_name),
@@ -150,8 +111,7 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  // The upstream API verifies the Turnstile token itself — a submission
-  // without one can never be accepted, so fail fast with a clear message.
+  // A submission without a token can never be accepted upstream — fail fast.
   if (!turnstileToken) {
     return jsonResponse({ ok: false, message: CAPTCHA_MISSING }, 400);
   }
@@ -214,6 +174,13 @@ export async function POST(request: Request): Promise<Response> {
         422,
       );
     }
+  }
+
+  if (upstream.status === 429) {
+    return jsonResponse(
+      { ok: false, message: "Too many messages in a short time. Please wait a minute and try again." },
+      429,
+    );
   }
 
   console.error("[contact] upstream rejected submission", {
