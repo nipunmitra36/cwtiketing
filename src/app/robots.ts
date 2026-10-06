@@ -4,7 +4,6 @@ import { absoluteUrl } from "@/lib/site";
 /**
  * Paths that must never be indexed or crawled.
  *
- * - `/api` — route handlers, no HTML to index.
  * - `/product`, `/products` — template e-commerce demo still in the repo. If you
  *   ship a real catalogue under these paths, remove them here.
  * - `/industries`, `/solutions` — permanently redirected in next.config.ts.
@@ -12,7 +11,6 @@ import { absoluteUrl } from "@/lib/site";
  * - Next.js internals and query-string noise that never render distinct pages.
  */
 const DISALLOW = [
-  "/api/",
   "/product/",
   "/products/",
   "/industries/",
