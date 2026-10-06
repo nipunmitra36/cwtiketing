@@ -112,5 +112,11 @@ export async function submitContact(
   }
 
   console.error("[contact] API rejected submission", res.status, body);
-  return { ok: false, message: GENERIC_FAILURE };
+
+  // Surface the API's own reason (and status) so failures are diagnosable.
+  const apiMessage = (body as { message?: unknown } | null)?.message;
+  if (typeof apiMessage === "string" && apiMessage.trim() && !/server error/i.test(apiMessage)) {
+    return { ok: false, message: `${apiMessage.trim()} (error ${res.status})` };
+  }
+  return { ok: false, message: `${GENERIC_FAILURE} (error ${res.status})` };
 }
