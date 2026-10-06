@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap, playOnce } from "@/lib/gsap";
+import { gsap, playOnce, prefersReducedMotion } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineSearch,
@@ -57,28 +57,34 @@ export default function TaxiJourney() {
 
   useEffect(() => {
     let ctx: gsap.Context | null = null;
+    let revealed: NodeListOf<HTMLElement> | null = null;
 
     const cancel = onSmootherReady(() => {
-      ctx = gsap.context(() => {
-        const el = sectionRef.current;
-        if (!el) return;
+      const el = sectionRef.current;
+      if (!el) return;
+      revealed = el.querySelectorAll<HTMLElement>("[data-gsap]");
 
-        gsap.fromTo(
-          el.querySelectorAll("[data-gsap]"),
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 80%",
-              ...playOnce,
-            },
-          }
-        );
+      ctx = gsap.context(() => {
+        if (prefersReducedMotion()) {
+          gsap.set(revealed, { clearProps: "opacity,transform" });
+        } else {
+          gsap.fromTo(
+            revealed,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 80%",
+                ...playOnce,
+              },
+            }
+          );
+        }
 
         const rail = el.querySelector<HTMLElement>("[data-journey-rail]");
         if (rail) {
@@ -100,6 +106,9 @@ export default function TaxiJourney() {
     return () => {
       cancel();
       ctx?.revert();
+      if (revealed?.length) {
+        gsap.set(revealed, { clearProps: "opacity,transform" });
+      }
     };
   }, []);
 

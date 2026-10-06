@@ -9,6 +9,16 @@ interface GSAPProviderProps {
   children: React.ReactNode;
 }
 
+/**
+ * Show every `[data-gsap]` element immediately, dropping the CSS-driven
+ * `opacity: 0` start state.
+ */
+function revealAll(): void {
+  document
+    .querySelectorAll<HTMLElement>("[data-gsap]")
+    .forEach((el) => gsap.set(el, { clearProps: "opacity,transform" }));
+}
+
 export default function GSAPProvider({ children }: GSAPProviderProps) {
   const smootherRef = useRef<ScrollSmoother | null>(null);
   const pathname = usePathname();
@@ -16,16 +26,31 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
   useEffect(() => {
     const wrapper = document.getElementById("smooth-wrapper");
     const content = document.getElementById("smooth-content");
-    if (!wrapper || !content) return;
+    if (!wrapper || !content) {
+      // Reveals wait on the smoother, so without one nothing would ever
+      // animate them in — and `[data-gsap]` ships at `opacity: 0`. Un-hide
+      // rather than leave the page blank.
+      revealAll();
+      return;
+    }
 
-    smootherRef.current = ScrollSmoother.create({
-      wrapper: "#smooth-wrapper",
-      content: "#smooth-content",
-      smooth: 1.2,
-      speed: 1.05,
-      effects: true,
-      smoothTouch: 0.9,
-    });
+    try {
+      smootherRef.current = ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 1.2,
+        speed: 1.05,
+        effects: true,
+        smoothTouch: 0.9,
+      });
+    } catch {
+      // A failed smoother still leaves queued reveal callbacks waiting on
+      // `markSmootherReady`. Flush them and show the content rather than
+      // leaving a blank page.
+      markSmootherReady();
+      revealAll();
+      return;
+    }
 
     markSmootherReady();
 

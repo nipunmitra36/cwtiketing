@@ -136,6 +136,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`
+        no-js
         ${poppins.variable}
         ${montserrat.variable}
         ${googleSans.variable}
@@ -143,6 +144,20 @@ export default function RootLayout({
       `}
       suppressHydrationWarning
     >
+      <head>
+        {/*
+          `[data-gsap]` starts at `opacity: 0` so the scroll reveals do not
+          flash their content in after the first paint. The server ships
+          `no-js` to keep that content visible for anyone without JS — this
+          blocking script swaps it out before the body paints, so the hidden
+          state is never seen and never left behind.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.remove("no-js")`,
+          }}
+        />
+      </head>
       <body className="font-sans" suppressHydrationWarning>
         {/* Microsoft Clarity */}
         <Script id="clarity" strategy="afterInteractive">

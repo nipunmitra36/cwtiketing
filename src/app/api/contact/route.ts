@@ -8,10 +8,44 @@ import {
 } from "@/lib/contact";
 
 const UPSTREAM_TIMEOUT_MS = 12_000;
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const TURNSTILE_TIMEOUT_MS = 8_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const GENERIC_FAILURE =
   "We couldn't deliver your message just now. Please try again in a moment, or email us directly.";
+
+const CAPTCHA_MISSING =
+  "Captcha verification is required. Please complete the verification and try again.";
+
+const CAPTCHA_FAILED =
+  "Captcha verification failed. Please try again, or email us directly.";
+
+/** Verify a Turnstile token against Cloudflare's siteverify endpoint. */
+async function verifyTurnstile(token: string, remoteIp: string | null): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return false;
+
+  const form = new URLSearchParams();
+  form.set("secret", secret);
+  form.set("response", token);
+  if (remoteIp) form.set("remoteip", remoteIp);
+
+  try {
+    const res = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: form.toString(),
+      cache: "no-store",
+      signal: AbortSignal.timeout(TURNSTILE_TIMEOUT_MS),
+    });
+    const data = (await res.json().catch(() => null)) as { success?: boolean } | null;
+    return Boolean(data?.success);
+  } catch (reason) {
+    console.error("[contact] turnstile verification request failed", reason);
+    return false;
+  }
+}
 
 function upstreamUrl(): string {
   const origin = process.env.CONTACT_API_BASE_URL?.replace(/\/+$/, "") || CONTACT_API_BASE_URL;
@@ -76,6 +110,21 @@ export async function POST(request: Request): Promise<Response> {
   // Honeypot: real users never see this input, bots usually fill it in.
   if (readString(body.website)) {
     return jsonResponse({ ok: true }, 200);
+  }
+
+  // Cloudflare Turnstile verification (skipped only when no secret is configured).
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+  if (turnstileSecret) {
+    const token = readString(body["cf-turnstile-response"]);
+    if (!token) {
+      return jsonResponse({ ok: false, message: CAPTCHA_MISSING }, 400);
+    }
+    const remoteIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
+    if (!(await verifyTurnstile(token, remoteIp))) {
+      return jsonResponse({ ok: false, message: CAPTCHA_FAILED }, 400);
+    }
+  } else {
+    console.warn("[contact] TURNSTILE_SECRET_KEY not set — skipping Turnstile verification");
   }
 
   const payload: ContactPayload = {

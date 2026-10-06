@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger, playOnce } from "@/lib/gsap";
+import { gsap, ScrollTrigger, playOnce, prefersReducedMotion } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineChat,
@@ -98,29 +98,38 @@ export default function HowItWorks({
 
   useEffect(() => {
     let ctx: gsap.Context | null = null;
+    let revealed: NodeListOf<HTMLElement> | null = null;
 
     const cancel = onSmootherReady(() => {
-      ctx = gsap.context(() => {
-        const el = sectionRef.current;
-        if (!el) return;
+      const el = sectionRef.current;
+      if (!el) return;
+      revealed = el.querySelectorAll<HTMLElement>("[data-gsap]");
 
+      ctx = gsap.context(() => {
         // ── Content reveal ──
-        gsap.fromTo(
-          el.querySelectorAll("[data-gsap]"),
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 80%",
-              ...playOnce,
-            },
-          }
-        );
+        // The hidden start state comes from CSS, so the server-rendered HTML
+        // and the first client paint agree. Skip the tween for reduced-motion
+        // users rather than fading content in from opacity 0.
+        if (prefersReducedMotion()) {
+          gsap.set(revealed, { clearProps: "opacity,transform" });
+        } else {
+          gsap.fromTo(
+            revealed,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              stagger: 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 80%",
+                ...playOnce,
+              },
+            }
+          );
+        }
 
         // ── Progress fill across the steps (scrubbed) ──
         const grid = el.querySelector<HTMLElement>("[data-gsap-grid]");
@@ -179,6 +188,12 @@ export default function HowItWorks({
     return () => {
       cancel();
       ctx?.revert();
+      // revert() strips GSAP's inline styles, which drops these elements back
+      // to the stylesheet (`[data-gsap] { opacity: 0 }`). This cleanup also runs
+      // on every route change, so un-hide them explicitly.
+      if (revealed?.length) {
+        gsap.set(revealed, { clearProps: "opacity,transform" });
+      }
     };
   }, []);
 

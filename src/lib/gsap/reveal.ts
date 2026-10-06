@@ -1,4 +1,4 @@
-import { gsap, playOnce } from "./index";
+import { gsap, playOnce, prefersReducedMotion } from "./index";
 import { onSmootherReady } from "./ready";
 
 export interface SectionRevealOptions {
@@ -20,6 +20,10 @@ export interface SectionRevealOptions {
  * Non-reverse reveals use `playOnce` so each trigger is discarded after its
  * first play — no per-frame scroll processing for finished sections.
  *
+ * The hidden start state comes from CSS (`[data-gsap] { opacity: 0 }`), so the
+ * server-rendered HTML already matches what the client paints first. Without
+ * it the section would be visible in the SSR HTML, then snap invisible here.
+ *
  * Returns a cleanup function (safe to return from a `useEffect`).
  */
 export function createSectionReveal(
@@ -34,10 +38,17 @@ export function createSectionReveal(
     reverse = false,
   } = opts;
   let ctx: gsap.Context | null = null;
+  let els: NodeListOf<HTMLElement> | null = null;
 
   const cancel = onSmootherReady(() => {
-    const els = section.querySelectorAll("[data-gsap]");
+    els = section.querySelectorAll<HTMLElement>("[data-gsap]");
     if (!els.length) return;
+
+    if (prefersReducedMotion()) {
+      gsap.set(els, { clearProps: "opacity,transform" });
+      return;
+    }
+
     ctx = gsap.context(() => {
       gsap.fromTo(
         els,
@@ -61,5 +72,10 @@ export function createSectionReveal(
   return () => {
     cancel();
     ctx?.revert();
+    // revert() strips GSAP's inline styles, which drops the element back to the
+    // stylesheet — i.e. `[data-gsap] { opacity: 0 }`. This cleanup also runs on
+    // every route change, so clear the attribute-driven hiding explicitly and
+    // let the revealed state stand.
+    if (els?.length) gsap.set(els, { clearProps: "opacity,transform" });
   };
 }

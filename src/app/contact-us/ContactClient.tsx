@@ -14,6 +14,7 @@ import {
   HiOutlineExclamation,
 } from "react-icons/hi";
 import { FaWhatsapp } from "react-icons/fa";
+import TurnstileWidget from "@/components/TurnstileWidget";
 import {
   CONTACT_FORM_ENDPOINT,
   CONTACT_TOPICS,
@@ -103,6 +104,8 @@ export default function ContactClient() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [form, setForm] = useState(EMPTY_FORM);
   const [honeypot, setHoneypot] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [captchaKey, setCaptchaKey] = useState(0);
   const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [sentTo, setSentTo] = useState<string>("");
@@ -137,6 +140,11 @@ export default function ContactClient() {
     e.preventDefault();
     if (sending) return;
 
+    if (!turnstileToken) {
+      setFormError("Please complete the captcha verification before sending.");
+      return;
+    }
+
     setStatus("sending");
     setFormError(null);
     setFieldErrors({});
@@ -151,6 +159,7 @@ export default function ContactClient() {
           topic,
           message: form.message.trim(),
           website: honeypot,
+          "cf-turnstile-response": turnstileToken,
         }),
       });
 
@@ -160,6 +169,8 @@ export default function ContactClient() {
         setSentTo(form.email.trim());
         setForm(EMPTY_FORM);
         setHoneypot("");
+        setTurnstileToken("");
+        setCaptchaKey((k) => k + 1);
         setStatus("sent");
         return;
       }
@@ -168,6 +179,8 @@ export default function ContactClient() {
         if (data.fieldErrors) setFieldErrors(data.fieldErrors);
         setFormError(data.message);
         setStatus("idle");
+        setTurnstileToken("");
+        setCaptchaKey((k) => k + 1);
         return;
       }
 
@@ -175,11 +188,15 @@ export default function ContactClient() {
         "We couldn't send your message just now. Please try again, or email us directly.",
       );
       setStatus("idle");
+      setTurnstileToken("");
+      setCaptchaKey((k) => k + 1);
     } catch {
       setFormError(
         `We couldn't reach our servers. Please check your connection and try again, or email ${EMAIL}.`,
       );
       setStatus("idle");
+      setTurnstileToken("");
+      setCaptchaKey((k) => k + 1);
     }
   };
 
@@ -190,6 +207,8 @@ export default function ContactClient() {
     setFormError(null);
     setSentTo("");
     setHoneypot("");
+    setTurnstileToken("");
+    setCaptchaKey((k) => k + 1);
     setTopic(TOPICS[0]);
   };
 
@@ -479,6 +498,24 @@ export default function ContactClient() {
                           The more detail you share, the faster we can point you to the right person.
                         </p>
                       )}
+                    </div>
+
+                    {/* Cloudflare Turnstile — bot protection */}
+                    <div className="flex justify-center pt-1">
+                      <TurnstileWidget
+                        key={captchaKey}
+                        onVerify={(token) => {
+                          setTurnstileToken(token);
+                          setFormError((prev) =>
+                            prev && prev.startsWith("Captcha") ? null : prev,
+                          );
+                        }}
+                        onExpire={() => {
+                          setTurnstileToken("");
+                          setFormError("Captcha expired. Please verify again and resubmit.");
+                        }}
+                        onError={() => setTurnstileToken("")}
+                      />
                     </div>
 
                     <button

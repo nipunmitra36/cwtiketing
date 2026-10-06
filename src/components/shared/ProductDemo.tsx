@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { gsap, playOnce } from "@/lib/gsap";
+import { gsap, playOnce, prefersReducedMotion } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineCheck,
@@ -447,12 +447,18 @@ export default function ProductDemo({
 
   useEffect(() => {
     let ctx: gsap.Context | null = null;
+    let revealed: NodeListOf<HTMLElement> | null = null;
     const cancel = onSmootherReady(() => {
+      const el = sectionRef.current;
+      if (!el) return;
+      revealed = el.querySelectorAll<HTMLElement>("[data-gsap]");
       ctx = gsap.context(() => {
-        const el = sectionRef.current;
-        if (!el) return;
+        if (prefersReducedMotion()) {
+          gsap.set(revealed, { clearProps: "opacity,transform" });
+          return;
+        }
         gsap.fromTo(
-          el.querySelectorAll("[data-gsap]"),
+          revealed,
           { opacity: 0, y: 40 },
           {
             opacity: 1,
@@ -468,6 +474,9 @@ export default function ProductDemo({
     return () => {
       cancel();
       ctx?.revert();
+      if (revealed?.length) {
+        gsap.set(revealed, { clearProps: "opacity,transform" });
+      }
     };
   }, []);
 
