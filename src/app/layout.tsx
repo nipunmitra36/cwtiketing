@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   title: {
-    default: "Build Online Ticket Booking Platform for Transport Operators",
+    default: "Build Online Ticket Booking System for Transport Operators",
     template: "%s",
   },
   description:

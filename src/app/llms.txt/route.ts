@@ -1,0 +1,131 @@
+import { absoluteUrl } from "@/lib/site";
+import { POSTS } from "../blog/posts";
+
+/**
+ * /llms.txt — a plain-Markdown site summary for AI assistants and answer
+ * engines (https://llmstxt.org). Built once at build time, like robots.txt
+ * and sitemap.xml; the blog list comes from POSTS so new posts appear
+ * automatically.
+ */
+export const dynamic = "force-static";
+
+interface PageLink {
+  title: string;
+  path: string;
+  description: string;
+}
+
+const SOLUTIONS: PageLink[] = [
+  {
+    title: "Bus Ticketing System",
+    path: "/bus-ticketing-system",
+    description:
+      "Branded online bus booking with seat selection, routes, fares, payments, mobile apps and an admin dashboard for bus operators.",
+  },
+  {
+    title: "Intercity Bus Booking Software",
+    path: "/intercity-bus-booking-software",
+    description:
+      "Intercity bus booking with route management, fleet, online sales, agent panel and real-time reporting.",
+  },
+  {
+    title: "Bus Terminal Ticketing System",
+    path: "/bus-terminal-ticketing-system",
+    description:
+      "Cloud-based terminal ticketing to manage counters, schedules, departures, ticket sales and passenger flow.",
+  },
+  {
+    title: "Shuttle Booking System",
+    path: "/shuttle-booking-system",
+    description:
+      "Shuttle reservations for schools, companies and airports: routes, schedules, seats and online booking.",
+  },
+  {
+    title: "Online Taxi Booking System",
+    path: "/online-taxi-booking-system",
+    description:
+      "Branded taxi booking with dispatch, driver app, rider app, fare management and real-time tracking.",
+  },
+  {
+    title: "Event Ticketing System",
+    path: "/event-ticketing-system",
+    description:
+      "Online event ticketing with seat mapping, QR check-in, multiple sales channels and real-time reporting.",
+  },
+  {
+    title: "Parcel Management System",
+    path: "/parcel-management-system",
+    description:
+      "Courier and logistics software: parcel tracking, hub management, automated billing and notifications.",
+  },
+];
+
+const COMPANY: PageLink[] = [
+  {
+    title: "Pricing",
+    path: "/pricing",
+    description: "Plans for transport businesses of different sizes.",
+  },
+  {
+    title: "About Us",
+    path: "/about-us",
+    description:
+      "CWTicketing System is a product of Codeware Ltd., built for transport operators.",
+  },
+  {
+    title: "Contact Us",
+    path: "/contact-us",
+    description: "Request a demo, pricing or support.",
+  },
+  {
+    title: "Careers",
+    path: "/careers",
+    description: "Open roles at Codeware Ltd.",
+  },
+];
+
+const LEGAL: PageLink[] = [
+  { title: "Privacy Policy", path: "/privacy-policy", description: "How data is collected, used and protected." },
+  { title: "Terms & Conditions", path: "/terms-and-condition", description: "Terms of use for CWTicketing System." },
+];
+
+const link = ({ title, path, description }: PageLink) =>
+  `- [${title}](${absoluteUrl(path)}): ${description}`;
+
+export function GET() {
+  const blog = POSTS.map((post) =>
+    link({ title: post.title, path: `/blog/${post.slug}`, description: post.excerpt })
+  );
+
+  const body = `# CWTicketing System
+
+> White-label online ticket booking software for transport and event operators — bus, intercity coach, bus terminal, shuttle, taxi, event and parcel businesses. Operators launch their own branded booking website and mobile apps with seat selection, online payments, route and fleet management, agent/counter sales and an admin dashboard with real-time reporting.
+
+CWTicketing System is developed by Codeware Ltd., based in Dhaka, Bangladesh, and serves transport operators worldwide. It is sold as a SaaS platform, set up and branded for each operator.
+
+- Website: ${absoluteUrl("/")}
+- Email: info@cwticketingsystem.com
+- Phone / WhatsApp: +8801614000401
+
+## Solutions
+
+${SOLUTIONS.map(link).join("\n")}
+
+## Company
+
+${COMPANY.map(link).join("\n")}
+
+## Blog
+
+${blog.join("\n")}
+
+## Optional
+
+${LEGAL.map(link).join("\n")}
+- [Sitemap](${absoluteUrl("/sitemap.xml")}): Every public URL on the site.
+`;
+
+  return new Response(body, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+}

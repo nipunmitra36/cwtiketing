@@ -5,7 +5,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ScrollSmoother } from "@/lib/gsap";
 import {
   HiOutlineMenuAlt3,
   HiOutlineX,
@@ -173,9 +172,7 @@ const mobileItemVariants: Variants = {
 function scrollToHash(href: string) {
   const hash = href.split("#")[1];
   if (!hash) return;
-  const smoother = ScrollSmoother.get();
-  if (smoother) smoother.scrollTo(`#${hash}`, true);
-  else document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+  document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
 }
 
 function isActive(item: NavItem, pathname: string) {
@@ -386,8 +383,6 @@ export default function Header() {
   // While open: freeze page scroll and close on Escape
   useEffect(() => {
     if (!mobileOpen) return;
-    const smoother = ScrollSmoother.get();
-    smoother?.paused(true);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -396,7 +391,6 @@ export default function Header() {
     };
     document.addEventListener("keydown", onKey);
     return () => {
-      smoother?.paused(false);
       document.body.style.overflow = prevOverflow;
       document.removeEventListener("keydown", onKey);
     };

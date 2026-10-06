@@ -1,8 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
-
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Play a ScrollTrigger animation once, then discard the trigger.
@@ -42,4 +40,4 @@ export function isBot(): boolean {
   return document.documentElement.classList.contains("is-bot");
 }
 
-export { gsap, ScrollTrigger, ScrollSmoother };
+export { gsap, ScrollTrigger };

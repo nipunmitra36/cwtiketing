@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineArrowUp } from "react-icons/hi";
-import { ScrollSmoother } from "@/lib/gsap";
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -15,11 +14,7 @@ export default function BackToTop() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollToTop = () => {
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(0, true);
-    else window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <AnimatePresence>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { gsap, ScrollTrigger, ScrollSmoother, playOnce } from "@/lib/gsap";
+import { gsap, ScrollTrigger, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineArrowRight,
@@ -241,12 +241,9 @@ export default function ScrollFeatures() {
 
                 const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
                 const vh = window.innerHeight;
-                // ScrollSmoother scrolls content at `speed` (2x here), so pin
-                // distances run in that accelerated space; scale by it so each
-                // phase feels like one viewport of wheel scroll.
-                const speed =
-                    (ScrollSmoother.get() as { vars?: { speed?: number } } | undefined)
-                        ?.vars?.speed ?? 1;
+                // Native scrolling now (ScrollSmoother removed): one phase per
+                // viewport of wheel scroll.
+                const speed = 1;
 
                 // Compact full-cover cards: each card is a shorter, centered
                 // panel (positioned by CSS `top`, not transform). Card 0 shows

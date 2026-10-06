@@ -144,50 +144,21 @@ body {
   color: var(--color-text-body);
 }
 
-/* ── GSAP ScrollSmoother ───────────────────────────────────────────────────── */
+/* ── Page wrapper ─────────────────────────────────────────────────────────── */
+/*
+ * Native scrolling (ScrollSmoother was removed for scroll lag). `clip`, not
+ * `hidden`: it still stops wide decorations causing a horizontal scrollbar,
+ * but does not create a scroll container, so `position: sticky` keeps working.
+ */
 #smooth-wrapper {
-  overflow: hidden;
-  position: relative;
+  overflow-x: clip;
   width: 100%;
 }
 
-#smooth-content {
-  overflow: visible;
-  width: 100%;
-}
-
-/* ── GSAP Scroll Animation Classes ─────────────────────────────────────────── */
-
 /*
- * Scroll-reveal start state.
- *
- * This has to live in CSS, not in JS. The server ships these elements fully
- * visible and the reveal used to apply `opacity: 0` from a `fromTo` vars
- * object after hydration — so the first paint showed the content, then it
- * snapped invisible and animated back in. Declaring the hidden state here
- * means the SSR HTML and the first client render agree, and there is no flash.
- *
- * GSAP writes inline styles (which beat this rule) while animating to
- * `opacity: 1`, and the reveal helpers clear those inline styles on cleanup.
+ * `[data-gsap]` content is NOT hidden by CSS any more: scroll fade-ins were
+ * removed, so it is visible in the server HTML and on first paint.
  */
-[data-gsap] {
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-gsap] {
-    opacity: 1;
-  }
-}
-
-/*
- * Safety net for the cases where nothing will ever animate them in: JS off, or
- * the ScrollSmoother never coming up (see the early return in GSAPProvider).
- * Without this the section would be permanently invisible.
- */
-.no-js [data-gsap] {
-  opacity: 1;
-}
 
 /*
  * Crawlers (tagged `is-bot` by the inline <head> script) never scroll, so

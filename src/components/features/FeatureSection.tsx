@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger, ScrollSmoother, playOnce } from "@/lib/gsap";
+import { gsap, ScrollTrigger, playOnce } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
 import {
     HiOutlineTicket,
@@ -143,9 +143,7 @@ export default function FeatureSection() {
         if (!st) return;
         const progress = i / last;
         const target = st.start + progress * (st.end - st.start);
-        const smoother = ScrollSmoother.get();
-        if (smoother) smoother.scrollTo(target, true);
-        else window.scrollTo({ top: target, behavior: "smooth" });
+        window.scrollTo({ top: target, behavior: "smooth" });
     };
 
     const windowStart = Math.min(

@@ -16,6 +16,10 @@ export interface BlogSection {
 
 export interface BlogPost {
   slug: string;
+  /** <title> / og:title. Keep within ~60 chars so search results don't truncate it. */
+  metaTitle?: string;
+  /** Meta / og description. Aim for 140–160 chars. Falls back to `excerpt`. */
+  metaDescription?: string;
   title: string;
   excerpt: string;
   category: string;
@@ -45,6 +49,9 @@ const AUTHOR: BlogAuthor = {
 export const POSTS: BlogPost[] = [
   {
     slug: "ticket-booking-system-explained",
+    metaTitle: "Ticket Booking System Explained: How It Works & Benefits",
+    metaDescription:
+      "What is a ticket booking system? Learn how it manages seat inventory, payments and QR ticket validation in real time to prevent overbooking and revenue loss.",
     title: "Ticket Booking System Explained: How it Works, Key Benefits",
     excerpt:
       "Digital ticketing system definition, how it works and manages inventory, payments, and entry validation while preventing overbooking and revenue loss.",
@@ -92,6 +99,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "saas-vs-on-premise-ticketing",
+    metaTitle: "SaaS vs On-Premise Ticketing Software: Which to Choose?",
+    metaDescription:
+      "Compare SaaS and on-premise ticket booking systems on cost, security, scalability and peak-hour performance to pick the right model for your business.",
     title: "SaaS vs On-Premise Solution for Ticketing Businesses: How to Choose the Right Model",
     excerpt:
       "Deciding between cloud-based and self-hosted ticketing? Compare SaaS vs on-premise ticket booking systems on costs, security, and scalability.",
@@ -153,6 +163,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "overtime-scheduling-for-bus-operators",
+    metaTitle: "Overtime Scheduling for Bus Operators: Smart Strategies",
+    metaDescription:
+      "Practical overtime scheduling strategies for bus operators: reduce driver fatigue, cover demand spikes and delays, control staffing costs and stay on time.",
     title: "Smart Overtime Scheduling Strategies for Bus Operators",
     excerpt:
       "Discover practical strategies and tools to simplify overtime scheduling in bus operations. Reduce driver fatigue, optimize staffing, and improve efficiency.",
@@ -228,6 +241,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "bus-booking-software-customer-experience",
+    metaTitle: "Bus Booking Software That Fixes Passenger Pain Points",
+    metaDescription:
+      "Confusing booking flows, failed payments and vague schedules drive passengers away. See how mobile-first bus booking software fixes them and wins loyalty.",
     title: "Bus Booking Software That Solves Real Customer Pain Points",
     excerpt:
       "Discover how modern bus booking software solves real passenger pain points and boosts customer satisfaction with a smooth, mobile-first experience.",
@@ -303,6 +319,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "smart-fuel-management-feature",
+    metaTitle: "Smart Fuel Management for Bus Operators | CWTicketing",
+    metaDescription:
+      "Fuel is a bus company's biggest variable cost. See how CWTicketing's fuel management tracks consumption, flags misuse and theft, and cuts operating costs.",
     title: "Benefits of CWTicketing's Smart Fuel Management Feature",
     excerpt:
       "CWTicketing's fuel management feature optimizes fuel tracking and reduces operational costs, enhancing bus ticketing solutions for transport businesses.",
@@ -357,6 +376,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "web-based-bus-ticketing-challenges",
+    metaTitle: "Web-Based Bus Ticketing Challenges and How to Solve Them",
+    metaDescription:
+      "From API integration and security to downtime and scaling, learn the common challenges of web-based bus ticketing systems and practical ways to fix them.",
     title: "Web-Based Bus Ticketing System Challenges & Their Solutions",
     excerpt:
       "This article discusses the challenges of online web-based bus ticketing systems that affect the performance of travel agencies, and offers ways to fix them.",
@@ -418,6 +440,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "online-transport-booking-system",
+    metaTitle: "Online Transport Booking System for Stress-Free Travel",
+    metaDescription:
+      "Skip the booking hassle. An online transport booking system lets travellers compare prices, book tickets in minutes and track their bus in real time.",
     title: "Online Transport Booking System for Stress-Free Travellers",
     excerpt:
       "Want to travel without worrying about the booking hassle? With an online transport booking system, compare prices, book tickets and get real-time updates.",
@@ -487,6 +512,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "round-trip-vs-one-way-tickets",
+    metaTitle: "Round-Trip vs One-Way Tickets: Pros and Cons",
+    metaDescription:
+      "Round-trip or one-way? Compare the pros and cons of each ticket type on price, flexibility and planning to choose the right booking for your next trip.",
     title: "Pros and Cons of Booking Round-Trip and One-Way Tickets",
     excerpt:
       "Round-trip works best when the passenger has a planned return date. On the other hand, one-way trips are more flexible and allow you to visit spontaneously.",
@@ -541,6 +569,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "bus-ticket-booking-system-for-easy-transportation",
+    metaTitle: "Bus Ticket Booking System for Easy Transportation",
+    metaDescription:
+      "An automated bus ticket booking system with online payments, unlimited boarding and dropping points, custom routes and PDF tickets for operators and riders.",
     title: "Bus Ticket Booking System for Easy Transportation",
     excerpt:
       "An automated bus ticket booking system makes transportation easier with online payment methods, unlimited boarding and dropping points, customizable routes, and PDF tickets — for passengers and operators alike.",
@@ -595,6 +626,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "cwticketing-parcel-management-system",
+    metaTitle: "Parcel Management System for Package Handling | CWTicketing",
+    metaDescription:
+      "Manage parcels end to end with CWTicketing's Parcel Management System: assign agents, track every package, automate billing and notify customers.",
     title: "CWTicketing Parcel Management System: Effective Solution for Package Handling",
     excerpt:
       "Efficiently manage packages with the smart CWTicketing Parcel Management System (PMS). Assign agents, track parcels, send customer notifications, and more.",
@@ -649,6 +683,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "driver-app-benefits-bus-drivers",
+    metaTitle: "Driver App Benefits: 7 Bus Driver Problems Solved",
+    metaDescription:
+      "A driver app lets bus drivers manage routes, check bookings, scan tickets and report issues instantly. See the 7 daily problems it solves for your fleet.",
     title: "Driver App Benefits: Solving 7 Major Problems for Bus Drivers",
     excerpt:
       "A driver app is a smart tool that helps bus drivers manage routes, check bookings, and report issues instantly — making operations easier for drivers and operators.",
@@ -696,6 +733,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "online-ticket-booking-software-for-small-operators",
+    metaTitle: "Online Ticket Booking Software for Small Transport Operators",
+    metaDescription:
+      "How online ticket booking software helps small transport operators streamline ticket sales, cut manual errors, plan with real data and grow revenue.",
     title: "How an Online Ticket Booking Software Improves Business Operations for Small Operators",
     excerpt:
       "Find out how an online ticket booking system helps transport operators streamline ticket sales, reduce operational errors, improve planning, and generate more revenue.",
@@ -785,6 +825,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-ticket-booking-software-works",
+    metaTitle: "How Does Ticket Booking Software Work? A Practical Guide",
+    metaDescription:
+      "Learn how ticket booking software works: real-time seat availability, booking logic that prevents double booking, and payment integration explained.",
     title: "How Does Ticket Booking Software Work? The Logic of Digital Ticket Booking",
     excerpt:
       "Learn how ticket booking software works, including real-time availability, booking logic, and payment integration. A practical guide for transport businesses.",
@@ -860,6 +903,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "saas-fare-collection-solves-traditional-ticketing-problems",
+    metaTitle: "SaaS Fare Collection: Fixing Traditional Ticketing Problems",
+    metaDescription:
+      "Paper tickets and cash mean queues, errors and lost revenue. See how SaaS fare collection streamlines ticketing, payments and real-time reporting for buses.",
     title: "How SaaS Fare Collection Solves the Traditional Ticketing Problems",
     excerpt:
       "Upgrade your ticket booking system with SaaS fare collection. Streamline ticketing, payments, and reporting for more efficient, smart, and reliable bus services.",
@@ -921,6 +967,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-start-bus-ticket-booking-business-in-2026",
+    metaTitle: "How to Start a Bus Ticket Booking Business in 2026",
+    metaDescription:
+      "A step-by-step guide to starting a bus ticket booking business in 2026, from market research and branding to launching a white-label booking system.",
     title: "How to Start a Bus Ticket Booking Business in 2026: The Only Guide You Will Need",
     excerpt:
       "Learn how to start a bus business from scratch. From branding to a smart ticket booking system — with a complete success roadmap. Get a free demo with CWTicketing now.",
@@ -996,6 +1045,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "iot-fleet-management",
+    metaTitle: "IoT Fleet Management: Fix Fleet Problems, Boost Efficiency",
+    metaDescription:
+      "IoT fleet management uses real-time vehicle tracking, predictive maintenance, fuel monitoring and driver behaviour data to run safer, lower-cost fleets.",
     title: "IoT Fleet Management: Fix Fleet Problems and Boost Efficiency",
     excerpt:
       "IoT fleet management involves real-time vehicle tracking, predictive maintenance, fuel monitoring, and driver behavior analysis for efficient fleets.",
@@ -1092,6 +1144,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "maximize-ticket-sales-event-ticketing",
+    metaTitle: "How to Maximize Event Ticket Sales | Event Ticketing System",
+    metaDescription:
+      "Sell more event tickets with clear goals, social media, promo codes and past-audience outreach, backed by an online event ticketing system that converts.",
     title: "Maximize Your Ticket Sales | Online Event Ticketing System",
     excerpt:
       "Sell more tickets for your next event! Leverage a sophisticated online event ticketing system and reach out to past audiences to maximize sales.",
@@ -1174,6 +1229,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "online-reservation-system-for-businesses-and-end-users",
+    metaTitle: "Online Reservation System: Benefits for Businesses and Users",
+    metaDescription:
+      "An online reservation system gives customers 24/7 booking and helps businesses manage appointments, resources and paperwork. Explore the key benefits.",
     title: "Online Reservation System: A Perfect Solution for Businesses and End Users",
     excerpt:
       "An online reservation system plays the role of a perfect solution for businesses and end-users alike — from 24/7 booking to managing resources and more.",
@@ -1228,6 +1286,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "online-ticket-booking-system-streamline-booking-and-boost-sales",
+    metaTitle: "Online Ticket Booking System: Streamline Bookings & Sales",
+    metaDescription:
+      "Automate ticket sales with an online ticket booking system: let travellers book anytime, personalise offers, act on booking data and increase revenue.",
     title: "Online Ticket Booking System: Streamline Booking and Boost Sales",
     excerpt:
       "Streamline your ticket bookings with an online ticket booking system. Automate tasks, offer personalized experiences, make data-driven decisions, and boost revenue.",
@@ -1275,6 +1336,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "online-vs-offline-ticket-booking",
+    metaTitle: "Online vs Offline Ticket Sales: Which Model Works Best?",
+    metaDescription:
+      "Online ticketing, counter sales or a hybrid of both? Compare the models on reach, cost and control to choose what works best for your transport business.",
     title: "Online Ticket Booking System vs Offline Sales: Which Model Works Best for Your Business?",
     excerpt:
       "Should transport operators choose online ticketing, offline sales, or both? Explore the key differences between the models and choose the right option.",
