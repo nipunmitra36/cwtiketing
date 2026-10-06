@@ -10,6 +10,8 @@ import {
     HiOutlinePaperAirplane,
 } from "react-icons/hi";
 import { FaWhatsapp } from "react-icons/fa";
+import TurnstileWidget from "@/components/TurnstileWidget";
+import { submitContact } from "@/lib/contact";
 
 type FormState = "idle" | "sending" | "sent";
 
@@ -63,6 +65,9 @@ export default function ContactSection() {
     const formRef = useRef<HTMLDivElement>(null);
     const infoRef = useRef<HTMLDivElement>(null);
     const [formState, setFormState] = useState<FormState>("idle");
+    const [formError, setFormError] = useState<string | null>(null);
+    const [turnstileToken, setTurnstileToken] = useState("");
+    const [captchaKey, setCaptchaKey] = useState(0);
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -131,9 +136,49 @@ export default function ContactSection() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (formState === "sending") return;
+
+        if (!turnstileToken) {
+            setFormError("Verifying you're human — please wait a moment and try again (captcha).");
+            return;
+        }
+
         setFormState("sending");
-        await new Promise((r) => setTimeout(r, 1200));
-        setFormState("sent");
+        setFormError(null);
+
+        // The API only stores name/email/topic/message, so the extra
+        // details are kept by appending them to the message.
+        const details = [
+            ["Phone", form.phone],
+            ["Company", form.company],
+            ["Business type", form.businessType],
+            ["Country", form.country],
+        ]
+            .filter(([, value]) => value.trim())
+            .map(([label, value]) => `${label}: ${value.trim()}`);
+
+        const result = await submitContact(
+            {
+                full_name: form.name.trim(),
+                email: form.email.trim().toLowerCase(),
+                topic: "Sales & Pricing",
+                message: [form.message.trim(), ...(details.length ? ["", ...details] : [])].join("\n"),
+            },
+            turnstileToken,
+        );
+
+        // Tokens are single-use: always get a fresh one for the next attempt.
+        setTurnstileToken("");
+        setCaptchaKey((k) => k + 1);
+
+        if (result.ok) {
+            setFormState("sent");
+            return;
+        }
+
+        const firstFieldError = result.fieldErrors && Object.values(result.fieldErrors)[0];
+        setFormError(firstFieldError || result.message);
+        setFormState("idle");
     };
 
     const inputCls =
@@ -159,7 +204,7 @@ export default function ContactSection() {
                         ?
                     </h2>
                     <p className="mt-3 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
-                        Tell us about your business and we'll help you build the perfect
+                        Tell us about your business and we&apos;ll help you build the perfect
                         ticketing solution.
                     </p>
                 </div>
@@ -194,6 +239,7 @@ export default function ContactSection() {
                                     <button
                                         onClick={() => {
                                             setFormState("idle");
+                                            setFormError(null);
                                             setForm({
                                                 name: "",
                                                 email: "",
@@ -350,6 +396,30 @@ export default function ContactSection() {
                                             className={`${inputCls} resize-none`}
                                         />
                                     </div>
+
+                                    {/* Cloudflare Turnstile — bot protection */}
+                                    <div className="flex justify-center">
+                                        <TurnstileWidget
+                                            key={captchaKey}
+                                            onVerify={(token) => {
+                                                setTurnstileToken(token);
+                                                setFormError((prev) =>
+                                                    prev && /captcha/i.test(prev) ? null : prev,
+                                                );
+                                            }}
+                                            onExpire={() => setTurnstileToken("")}
+                                            onError={() => {
+                                                setTurnstileToken("");
+                                                setFormError("Captcha couldn't load. Please refresh the page and try again.");
+                                            }}
+                                        />
+                                    </div>
+
+                                    {formError && (
+                                        <p role="alert" className="text-[12px] font-medium text-rose-600">
+                                            {formError}
+                                        </p>
+                                    )}
 
                                     <button
                                         type="submit"
