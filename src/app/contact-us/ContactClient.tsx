@@ -15,12 +15,7 @@ import {
 } from "react-icons/hi";
 import { FaWhatsapp } from "react-icons/fa";
 import TurnstileWidget from "@/components/TurnstileWidget";
-import {
-  CONTACT_FORM_ENDPOINT,
-  CONTACT_TOPICS,
-  type ContactFieldErrors,
-  type ContactResponse,
-} from "@/lib/contact";
+import { CONTACT_TOPICS, submitContact, type ContactFieldErrors } from "@/lib/contact";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type FormStatus = "idle" | "sending" | "sent";
@@ -149,55 +144,34 @@ export default function ContactClient() {
     setFormError(null);
     setFieldErrors({});
 
-    try {
-      const response = await fetch(CONTACT_FORM_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-          full_name: form.full_name.trim(),
-          email: form.email.trim(),
-          topic,
-          message: form.message.trim(),
-          website: honeypot,
-          "cf-turnstile-response": turnstileToken,
-        }),
-      });
+    // Honeypot: real users never see this input, bots usually fill it in.
+    const data = honeypot
+      ? { ok: true as const }
+      : await submitContact(
+          {
+            full_name: form.full_name.trim(),
+            email: form.email.trim().toLowerCase(),
+            topic,
+            message: form.message.trim(),
+          },
+          turnstileToken,
+        );
 
-      const data = (await response.json().catch(() => null)) as ContactResponse | null;
+    // Tokens are single-use: always get a fresh one for the next attempt.
+    setTurnstileToken("");
+    setCaptchaKey((k) => k + 1);
 
-      if (response.ok && data?.ok) {
-        setSentTo(form.email.trim());
-        setForm(EMPTY_FORM);
-        setHoneypot("");
-        setTurnstileToken("");
-        setCaptchaKey((k) => k + 1);
-        setStatus("sent");
-        return;
-      }
-
-      if (data && !data.ok) {
-        if (data.fieldErrors) setFieldErrors(data.fieldErrors);
-        setFormError(data.message);
-        setStatus("idle");
-        setTurnstileToken("");
-        setCaptchaKey((k) => k + 1);
-        return;
-      }
-
-      setFormError(
-        "We couldn't send your message just now. Please try again, or email us directly.",
-      );
-      setStatus("idle");
-      setTurnstileToken("");
-      setCaptchaKey((k) => k + 1);
-    } catch {
-      setFormError(
-        `We couldn't reach our servers. Please check your connection and try again, or email ${EMAIL}.`,
-      );
-      setStatus("idle");
-      setTurnstileToken("");
-      setCaptchaKey((k) => k + 1);
+    if (data.ok) {
+      setSentTo(form.email.trim());
+      setForm(EMPTY_FORM);
+      setHoneypot("");
+      setStatus("sent");
+      return;
     }
+
+    if (data.fieldErrors) setFieldErrors(data.fieldErrors);
+    setFormError(data.message);
+    setStatus("idle");
   };
 
   const resetForm = () => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { Turnstile } from "@marsidev/react-turnstile";
+import { TURNSTILE_SITE_KEY } from "@/lib/contact";
 
 interface TurnstileWidgetProps {
   onVerify: (token: string) => void;
@@ -9,13 +10,9 @@ interface TurnstileWidgetProps {
 }
 
 export default function TurnstileWidget({ onVerify, onExpire, onError }: TurnstileWidgetProps) {
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-
-  if (!siteKey) return null;
-
   return (
     <Turnstile
-      siteKey={siteKey}
+      siteKey={TURNSTILE_SITE_KEY}
       onSuccess={onVerify}
       onExpire={onExpire}
       onError={onError}
