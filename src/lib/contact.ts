@@ -22,8 +22,6 @@ export const CONTACT_TOPICS = [
   "Sales & Pricing",
   "Technical Support",
   "Book a Demo",
-  "Press & Media",
-  "Partnerships",
   "General Enquiry",
 ] as const;
 
@@ -35,6 +33,8 @@ export type ContactPayload = {
   email: string;
   topic: string;
   message: string;
+  /** Optional — omitted from the request when left blank. */
+  website?: string;
 };
 
 export type ContactField = keyof ContactPayload;
@@ -126,7 +126,7 @@ export async function submitContact(
   }
 
   const fieldErrors: ContactFieldErrors = {};
-  for (const field of ["full_name", "email", "topic", "message"] as const) {
+  for (const field of ["full_name", "email", "website", "topic", "message"] as const) {
     if (errors[field]) fieldErrors[field] = errors[field];
   }
   if (Object.keys(fieldErrors).length > 0) {

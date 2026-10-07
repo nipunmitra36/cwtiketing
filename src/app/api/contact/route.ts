@@ -79,7 +79,7 @@ export async function POST(request: Request): Promise<Response> {
   const body = raw as Record<string, unknown>;
 
   // Honeypot: real users never see this input, bots usually fill it in.
-  if (readString(body.website)) {
+  if (readString(body.fax_number)) {
     return jsonResponse({ ok: true }, 200);
   }
 
@@ -93,6 +93,8 @@ export async function POST(request: Request): Promise<Response> {
     topic: readString(body.topic),
     message: readString(body.message),
   };
+  const website = readString(body.website);
+  if (website) payload.website = website;
 
   const fieldErrors: ContactFieldErrors = {};
   if (!payload.full_name) fieldErrors.full_name = "Please enter your full name.";

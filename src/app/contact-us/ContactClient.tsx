@@ -25,7 +25,7 @@ import {
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type FormStatus = "idle" | "sending" | "sent";
 
-const EMPTY_FORM = { full_name: "", email: "", message: "" };
+const EMPTY_FORM = { full_name: "", email: "", website: "", message: "" };
 
 const noopSubscribe = () => () => {};
 
@@ -45,57 +45,6 @@ const OFFICE = {
 };
 
 const TOPICS = CONTACT_TOPICS;
-
-const FAQS = [
-  {
-    q: "What's the typical response time?",
-    a: "We respond to all enquiries within 1 business day. Priority support customers receive responses within 4 hours.",
-  },
-  {
-    q: "Do you offer phone support?",
-    a: "Phone support is available for Enterprise customers. All other tiers receive chat and email support.",
-  },
-  {
-    q: "Can I schedule a product demo?",
-    a: "Absolutely — use the contact form and select 'Sales & Pricing'. Our team will set up a call at your convenience.",
-  },
-  {
-    q: "Where do I track my order?",
-    a: "Order tracking links are emailed at dispatch. You can also visit the Orders section in your account dashboard.",
-  },
-];
-
-// ─── FAQ Accordion ─────────────────────────────────────────────────────────────
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-b border-gray-200 last:border-0">
-      <button
-        type="button"
-        onClick={() => setOpen((p) => !p)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between py-4 text-left text-[14px] font-semibold text-gray-900"
-      >
-        {q}
-        <HiOutlineChevronDown
-          className={`ml-4 h-4 w-4 shrink-0 text-gray-400 transition-transform ${open ? "rotate-180" : ""}`}
-        />
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1, transition: { duration: 0.3, ease: EASE } }}
-            exit={{ height: 0, opacity: 0, transition: { duration: 0.2 } }}
-            className="overflow-hidden"
-          >
-            <p className="pb-4 text-[13px] leading-relaxed text-gray-500">{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function ContactClient() {
@@ -167,6 +116,7 @@ export default function ContactClient() {
             email: form.email.trim().toLowerCase(),
             topic,
             message: form.message.trim(),
+            ...(form.website.trim() && { website: form.website.trim() }),
           },
           turnstileToken,
           (info) => {
@@ -386,12 +336,41 @@ export default function ContactClient() {
                       </div>
                     </div>
 
-                    {/* Honeypot — hidden from people, tempting for bots */}
-                    <div className="absolute h-0 w-0 overflow-hidden opacity-0" aria-hidden="true">
-                      <label htmlFor="website">Website</label>
+                    {/* Website (optional) */}
+                    <div>
+                      <label
+                        htmlFor="website"
+                        className="mb-1.5 block text-[12px] font-semibold text-gray-700"
+                      >
+                        Website
+                      </label>
                       <input
                         id="website"
                         name="website"
+                        type="text"
+                        inputMode="url"
+                        autoComplete="url"
+                        maxLength={255}
+                        placeholder="www.yourcompany.com"
+                        value={form.website}
+                        onChange={(e) => setForm((f) => ({ ...f, website: e.target.value }))}
+                        aria-invalid={Boolean(fieldErrors.website)}
+                        aria-describedby={fieldErrors.website ? "website-error" : undefined}
+                        className={fieldCls("website")}
+                      />
+                      {fieldErrors.website && (
+                        <p id="website-error" className={errorTextCls}>
+                          {fieldErrors.website}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Honeypot — hidden from people, tempting for bots */}
+                    <div className="absolute h-0 w-0 overflow-hidden opacity-0" aria-hidden="true">
+                      <label htmlFor="fax_number">Fax number</label>
+                      <input
+                        id="fax_number"
+                        name="fax_number"
                         type="text"
                         tabIndex={-1}
                         autoComplete="off"
@@ -765,23 +744,6 @@ export default function ContactClient() {
                 Open in Google Maps
               </a>
             </div>
-          </div>
-        </motion.section>
-
-        {/* ─── FAQ ─── */}
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: 0.26 } }}
-          className="mt-14"
-        >
-          <div className="mb-6">
-            <h2 className="text-2xl font-medium text-gray-900">Frequently asked questions</h2>
-            <p className="mt-1 text-[14px] text-gray-500">Quick answers before you hit send.</p>
-          </div>
-          <div className="max-w-3xl rounded-2xl border border-gray-200 bg-white px-6 py-2 shadow-sm sm:px-8">
-            {FAQS.map((faq) => (
-              <FaqItem key={faq.q} q={faq.q} a={faq.a} />
-            ))}
           </div>
         </motion.section>
       </div>
