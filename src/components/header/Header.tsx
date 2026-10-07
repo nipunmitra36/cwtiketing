@@ -56,7 +56,7 @@ const NAV_ITEMS: NavItem[] = [
         icon: <FaCarSide className="h-4.5 w-4.5" />,
       },
       {
-        label: "Event Ticketing",
+        label: "Event Ticketing System",
         desc: "Concerts, conferences & more",
         href: "/event-ticketing-system",
         icon: <HiOutlineCalendar className="h-5 w-5" />,

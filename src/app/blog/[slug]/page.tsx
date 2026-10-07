@@ -91,7 +91,7 @@ export default async function BlogPostPage({
         author: { "@type": "Organization", name: post.author.name, url: absoluteUrl("/") },
         publisher: {
           "@type": "Organization",
-          name: "CWTicketing System",
+          name: "CWTicketing",
           url: absoluteUrl("/"),
           logo: { "@type": "ImageObject", url: absoluteUrl("/media/logo.png") },
         },

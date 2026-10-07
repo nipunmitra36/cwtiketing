@@ -52,7 +52,7 @@ export default function AboutHero() {
           data-gsap
           className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-text-muted sm:text-[16px]"
         >
-          CWTicketing System is a modern SaaS solution designed to simplify how
+          CWTicketing is a modern SaaS solution designed to simplify how
           transportation businesses operate — developed by Codeware Ltd. to
           combine advanced technology with practical design.
         </p>

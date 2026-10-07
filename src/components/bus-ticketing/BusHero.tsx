@@ -111,7 +111,7 @@ export default function BusHero() {
 
             <p className="gsap-hero-item mt-6 max-w-xl text-[15px] leading-relaxed text-text-muted sm:text-[16px]">
               A complete white-label online bus ticketing system and reservation
-              platform for transport operators. Manage routes, seats, payments,
+              software for transport operators. Manage routes, seats, payments,
               passengers and mobile apps from one bus booking software.
             </p>
 

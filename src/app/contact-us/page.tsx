@@ -1,9 +1,9 @@
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Contact Us | CWTicketing System",
+  title: "Contact Us | CWTicketing",
   description:
-    "Contact CWTicketing System for demos, pricing, or support. Get in touch to launch your online ticket booking platform.",
+    "Contact CWTicketing for demos, pricing, or support. Get in touch to launch your online ticket booking platform.",
   canonical: "/contact-us",
 });
 

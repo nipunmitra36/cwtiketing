@@ -72,7 +72,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CWTicketing System — Bus Ticketing Marketplace Software",
+      name: "CWTicketing — Bus Ticketing Marketplace Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android, iOS",
       description:
@@ -80,7 +80,7 @@ const jsonLd = {
       url: `https://www.cwticketingsystem.com${PAGE_URL}`,
       publisher: {
         "@type": "Organization",
-        name: "CWTicketing System",
+        name: "CWTicketing",
         url: "https://www.cwticketingsystem.com/",
       },
       offers: {

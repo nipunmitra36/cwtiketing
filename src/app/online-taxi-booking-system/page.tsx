@@ -38,7 +38,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CWTicketing System — Online Taxi Booking Software",
+      name: "CWTicketing — Online Taxi Booking Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android, iOS",
       description:
@@ -46,7 +46,7 @@ const jsonLd = {
       url: `${SITE_URL}${PAGE_URL}`,
       publisher: {
         "@type": "Organization",
-        name: "CWTicketing System",
+        name: "CWTicketing",
         url: `${SITE_URL}/`,
       },
       offers: {

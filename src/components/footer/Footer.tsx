@@ -41,7 +41,7 @@ const FOOTER_LINKS: FooterSection[] = [
     links: [
       { label: "Bus Ticketing System", href: "/bus-ticketing-system" },
       { label: "Taxi Booking System", href: "/online-taxi-booking-system" },
-      { label: "Event Ticketing", href: "/event-ticketing-system" },
+      { label: "Event Ticketing System", href: "/event-ticketing-system" },
       { label: "Parcel Management System", href: "/parcel-management-system" },
     ],
   },

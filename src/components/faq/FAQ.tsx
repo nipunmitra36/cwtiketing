@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: "What kind of support do you provide after launch?",
-    a: "We offer 24/7 technical support, a dedicated account manager, and regular platform updates. Enterprise plans include SLA-backed support and priority issue resolution.",
+    a: "We offer 24/7 technical support and regular platform updates.",
   },
   {
     q: "What is a white label ticket booking platform?",

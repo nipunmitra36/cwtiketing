@@ -48,7 +48,7 @@ export default function CountryMarquee({ className = "" }: { className?: string 
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={c.flag}
-              alt=""
+              alt={`${c.name} flag`}
               loading="lazy"
               className="h-5 w-7 shrink-0 rounded-[3px] object-cover ring-1 ring-black/5"
             />

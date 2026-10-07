@@ -1,9 +1,9 @@
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Pricing | CWTicketing System",
+  title: "Pricing | CWTicketing",
   description:
-    "Transparent pricing for CWTicketing System. Choose the plan that fits your transport business needs.",
+    "Transparent pricing for CWTicketing. Choose the plan that fits your transport business needs.",
   canonical: "/pricing",
 });
 

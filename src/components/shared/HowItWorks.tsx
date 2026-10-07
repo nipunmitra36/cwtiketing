@@ -86,7 +86,7 @@ const defaultSteps: HowItWorksStep[] = [
 
 export default function HowItWorks({
   eyebrow,
-  heading = "Launch Your Platform in 4 Simple Steps",
+  heading = "Launch Your Online Ticket Booking Software in 4 Steps",
   description = "From discovery to launch, we guide you through every step.",
   steps = defaultSteps,
   showCta = false,

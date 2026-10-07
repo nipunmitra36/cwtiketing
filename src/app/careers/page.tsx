@@ -1,9 +1,9 @@
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Careers | CWTicketing System",
+  title: "Careers | CWTicketing",
   description:
-    "Join CWTicketing System. Explore career opportunities at Codeware Ltd. building modern transport technology.",
+    "Join CWTicketing. Explore career opportunities at Codeware Ltd. building modern transport technology.",
   canonical: "/careers",
 });
 

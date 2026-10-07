@@ -234,7 +234,7 @@ export const POSTS: BlogPost[] = [
       {
         id: "conclusion",
         heading: "Conclusion",
-        body: `Overtime scheduling is an important part of running a bus service. It helps keep buses on time, drivers safe, and costs under control. By using technology and applying best practices, bus operators can meet passenger demand while keeping drivers alert and motivated.\n\nA well-planned overtime system also makes operations more efficient, builds customer trust, lowers costs, and improves driver satisfaction and morale.\n\nManaging driver overtime and keeping your bus operations running smoothly doesn't have to be a headache. CWTicketing System offers a complete bus management solution — handle bookings, ticketing, route planning, and overtime scheduling all in one place. Track hours, calculate extra pay automatically, and ensure every trip is covered safely and efficiently. Simplify your operations, protect your drivers, and provide reliable service with CWTicketing today.`,
+        body: `Overtime scheduling is an important part of running a bus service. It helps keep buses on time, drivers safe, and costs under control. By using technology and applying best practices, bus operators can meet passenger demand while keeping drivers alert and motivated.\n\nA well-planned overtime system also makes operations more efficient, builds customer trust, lowers costs, and improves driver satisfaction and morale.\n\nManaging driver overtime and keeping your bus operations running smoothly doesn't have to be a headache. CWTicketing offers a complete bus management solution — handle bookings, ticketing, route planning, and overtime scheduling all in one place. Track hours, calculate extra pay automatically, and ensure every trip is covered safely and efficiently. Simplify your operations, protect your drivers, and provide reliable service with CWTicketing today.`,
         code: null,
       },
     ],
@@ -432,8 +432,8 @@ export const POSTS: BlogPost[] = [
       },
       {
         id: "solution",
-        heading: "CWTicketing System: A Long-Term, One-Stop Bus Ticketing Solution",
-        body: `CWTicketing System is a comprehensive web-based bus ticketing system that is designed to address the various challenges faced by travel agencies, travellers, and bus companies and provide a customised, full-fledged bus ticket booking solution.\n\nCWTicketing System offers a robust and efficient platform for managing bus ticket bookings and operations that not only helps companies and travel agencies manage their tasks easily but also helps them attract and retain customers for life.`,
+        heading: "CWTicketing: A Long-Term, One-Stop Bus Ticketing Solution",
+        body: `CWTicketing is a comprehensive web-based bus ticketing system that is designed to address the various challenges faced by travel agencies, travellers, and bus companies and provide a customised, full-fledged bus ticket booking solution.\n\nCWTicketing offers a robust and efficient platform for managing bus ticket bookings and operations that not only helps companies and travel agencies manage their tasks easily but also helps them attract and retain customers for life.`,
         code: null,
       },
     ],
@@ -1020,7 +1020,7 @@ export const POSTS: BlogPost[] = [
       {
         id: "branding",
         heading: "Branding: Your Own White Label Business",
-        body: `One of the fastest ways to gain trust is to look like an established player from day one. This is where White Labelling comes into play.\n\nInstead of building a system from scratch (which costs tens of thousands of dollars), you can use a solution like the CWTicketing System. It allows you to "white-label" the entire platform. This means you use their world-class tech but put your logo, your brand colours, and your company name on everything.\n\nYour customers will see a professional, high-end booking portal that belongs entirely to you. It builds immediate credibility and allows you to focus on marketing rather than debugging code.`,
+        body: `One of the fastest ways to gain trust is to look like an established player from day one. This is where White Labelling comes into play.\n\nInstead of building a system from scratch (which costs tens of thousands of dollars), you can use a solution like CWTicketing. It allows you to "white-label" the entire platform. This means you use their world-class tech but put your logo, your brand colours, and your company name on everything.\n\nYour customers will see a professional, high-end booking portal that belongs entirely to you. It builds immediate credibility and allows you to focus on marketing rather than debugging code.`,
         code: null,
       },
       {
@@ -1037,8 +1037,8 @@ export const POSTS: BlogPost[] = [
       },
       {
         id: "conclusion",
-        heading: "Ready to Launch? Build Your Marketplace with CWTicketing System",
-        body: `Making a reality of your dream business plan can be easy and simple if you have the right tools and follow the correct steps. The CWTicketing System helps you make the right decisions by providing an all-in-one infrastructure. All you need to do is onboard operators and start selling seats immediately.\n\n**Why entrepreneurs choose us:**\n\n- **Complete Marketplace Control:** Onboard multiple operators and manage all your commissions from one central dashboard\n- **White-Label Excellence:** Full branding freedom. Your logo, your identity, backed by our world-class tech\n- **Dynamic Pricing Engine:** Boost your revenue by adjusting fares based on demand, just like the big airlines\n- **All-in-One Solution:** From a web portal and Android/iOS apps to a dedicated POS for walk-in customers — we've got it all covered\n\nGet your free CWTicketing System demo today!`,
+        heading: "Ready to Launch? Build Your Marketplace with CWTicketing",
+        body: `Making a reality of your dream business plan can be easy and simple if you have the right tools and follow the correct steps. CWTicketing helps you make the right decisions by providing an all-in-one infrastructure. All you need to do is onboard operators and start selling seats immediately.\n\n**Why entrepreneurs choose us:**\n\n- **Complete Marketplace Control:** Onboard multiple operators and manage all your commissions from one central dashboard\n- **White-Label Excellence:** Full branding freedom. Your logo, your identity, backed by our world-class tech\n- **Dynamic Pricing Engine:** Boost your revenue by adjusting fares based on demand, just like the big airlines\n- **All-in-One Solution:** From a web portal and Android/iOS apps to a dedicated POS for walk-in customers — we've got it all covered\n\nGet your free CWTicketing demo today!`,
         code: null,
       },
     ],
@@ -1304,8 +1304,8 @@ export const POSTS: BlogPost[] = [
     tableOfContents: [
       { id: "intro", label: "Introduction" },
       { id: "benefits", label: "Key Benefits of Online Ticket Reservation Software" },
-      { id: "cwticketing", label: "Introducing the CWTicketing System" },
-      { id: "cw-benefits", label: "How the CWTicketing System Benefits Your Business" },
+      { id: "cwticketing", label: "Introducing CWTicketing" },
+      { id: "cw-benefits", label: "How CWTicketing Benefits Your Business" },
     ],
     sections: [
       {
@@ -1322,14 +1322,14 @@ export const POSTS: BlogPost[] = [
       },
       {
         id: "cwticketing",
-        heading: "Introducing the CWTicketing System",
-        body: `The CWTicketing System is a comprehensive ticket reservation solution designed to meet the needs of businesses in various industries. With features like:\n\n- **Versatile Ticket Types:** Offer a wide range of tickets for bus, train, cruise, cable car, and taxi\n- **Mobile-Friendly Interface:** Provide a seamless booking experience on smartphones and tablets\n- **Robust Reporting:** Track key metrics, analyze performance, and identify areas for improvement\n- **Platform Integrations:** Connect with popular travel platforms like TripAdvisor, Expedia, and Booking.com to expand your reach and attract more customers\n- **Scalability:** Easily adapt to growing business needs with a flexible and scalable platform`,
+        heading: "Introducing CWTicketing",
+        body: `CWTicketing is a comprehensive ticket reservation solution designed to meet the needs of businesses in various industries. With features like:\n\n- **Versatile Ticket Types:** Offer a wide range of tickets for bus, train, cruise, cable car, and taxi\n- **Mobile-Friendly Interface:** Provide a seamless booking experience on smartphones and tablets\n- **Robust Reporting:** Track key metrics, analyze performance, and identify areas for improvement\n- **Platform Integrations:** Connect with popular travel platforms like TripAdvisor, Expedia, and Booking.com to expand your reach and attract more customers\n- **Scalability:** Easily adapt to growing business needs with a flexible and scalable platform`,
         code: null,
       },
       {
         id: "cw-benefits",
-        heading: "How the CWTicketing System Benefits Your Business",
-        body: `- **Increased Efficiency:** Streamline operations and reduce administrative overhead\n- **Enhanced Customer Satisfaction:** Provide a convenient and user-friendly booking experience\n- **Boosted Revenue:** Attract more customers, increase sales, and improve customer loyalty\n- **Data-Driven Decision Making:** Make informed decisions based on real-time data and analytics\n\nBy choosing the CWTicketing System, businesses can smartly invest in a powerful tool that can transform their ticketing experience. With its advanced features, intuitive interface, and data-driven insights, the CWTicketing System empowers them to streamline operations, enhance customer satisfaction, and so much more.`,
+        heading: "How CWTicketing Benefits Your Business",
+        body: `- **Increased Efficiency:** Streamline operations and reduce administrative overhead\n- **Enhanced Customer Satisfaction:** Provide a convenient and user-friendly booking experience\n- **Boosted Revenue:** Attract more customers, increase sales, and improve customer loyalty\n- **Data-Driven Decision Making:** Make informed decisions based on real-time data and analytics\n\nBy choosing CWTicketing, businesses can smartly invest in a powerful tool that can transform their ticketing experience. With its advanced features, intuitive interface, and data-driven insights, CWTicketing empowers them to streamline operations, enhance customer satisfaction, and so much more.`,
         code: null,
       },
     ],

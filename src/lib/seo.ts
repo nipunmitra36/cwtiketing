@@ -50,7 +50,7 @@ export function buildMetadata({
       title,
       description,
       url,
-      siteName: "CWTicketing System",
+      siteName: "CWTicketing",
       locale: "en_US",
       images: [
         {

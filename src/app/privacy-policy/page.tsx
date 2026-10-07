@@ -1,9 +1,9 @@
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Privacy Policy | CWTicketing System",
+  title: "Privacy Policy | CWTicketing",
   description:
-    "Read the CWTicketing System privacy policy covering data collection, use, and protection.",
+    "Read CWTicketing privacy policy covering data collection, use, and protection.",
   canonical: "/privacy-policy",
 });
 
@@ -14,7 +14,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Information We Collect",
     intro:
-      "CWTicketing System collects only the personal data necessary to deliver our services efficiently and in compliance with applicable laws. This includes:",
+      "CWTicketing collects only the personal data necessary to deliver our services efficiently and in compliance with applicable laws. This includes:",
     bullets: [
       "Contact Information: such as your full name, phone number, and email address, when you fill out forms or communicate with us through the platform.",
       "Booking Information: including travel details, selected routes, transaction ID, and booking history.",
@@ -38,7 +38,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Cookies Policy",
     paragraphs: [
-      "CWTicketing System uses cookies to enhance user experience and understand how the platform is being used.",
+      "CWTicketing uses cookies to enhance user experience and understand how the platform is being used.",
       "At the beginning of your session, you will be notified about the use of cookies. By clicking “Accept,” you agree to the placement and use of cookies on your device.",
     ],
     intro: "Types of Cookies Used:",
@@ -54,7 +54,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Data Sharing and Disclosure",
     paragraphs: [
-      "CWTicketing System does not sell, rent, or trade your personal information to any third parties.",
+      "CWTicketing does not sell, rent, or trade your personal information to any third parties.",
     ],
     intro: "Limited data may be shared under the following circumstances:",
     bullets: [
@@ -89,7 +89,7 @@ const sections: LegalSectionData[] = [
   {
     heading: "Security Measures",
     paragraphs: [
-      "CWTicketing System implements appropriate technical and organizational measures to protect your personal data from unauthorized access, misuse, alteration, or loss. These include secure data transmission protocols, access controls, and regular system audits.",
+      "CWTicketing implements appropriate technical and organizational measures to protect your personal data from unauthorized access, misuse, alteration, or loss. These include secure data transmission protocols, access controls, and regular system audits.",
       "While we take all reasonable precautions, no data transmission over the internet can be guaranteed to be 100% secure.",
     ],
   },
@@ -121,11 +121,11 @@ export default function PrivacyPage() {
           <p className="mt-6 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
             &ldquo;We,&rdquo; &ldquo;Us,&rdquo; &ldquo;Our,&rdquo; or
             &ldquo;Company&rdquo; refers to Codeware Ltd., the official
-            developer and operator of CWTicketing System (also referred to as
+            developer and operator of CWTicketing (also referred to as
             &ldquo;CWTicketing&rdquo;).
           </p>
           <p className="mt-3 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
-            CWTicketing System is a digital ticketing solution designed to
+            CWTicketing is a digital ticketing solution designed to
             enable efficient and secure online reservations for buses, trains,
             cable cars, cruises, taxis, and events. We are committed to
             protecting your personal data and ensuring transparency in how

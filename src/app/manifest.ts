@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "CWTicketing System | Online Ticket Booking Platform",
+    name: "CWTicketing | Online Ticket Booking Platform",
     short_name: "CWTicketing",
     description:
       "Online ticket booking software with seat selection, payments, mobile apps, route management, and admin dashboards for bus, train, cruise, taxi, and event operators.",

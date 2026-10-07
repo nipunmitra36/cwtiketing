@@ -22,7 +22,7 @@ interface FaqSectionProps {
   eyebrow?: string;
   heading?: string;
   highlight?: string;
-  description: string;
+  description?: string;
 }
 
 const supportChips = ["24/7 Support", "99.9% Uptime SLA", "Dedicated Manager"];
@@ -107,10 +107,12 @@ export default function FaqSection({
           {/* ── Left column: heading + contact card ── */}
           <div ref={leftColRef} className="lg:pt-2">
             <div data-gsap>
-              <p className="text-[13px] font-semibold uppercase tracking-widest text-brand">
-                {eyebrow}
-              </p>
-              <h2 className="mt-5 text-[22px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+              {eyebrow && (
+                <p className="mb-5 text-[13px] font-semibold uppercase tracking-widest text-brand">
+                  {eyebrow}
+                </p>
+              )}
+              <h2 className="text-[22px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
                 {highlight ? (
                   <>
                     {heading.replace(highlight, "")}
@@ -123,9 +125,11 @@ export default function FaqSection({
                   heading
                 )}
               </h2>
-              <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-text-muted">
-                {description}
-              </p>
+              {description && (
+                <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-text-muted">
+                  {description}
+                </p>
+              )}
             </div>
 
             {/* Contact card (desktop only) */}

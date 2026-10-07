@@ -34,7 +34,7 @@ export default function CTA() {
                     data-gsap
                     className="text-[22px] font-medium leading-snug tracking-tight text-white sm:text-[28px] sm:leading-snug"
                 >
-                    Ready to Take Your Operation Online?
+                    Launch Your Online Ticket Booking System Today
                 </h2>
                 <p
                     data-gsap

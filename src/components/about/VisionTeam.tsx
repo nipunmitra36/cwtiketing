@@ -33,7 +33,7 @@ export default function VisionTeam() {
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
               We envision a future where transport management is no longer a
               struggle with disconnected systems, but a streamlined operation
-              supported by intelligent tools. CWTicketing System combines
+              supported by intelligent tools. CWTicketing combines
               useful features with a simple, easy-to-use design, so operators
               can work efficiently without dealing with complicated tools.
             </p>
@@ -56,7 +56,7 @@ export default function VisionTeam() {
               The People Behind <span className="text-gradient-brand">the Platform</span>
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
-              CWTicketing System is powered by a multidisciplinary team of
+              CWTicketing is powered by a multidisciplinary team of
               engineers, designers, and strategists. With deep field knowledge
               and a focus on practical outcomes, we bring clarity to complex
               workflows and make sure every update serves a real business need.

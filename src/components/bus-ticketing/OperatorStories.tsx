@@ -41,7 +41,7 @@ export default function OperatorStories() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Operators Who <span className="text-gradient-brand">Made the Switch</span>
+            Bus Operators Using Our <span className="text-gradient-brand">Online Ticketing System</span>
           </h2>
         </div>
 

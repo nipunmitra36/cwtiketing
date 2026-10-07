@@ -166,16 +166,16 @@ export default function AboutHowItWorks() {
               data-gsap
               className="mt-5 text-[28px] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[36px] lg:text-[44px]"
             >
-              A white-label booking system for{" "}
+              Complete White-Label Online Ticket Booking System for{" "}
               <span className="text-gradient-brand">
-                transport &amp; mobility
+                Transport &amp; Mobility
               </span>{" "}
-              businesses
+              Businesses
             </h2>
 
             <div data-gsap className="mt-6 space-y-4 text-[15px] leading-[1.8] text-text-muted sm:text-[16.5px]">
               <p>
-                <span className="font-medium text-text-dark">CWTicketing System</span> is a
+                <span className="font-medium text-text-dark">CWTicketing</span> is a
                 complete white-label online ticket booking system designed for transport
                 operators, travel companies, and mobility businesses. It helps businesses
                 launch their own branded booking system where passengers can search routes,

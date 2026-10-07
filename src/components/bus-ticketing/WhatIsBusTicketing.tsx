@@ -82,34 +82,39 @@ export default function WhatIsBusTicketing() {
             data-gsap
             className="mx-auto mt-3 max-w-2xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            A web-based bus ticketing software for <span className="text-gradient-brand">transport &amp; mobility</span> businesses
+            Complete Online Bus Reservation System for <span className="text-gradient-brand">Transport Operators</span>
           </h2>
           <p
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            CWTicketing System is a complete white-label online bus ticketing system
-            and reservation platform designed for transport operators, travel
-            companies, and mobility businesses. As a web-based bus ticketing
-            software, it helps operators launch their own branded online bus
-            booking system where passengers can search routes, check seat
-            availability, make payments, and manage bookings through web and
-            mobile apps.
+            CWTicketing is a complete bus ticketing, booking, and reservation
+            software built for transport and mobility businesses. Designed to
+            support bus operators, shuttle services, transport companies, travel
+            agencies, and marketplace owners, the system helps businesses
+            digitize operations and deliver a seamless booking experience.
           </p>
           <p
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            As an online bus reservation system and bus ticket reservation
-            system, CWTicketing provides the tools bus operators need to
-            automate ticket sales, manage daily operations, and deliver a
-            better passenger experience — from one centralized online bus
-            ticket booking system.
+            As a cloud-based booking and reservation solution, CWTicketing
+            enables businesses to launch their own branded online booking
+            software where customers can search routes, check seat
+            availability, make secure payments, and manage reservations
+            through web and mobile applications.
           </p>
         </div>
 
         {/* Numbered feature blurbs */}
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <h2
+          data-gsap
+          className="mx-auto mt-14 max-w-3xl text-center text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px] sm:leading-snug"
+        >
+          Online Bus Ticket Booking System with{" "}
+          <span className="text-gradient-brand">Route, Seat &amp; Payment Management</span>
+        </h2>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {features.map((f) => {
             const Icon = f.icon;
             return (

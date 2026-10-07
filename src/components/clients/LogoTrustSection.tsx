@@ -33,7 +33,7 @@ export default function LogoTrustSection() {
             data-gsap
             className="mt-3 text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] lg:text-[32px]"
           >
-            Trusted by transport companies <span className="text-gradient-brand">worldwide</span>
+            Trusted by Transport Companies <span className="text-gradient-brand">Worldwide</span>
           </h2>
         </div>
 

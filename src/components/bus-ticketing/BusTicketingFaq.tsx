@@ -7,8 +7,8 @@ export default function BusTicketingFaq() {
   return (
     <FaqSection
       items={busFaqs}
-      eyebrow="FAQ"
-      heading="Questions Operators Ask Before Switching"
+      eyebrow=""
+      heading="Frequently Asked Questions"
       description="Straight answers about launching your white-label bus ticketing platform, apps, payments, and pricing with CWTicketing."
     />
   );

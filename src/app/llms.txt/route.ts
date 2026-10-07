@@ -70,7 +70,7 @@ const COMPANY: PageLink[] = [
     title: "About Us",
     path: "/about-us",
     description:
-      "CWTicketing System is a product of Codeware Ltd., built for transport operators.",
+      "CWTicketing is a product of Codeware Ltd., built for transport operators.",
   },
   {
     title: "Contact Us",
@@ -86,7 +86,7 @@ const COMPANY: PageLink[] = [
 
 const LEGAL: PageLink[] = [
   { title: "Privacy Policy", path: "/privacy-policy", description: "How data is collected, used and protected." },
-  { title: "Terms & Conditions", path: "/terms-and-condition", description: "Terms of use for CWTicketing System." },
+  { title: "Terms & Conditions", path: "/terms-and-condition", description: "Terms of use for CWTicketing." },
 ];
 
 const link = ({ title, path, description }: PageLink) =>
@@ -97,11 +97,11 @@ export function GET() {
     link({ title: post.title, path: `/blog/${post.slug}`, description: post.excerpt })
   );
 
-  const body = `# CWTicketing System
+  const body = `# CWTicketing
 
 > White-label online ticket booking software for transport and event operators — bus, intercity coach, bus terminal, shuttle, taxi, event and parcel businesses. Operators launch their own branded booking website and mobile apps with seat selection, online payments, route and fleet management, agent/counter sales and an admin dashboard with real-time reporting.
 
-CWTicketing System is developed by Codeware Ltd., based in Dhaka, Bangladesh, and serves transport operators worldwide. It is sold as a SaaS platform, set up and branded for each operator.
+CWTicketing is developed by Codeware Ltd., based in Dhaka, Bangladesh, and serves transport operators worldwide. It is sold as a SaaS platform, set up and branded for each operator.
 
 - Website: ${absoluteUrl("/")}
 - Email: info@cwticketingsystem.com

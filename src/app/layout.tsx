@@ -75,8 +75,8 @@ export const metadata: Metadata = {
   },
   description:
     "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards for bus, train, cruise, taxi, and event operators.",
-  authors: [{ name: "CWTicketing System" }],
-  creator: "CWTicketing System",
+  authors: [{ name: "CWTicketing" }],
+  creator: "CWTicketing",
   alternates: {
     canonical: "/",
   },
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     description:
       "Launch your own online ticket booking system with seat selection, payments, mobile apps, route management, and powerful admin dashboards.",
     url: SITE_URL,
-    siteName: "CWTicketing System",
+    siteName: "CWTicketing",
     locale: "en_US",
     images: [
       {

@@ -16,7 +16,6 @@ import ProductDemo from "@/components/bus-ticketing/ProductDemo";
 import OperatorStories from "@/components/bus-ticketing/OperatorStories";
 import SecurityTrust from "@/components/bus-ticketing/SecurityTrust";
 import BusTicketingFaq from "@/components/bus-ticketing/BusTicketingFaq";
-import FinalCTA from "@/components/bus-ticketing/FinalCTA";
 import { busFaqs } from "@/components/bus-ticketing/faq-data";
 
 const jsonLd = {
@@ -36,7 +35,7 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      name: "CWTicketing System — Bus Ticketing Software",
+      name: "CWTicketing — Bus Ticketing Software",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Android, iOS",
       description:
@@ -44,7 +43,7 @@ const jsonLd = {
       url: "https://www.cwticketingsystem.com/bus-ticketing-system",
       publisher: {
         "@type": "Organization",
-        name: "CWTicketing System",
+        name: "CWTicketing",
         url: "https://www.cwticketingsystem.com/",
       },
       offers: {
@@ -86,13 +85,12 @@ export default function BusTicketingSystemPage() {
         <BusHero />
         <TrustStats />
         <WhatIsBusTicketing />
-        <HowItWorks showCta />
+        <HowItWorks heading="Launch Your Online Bus Booking System in 4 Steps" showCta />
         <CapabilityGrid />
         <ProductDemo />
         <OperatorStories />
         <SecurityTrust />
         <BusTicketingFaq />
-        <FinalCTA />
       </main>
     </>
   );

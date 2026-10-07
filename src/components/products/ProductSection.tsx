@@ -17,6 +17,7 @@ import type { IconType } from "react-icons";
 
 interface Feature {
     title: string;
+    heading: string;
     desc: string;
     stat: string;
     statLabel: string;
@@ -31,6 +32,7 @@ const SERVICE_IMAGES = "/media/services";
 const features: Feature[] = [
     {
         title: "Bus Ticketing System",
+        heading: "Online Bus Ticketing System and Booking Software",
         desc: "Online route, schedule, seat, fare, and passenger booking management.",
         stat: "50%",
         statLabel: "Faster ticket checkout",
@@ -42,6 +44,7 @@ const features: Feature[] = [
     },
     {
         title: "Train Ticketing System",
+        heading: "Online Train Ticketing System and Reservation Software",
         desc: "Real-time train schedules, seat availability, ticket sales, and notifications.",
         stat: "99.9%",
         statLabel: "Schedule accuracy, live",
@@ -52,6 +55,7 @@ const features: Feature[] = [
     },
     {
         title: "Cruise Booking System",
+        heading: "Cruise Booking and Reservation System",
         desc: "Manage trips, deck plans, availability, fares, and online reservations.",
         stat: "40%",
         statLabel: "More cabins booked online",
@@ -62,6 +66,7 @@ const features: Feature[] = [
     },
     {
         title: "Taxi Booking System",
+        heading: "Online Taxi Booking and Management System",
         desc: "Booking requests, driver panel, fare calculation, tracking, and customer app.",
         stat: "3x",
         statLabel: "Faster driver dispatch",
@@ -73,6 +78,7 @@ const features: Feature[] = [
     },
     {
         title: "Event Ticketing System",
+        heading: "Online Event Ticketing and Booking System",
         desc: "Sell tickets, manage attendees, scan entries, and track bookings online.",
         stat: "2x",
         statLabel: "Faster gate scanning",
@@ -84,6 +90,7 @@ const features: Feature[] = [
     },
     {
         title: "Parcel Management System",
+        heading: "Parcel Booking and Management System",
         desc: "Pickup, dispatch, tracking, and delivery status management in one place.",
         stat: "60%",
         statLabel: "Faster delivery tracking",
@@ -168,9 +175,18 @@ function FeaturePanel({
             <div className="relative mx-auto grid h-full w-full max-w-7xl gap-6 overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 px-5 py-8 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-12">
                     {/* ── Left: copy ── */}
                     <div ref={textRef} className={index % 2 === 1 ? "lg:order-2" : ""}>
-                        <h3 className="text-[22px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
-                            {feature.title}
-                        </h3>
+                        {/* Both the desktop stack and the mobile list are in the HTML, so only
+                            the mobile copy (indexed mobile-first) uses a real <h3>. The desktop
+                            copy keeps heading semantics for assistive tech via ARIA. */}
+                        {stacked ? (
+                            <p role="heading" aria-level={3} className="text-[22px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+                                {feature.heading}
+                            </p>
+                        ) : (
+                            <h3 className="text-[22px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug">
+                                {feature.heading}
+                            </h3>
+                        )}
                         <p className="mt-4 max-w-md text-[15px] leading-relaxed text-text-body">
                             {feature.desc}
                         </p>
@@ -308,7 +324,7 @@ export default function ScrollFeatures() {
                     Solutions
                 </p>
                 <h2 className="mt-3 text-[24px] font-medium leading-snug tracking-tight text-text-dark sm:text-[26px] md:whitespace-nowrap lg:text-[34px]">
-                    Built for How Each Industry <span className="text-gradient-brand">Actually Moves People</span>
+                    Ticket Booking Solutions for <span className="text-gradient-brand">Different Transport Industries</span>
                 </h2>
                 <p className="mx-auto mt-4 max-w-3xl text-[14px] leading-relaxed text-text-muted sm:text-[15px]">
                     One platform, shaped around the way each transport business sells tickets and runs its day.

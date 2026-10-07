@@ -133,5 +133,15 @@ const tabs: ProductDemoTab[] = [
 ];
 
 export default function BusTicketingProductDemo() {
-  return <ProductDemo tabs={tabs} />;
+  return (
+    <ProductDemo
+      tabs={tabs}
+      heading={
+        <>
+          All-in-One Bus Ticket Management System for{" "}
+          <span className="text-gradient-brand">Web, Mobile &amp; Admin Operations</span>
+        </>
+      }
+    />
+  );
 }

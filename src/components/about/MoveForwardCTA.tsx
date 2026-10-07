@@ -34,7 +34,7 @@ export default function MoveForwardCTA() {
               to flow.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-white/80">
-              CWTicketing System isn&apos;t a product you plug in — it&apos;s a
+              CWTicketing isn&apos;t a product you plug in — it&apos;s a
               mindset shift. Want a system that works smarter, scales faster,
               and puts you in control? Partner with us, and let&apos;s simplify
               your transport operations together.
