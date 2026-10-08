@@ -30,14 +30,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/", "/_next/"],
         disallow: DISALLOW,
       },
-      // Ad crawlers hit the marketing pages on every request; keeping them out
-      // of the way leaves crawl budget for search engines.
-      {
-        userAgent: ["AdsBot-Google", "AdsBot-Google-Mobile", "Mediapartners-Google"],
-        disallow: "/",
-      },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
-    host: absoluteUrl("/"),
   };
 }
