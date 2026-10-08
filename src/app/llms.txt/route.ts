@@ -46,7 +46,7 @@ const SOLUTIONS: PageLink[] = [
 const INDUSTRIES: PageLink[] = [
   {
     title: "Bus Operators — Intercity Bus Booking Software",
-    path: "/intercity-bus-booking-software",
+    path: "/intercity-coach-booking-software",
     description:
       "For intercity and coach lines: route management, fleet, online sales, agent panel and real-time reporting.",
   },

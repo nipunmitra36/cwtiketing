@@ -75,7 +75,7 @@ const NAV_ITEMS: NavItem[] = [
       {
         label: "Bus Operators",
         desc: "Intercity & coach lines",
-        href: "/intercity-bus-booking-software",
+        href: "/intercity-coach-booking-software",
         icon: <HiOutlineTruck className="h-5 w-5" />,
       },
 

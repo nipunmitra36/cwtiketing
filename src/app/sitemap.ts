@@ -21,7 +21,7 @@ const pageRoutes: PageRoute[] = [
   // ── Highest-value commercial pages ──
   { path: "/", lastModified: "2026-10-07", priority: 1 },
   { path: "/bus-ticketing-system", lastModified: "2026-10-07", priority: 0.9 },
-  { path: "/intercity-bus-booking-software", lastModified: "2026-10-07", priority: 0.9 },
+  { path: "/intercity-coach-booking-software", lastModified: "2026-10-08", priority: 0.9 },
   { path: "/bus-terminal-ticketing-system", lastModified: "2026-10-07", priority: 0.9 },
   { path: "/shuttle-booking-system", lastModified: "2026-10-07", priority: 0.9 },
   { path: "/online-taxi-booking-system", lastModified: "2026-10-08", priority: 0.9 },

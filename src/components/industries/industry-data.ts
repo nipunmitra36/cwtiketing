@@ -17,7 +17,7 @@ export const industries: Industry[] = [
     title: "Bus Operators",
     tagline: "Intercity & coach lines",
     desc: "A complete bus booking solution that helps long-route and cross-border operators manage bus reservation, ticketing, and fleet operations efficiently.",
-    href: "/intercity-bus-booking-software",
+    href: "/intercity-coach-booking-software",
     icon: HiOutlineTruck,
     modules: [
       "Counter/Staff Ticketing",

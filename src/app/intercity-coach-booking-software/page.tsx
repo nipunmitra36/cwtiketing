@@ -1,10 +1,10 @@
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Intercity Bus Booking Software | Bus Ticketing System",
+  title: "Intercity Coach Booking Software | Coach Booking System",
   description:
-    "Complete intercity bus booking software with route management, fleet, online sales, agent panel, and real-time reporting.",
-  canonical: "/intercity-bus-booking-software",
+    "Complete intercity coach booking software with route management, fleet, online sales, agent panel, and real-time reporting.",
+  canonical: "/intercity-coach-booking-software",
 });
 
 
@@ -24,7 +24,7 @@ import OperatorsFinalCTA from "@/components/bus-operators/OperatorsFinalCTA";
 import OperatorsFaq from "@/components/bus-operators/OperatorsFaq";
 import { operatorFaqs } from "@/components/bus-operators/operators-faq-data";
 
-const PAGE_URL = "/intercity-bus-booking-software";
+const PAGE_URL = "/intercity-coach-booking-software";
 
 const SPECIALIZED_SYSTEMS: SpecializedSystemsProps["systems"] = [
   {

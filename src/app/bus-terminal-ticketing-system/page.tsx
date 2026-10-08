@@ -29,9 +29,9 @@ const PAGE_URL = "/bus-terminal-ticketing-system";
 const SPECIALIZED_SYSTEMS: SpecializedSystemsProps["systems"] = [
   {
     icon: "intercity",
-    title: "Intercity Bus Booking System",
+    title: "Intercity Coach Booking System",
     subtitle: "Long-distance travel made simple",
-    href: "/intercity-bus-booking-software",
+    href: "/intercity-coach-booking-software",
     items: [
       "Multi-city route planning",
       "Advanced seat selection",
