@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
   HiOutlineDeviceMobile,
-  HiOutlineTruck,
   HiOutlineTemplate,
   HiOutlineCheck,
   HiOutlineStar,
@@ -14,6 +13,7 @@ import {
   HiOutlineUserGroup,
   HiOutlineLightningBolt,
 } from "react-icons/hi";
+import { TbCar, TbSteeringWheel } from "react-icons/tb";
 import type { IconType } from "react-icons";
 
 type ChannelId = "rider" | "driver" | "dispatch";
@@ -44,7 +44,7 @@ const CHANNELS: Channel[] = [
   {
     id: "driver",
     tab: "Driver App",
-    icon: HiOutlineTruck,
+    icon: TbSteeringWheel,
     title: "Android App for Drivers",
     desc: "Drivers go online, accept the trips they are offered, navigate to the pickup, and close the fare at the drop-off. Duty hours, earnings and commission are all tracked from the same app.",
     points: [
@@ -111,7 +111,7 @@ function RiderMock() {
                     c.active ? "bg-brand text-white" : "bg-white text-text-muted"
                   }`}
                 >
-                  <HiOutlineTruck className="h-4 w-4" />
+                  <TbCar className="h-4 w-4" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-[11px] font-bold text-text-dark">{c.n}</span>
@@ -200,7 +200,7 @@ function DriverMock() {
 
 function DispatchMock() {
   const stats = [
-    { icon: HiOutlineTruck, l: "Active cars", v: "48", d: "live" },
+    { icon: TbCar, l: "Active cars", v: "48", d: "live" },
     { icon: HiOutlineLightningBolt, l: "Ongoing", v: "31", d: "+8%" },
     { icon: HiOutlineCreditCard, l: "Revenue", v: "৳ 1.4L", d: "+16%" },
   ];
@@ -318,7 +318,7 @@ export default function TaxiChannels() {
             data-gsap
             className="mt-3 text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]"
           >
-            Built for <span className="text-gradient-brand">Riders, Drivers and Dispatchers</span>
+            Taxi Booking System for <span className="text-gradient-brand">Riders, Drivers and Dispatchers</span>
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Three interfaces, one live trip record — what the rider sees, what

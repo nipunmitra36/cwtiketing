@@ -2,37 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineDeviceMobile,
-  HiOutlineLightningBolt,
-  HiOutlineLocationMarker,
-  HiOutlineCreditCard,
-  HiOutlineCheck,
-} from "react-icons/hi";
-import type { IconType } from "react-icons";
-
-const pillars: { icon: IconType; title: string; desc: string }[] = [
-  {
-    icon: HiOutlineDeviceMobile,
-    title: "Book",
-    desc: "Riders book instantly or schedule ahead from an app, your website, or a call to the desk.",
-  },
-  {
-    icon: HiOutlineLightningBolt,
-    title: "Dispatch",
-    desc: "The nearest available driver is matched automatically — or assigned by hand when you prefer.",
-  },
-  {
-    icon: HiOutlineLocationMarker,
-    title: "Track",
-    desc: "Live GPS follows the trip from pickup to drop-off, for the rider and the control room alike.",
-  },
-  {
-    icon: HiOutlineCreditCard,
-    title: "Settle",
-    desc: "Fares are metered, payments captured, and driver commission calculated without spreadsheets.",
-  },
-];
+import { HiOutlineCheck } from "react-icons/hi";
 
 const problems = [
   "Bookings taken on paper that nobody can trace an hour later",
@@ -80,33 +50,8 @@ export default function WhatIsTaxiSystem() {
           </p>
         </div>
 
-        {/* ── Four pillars ── */}
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          {pillars.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div
-                key={p.title}
-                data-gsap
-                className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-gray-50/60 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/20 hover:bg-white hover:shadow-xl hover:shadow-brand/10"
-              >
-                <span className="pointer-events-none absolute -right-2 -top-4 select-none text-[76px] font-black leading-none tracking-tighter text-brand/10 transition-colors duration-300 group-hover:text-brand/20">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand shadow-sm ring-1 ring-gray-100 transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand/30">
-                  <Icon className="h-6 w-6" />
-                </span>
-                <h3 className="relative mt-5 text-[16px] font-semibold tracking-tight text-text-dark">
-                  {p.title}
-                </h3>
-                <p className="relative mt-2 text-[13.5px] leading-relaxed text-text-muted">{p.desc}</p>
-              </div>
-            );
-          })}
-        </div>
-
         {/* ── Problems it solves ── */}
-        <div className="mt-14 grid gap-8 rounded-[2rem] border border-gray-100 bg-gray-50/60 p-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12 lg:p-10">
+        <div className="grid gap-8 rounded-[2rem] border border-gray-100 bg-gray-50/60 p-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12 lg:p-10">
           <div data-gsap>
             <h3 className="text-[19px] font-semibold leading-snug tracking-tight text-text-dark sm:text-[22px]">
               The problems it puts an end to

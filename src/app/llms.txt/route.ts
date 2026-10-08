@@ -23,24 +23,6 @@ const SOLUTIONS: PageLink[] = [
       "Branded online bus booking with seat selection, routes, fares, payments, mobile apps and an admin dashboard for bus operators.",
   },
   {
-    title: "Intercity Bus Booking Software",
-    path: "/intercity-bus-booking-software",
-    description:
-      "Intercity bus booking with route management, fleet, online sales, agent panel and real-time reporting.",
-  },
-  {
-    title: "Bus Terminal Ticketing System",
-    path: "/bus-terminal-ticketing-system",
-    description:
-      "Cloud-based terminal ticketing to manage counters, schedules, departures, ticket sales and passenger flow.",
-  },
-  {
-    title: "Shuttle Booking System",
-    path: "/shuttle-booking-system",
-    description:
-      "Shuttle reservations for schools, companies and airports: routes, schedules, seats and online booking.",
-  },
-  {
     title: "Online Taxi Booking System",
     path: "/online-taxi-booking-system",
     description:
@@ -57,6 +39,28 @@ const SOLUTIONS: PageLink[] = [
     path: "/parcel-management-system",
     description:
       "Courier and logistics software: parcel tracking, hub management, automated billing and notifications.",
+  },
+];
+
+/** Mirrors the header's Industries menu: who each page is for, then the product it covers. */
+const INDUSTRIES: PageLink[] = [
+  {
+    title: "Bus Operators — Intercity Bus Booking Software",
+    path: "/intercity-bus-booking-software",
+    description:
+      "For intercity and coach lines: route management, fleet, online sales, agent panel and real-time reporting.",
+  },
+  {
+    title: "Shuttle Companies — Shuttle Booking System",
+    path: "/shuttle-booking-system",
+    description:
+      "For airport and point-to-point shuttles: routes, schedules, seats and online booking for schools, companies and airports.",
+  },
+  {
+    title: "Travel Agencies — Bus Terminal Ticketing System",
+    path: "/bus-terminal-ticketing-system",
+    description:
+      "For multi-operator ticket retail: manage counters, schedules, departures, ticket sales and passenger flow.",
   },
 ];
 
@@ -110,6 +114,10 @@ CWTicketing is developed by Codeware Ltd., based in Dhaka, Bangladesh, and serve
 ## Solutions
 
 ${SOLUTIONS.map(link).join("\n")}
+
+## Industries
+
+${INDUSTRIES.map(link).join("\n")}
 
 ## Company
 

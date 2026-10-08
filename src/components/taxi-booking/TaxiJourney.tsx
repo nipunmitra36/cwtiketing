@@ -6,10 +6,10 @@ import { onSmootherReady } from "@/lib/gsap/ready";
 import {
   HiOutlineSearch,
   HiOutlineLightningBolt,
-  HiOutlineTruck,
   HiOutlineLocationMarker,
   HiOutlineCreditCard,
 } from "react-icons/hi";
+import { TbCar } from "react-icons/tb";
 import type { IconType } from "react-icons";
 
 interface Step {
@@ -34,7 +34,7 @@ const STEPS: Step[] = [
   },
   {
     num: "03",
-    icon: HiOutlineTruck,
+    icon: TbCar,
     title: "Driver accepts and arrives",
     desc: "The rider watches the car approach in real time and gets an alert the moment it reaches the pickup point.",
   },
@@ -129,7 +129,7 @@ export default function TaxiJourney() {
             data-gsap
             className="mt-3 text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]"
           >
-            How an <span className="text-gradient-brand">Online Taxi Reservation System</span> Works
+            How an <span className="text-gradient-brand">Online Taxi Booking System</span> Works
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Five stages from request to receipt — every one of them recorded

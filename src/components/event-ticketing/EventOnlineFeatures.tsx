@@ -25,7 +25,7 @@ const FEATURES: Feature[] = [
   {
     icon: HiOutlineCalendar,
     title: "Easy Event Creation",
-    desc: "Event planning is already stressful without the ticketing part — why make it more troubling? Skip the hassle of the traditional ticketing process. The CW event ticketing system is easily customized to fit your event's needs, letting you sell tickets online for any type of event.",
+    desc: "Event planning is already stressful without the ticketing part — why make it more troubling? Skip the hassle of the traditional ticketing process. CWTicketing's event ticketing system is easily customized to fit your event's needs, letting you sell tickets online for any type of event.",
     tags: ["Set the date", "Add the gallery", "Price the tiers", "Go live"],
     wide: true,
   },
@@ -91,7 +91,7 @@ export default function EventOnlineFeatures() {
             data-gsap
             className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Everything Your Event Needs, <span className="text-gradient-brand">From Setup to the Front Gate</span>
+            Complete Online Event Ticketing System <span className="text-gradient-brand">for Your Events</span>
           </h2>
           <p
             data-gsap

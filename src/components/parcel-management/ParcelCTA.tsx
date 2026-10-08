@@ -82,7 +82,7 @@ export default function ParcelCTA() {
 
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-[24px] font-semibold leading-tight tracking-tight text-white sm:text-3xl">
-              Put Every Parcel on One System
+              Manage Every Parcel With One Delivery Management System
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-[14px] leading-relaxed text-white/80">
               Tell us how your branches, routes and rates work today, and

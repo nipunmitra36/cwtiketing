@@ -7,8 +7,8 @@ import {
   HiOutlineStar,
   HiOutlineCreditCard,
   HiOutlineClock,
-  HiOutlineTruck,
 } from "react-icons/hi";
+import { TbCar } from "react-icons/tb";
 
 export default function RideDispatchCard() {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -125,7 +125,7 @@ export default function RideDispatchCard() {
 
           {/* moving car */}
           <span className="gsap-ride-car absolute left-[13%] top-[70%] flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl bg-brand text-white opacity-0 shadow-lg shadow-brand/40">
-            <HiOutlineTruck className="h-4 w-4" />
+            <TbCar className="h-4 w-4" />
           </span>
 
           {/* ETA chip on map */}
@@ -192,7 +192,7 @@ export default function RideDispatchCard() {
       {/* Floating: drivers nearby */}
       <div className="gsap-ride-chip absolute -bottom-5 -left-2 z-20 flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/95 px-3.5 py-2.5 shadow-lg shadow-brand/10 backdrop-blur-xl sm:-left-6">
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
-          <HiOutlineTruck className="h-4.5 w-4.5" />
+          <TbCar className="h-4.5 w-4.5" />
         </span>
         <span>
           <span className="block text-[11px] font-bold uppercase tracking-wide text-text-dark">

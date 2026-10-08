@@ -129,7 +129,7 @@ export default function ParcelJourney() {
             data-gsap
             className="mt-3 text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]"
           >
-            The Parcel Journey, <span className="text-gradient-brand">End to End</span>
+            How Our <span className="text-gradient-brand">Parcel Management System</span> Works
           </h2>
           <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
             Five stages, one record — every scan adds to the same parcel

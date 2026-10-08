@@ -13,7 +13,6 @@ import EventJourney from "@/components/event-ticketing/EventJourney";
 import SalesChannels from "@/components/event-ticketing/SalesChannels";
 import GalleryStyles from "@/components/event-ticketing/GalleryStyles";
 import EventFaq from "@/components/event-ticketing/EventFaq";
-import EventCTA from "@/components/event-ticketing/EventCTA";
 import { eventFaqs } from "@/components/event-ticketing/event-faq-data";
 
 const SITE_URL = "https://www.cwticketingsystem.com";
@@ -103,7 +102,6 @@ export default function EventTicketingPage() {
         <SalesChannels />
         <GalleryStyles />
         <EventFaq />
-        <EventCTA />
       </main>
     </>
   );

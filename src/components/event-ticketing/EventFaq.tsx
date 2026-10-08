@@ -7,7 +7,7 @@ export default function EventFaq() {
   return (
     <FaqSection
       items={eventFaqs}
-      heading="What Event Hosts Ask Us First"
+      heading="Frequently Asked Questions About Our Event Ticketing System"
       description="Straight answers about launching your online event ticketing platform, payments, and promotions with CWTicketing."
     />
   );

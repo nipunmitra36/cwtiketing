@@ -10,13 +10,13 @@ import {
   HiOutlineCalculator,
   HiOutlineCreditCard,
   HiOutlineUserGroup,
-  HiOutlineTruck,
   HiOutlineStar,
   HiOutlineChartBar,
   HiOutlineBriefcase,
   HiOutlineShieldCheck,
   HiOutlineArrowRight,
 } from "react-icons/hi";
+import { TbCar } from "react-icons/tb";
 import type { IconType } from "react-icons";
 
 interface Feature {
@@ -62,7 +62,7 @@ const features: Feature[] = [
     desc: "Onboard drivers, verify documents, track duty hours, and calculate commission or rental automatically each cycle.",
   },
   {
-    icon: HiOutlineTruck,
+    icon: TbCar,
     title: "Fleet & Vehicle Management",
     desc: "Track vehicles, registration and fitness expiry, service schedules and which car is assigned to which driver.",
   },
@@ -111,9 +111,9 @@ export default function TaxiFeatures() {
         <div className="mb-14 grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-12">
           <div data-gsap>
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
-              Everything Your Taxi Booking{" "}
+              Key Features of Our{" "}
               <span className="text-gradient-brand">
-                Software Should Do
+                Taxi Booking Software
               </span>
             </h2>
             <span className="mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />

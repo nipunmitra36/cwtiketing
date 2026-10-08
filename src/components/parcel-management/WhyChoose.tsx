@@ -63,9 +63,9 @@ export default function WhyChoose() {
             data-gsap
             className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]"
           >
-            Why Choose CWTicketing&apos;s{" "}
+            Why Choose Our{" "}
             <span className="text-gradient-brand">
-              Parcel Management System
+              Parcel Management and Delivery Software?
             </span>
           </h2>
           <span className="mx-auto mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />

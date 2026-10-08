@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import {
-  HiOutlineTruck,
   HiOutlineGlobeAlt,
   HiOutlineOfficeBuilding,
   HiOutlineBriefcase,
@@ -11,11 +10,12 @@ import {
   HiOutlineBadgeCheck,
   HiOutlineArrowRight,
 } from "react-icons/hi";
+import { TbCar } from "react-icons/tb";
 import type { IconType } from "react-icons";
 
 const audiences: { icon: IconType; label: string; highlight: string }[] = [
   {
-    icon: HiOutlineTruck,
+    icon: TbCar,
     label: "Taxi & Cab Companies",
     highlight: "Replace radio dispatch with automatic matching",
   },
@@ -66,9 +66,9 @@ export default function WhoUses() {
         <div className="mb-14 grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-12">
           <div data-gsap>
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
-              Who Uses Our{" "}
+              Who Can Use Our{" "}
               <span className="text-gradient-brand">
-                Online Taxi Management System
+                Online Taxi Management Software?
               </span>
             </h2>
             <span className="mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />

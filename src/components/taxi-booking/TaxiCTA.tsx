@@ -3,37 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { createSectionReveal } from "@/lib/gsap/reveal";
-import {
-  HiOutlineLightningBolt,
-  HiOutlineTemplate,
-  HiOutlineTruck,
-  HiOutlineTrendingUp,
-  HiOutlineArrowRight,
-} from "react-icons/hi";
-import type { IconType } from "react-icons";
-
-const trustPoints: { icon: IconType; title: string; desc: string }[] = [
-  {
-    icon: HiOutlineLightningBolt,
-    title: "Dispatch in Seconds",
-    desc: "Nearest driver matched automatically, day or night",
-  },
-  {
-    icon: HiOutlineTruck,
-    title: "Fleet Fully Visible",
-    desc: "Every vehicle and trip on one live map",
-  },
-  {
-    icon: HiOutlineTemplate,
-    title: "Branded as Yours",
-    desc: "Your rider app, driver app and booking portal",
-  },
-  {
-    icon: HiOutlineTrendingUp,
-    title: "Scales With Your Fleet",
-    desc: "From five cars to a city-wide network",
-  },
-];
+import { HiOutlineArrowRight } from "react-icons/hi";
 
 export default function TaxiCTA() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -51,30 +21,10 @@ export default function TaxiCTA() {
       className="relative overflow-hidden bg-gray-50 py-16 lg:py-24"
     >
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Trust strip */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {trustPoints.map((t) => {
-            const Icon = t.icon;
-            return (
-              <div
-                key={t.title}
-                data-gsap
-                className="flex flex-col items-start gap-3 rounded-2xl border border-gray-100 bg-white p-6"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-light text-brand shadow-sm ring-1 ring-gray-100">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <p className="text-[14px] font-semibold text-text-dark">{t.title}</p>
-                <p className="text-[12.5px] leading-snug text-text-muted">{t.desc}</p>
-              </div>
-            );
-          })}
-        </div>
-
         {/* Final CTA band */}
         <div
           data-gsap
-          className="relative mt-14 overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand to-brand-dark px-6 py-14 text-center shadow-2xl shadow-brand/30 sm:px-12 lg:py-16"
+          className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand to-brand-dark px-6 py-14 text-center shadow-2xl shadow-brand/30 sm:px-12 lg:py-16"
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.18)_0%,_transparent_55%)]" />
           <div className="pointer-events-none absolute -left-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-2xl" />
@@ -82,7 +32,7 @@ export default function TaxiCTA() {
 
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-[24px] font-semibold leading-tight tracking-tight text-white sm:text-3xl">
-              Put Your Whole Fleet on One System
+              Manage Your Entire Taxi Fleet With One Platform
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-[14px] leading-relaxed text-white/80">
               Tell us how your fleet, fares and drivers work today, and

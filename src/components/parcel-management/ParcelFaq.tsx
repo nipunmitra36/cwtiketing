@@ -30,9 +30,9 @@ export default function ParcelFaq() {
           {/* ── Left: intro ── */}
           <div data-gsap className="lg:sticky lg:top-28 lg:self-start">
             <h2 className="text-[26px] font-semibold leading-[1.12] tracking-tight text-text-dark sm:text-[32px] lg:text-[36px]">
-              Frequently Asked{" "}
+              Frequently Asked Questions About{" "}
               <span className="text-gradient-brand">
-                Questions
+                Parcel Management Software
               </span>
             </h2>
             <span className="mt-5 block h-1 w-14 rounded-full bg-gradient-to-r from-brand to-amber-400" />
