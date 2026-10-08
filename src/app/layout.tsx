@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { vanillaSans } from "@/fonts/vanillaSans";
-import { Poppins, Montserrat, Google_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import { BOT_UA_PATTERN } from "@/lib/gsap/botPattern";
 import "./globals.css";
-import Providers from "./providers";
 import GSAPProvider from "../components/GSAPProvider";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
@@ -17,16 +15,6 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins",
 });
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-montserrat",
-});
-const googleSans = Google_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-google-sans",
-});
 
 
 const GA_MEASUREMENT_ID = "G-MR7P7F18JZ";
@@ -35,8 +23,10 @@ const IDESK_CHAT_ACCOUNT = "1720436169000";
 const IDESK_CHAT_CSS = "https://static.idesk360.com/chat/stylesheet.css";
 const IDESK_CHAT_BUNDLE = "https://static.idesk360.com/chat/bundle.js";
 
+// Skipped for crawlers (`is-bot`): the widget pulls in its own CSS, JS and
+// sound files, which only add to the resources Googlebot has to fetch.
 const IDESK_CHAT_SCRIPT = `(function (d, w) {
-  if (w.$_iDesk_Web_Chat_API) return;
+  if (w.$_iDesk_Web_Chat_API || d.documentElement.classList.contains("is-bot")) return;
   var r = (w.$_iDesk_Web_Chat_API = function (c) {
     r._.push(c);
   });
@@ -139,9 +129,6 @@ export default function RootLayout({
       className={`
         no-js
         ${poppins.variable}
-        ${montserrat.variable}
-        ${googleSans.variable}
-        ${vanillaSans.variable}
       `}
       suppressHydrationWarning
     >
@@ -179,29 +166,30 @@ export default function RootLayout({
 })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`}
         </Script>
 
-        {/* Google tag (gtag.js) */}
-        <Script
-          id="ga-src"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga-config" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
+        {/* Google tag (gtag.js) — skipped for crawlers, like Clarity above:
+            bot visits shouldn't count, and its collect requests fail for
+            Googlebot and show up as unloaded page resources. */}
+        <Script id="ga" strategy="afterInteractive">
+          {`if(!document.documentElement.classList.contains("is-bot")){
+var s=document.createElement("script");s.async=1;
+s.src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}";
+document.head.appendChild(s);
+window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
 gtag('js', new Date());
-gtag('config', '${GA_MEASUREMENT_ID}');`}
+gtag('config', '${GA_MEASUREMENT_ID}');
+}`}
         </Script>
 
         <GSAPProvider>
-          <Providers>
-            <Header />
-            <div id="smooth-wrapper">
-              <div id="smooth-content">
-                {children}
-                <Footer />
-              </div>
+          <Header />
+          <div id="smooth-wrapper">
+            <div id="smooth-content">
+              {children}
+              <Footer />
             </div>
-          </Providers>
+          </div>
         </GSAPProvider>
         <BackToTop />
 

@@ -59,9 +59,6 @@
 
 :root {
   --font-poppins: "Poppins", sans-serif;
-  --font-montserrat: "Montserrat", sans-serif;
-  --font-google-sans: "Google Sans", sans-serif;
-  --font-vanilla-sans: "Vanilla Sans", sans-serif;
 }
 
 body {
@@ -81,18 +78,6 @@ body {
   li {
     text-wrap: pretty;
   }
-}
-
-.font-montserrat {
-  font-family: var(--font-montserrat);
-}
-
-.font-google-sans {
-  font-family: var(--font-google-sans);
-}
-
-.font-vanilla-sans {
-  font-family: var(--font-vanilla-sans);
 }
 
 .container {
