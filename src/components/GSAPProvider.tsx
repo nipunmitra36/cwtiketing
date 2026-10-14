@@ -49,8 +49,9 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
     markSmootherReady();
     revealAll();
 
-    const handleLoad = () => ScrollTrigger.refresh();
-    window.addEventListener("load", handleLoad);
+    // No manual refresh on `load`: ScrollTrigger already refreshes itself on
+    // load (autoRefreshEvents), and a second full refresh was a duplicate
+    // layout pass over every trigger during page load.
 
     // Lazy images change the page height as they load, which shifts pinned
     // trigger positions. Debounced so a burst of images costs one refresh.
@@ -78,7 +79,6 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
 
     return () => {
       if (refreshTimer) clearTimeout(refreshTimer);
-      window.removeEventListener("load", handleLoad);
       observer.disconnect();
       ScrollTrigger.getAll().forEach((t) => t.kill());
       resetSmootherReady();

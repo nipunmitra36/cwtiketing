@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Poppins } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import { BOT_UA_PATTERN } from "@/lib/gsap/botPattern";
@@ -8,7 +7,7 @@ import GSAPProvider from "../components/GSAPProvider";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import BackToTop from "../components/back-to-top/BackToTop";
-import ClarityInit from "../components/analytics/ClarityInit";
+import ThirdPartyScripts from "../components/analytics/ThirdPartyScripts";
 
 // Fonts
 const poppins = Poppins({
@@ -16,37 +15,6 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins",
 });
-
-
-const GA_MEASUREMENT_ID = "G-MR7P7F18JZ";
-const IDESK_CHAT_ACCOUNT = "1720436169000";
-const IDESK_CHAT_CSS = "https://static.idesk360.com/chat/stylesheet.css";
-const IDESK_CHAT_BUNDLE = "https://static.idesk360.com/chat/bundle.js";
-
-// Skipped for crawlers (`is-bot`): the widget pulls in its own CSS, JS and
-// sound files, which only add to the resources Googlebot has to fetch.
-const IDESK_CHAT_SCRIPT = `(function (d, w) {
-  if (w.$_iDesk_Web_Chat_API || d.documentElement.classList.contains("is-bot")) return;
-  var r = (w.$_iDesk_Web_Chat_API = function (c) {
-    r._.push(c);
-  });
-  r._ = [];
-  w.__iDeskWebChat_account = "${IDESK_CHAT_ACCOUNT}";
-  w.__iDeskWebChat_version = 2;
-  var link = d.createElement("link");
-  link.href = "${IDESK_CHAT_CSS}";
-  link.rel = "stylesheet";
-  d.head.appendChild(link);
-  var webchat = d.createElement("div");
-  webchat.setAttribute("id", "webchat");
-  d.body.appendChild(webchat);
-  var rc = d.createElement("script");
-  rc.type = "text/javascript";
-  rc.async = true;
-  rc.src = "${IDESK_CHAT_BUNDLE}";
-  var s = d.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(rc, s);
-})(document, window);`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -151,24 +119,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans" suppressHydrationWarning>
-        {/* Microsoft Clarity — @microsoft/clarity, see ClarityInit */}
-        <ClarityInit />
-
-        {/* Google tag (gtag.js) — skipped for crawlers, like Clarity:
-            bot visits shouldn't count, and its collect requests fail for
-            Googlebot and show up as unloaded page resources. */}
-        <Script id="ga" strategy="afterInteractive">
-          {`if(!document.documentElement.classList.contains("is-bot")){
-var s=document.createElement("script");s.async=1;
-s.src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}";
-document.head.appendChild(s);
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-window.gtag = gtag;
-gtag('js', new Date());
-gtag('config', '${GA_MEASUREMENT_ID}');
-}`}
-        </Script>
+        {/* Clarity, Google Analytics and iDesk chat — loaded on first
+            interaction, see ThirdPartyScripts */}
+        <ThirdPartyScripts />
 
         <GSAPProvider>
           <Header />
@@ -180,11 +133,6 @@ gtag('config', '${GA_MEASUREMENT_ID}');
           </div>
         </GSAPProvider>
         <BackToTop />
-
-        {/* iDesk360 Live Chat */}
-        <Script id="idesk-chat" strategy="afterInteractive">
-          {IDESK_CHAT_SCRIPT}
-        </Script>
       </body>
     </html>
   );

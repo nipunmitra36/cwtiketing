@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { preload } from "react-dom";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import {
@@ -20,15 +21,28 @@ import {
 // copy only. Set to true to bring the illustration back; nothing was deleted.
 const SHOW_PRODUCT_SCENE = false;
 
-// Video shown below the hero copy (16:9, 1920×1080). It grows as the visitor
-// scrolls down and shrinks back on scroll up (see the scroll-scale tween).
-const HERO_VIDEO = "/media/video/hero.mp4";
+// Video shown below the hero copy (16:9). It grows as the visitor scrolls down
+// and shrinks back on scroll up (see the scroll-scale tween).
+// Encoded from the 1920×1080 master (hero.mp4, 12.9 MB) without the unused
+// audio track: 720p for tablets/desktops, 480p for phones.
+const HERO_VIDEO_DESKTOP = "/media/video/hero-720.mp4"; // ~660 KB
+const HERO_VIDEO_MOBILE = "/media/video/hero-480.mp4"; // ~290 KB
+const HERO_VIDEO_POSTER = "/media/video/hero-poster.webp"; // first frame, ~30 KB
 
 // ── Hero video (rounded, scroll-scaled by the parent) ────────────────────────
 function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Only play when the visitor hasn't asked for less motion or less data.
+  // The poster is the Largest Contentful Paint element on phones and
+  // desktops: emit a high-priority <link rel="preload"> in the server HTML so
+  // it isn't queued behind the JS chunks (a <video poster> defaults to a
+  // lower priority than an <img>).
+  preload(HERO_VIDEO_POSTER, { as: "image", fetchPriority: "high" });
+
+  // The poster (first frame) paints straight away. The video file is only
+  // requested once the page has finished loading, so it never competes with
+  // the page's own CSS/JS/fonts. Visitors who asked for less motion or less
+  // data keep the poster.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -36,18 +50,30 @@ function HeroVideo() {
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } })
       .connection?.saveData;
     if (reduceMotion || saveData) return;
-    video.play().catch(() => { });
+
+    const start = () => {
+      video.src = window.matchMedia("(max-width: 767px)").matches
+        ? HERO_VIDEO_MOBILE
+        : HERO_VIDEO_DESKTOP;
+      video.play().catch(() => { });
+    };
+    if (document.readyState === "complete") {
+      start();
+      return;
+    }
+    window.addEventListener("load", start, { once: true });
+    return () => window.removeEventListener("load", start);
   }, []);
 
   return (
     <div className="relative aspect-video overflow-hidden rounded-2xl bg-gray-100 shadow-[0_30px_80px_-24px_rgba(255,106,28,0.35)] ring-1 ring-black/5 sm:rounded-[28px]">
       <video
         ref={videoRef}
-        src={HERO_VIDEO}
+        poster={HERO_VIDEO_POSTER}
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         aria-label="Passenger booking a bus ticket with CW Ticketing"
         className="h-full w-full object-cover"
       />
@@ -229,19 +255,17 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ── Video: rise in after the copy ──
-      if (videoWrapRef.current) {
-        gsap.fromTo(
-          videoWrapRef.current,
-          { opacity: 0, y: 60 },
-          { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power3.out" }
-        );
-      }
+      // No load-time fade on the copy or the video: both are visible in the
+      // server HTML, and hiding them again on hydration flashed them and
+      // pushed Largest Contentful Paint (the <h1> on phones, the video poster
+      // on desktop) back until the JS had run.
 
       // ── Video: grows while scrolling down, shrinks back on scroll up ──
       // Scrubbed to the scroll position, so it reverses naturally.
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (videoScaleRef.current && !reduceMotion) {
+        // Same start scale as the CSS classes on the wrapper, so nothing jumps
+        // when this takes over after hydration.
         const startScale = window.innerWidth < 640 ? 0.9 : window.innerWidth < 1024 ? 0.82 : 0.72;
         gsap.fromTo(
           videoScaleRef.current,
@@ -257,22 +281,6 @@ export default function Hero() {
               scrub: 0.6,
               invalidateOnRefresh: true,
             },
-          }
-        );
-      }
-
-      // ── Left copy: staggered fade-up on scroll ──
-      const copyElements = leftCopyRef.current?.querySelectorAll(".gsap-left-item");
-      if (copyElements?.length) {
-        gsap.fromTo(
-          copyElements,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.12,
-            ease: "power3.out",
           }
         );
       }
@@ -497,7 +505,10 @@ export default function Hero() {
             {/* Laptop screen preview */}
             {/* Video: rounded, scales up with scroll */}
             <div ref={videoWrapRef} className="mt-12 w-full sm:mt-16 lg:mt-20">
-              <div ref={videoScaleRef} className="will-change-transform">
+              <div
+                ref={videoScaleRef}
+                className="origin-top scale-90 will-change-transform motion-reduce:scale-100 sm:scale-[0.82] lg:scale-[0.72]"
+              >
                 <HeroVideo />
               </div>
             </div>

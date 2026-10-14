@@ -274,7 +274,9 @@ export default function WorkInContext() {
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 ref={whiteAvatarRef}
-                                src="/media/white-man.png"
+                                src="/media/white-man.webp"
+                                loading="lazy"
+                                decoding="async"
                                 alt="Bus driver in uniform, line-art illustration"
                                 aria-hidden="true"
                                 className="absolute inset-0 h-full w-full object-contain"
@@ -282,7 +284,9 @@ export default function WorkInContext() {
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 ref={colorAvatarRef}
-                                src="/media/color-man.png"
+                                src="/media/color-man.webp"
+                                loading="lazy"
+                                decoding="async"
                                 alt="CwTicketing operator managing bookings, routes, and revenue"
                                 className="absolute inset-0 h-full w-full object-contain opacity-0"
                             />
