@@ -8,6 +8,7 @@ import GSAPProvider from "../components/GSAPProvider";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import BackToTop from "../components/back-to-top/BackToTop";
+import ClarityInit from "../components/analytics/ClarityInit";
 
 // Fonts
 const poppins = Poppins({
@@ -18,7 +19,6 @@ const poppins = Poppins({
 
 
 const GA_MEASUREMENT_ID = "G-MR7P7F18JZ";
-const CLARITY_PROJECT_ID = "r0vk6a74tt";
 const IDESK_CHAT_ACCOUNT = "1720436169000";
 const IDESK_CHAT_CSS = "https://static.idesk360.com/chat/stylesheet.css";
 const IDESK_CHAT_BUNDLE = "https://static.idesk360.com/chat/bundle.js";
@@ -149,33 +149,12 @@ export default function RootLayout({
             __html: `(function(c){c.remove("no-js");if(/${BOT_UA_PATTERN}/i.test(navigator.userAgent))c.add("is-bot")})(document.documentElement.classList)`,
           }}
         />
-
-        {/* Microsoft Clarity */}
-        {/*
-          Server-rendered into <head> (plain inline script, not next/script) so
-          the tag is in the initial HTML — visible in view-source and to
-          Clarity's install check. The tag itself still loads async.
-
-          Skipped for crawlers (`is-bot`, set by the script above — so this
-          must stay after it): Clarity's tracking pixels (c.clarity.ms/c.gif,
-          c.bing.com/c.gif) are blocked for Googlebot and show up as "Page
-          resources could not be loaded" in Search Console. Bots also
-          shouldn't count as recorded sessions.
-        */}
-        <script
-          id="clarity"
-          dangerouslySetInnerHTML={{
-            __html: `if(!document.documentElement.classList.contains("is-bot"))(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`,
-          }}
-        />
       </head>
       <body className="font-sans" suppressHydrationWarning>
+        {/* Microsoft Clarity — @microsoft/clarity, see ClarityInit */}
+        <ClarityInit />
 
-        {/* Google tag (gtag.js) — skipped for crawlers, like Clarity above:
+        {/* Google tag (gtag.js) — skipped for crawlers, like Clarity:
             bot visits shouldn't count, and its collect requests fail for
             Googlebot and show up as unloaded page resources. */}
         <Script id="ga" strategy="afterInteractive">
