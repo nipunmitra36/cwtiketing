@@ -275,7 +275,7 @@ export default function WorkInContext() {
                             <img
                                 ref={whiteAvatarRef}
                                 src="/media/white-man.png"
-                                alt=""
+                                alt="Bus driver in uniform, line-art illustration"
                                 aria-hidden="true"
                                 className="absolute inset-0 h-full w-full object-contain"
                             />

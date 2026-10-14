@@ -188,7 +188,7 @@ export default function CaseStudies() {
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={c.logo}
-                                            alt=""
+                                            alt={`${c.name} logo`}
                                             loading="lazy"
                                             className="h-full w-full object-contain"
                                         />

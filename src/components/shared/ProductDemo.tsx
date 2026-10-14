@@ -322,7 +322,7 @@ function ProductShowcase({ tab }: { tab: ProductDemoTab }) {
                 }`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" className="h-full w-full object-contain" />
+                <img src={src} alt={`${tab.title} — thumbnail ${i + 1}`} className="h-full w-full object-contain" />
               </button>
             ))}
           </div>

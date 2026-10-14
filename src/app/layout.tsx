@@ -149,22 +149,31 @@ export default function RootLayout({
             __html: `(function(c){c.remove("no-js");if(/${BOT_UA_PATTERN}/i.test(navigator.userAgent))c.add("is-bot")})(document.documentElement.classList)`,
           }}
         />
-      </head>
-      <body className="font-sans" suppressHydrationWarning>
+
         {/* Microsoft Clarity */}
         {/*
-          Skipped for crawlers (`is-bot`, set by the <head> script): Clarity's
-          tracking pixels (c.clarity.ms/c.gif, c.bing.com/c.gif) are blocked
-          for Googlebot and show up as "Page resources could not be loaded" in
-          Search Console. Bots also shouldn't count as recorded sessions.
+          Server-rendered into <head> (plain inline script, not next/script) so
+          the tag is in the initial HTML — visible in view-source and to
+          Clarity's install check. The tag itself still loads async.
+
+          Skipped for crawlers (`is-bot`, set by the script above — so this
+          must stay after it): Clarity's tracking pixels (c.clarity.ms/c.gif,
+          c.bing.com/c.gif) are blocked for Googlebot and show up as "Page
+          resources could not be loaded" in Search Console. Bots also
+          shouldn't count as recorded sessions.
         */}
-        <Script id="clarity" strategy="afterInteractive">
-          {`if(!document.documentElement.classList.contains("is-bot"))(function(c,l,a,r,i,t,y){
+        <script
+          id="clarity"
+          dangerouslySetInnerHTML={{
+            __html: `if(!document.documentElement.classList.contains("is-bot"))(function(c,l,a,r,i,t,y){
     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
     t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`}
-        </Script>
+})(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`,
+          }}
+        />
+      </head>
+      <body className="font-sans" suppressHydrationWarning>
 
         {/* Google tag (gtag.js) — skipped for crawlers, like Clarity above:
             bot visits shouldn't count, and its collect requests fail for

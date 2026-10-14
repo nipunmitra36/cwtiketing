@@ -49,7 +49,7 @@ export default function OperatorsHero() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/media/hero/bus-operators-hero-section.png"
-          alt=""
+          alt="Passengers booking intercity bus trips between two cities on a mobile app"
           className="h-full w-full object-cover opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#FDF7F2]/70 via-[#FDF7F2]/40 to-[#FDF7F2]/80" />

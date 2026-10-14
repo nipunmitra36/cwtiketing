@@ -55,7 +55,7 @@ export default function MarketplaceHero() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/media/cwticketing-travel-agency/travel-agencies-hero-image.jpg"
-          alt=""
+          alt="Passengers booking bus tickets on their phones as buses head to the terminal"
           className="h-full w-full object-cover opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#FDF7F2]/70 via-[#FDF7F2]/40 to-[#FDF7F2]/80" />

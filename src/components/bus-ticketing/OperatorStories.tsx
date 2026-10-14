@@ -53,7 +53,7 @@ export default function OperatorStories() {
             <div className="flex items-center gap-3">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-gray-100 bg-white p-1.5 shadow-sm">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={story.logo} alt="" className="h-full w-full object-contain" />
+                <img src={story.logo} alt={`${story.name} logo`} className="h-full w-full object-contain" />
               </span>
               <span>
                 <span className="block text-[15px] font-semibold text-text-dark">{story.name}</span>

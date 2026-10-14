@@ -20,44 +20,38 @@ import {
 // copy only. Set to true to bring the illustration back; nothing was deleted.
 const SHOW_PRODUCT_SCENE = false;
 
-// Optional background video. Drop a short, muted, looping clip (MP4, ~720p,
-// under ~5 MB) into /public/media/hero and set its path here, e.g.
-// "/media/hero/hero-bg.mp4". Leave empty to keep the plain dark background.
-// encodeURI because the file name has a space and brackets
-const HERO_VIDEO = encodeURI("/media/video/hero (2).mp4");
-const HERO_VIDEO_POSTER = ""; // optional still frame shown while it loads
+// Video shown below the hero copy (16:9, 1920×1080). It grows as the visitor
+// scrolls down and shrinks back on scroll up (see the scroll-scale tween).
+const HERO_VIDEO = "/media/video/hero.mp4";
 
-// ── Background video ──────────────────────────────────────────────────────────
+// ── Hero video (rounded, scroll-scaled by the parent) ────────────────────────
 function HeroVideo() {
-  const ref = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Only play when the visitor hasn't asked for less motion or less data;
-  // otherwise the poster (or the dark background) is shown instead.
+  // Only play when the visitor hasn't asked for less motion or less data.
   useEffect(() => {
-    const video = ref.current;
+    const video = videoRef.current;
     if (!video) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } })
       .connection?.saveData;
     if (reduceMotion || saveData) return;
-    video.play().catch(() => {});
+    video.play().catch(() => { });
   }, []);
 
   return (
-    <video
-      ref={ref}
-      src={HERO_VIDEO}
-      poster={HERO_VIDEO_POSTER || undefined}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      aria-hidden
-      onError={(e) => {
-        e.currentTarget.style.display = "none";
-      }}
-      className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover opacity-85"
-    />
+    <div className="relative aspect-video overflow-hidden rounded-2xl bg-gray-100 shadow-[0_30px_80px_-24px_rgba(255,106,28,0.35)] ring-1 ring-black/5 sm:rounded-[28px]">
+      <video
+        ref={videoRef}
+        src={HERO_VIDEO}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label="Passenger booking a bus ticket with CW Ticketing"
+        className="h-full w-full object-cover"
+      />
+    </div>
   );
 }
 
@@ -166,9 +160,8 @@ function BookingEngineCard() {
           {["Seats", "Pay", "Issue"].map((step, i) => (
             <div
               key={step}
-              className={`rounded-lg py-1 ${
-                i === 1 ? "bg-brand text-white" : "bg-gray-50 text-text-body"
-              }`}
+              className={`rounded-lg py-1 ${i === 1 ? "bg-brand text-white" : "bg-gray-50 text-text-body"
+                }`}
             >
               <p className="text-[10px] font-semibold">{step}</p>
             </div>
@@ -231,9 +224,43 @@ export default function Hero() {
   const leftCopyRef = useRef<HTMLDivElement>(null);
   const bentoRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const videoWrapRef = useRef<HTMLDivElement>(null);
+  const videoScaleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // ── Video: rise in after the copy ──
+      if (videoWrapRef.current) {
+        gsap.fromTo(
+          videoWrapRef.current,
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power3.out" }
+        );
+      }
+
+      // ── Video: grows while scrolling down, shrinks back on scroll up ──
+      // Scrubbed to the scroll position, so it reverses naturally.
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (videoScaleRef.current && !reduceMotion) {
+        const startScale = window.innerWidth < 640 ? 0.9 : window.innerWidth < 1024 ? 0.82 : 0.72;
+        gsap.fromTo(
+          videoScaleRef.current,
+          { scale: startScale },
+          {
+            scale: 1,
+            ease: "none",
+            transformOrigin: "50% 0%",
+            scrollTrigger: {
+              trigger: videoWrapRef.current,
+              start: "top 85%",
+              end: "center center",
+              scrub: 0.6,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      }
+
       // ── Left copy: staggered fade-up on scroll ──
       const copyElements = leftCopyRef.current?.querySelectorAll(".gsap-left-item");
       if (copyElements?.length) {
@@ -394,20 +421,20 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative isolate overflow-hidden bg-neutral-950">
-      {/* ── Dark background: near-black base + soft brand glows + faint grid ── */}
+    <section ref={sectionRef} className="relative isolate overflow-hidden bg-white">
+      {/* ── Light background: white base + soft brand glows + faint grid ── */}
       <div
         ref={bgRef}
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-20 h-[calc(100%+80px)] w-full"
       >
-        <div className="absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-brand/25 blur-[140px]" />
-        <div className="absolute -bottom-48 -left-32 h-[480px] w-[480px] rounded-full bg-amber-500/10 blur-[140px]" />
+        <div className="absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-brand/15 blur-[140px]" />
+        <div className="absolute -bottom-48 -left-32 h-[480px] w-[480px] rounded-full bg-amber-400/15 blur-[140px]" />
         <div
-          className="absolute inset-0 opacity-[0.07]"
+          className="absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+              "linear-gradient(rgba(17,17,17,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.6) 1px, transparent 1px)",
             backgroundSize: "56px 56px",
             maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
             WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
@@ -415,32 +442,26 @@ export default function Hero() {
         />
       </div>
 
-      {HERO_VIDEO && <HeroVideo />}
-
-      {/* ── Overlay: top/bottom vignette keeps edges deep black (and keeps the
-          headline readable over the video when one is set) ── */}
-      <div
-        className={`absolute inset-0 -z-10 bg-gradient-to-b ${HERO_VIDEO ? "from-black/55 via-black/30 to-black/65" : "from-black/60 via-transparent to-black/70"
-          }`}
-      />
+      {/* ── Overlay: soft fade so the bottom blends into the next white section ── */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-light/60 via-transparent to-white" />
 
       <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-32 sm:px-6 sm:pb-28 sm:pt-40 lg:px-8 lg:pb-32 lg:pt-44">
         <div
           className={`grid items-center gap-12 sm:gap-14 ${SHOW_PRODUCT_SCENE ? "lg:grid-cols-[1.1fr_1fr] lg:gap-10 xl:gap-12" : ""}`}
         >
           {/* ── Copy (GSAP fade-up) ── */}
-          <div ref={leftCopyRef} className="flex flex-col items-center text-center [text-shadow:0_2px_16px_rgba(0,0,0,0.45)]">
+          <div ref={leftCopyRef} className="flex flex-col items-center text-center">
             {/* Headline */}
-            <h1 className="gsap-left-item mb-5 max-w-5xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-white min-[400px]:text-[2.25rem] sm:mb-6 sm:text-5xl lg:text-6xl xl:text-[4.25rem]">
+            <h1 className="gsap-left-item mb-5 max-w-5xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark min-[400px]:text-[2.25rem] sm:mb-6 sm:text-5xl lg:text-6xl xl:text-[4.25rem]">
               Launch Your Own{" "}
-              <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-brand-light bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand via-orange-500 to-amber-500 bg-clip-text text-transparent">
                 Online Ticket Booking
               </span>{" "}
               System in Weeks
             </h1>
 
             {/* Sub-copy */}
-            <p className="gsap-left-item mb-8 max-w-2xl text-[15px] leading-relaxed text-white/75 sm:mb-10 sm:text-[17px] lg:text-[18px]">
+            <p className="gsap-left-item mb-8 max-w-2xl text-[15px] leading-relaxed text-text-body/80 sm:mb-10 sm:text-[17px] lg:text-[18px]">
               A complete white-label booking system for transport operators. Manage routes,
               seats, payments, passengers, and mobile apps from one powerful software.
             </p>
@@ -457,14 +478,14 @@ export default function Hero() {
             </div>
 
             {/* Trust points */}
-            <div className="gsap-left-item grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-white/15 pt-6 text-left sm:max-w-xl sm:gap-x-8 lg:flex lg:max-w-4xl lg:flex-wrap lg:justify-center lg:gap-y-3">
+            <div className="gsap-left-item grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-gray-200 pt-6 text-left sm:max-w-xl sm:gap-x-8 lg:flex lg:max-w-4xl lg:flex-wrap lg:justify-center lg:gap-y-3">
               {[
                 "2500+ Transport Companies",
                 "99.9% Platform Uptime",
                 "Android & iOS Apps Included",
                 "24/7 Support",
               ].map((point) => (
-                <span key={point} className="flex items-start gap-2 text-[12.5px] leading-snug text-white/80 sm:items-center sm:text-[14px]">
+                <span key={point} className="flex items-start gap-2 text-[12.5px] leading-snug text-text-body sm:items-center sm:text-[14px]">
                   <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/90">
                     <HiOutlineCheck className="h-2.5 w-2.5 text-white" />
                   </span>
@@ -472,54 +493,62 @@ export default function Hero() {
                 </span>
               ))}
             </div>
+
+            {/* Laptop screen preview */}
+            {/* Video: rounded, scales up with scroll */}
+            <div ref={videoWrapRef} className="mt-12 w-full sm:mt-16 lg:mt-20">
+              <div ref={videoScaleRef} className="will-change-transform">
+                <HeroVideo />
+              </div>
+            </div>
           </div>
 
           {/* ── Right: connected product ecosystem scene (hidden — see SHOW_PRODUCT_SCENE) ── */}
           {SHOW_PRODUCT_SCENE && (
-          <div ref={bentoRef} className="relative overflow-visible">
-            <div className="mx-auto w-full max-w-[400px] [perspective:1400px] sm:max-w-[540px]">
-              {/* Ambient brand glow behind the scene */}
-              <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-3xl" />
+            <div ref={bentoRef} className="relative overflow-visible">
+              <div className="mx-auto w-full max-w-[400px] [perspective:1400px] sm:max-w-[540px]">
+                {/* Ambient brand glow behind the scene */}
+                <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-3xl" />
 
-              <div className="scene-tilt relative">
-                {/* Admin Dashboard */}
-                <div className="animate-hero-float">
-                  <div className="relative z-10 mx-auto w-full max-w-[400px]">
-                    <AdminDashboardCard />
+                <div className="scene-tilt relative">
+                  {/* Admin Dashboard */}
+                  <div className="animate-hero-float">
+                    <div className="relative z-10 mx-auto w-full max-w-[400px]">
+                      <AdminDashboardCard />
+                    </div>
                   </div>
-                </div>
 
-                <ConnectorV />
+                  <ConnectorV />
 
-                {/* Middle row: Mobile App — Booking Engine — Passenger Ticket */}
-                {/* Phones show only the core engine; side cards join from sm up */}
-                <div className="mx-auto flex max-w-[280px] items-stretch gap-1.5 sm:max-w-none">
-                  <div className="hidden flex-1 sm:flex">
-                    <MobileAppCard />
+                  {/* Middle row: Mobile App — Booking Engine — Passenger Ticket */}
+                  {/* Phones show only the core engine; side cards join from sm up */}
+                  <div className="mx-auto flex max-w-[280px] items-stretch gap-1.5 sm:max-w-none">
+                    <div className="hidden flex-1 sm:flex">
+                      <MobileAppCard />
+                    </div>
+                    <div className="hidden sm:flex">
+                      <ConnectorH />
+                    </div>
+                    <BookingEngineCard />
+                    <div className="hidden sm:flex">
+                      <ConnectorH />
+                    </div>
+                    <div className="hidden flex-1 sm:flex">
+                      <PassengerTicketCard />
+                    </div>
                   </div>
-                  <div className="hidden sm:flex">
-                    <ConnectorH />
-                  </div>
-                  <BookingEngineCard />
-                  <div className="hidden sm:flex">
-                    <ConnectorH />
-                  </div>
-                  <div className="hidden flex-1 sm:flex">
-                    <PassengerTicketCard />
-                  </div>
-                </div>
 
-                <ConnectorV />
+                  <ConnectorV />
 
-                {/* Analytics */}
-                <div className="animate-hero-float-slow">
-                  <div className="relative z-10 mx-auto w-full max-w-[420px]">
-                    <AnalyticsCard />
+                  {/* Analytics */}
+                  <div className="animate-hero-float-slow">
+                    <div className="relative z-10 mx-auto w-full max-w-[420px]">
+                      <AnalyticsCard />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           )}
         </div>
       </div>
