@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { preload } from "react-dom";
+import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import {
@@ -266,7 +267,7 @@ export default function Hero() {
       if (videoScaleRef.current && !reduceMotion) {
         // Same start scale as the CSS classes on the wrapper, so nothing jumps
         // when this takes over after hydration.
-        const startScale = window.innerWidth < 640 ? 0.9 : window.innerWidth < 1024 ? 0.82 : 0.72;
+        const startScale = window.innerWidth < 640 ? 0.9 : window.innerWidth < 1024 ? 0.88 : 0.85;
         gsap.fromTo(
           videoScaleRef.current,
           { scale: startScale },
@@ -429,90 +430,93 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative isolate overflow-hidden bg-white">
-      {/* ── Light background: white base + soft brand glows + faint grid ── */}
-      <div
-        ref={bgRef}
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-20 h-[calc(100%+80px)] w-full"
-      >
-        <div className="absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-brand/15 blur-[140px]" />
-        <div className="absolute -bottom-48 -left-32 h-[480px] w-[480px] rounded-full bg-amber-400/15 blur-[140px]" />
+    <>
+      <section ref={sectionRef} className="relative isolate overflow-hidden bg-white">
+        {/* ── Background image + overlays ──
+            Stacking (back → front): image (-z-30) → white wash (-z-20)
+            → brand glows (-z-10) → copy. The image fills the section
+            (object-cover, centred). The mask fades the image itself to
+            transparent at its top and bottom edges, so neither edge shows as
+            a line against the header or the white video section below. */}
         <div
-          className="absolute inset-0 opacity-[0.06]"
+          aria-hidden
+          className="absolute inset-0 -z-30"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(17,17,17,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.6) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+            maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 78%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 78%, transparent 100%)",
           }}
-        />
-      </div>
-
-      {/* ── Overlay: soft fade so the bottom blends into the next white section ── */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-light/60 via-transparent to-white" />
-
-      <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-32 sm:px-6 sm:pb-28 sm:pt-40 lg:px-8 lg:pb-32 lg:pt-44">
-        <div
-          className={`grid items-center gap-12 sm:gap-14 ${SHOW_PRODUCT_SCENE ? "lg:grid-cols-[1.1fr_1fr] lg:gap-10 xl:gap-12" : ""}`}
         >
-          {/* ── Copy (GSAP fade-up) ── */}
-          <div ref={leftCopyRef} className="flex flex-col items-center text-center">
-            {/* Headline */}
-            <h1 className="gsap-left-item mb-5 max-w-5xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark min-[400px]:text-[2.25rem] sm:mb-6 sm:text-5xl lg:text-6xl xl:text-[4.25rem]">
-              Launch Your Own{" "}
-              <span className="bg-gradient-to-r from-brand via-orange-500 to-amber-500 bg-clip-text text-transparent">
-                Online Ticket Booking
-              </span>{" "}
-              System in Weeks
-            </h1>
+          <Image
+            src="/media/home-hero-1.png"
+            alt="Passengers buying tickets at a ticket counter, with a train, bus, taxi and cruise ship in the city behind"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+        {/* Wash: keeps the copy readable over the picture while it still shows */}
+        <div aria-hidden className="absolute inset-0 -z-20 bg-white/45" />
+        <div
+          ref={bgRef}
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 h-[calc(100%+80px)] w-full"
+        >
+          <div className="absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-brand/10 blur-[140px]" />
+          {/* Kept clear of the bottom edge: a glow cut off by overflow-hidden
+              there would show the line where the hero ends. */}
+          <div className="absolute -left-32 top-1/4 h-[480px] w-[480px] rounded-full bg-amber-400/10 blur-[140px]" />
+        </div>
 
-            {/* Sub-copy */}
-            <p className="gsap-left-item mb-8 max-w-2xl text-[15px] leading-relaxed text-text-body/80 sm:mb-10 sm:text-[17px] lg:text-[18px]">
-              A complete white-label booking system for transport operators. Manage routes,
-              seats, payments, passengers, and mobile apps from one powerful software.
-            </p>
+        <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8 lg:pb-24 lg:pt-36">
+          <div
+            className={`grid items-center gap-12 sm:gap-14 ${SHOW_PRODUCT_SCENE ? "lg:grid-cols-[1.1fr_1fr] lg:gap-10 xl:gap-12" : ""}`}
+          >
+            {/* ── Copy (GSAP fade-up) ── */}
+            <div ref={leftCopyRef} className="flex flex-col items-center text-center">
+              {/* Headline */}
+              <h1 className="gsap-left-item mb-5 max-w-5xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark min-[400px]:text-[2.25rem] sm:mb-6 sm:text-5xl lg:text-6xl xl:text-[4.25rem]">
+                Launch Your Own{" "}
+                <span className="bg-gradient-to-r from-brand via-orange-500 to-amber-500 bg-clip-text text-transparent">
+                  Online Ticket Booking
+                </span>{" "}
+                System in Weeks
+              </h1>
 
-            {/* CTA row */}
-            <div className="gsap-left-item mb-10 flex w-full flex-wrap items-center justify-center gap-3">
-              <Link
-                href="/contact-us"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 min-[400px]:w-auto text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
-              >
-                Start Free Consultation
-                <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-            </div>
+              {/* Sub-copy */}
+              <p className="gsap-left-item mb-8 max-w-2xl text-balance text-[15px] md:max-w-3xl lg:max-w-[820px] leading-relaxed text-text-body/80 sm:mb-10 sm:text-[17px] lg:text-[18px]">
+                A complete white-label booking system for transport operators. Manage routes,
+                seats, payments, passengers, and mobile apps from one powerful software.
+              </p>
 
-            {/* Trust points */}
-            <div className="gsap-left-item grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-3 border-t border-gray-200 pt-6 text-left sm:max-w-xl sm:gap-x-8 lg:flex lg:max-w-4xl lg:flex-wrap lg:justify-center lg:gap-y-3">
-              {[
-                "2500+ Transport Companies",
-                "99.9% Platform Uptime",
-                "Android & iOS Apps Included",
-                "24/7 Support",
-              ].map((point) => (
-                <span key={point} className="flex items-start gap-2 text-[12.5px] leading-snug text-text-body sm:items-center sm:text-[14px]">
-                  <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/90">
-                    <HiOutlineCheck className="h-2.5 w-2.5 text-white" />
+              {/* CTA row */}
+              <div className="gsap-left-item mb-20 flex w-full flex-wrap items-center justify-center gap-3 sm:mb-24 lg:mb-36">
+                <Link
+                  href="/contact-us"
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 min-[400px]:w-auto text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
+                >
+                  Start Free Consultation
+                  <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+
+              {/* Trust points — white glass box over the background image */}
+              <div className="gsap-left-item grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-3 rounded-2xl border border-white/70 bg-white/60 p-4 text-left shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-md sm:max-w-xl sm:gap-x-8 sm:px-6 lg:flex lg:w-fit lg:max-w-none lg:flex-nowrap lg:justify-center lg:gap-x-7 lg:whitespace-nowrap lg:rounded-full lg:px-8 lg:py-3.5">
+                {[
+                  "2500+ Transport Companies",
+                  "99.9% Platform Uptime",
+                  "Android & iOS Apps Included",
+                  "24/7 Support",
+                ].map((point) => (
+                  <span key={point} className="flex items-start gap-2 text-[12.5px] leading-snug text-text-body sm:items-center sm:text-[14px]">
+                    <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/90">
+                      <HiOutlineCheck className="h-2.5 w-2.5 text-white" />
+                    </span>
+                    {point}
                   </span>
-                  {point}
-                </span>
-              ))}
-            </div>
-
-            {/* Laptop screen preview */}
-            {/* Video: rounded, scales up with scroll */}
-            <div ref={videoWrapRef} className="mt-12 w-full sm:mt-16 lg:mt-20">
-              <div
-                ref={videoScaleRef}
-                className="origin-top scale-90 will-change-transform motion-reduce:scale-100 sm:scale-[0.82] lg:scale-[0.72]"
-              >
-                <HeroVideo />
+                ))}
               </div>
             </div>
-          </div>
 
           {/* ── Right: connected product ecosystem scene (hidden — see SHOW_PRODUCT_SCENE) ── */}
           {SHOW_PRODUCT_SCENE && (
@@ -564,5 +568,21 @@ export default function Hero() {
         </div>
       </div>
     </section>
+
+    {/* ── Hero video: its own section below the hero (same white as the
+        hero's faded bottom edge, so the two join without a seam) ── */}
+    <section className="relative bg-white pb-10 pt-2 sm:pb-14 lg:pb-16">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div ref={videoWrapRef}>
+          <div
+            ref={videoScaleRef}
+            className="origin-top scale-90 will-change-transform motion-reduce:scale-100 sm:scale-[0.88] lg:scale-[0.85]"
+          >
+            <HeroVideo />
+          </div>
+        </div>
+      </div>
+    </section>
+    </>
   );
 }
