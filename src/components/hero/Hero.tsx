@@ -435,19 +435,20 @@ export default function Hero() {
         {/* ── Background image + overlays ──
             Stacking (back → front): image (-z-30) → white wash (-z-20)
             → brand glows (-z-10) → copy. The image fills the section
-            (object-cover, centred). The mask fades the image itself to
+            (object-cover, centred) and sits 40px higher than the section
+            (-top-10/bottom-10) to lift the illustration. The mask fades the image itself to
             transparent at its top and bottom edges, so neither edge shows as
             a line against the header or the white video section below. */}
         <div
           aria-hidden
-          className="absolute inset-0 -z-30"
+          className="absolute inset-x-0 -top-10 bottom-10 -z-30"
           style={{
             maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 78%, transparent 100%)",
             WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 78%, transparent 100%)",
           }}
         >
           <Image
-            src="/media/home-hero-1.png"
+            src="/media/home-hero-v2.png"
             alt="Passengers buying tickets at a ticket counter, with a train, bus, taxi and cruise ship in the city behind"
             fill
             priority
@@ -490,7 +491,7 @@ export default function Hero() {
               </p>
 
               {/* CTA row */}
-              <div className="gsap-left-item mb-20 flex w-full flex-wrap items-center justify-center gap-3 sm:mb-24 lg:mb-36">
+              <div className="gsap-left-item mb-[100px] flex w-full flex-wrap items-center justify-center gap-3 sm:mb-[116px] lg:mb-[164px]">
                 <Link
                   href="/contact-us"
                   className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 min-[400px]:w-auto text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
