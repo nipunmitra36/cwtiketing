@@ -39,6 +39,12 @@ const nextConfig: NextConfig = {
         destination: "/intercity-coach-booking-software",
         permanent: true,
       },
+      // Old short URL (and anything under it) → bus ticketing page.
+      {
+        source: "/ticketing-system/:path*",
+        destination: "/bus-ticketing-system",
+        permanent: true,
+      },
       // Old marketplace URL (and anything under it) → terminal ticketing page.
       {
         source: "/bus-ticketing-marketplace-system/:path*",
