@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
+import Script from "next/script";
 import { SITE_URL } from "@/lib/site";
 import { BOT_UA_PATTERN } from "@/lib/gsap/botPattern";
 import "./globals.css";
@@ -115,6 +116,20 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(c){c.remove("no-js");if(/${BOT_UA_PATTERN}/i.test(navigator.userAgent))c.add("is-bot")})(document.documentElement.classList)`,
+          }}
+        />
+        <Script
+          id="google-tag-manager"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NH7JV5Q6"
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="google-tag-manager-data-layer"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());`,
           }}
         />
       </head>
