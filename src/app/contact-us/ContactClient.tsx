@@ -45,7 +45,6 @@ const OFFICE = {
   city: "Dhaka",
   role: "Head Office",
   address: OFFICE_ADDRESS,
-  zip: "Shyamoli, Mohammadpur, Dhaka-1207, Bangladesh",
 };
 
 const TOPICS = CONTACT_TOPICS;
@@ -706,7 +705,6 @@ export default function ContactClient() {
                     <HiOutlineLocationMarker className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
                     <div>
                       <p className="text-[13px] font-medium text-gray-900">{office.address}</p>
-                      <p className="text-[13px] text-gray-500">{office.zip}</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
