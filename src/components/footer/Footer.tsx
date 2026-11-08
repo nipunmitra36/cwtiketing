@@ -17,6 +17,7 @@ import {
   FaPinterestP,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { OFFICE_ADDRESS, OFFICE_MAP_URL } from "@/lib/office";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface FooterLink {
@@ -32,17 +33,28 @@ interface SocialLink extends FooterLink {
 interface FooterSection {
   title: string;
   links: FooterLink[];
+  subsections?: FooterSection[];
 }
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 const FOOTER_LINKS: FooterSection[] = [
   {
-    title: "Solutions",
+    title: "Services",
     links: [
       { label: "Bus Ticketing System", href: "/bus-ticketing-system" },
       { label: "Taxi Booking System", href: "/online-taxi-booking-system" },
       { label: "Event Ticketing System", href: "/event-ticketing-system" },
       { label: "Parcel Management System", href: "/parcel-management-system" },
+    ],
+    subsections: [
+      {
+        title: "Industries",
+        links: [
+          { label: "Bus Operators", href: "/intercity-coach-booking-software" },
+          { label: "Shuttle Companies", href: "/shuttle-booking-system" },
+          { label: "Travel Agencies", href: "/bus-terminal-ticketing-system" },
+        ],
+      },
     ],
   },
   {
@@ -161,7 +173,7 @@ function Brand() {
         </li>
         <li>
           <a
-            href="https://www.google.com/maps/search/?api=1&query=Baitul+Aman+Housing+Society+Adabor+Mohammadpur+Dhaka"
+            href={OFFICE_MAP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-start gap-2.5 transition-colors hover:text-white"
@@ -170,8 +182,7 @@ function Brand() {
               <HiOutlineLocationMarker className="h-3.5 w-3.5 text-brand" />
             </span>
             <span className="leading-snug">
-              House #629-685, Road # 12, Baitul Aman Housing Society, Adabor,
-              Mohammadpur, Dhaka-1207, BD
+              {OFFICE_ADDRESS}
             </span>
           </a>
         </li>
@@ -192,27 +203,42 @@ function LinkColumn({ section }: { section: FooterSection }) {
         <span className="h-px w-4 bg-brand" />
         {section.title}
       </h3>
-      <ul className="space-y-2.5">
-        {section.links.map(({ label, href }) => (
-          <li key={href}>
-            <Link
-              href={href}
-              className="group inline-flex items-center gap-1 text-sm text-gray-400 transition-colors duration-200 hover:text-white"
-            >
-              <span className="relative overflow-hidden">
-                <span className="block transition-transform duration-300 group-hover:-translate-y-full">
-                  {label}
-                </span>
-                <span className="absolute left-0 top-full block text-brand transition-transform duration-300 group-hover:-translate-y-full">
-                  {label}
-                </span>
-              </span>
-              <HiOutlineArrowRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-brand group-hover:opacity-100" />
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <FooterLinkList links={section.links} />
+      {section.subsections?.map((subsection) => (
+        <div key={subsection.title} className="mt-6">
+          <h4 className="mb-5 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-gray-300">
+            <span className="h-px w-4 bg-brand" />
+            {subsection.title}
+          </h4>
+          <FooterLinkList links={subsection.links} />
+        </div>
+      ))}
     </div>
+  );
+}
+
+function FooterLinkList({ links }: { links: FooterLink[] }) {
+  return (
+    <ul className="space-y-2.5">
+      {links.map(({ label, href }) => (
+        <li key={href}>
+          <Link
+            href={href}
+            className="group inline-flex items-center gap-1 text-sm text-gray-400 transition-colors duration-200 hover:text-white"
+          >
+            <span className="relative overflow-hidden">
+              <span className="block transition-transform duration-300 group-hover:-translate-y-full">
+                {label}
+              </span>
+              <span className="absolute left-0 top-full block text-brand transition-transform duration-300 group-hover:-translate-y-full">
+                {label}
+              </span>
+            </span>
+            <HiOutlineArrowRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-brand group-hover:opacity-100" />
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }
 

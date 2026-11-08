@@ -1,4 +1,5 @@
 import { buildMetadata } from "@/lib/seo";
+import { OFFICE_AREA } from "@/lib/office";
 
 export const metadata = buildMetadata({
   title: "Careers | CWTicketing",
@@ -50,7 +51,7 @@ const ROLE = {
         "Minimum experience 1-2 years (Mid-level). Freshers are encouraged to apply as interns.",
     },
     { icon: HiOutlineUserGroup, label: "Vacancies", value: "05" },
-    { icon: HiOutlineLocationMarker, label: "Job Location", value: "Adabor, Dhaka, Bangladesh" },
+    { icon: HiOutlineLocationMarker, label: "Job Location", value: OFFICE_AREA },
     { icon: HiOutlineBriefcase, label: "Employment Status", value: "Full-time" },
     { icon: HiOutlineHome, label: "Workplace", value: "On-Site" },
     { icon: HiOutlineClock, label: "Office Time", value: "9:00 am to 6:00 pm" },

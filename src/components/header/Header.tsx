@@ -41,7 +41,7 @@ const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 // ── Data ──────────────────────────────────────────────────────────────────────
 const NAV_ITEMS: NavItem[] = [
   {
-    label: "Solutions",
+    label: "Services",
     dropdown: [
       {
         label: "Bus Ticketing System",

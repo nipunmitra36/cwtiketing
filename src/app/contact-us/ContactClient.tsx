@@ -16,6 +16,11 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import TurnstileWidget from "@/components/TurnstileWidget";
 import {
+  OFFICE_ADDRESS,
+  OFFICE_MAP_EMBED_URL,
+  OFFICE_MAP_URL,
+} from "@/lib/office";
+import {
   CONTACT_TOPICS,
   submitContact,
   type ContactDebugInfo,
@@ -39,9 +44,8 @@ const MOBILE = "+8801672691228";
 const OFFICE = {
   city: "Dhaka",
   role: "Head Office",
-  address: "House #629-685, Road # 12, Baitul Aman Housing Society",
-  zip: "Adabor, Mohammadpur, Dhaka-1207, BD",
-  mapQuery: "Baitul Aman Housing Society, Adabor, Mohammadpur, Dhaka 1207",
+  address: OFFICE_ADDRESS,
+  zip: "Shyamoli, Mohammadpur, Dhaka-1207, Bangladesh",
 };
 
 const TOPICS = CONTACT_TOPICS;
@@ -69,8 +73,8 @@ export default function ContactClient() {
   const [debugInfo, setDebugInfo] = useState<ContactDebugInfo | null>(null);
 
   const office = OFFICE;
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(office.mapQuery)}&z=16&output=embed`;
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.mapQuery)}`;
+  const mapSrc = OFFICE_MAP_EMBED_URL;
+  const mapLink = OFFICE_MAP_URL;
 
   useEffect(() => {
     if (!topicOpen) return;

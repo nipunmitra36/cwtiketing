@@ -12,6 +12,7 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import TurnstileWidget from "@/components/TurnstileWidget";
 import { submitContact } from "@/lib/contact";
+import { OFFICE_ADDRESS, OFFICE_MAP_URL } from "@/lib/office";
 
 type FormState = "idle" | "sending" | "sent";
 
@@ -53,8 +54,8 @@ const CONTACT_INFO = [
     {
         icon: HiOutlineLocationMarker,
         label: "Office",
-        value: "House #629-685, Road # 12, Baitul Aman Housing Society, Adabor, Mohammadpur, Dhaka-1207, BD",
-        href: "https://www.google.com/maps/search/?api=1&query=Baitul+Aman+Housing+Society+Adabor+Mohammadpur+Dhaka",
+        value: OFFICE_ADDRESS,
+        href: OFFICE_MAP_URL,
         bg: "bg-orange-50",
         color: "text-orange-600",
     },
