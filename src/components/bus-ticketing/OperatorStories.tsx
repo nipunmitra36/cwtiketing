@@ -39,10 +39,15 @@ export default function OperatorStories() {
           </p>
           <h2
             data-gsap
-            className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+            className="mt-3 text-balance text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Bus Operators Using Our <span className="text-gradient-brand">Online Ticketing System</span>
+            Case Study: <span className="text-gradient-brand">Asante Rabi Express, Tanzania</span>
           </h2>
+          <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
+            After moving from manual booking to CWTicketing, Asante Rabi Express
+            recorded 40% more online bookings, a clear example of how an online
+            bus booking system can grow a bus business.
+          </p>
         </div>
 
         <figure

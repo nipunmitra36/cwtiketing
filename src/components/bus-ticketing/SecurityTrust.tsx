@@ -18,18 +18,18 @@ interface Pillar {
 const pillars: Pillar[] = [
   {
     icon: HiOutlineShieldCheck,
-    title: "Enterprise-Grade Security",
-    desc: "Passenger and payment data is encrypted at rest and in transit. You retain full ownership of your operational data, on infrastructure certified to enterprise standards.",
+    title: "Encrypted Data",
+    desc: "Data is encrypted at rest and in transit.",
   },
   {
     icon: HiOutlineKey,
-    title: "Permissioning & Management",
-    desc: "Define exactly what each team member and role can view, edit or issue — from counter staff to fleet managers, with limits set by you.",
+    title: "Role-Based Permissions",
+    desc: "Role-based permissions control who can see passenger details.",
   },
   {
     icon: HiOutlineEye,
-    title: "Control & Visibility",
-    desc: "A real-time audit log of every booking, refund and schedule change — what happened, when, and by whom.",
+    title: "Real-Time Audit Log",
+    desc: "A real-time audit log records every action.",
   },
 ];
 
@@ -57,16 +57,17 @@ export default function SecurityTrust() {
           </p>
           <h2
             data-gsap
-            className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+            className="mt-3 text-balance text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Secure and Reliable <span className="text-gradient-brand">Bus Ticketing Software</span> for Your Business
+            Security <span className="text-gradient-brand">You Can Trust</span>
           </h2>
           <p
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            Passenger records, fares and payments are sensitive. CWTicketing is
-            built to keep them that way.
+            Data is encrypted at rest and in transit. Role-based permissions
+            control who can see passenger details, and a real-time audit log
+            records every action.
           </p>
         </div>
 

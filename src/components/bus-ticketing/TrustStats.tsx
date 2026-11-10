@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 
 const stats = [
-  { value: "50+", label: "Operators" },
-  { value: "10+", label: "Countries" },
-  { value: "1M+", label: "Bookings processed" },
+  { value: "2,500+", label: "Transport companies" },
   { value: "99.9%", label: "Uptime" },
+  { value: "2 Apps", label: "Android & iOS included" },
+  { value: "24/7", label: "Support" },
 ];
 
 export default function TrustStats() {

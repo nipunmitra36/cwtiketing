@@ -91,7 +91,7 @@ export default function HowItWorks({
   steps = defaultSteps,
   showCta = false,
   ctaHeading = "Not sure where to start?",
-  ctaText = "Tell us about your routes and fleet — we&apos;ll map out your launch.",
+  ctaText = "Tell us about your routes and fleet — we'll map out your launch.",
   ctaLabel = "Discuss Your Launch Plan",
 }: HowItWorksProps) {
   const sectionRef = useRef<HTMLElement>(null);

@@ -9,10 +9,11 @@ import {
   HiOutlineTicket,
   HiOutlineCheckCircle,
 } from "react-icons/hi";
+import { FaWhatsapp } from "react-icons/fa";
 import PlatformHub from "./PlatformHub";
 
 const TRUST_ITEMS = [
-  "2500+ Transport Companies",
+  "2,500+ Transport Companies",
   "99.9% Platform Uptime",
   "Android & iOS Apps Included",
   "24/7 Support",
@@ -104,25 +105,38 @@ export default function BusHero() {
             <h1 className="gsap-hero-item mt-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[50px]">
               Launch Your Own{" "}
               <span className="text-gradient-brand">
-                Online Bus Booking System
+                Online Bus Ticket Booking System
               </span>{" "}
               in Weeks
             </h1>
 
             <p className="gsap-hero-item mt-6 max-w-xl text-[15px] leading-relaxed text-text-muted sm:text-[16px]">
-              A complete white-label online bus ticketing system and reservation
-              software for transport operators. Manage routes, seats, payments,
-              passengers and mobile apps from one bus booking software.
+              CWTicketing is a white-label bus ticketing system that lets bus
+              operators, bus companies, shuttle services and travel agencies sell
+              tickets online under their own brand. Our bus booking software
+              combines a bus booking engine, a bus reservation system and a
+              mobile app, so every passenger can book bus tickets in minutes
+              while your team manages routes, buses and bookings from one
+              dashboard.
             </p>
 
-            <div className="gsap-hero-item mt-8 flex flex-col gap-3 [&>*]:justify-center sm:flex-row sm:flex-wrap sm:items-center">
+            <div className="gsap-hero-item mt-8 flex flex-col gap-3 [&>*]:justify-center sm:flex-row sm:flex-wrap sm:items-center sm:gap-2.5">
               <Link
                 href="/contact-us"
-                className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[14px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
+                className="group inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-[13.5px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/40 active:scale-[0.97]"
               >
-                Start Free Consultation
+                Book a Free Demo
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
+              <a
+                href="https://wa.me/8801614000401"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-5 py-3 text-[13.5px] font-semibold text-emerald-700 transition-all hover:bg-emerald-50 active:scale-[0.97]"
+              >
+                <FaWhatsapp className="h-4 w-4" />
+                Chat on WhatsApp
+              </a>
             </div>
 
             {/* Trust checklist */}

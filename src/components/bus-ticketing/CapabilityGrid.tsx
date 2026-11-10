@@ -22,25 +22,25 @@ const groups: Group[] = [
     icon: HiOutlineTicket,
     title: "Booking Experience",
     subtitle: "For passengers",
-    items: ["Online booking", "Seat selection", "Customer portal"],
+    items: ["Online ticket booking", "Seat maps", "Mobile tickets on every route"],
   },
   {
     icon: HiOutlineClipboardCheck,
     title: "Operations",
     subtitle: "For your team",
-    items: ["Route management", "Driver panel", "Schedule management"],
+    items: ["Routes and buses", "Drivers", "Passenger management for your transportation network"],
   },
   {
     icon: HiOutlineCurrencyDollar,
     title: "Revenue",
     subtitle: "For your business",
-    items: ["Dynamic pricing", "Payments", "Coupons"],
+    items: ["Dynamic pricing", "Coupons", "Ticket sale reports"],
   },
   {
     icon: HiOutlineTrendingUp,
     title: "Growth",
     subtitle: "For scaling up",
-    items: ["Analytics", "Reports", "Mobile apps"],
+    items: ["Analytics", "Booking trends that show which routes perform best"],
   },
 ];
 
@@ -68,14 +68,10 @@ export default function CapabilityGrid() {
           </p>
           <h2
             data-gsap
-            className="mt-3 text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
+            className="mt-3 text-balance text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Key Features of Our <span className="text-gradient-brand">Online Bus Booking Software</span>
+            Everything You Need to <span className="text-gradient-brand">Run Bus Operations and Grow Sales</span>
           </h2>
-          <p data-gsap className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]">
-            Everything transport operators need to manage passengers,
-            streamline operations, increase revenue, and scale their business.
-          </p>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">

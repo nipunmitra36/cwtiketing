@@ -17,15 +17,14 @@ const tabs: ProductDemoTab[] = [
     num: "01",
     icon: HiOutlineGlobeAlt,
     label: "Website",
-    title: "White-Label Responsive Website",
-    desc: "A super user-friendly website that lets passengers book or cancel tickets anytime, on any device.",
+    title: "A White-Label Website for Your Passengers",
+    desc: "Passengers can buy and reprint a ticket, cancel or reschedule a booking, view purchase history, track their bus live and contact support, all under your brand and powered by our bus reservation system.",
     bullets: [
-      "Buy / purchase ticket",
-      "Reprint & download ticket",
-      "Ticket cancel request & rescheduling",
-      "User profile & purchase history",
-      "Live bus tracking",
-      "Customer support",
+      "Buy and reprint a ticket",
+      "Cancel or reschedule a booking",
+      "View purchase history",
+      "Track the bus live",
+      "Contact support",
     ],
     images: [
       "/media/bus-ticketing/White Label Responsive Website 1.webp",
@@ -138,10 +137,11 @@ export default function BusTicketingProductDemo() {
       tabs={tabs}
       heading={
         <>
-          All-in-One Bus Ticket Management System for{" "}
-          <span className="text-gradient-brand">Web, Mobile &amp; Admin Operations</span>
+          See the Full{" "}
+          <span className="text-gradient-brand">Platform in Action</span>
         </>
       }
+      description="Our product demo for transportation teams covers the booking website, the passenger app, the counter and agent POS, the admin panel, the driver app, the parcel manager and ticket validation. Every tool works with the same bus inventory, so counters, agents and passengers see the same seats."
     />
   );
 }

@@ -5,23 +5,23 @@ export interface BusFaq {
 
 export const busFaqs: BusFaq[] = [
   {
-    q: "What is a white-label ticket booking platform?",
-    a: "A white-label ticket booking platform is a ready-built booking system that you rebrand as your own — your logo, colors and domain — so passengers book through your brand while CWTicketing runs the underlying technology.",
+    q: "What is a white-label platform?",
+    a: "It is ready-made software that you launch under your own brand, with your logo, domain and apps, so passengers see your company and not ours.",
   },
   {
-    q: "Can I launch my own branded booking app?",
-    a: "Yes. We can deliver a fully white-labeled website and Android and iOS apps under your brand, so passengers book, track and manage tickets without ever seeing the CWTicketing name.",
+    q: "Can I get branded apps for my buses?",
+    a: "Yes. Branded Android and iOS apps are included, so passengers can book tickets and manage their trips from their phones.",
   },
   {
-    q: "Does it support multiple operators?",
-    a: "Yes. The platform can run as a single-operator white-label system or as a multi-operator marketplace, where several bus companies sell tickets through one branded platform with separate schedules, fleets and settlements.",
+    q: "Does it support multiple bus operators?",
+    a: "Yes. Our online bus reservation system lets marketplace owners and travel agencies list several bus operators and sell their tickets in one place.",
   },
   {
-    q: "Can I integrate my existing payment gateway?",
-    a: "Yes. The system integrates with card payments, online banking, mobile wallets and local gateways, and can be configured around the payment methods your market uses.",
+    q: "Which payment gateways can I connect?",
+    a: "We integrate the payment gateways used in your market, and our bus booking API also connects SMS and maps.",
   },
   {
-    q: "How much does a booking system cost?",
-    a: "Pricing depends on your fleet size, the routes you run, and which apps and integrations you need. Book a free consultation and we'll walk you through a plan sized to your operation.",
+    q: "How much does the platform cost?",
+    a: "Pricing depends on your fleet size and the features you need. Book a free demo and we will quote your launch plan.",
   },
 ];

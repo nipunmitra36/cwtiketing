@@ -18,10 +18,10 @@ import {
 import type { IconType } from "react-icons";
 
 const passengerSteps: { icon: IconType; label: string }[] = [
-  { icon: HiOutlineSearch, label: "Search Route" },
-  { icon: HiOutlineViewGrid, label: "Select Seat" },
-  { icon: HiOutlineCreditCard, label: "Online Payment" },
-  { icon: HiOutlineCheckCircle, label: "Ticket Issued" },
+  { icon: HiOutlineSearch, label: "Search routes by city and travel date, then compare the routes that fit." },
+  { icon: HiOutlineViewGrid, label: "Select a seat from the live seat map." },
+  { icon: HiOutlineCreditCard, label: "Pay online with a preferred payment method." },
+  { icon: HiOutlineCheckCircle, label: "Receive the ticket instantly on the phone." },
 ];
 
 const platformModules: { icon: IconType; label: string }[] = [
@@ -37,22 +37,22 @@ const features: { icon: IconType; title: string; desc: string }[] = [
   {
     icon: HiOutlineTicket,
     title: "Online Booking Engine",
-    desc: "Let passengers book tickets anytime through your website or branded mobile apps.",
+    desc: "This engine lets a passenger search routes, compare available buses by bus type, check seat availability and finish ticket booking in a few taps. Each booking is confirmed instantly, and the ticket reaches the passenger by SMS or email.",
   },
   {
     icon: HiOutlineMap,
-    title: "Route & Seat Management",
-    desc: "Manage schedules, routes, seat layouts, fares and availability in real time.",
+    title: "Route and Seat Management",
+    desc: "Route management and route scheduling help you create routes, set stops, fares and departure times, and assign buses. Seat selection shows a live seat map, and bus inventory stays correct across web, app and counter bookings, so seat availability stays accurate and a seat is never sold twice.",
   },
   {
     icon: HiOutlineCreditCard,
     title: "Payment Integration",
-    desc: "Accept online payments through multiple gateways while reducing manual reconciliation.",
+    desc: "Accept payments through the gateways your passengers already use. A bus booking API connects payments, SMS and maps, so ticket reservations are paid and confirmed in a single flow.",
   },
   {
     icon: HiOutlineViewGrid,
     title: "Operator Dashboard",
-    desc: "Control bookings, passengers, revenue and business insights from one place.",
+    desc: "Bus operators see bus bookings, revenue and booking trends in one place, and can tell which routes earn the most. Passenger management tools keep passenger details and passenger records organised, and handle refunds and rescheduling in a few clicks.",
   },
 ];
 
@@ -82,27 +82,27 @@ export default function WhatIsBusTicketing() {
             data-gsap
             className="mx-auto mt-3 max-w-2xl text-[22px] font-medium leading-snug tracking-tight text-text-dark sm:text-[28px] sm:leading-snug"
           >
-            Complete Online Bus Reservation System for <span className="text-gradient-brand">Transport Operators</span>
+            What Is <span className="text-gradient-brand">Bus Reservation Software?</span>
           </h2>
           <p
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            CWTicketing is a complete bus ticketing, booking, and reservation
-            software built for transport and mobility businesses. Designed to
-            support bus operators, shuttle services, transport companies, travel
-            agencies, and marketplace owners, the system helps businesses
-            digitize operations and deliver a seamless booking experience.
+            Bus reservation software is a cloud-based platform that runs the
+            whole booking process: ticket sale, seat choice, payment, ticket
+            delivery and ticket cancellation. CWTicketing is built for bus
+            operators, transportation companies and marketplace owners who want
+            online ticket booking without building a bus booking system from
+            scratch.
           </p>
           <p
             data-gsap
             className="mx-auto mt-4 text-[13px] leading-relaxed text-text-muted sm:text-[14px]"
           >
-            As a cloud-based booking and reservation solution, CWTicketing
-            enables businesses to launch their own branded online booking
-            software where customers can search routes, check seat
-            availability, make secure payments, and manage reservations
-            through web and mobile applications.
+            It also suits a travel agency that resells seats from several bus
+            companies. Because the platform is online, every booking, ticket and
+            passenger record updates in real time, and seat availability is
+            always accurate for bus travel across all your routes.
           </p>
         </div>
 
@@ -111,8 +111,8 @@ export default function WhatIsBusTicketing() {
           data-gsap
           className="mx-auto mt-14 max-w-3xl text-center text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px] sm:leading-snug"
         >
-          Online Bus Ticket Booking System with{" "}
-          <span className="text-gradient-brand">Route, Seat &amp; Payment Management</span>
+          Core Features of{" "}
+          <span className="text-gradient-brand">Our Platform</span>
         </h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {features.map((f) => {
@@ -138,9 +138,10 @@ export default function WhatIsBusTicketing() {
         {/* From search to ticket — flow rail */}
         <div className="mt-16 rounded-[2rem] border border-gray-100 bg-white p-6 shadow-sm shadow-gray-200/40 sm:p-10">
           <div className="mx-auto mb-10 max-w-xl text-center">
-            <p data-gsap className="text-[12px] font-semibold uppercase tracking-widest text-brand">
-              From Search to Ticket, in One Flow
-            </p>
+            <h2 data-gsap className="text-[20px] font-medium leading-snug tracking-tight text-text-dark sm:text-[24px]">
+              How Passengers Complete{" "}
+              <span className="text-gradient-brand">Bus Ticket Booking</span>
+            </h2>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-6">
@@ -157,7 +158,7 @@ export default function WhatIsBusTicketing() {
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                         <Icon className="h-4 w-4" />
                       </span>
-                      <span className="text-[13px] font-medium text-text-dark">
+                      <span className="text-[13px] font-medium leading-snug text-text-dark">
                         {i + 1}. {s.label}
                       </span>
                     </div>

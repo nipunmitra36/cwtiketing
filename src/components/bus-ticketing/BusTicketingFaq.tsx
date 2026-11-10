@@ -9,7 +9,7 @@ export default function BusTicketingFaq() {
       items={busFaqs}
       eyebrow=""
       heading="Frequently Asked Questions"
-      description="Straight answers about launching your white-label bus ticketing platform, apps, payments, and pricing with CWTicketing."
+      description="Straight answers about launching your white-label bus ticketing platform, apps, payments, and pricing."
     />
   );
 }

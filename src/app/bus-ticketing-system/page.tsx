@@ -1,18 +1,19 @@
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Bus Ticketing System | Online Bus Booking Software",
+  title: "Bus Ticketing System | Bus Booking Software for Bus Operators",
   description:
-    "Launch your branded bus ticketing system with seat selection, routes, fares, payments, mobile apps, and admin dashboard for bus operators.",
+    "CWTicketing presents automated bus ticketing system to manage online ticket booking with seat selection, route management, payments and mobile apps.",
   canonical: "/bus-ticketing-system",
 });
 
 import BusHero from "@/components/bus-ticketing/BusHero";
 import TrustStats from "@/components/bus-ticketing/TrustStats";
 import WhatIsBusTicketing from "@/components/bus-ticketing/WhatIsBusTicketing";
-import HowItWorks from "@/components/shared/HowItWorks";
+import BusHowItWorks from "@/components/bus-ticketing/BusHowItWorks";
 import CapabilityGrid from "@/components/bus-ticketing/CapabilityGrid";
 import ProductDemo from "@/components/bus-ticketing/ProductDemo";
+import IndustryLinks from "@/components/bus-ticketing/IndustryLinks";
 import OperatorStories from "@/components/bus-ticketing/OperatorStories";
 import SecurityTrust from "@/components/bus-ticketing/SecurityTrust";
 import BusTicketingFaq from "@/components/bus-ticketing/BusTicketingFaq";
@@ -46,21 +47,15 @@ const jsonLd = {
         name: "CWTicketing",
         url: "https://www.cwticketingsystem.com/",
       },
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-        description: "Request a free consultation and live demo.",
-      },
     },
     {
       "@type": "ItemList",
-      name: "How Does a Bus Ticketing System Work?",
+      name: "How Passengers Complete Bus Ticket Booking",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Search Route" },
-        { "@type": "ListItem", position: 2, name: "Select Seat" },
-        { "@type": "ListItem", position: 3, name: "Online Payment" },
-        { "@type": "ListItem", position: 4, name: "Ticket Issued" },
+        { "@type": "ListItem", position: 1, name: "Search routes by city and travel date" },
+        { "@type": "ListItem", position: 2, name: "Select a seat from the live seat map" },
+        { "@type": "ListItem", position: 3, name: "Pay online" },
+        { "@type": "ListItem", position: 4, name: "Receive the ticket instantly on the phone" },
       ],
     },
     {
@@ -85,9 +80,10 @@ export default function BusTicketingSystemPage() {
         <BusHero />
         <TrustStats />
         <WhatIsBusTicketing />
-        <HowItWorks heading="Launch Your Online Bus Booking System in 4 Steps" showCta />
+        <BusHowItWorks />
         <CapabilityGrid />
         <ProductDemo />
+        <IndustryLinks />
         <OperatorStories />
         <SecurityTrust />
         <BusTicketingFaq />
