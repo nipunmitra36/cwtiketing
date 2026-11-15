@@ -51,7 +51,7 @@ const sections: Section[] = [
     body: (
       <>
         Use of the platform is subject to our{" "}
-        <Link href="/privacy" className="font-medium text-brand hover:underline">
+        <Link href="/privacy-policy"className="font-medium text-brand hover:underline">
           Privacy Policy
         </Link>
         , which outlines how we collect, store, and use your information. By
