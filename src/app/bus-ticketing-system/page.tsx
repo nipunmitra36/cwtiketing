@@ -1,9 +1,9 @@
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Bus Ticketing System | Bus Booking Software for Bus Operators",
+  title: "Bus Ticketing System | White-Label Bus Booking Software",
   description:
-    "CWTicketing presents automated bus ticketing system to manage online ticket booking with seat selection, route management, payments and mobile apps.",
+    "Launch your own white-label bus ticketing system in weeks. Includes live seat maps, Android & iOS passenger apps, agent POS, and QR validation. Book a demo.",
   canonical: "/bus-ticketing-system",
 });
 

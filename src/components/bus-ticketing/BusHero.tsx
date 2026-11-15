@@ -103,11 +103,9 @@ export default function BusHero() {
             </span>
 
             <h1 className="gsap-hero-item mt-5 text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-dark sm:text-[2.6rem] lg:text-[2.75rem] xl:text-[50px]">
-              Launch Your Own{" "}
-              <span className="text-gradient-brand">
-                Online Bus Ticket Booking System
-              </span>{" "}
-              in Weeks
+              White-Label{" "}
+              <span className="text-gradient-brand">Bus Ticketing System</span>{" "}
+              for Bus Operators
             </h1>
 
             <p className="gsap-hero-item mt-6 max-w-xl text-[15px] leading-relaxed text-text-muted sm:text-[16px]">
