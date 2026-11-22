@@ -4,9 +4,8 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { onSmootherReady } from "@/lib/gsap/ready";
-import { HiOutlineArrowRight, HiOutlineCheckCircle, HiOutlineCheck, HiOutlinePlay } from "react-icons/hi";
+import { HiOutlineArrowRight, HiOutlineCheckCircle, HiOutlineCheck } from "react-icons/hi";
 import { ICONS } from "./icons";
-import { demoHref } from "./demo-link";
 import type { FeaturePageData } from "./types";
 
 export default function FeatureHero({ data, icon }: { data: FeaturePageData; icon: keyof typeof ICONS }) {
@@ -94,13 +93,6 @@ export default function FeatureHero({ data, icon }: { data: FeaturePageData; ico
               >
                 Start Free Consultation
                 <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                href={demoHref(data)}
-                className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-white px-6 py-3.5 text-[14px] font-semibold text-brand transition-all hover:border-brand hover:bg-brand-light active:scale-[0.97]"
-              >
-                <HiOutlinePlay className="h-4 w-4" />
-                See Product Demo
               </Link>
             </div>
 

@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
-import { demoHref } from "./demo-link";
 import { createSectionReveal } from "@/lib/gsap/reveal";
 import { HiOutlineArrowRight, HiOutlineCheck } from "react-icons/hi";
 import { ICONS } from "./icons";
@@ -125,28 +123,6 @@ export function FeatureGrid({ data }: { data: FeaturePageData }) {
               </article>
             );
           })}
-        </div>
-
-        <div
-          data-gsap
-          className="mt-10 flex flex-col items-start justify-between gap-5 rounded-3xl border border-brand/15 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:p-8"
-        >
-          <div>
-            <p className="text-[12px] font-semibold uppercase tracking-widest text-brand">Product Demo</p>
-            <p className="mt-1.5 text-[17px] font-semibold tracking-tight text-text-dark sm:text-[19px]">
-              See the {data.navLabel.toLowerCase()} in action
-            </p>
-            <p className="mt-1 text-[13.5px] leading-relaxed text-text-muted">
-              Browse real screens from the platform, alongside the rest of the CWTicketing system.
-            </p>
-          </div>
-          <Link
-            href={demoHref(data)}
-            className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-brand px-6 py-3 text-[13.5px] font-semibold text-white shadow-lg shadow-brand/30 transition-all hover:bg-brand-hover active:scale-95"
-          >
-            View Product Demo
-            <HiOutlineArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
         </div>
 
         {data.groups && (
