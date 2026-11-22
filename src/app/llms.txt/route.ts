@@ -1,5 +1,6 @@
 import { absoluteUrl } from "@/lib/site";
 import { POSTS } from "../blog/posts";
+import { FEATURE_PAGES } from "@/components/feature-page/data";
 
 /**
  * /llms.txt — a plain-Markdown site summary for AI assistants and answer
@@ -41,6 +42,13 @@ const SOLUTIONS: PageLink[] = [
       "Courier and logistics software: parcel tracking, hub management, automated billing and notifications.",
   },
 ];
+
+/** Mirrors the header's Features menu: the eight core modules of the platform. */
+const FEATURES: PageLink[] = FEATURE_PAGES.map((p) => ({
+  title: p.navLabel,
+  path: p.path,
+  description: p.metaDescription,
+}));
 
 /** Mirrors the header's Industries menu: who each page is for, then the product it covers. */
 const INDUSTRIES: PageLink[] = [
@@ -114,6 +122,10 @@ CWTicketing is developed by Codeware Ltd., based in Dhaka, Bangladesh, and serve
 ## Solutions
 
 ${SOLUTIONS.map(link).join("\n")}
+
+## Features
+
+${FEATURES.map(link).join("\n")}
 
 ## Industries
 

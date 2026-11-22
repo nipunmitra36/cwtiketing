@@ -480,6 +480,17 @@ export default function ProductDemo({
     };
   }, []);
 
+  // Deep link: /page?demo=counter-panel#see-the-platform opens that tab
+  // (matched against the tab label, lower-cased and hyphenated).
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get("demo");
+    if (!wanted) return;
+    const i = tabs.findIndex((t) => t.label.toLowerCase().replace(/[^a-z0-9]+/g, "-") === wanted);
+    if (i <= 0) return;
+    const id = requestAnimationFrame(() => setActive(i));
+    return () => cancelAnimationFrame(id);
+  }, [tabs]);
+
   useEffect(() => {
     if (!panelRef.current) return;
     gsap.fromTo(panelRef.current, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" });

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { POSTS } from "./blog/posts";
+import { FEATURE_PAGES } from "@/components/feature-page/data";
 
 interface PageRoute {
   path: string;
@@ -28,6 +29,9 @@ const pageRoutes: PageRoute[] = [
   { path: "/event-ticketing-system", lastModified: "2026-10-08", priority: 0.9 },
   { path: "/parcel-management-system", lastModified: "2026-10-08", priority: 0.9 },
   { path: "/pricing", lastModified: "2026-10-07", priority: 0.85 },
+
+  // ── Feature pages (core modules) ──
+  ...FEATURE_PAGES.map(({ path }) => ({ path, lastModified: "2026-11-22", priority: 0.8 })),
 
   // ── Supporting content ──
   { path: "/about-us", lastModified: "2026-10-07", priority: 0.6 },

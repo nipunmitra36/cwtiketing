@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { OFFICE_ADDRESS, OFFICE_MAP_URL } from "@/lib/office";
+import { FEATURE_PAGES } from "@/components/feature-page/data";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface FooterLink {
@@ -56,6 +57,10 @@ const FOOTER_LINKS: FooterSection[] = [
         ],
       },
     ],
+  },
+  {
+    title: "Features",
+    links: FEATURE_PAGES.map((p) => ({ label: p.navLabel, href: p.path })),
   },
   {
     title: "Resources",

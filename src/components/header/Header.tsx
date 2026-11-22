@@ -19,6 +19,8 @@ import {
 } from "react-icons/hi";
 import { FaWhatsapp, FaBus, FaCarSide, FaShuttleVan } from "react-icons/fa";
 import { IoTicketOutline } from "react-icons/io5";
+import { FEATURE_PAGES } from "@/components/feature-page/data";
+import { ICONS } from "@/components/feature-page/icons";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface DropMenuItem {
@@ -68,6 +70,18 @@ const NAV_ITEMS: NavItem[] = [
         icon: <HiOutlineCube className="h-5 w-5" />,
       },
     ],
+  },
+  {
+    label: "Features",
+    dropdown: FEATURE_PAGES.map((p) => {
+      const Icon = ICONS[p.navIcon];
+      return {
+        label: p.navLabel,
+        desc: p.navDesc,
+        href: p.path,
+        icon: <Icon className="h-5 w-5" />,
+      };
+    }),
   },
   {
     label: "Industries",
