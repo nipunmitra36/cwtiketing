@@ -89,7 +89,7 @@ const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     label: "X (Twitter)",
-    href: "https://twitter.com/CwTicket",
+    href: "https://x.com/CwTicket",
     icon: <FaXTwitter className="h-4 w-4" />,
     hoverBg: "hover:bg-black",
   },

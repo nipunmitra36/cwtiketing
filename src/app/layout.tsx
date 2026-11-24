@@ -7,7 +7,6 @@ import "./globals.css";
 import GSAPProvider from "../components/GSAPProvider";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
-import BackToTop from "../components/back-to-top/BackToTop";
 import ThirdPartyScripts from "../components/analytics/ThirdPartyScripts";
 
 // Fonts
@@ -147,7 +146,6 @@ gtag('js', new Date());`,
             </div>
           </div>
         </GSAPProvider>
-        <BackToTop />
       </body>
     </html>
   );
