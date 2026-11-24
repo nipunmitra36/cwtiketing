@@ -67,15 +67,15 @@ const FOOTER_LINKS: FooterSection[] = [
     links: [
       { label: "Blog", href: "/blog" },
     ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About", href: "/about-us" },
-      { label: "Contact", href: "/contact-us" },
-      { label: "Careers", href: "/careers" },
-      { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Terms & Conditions", href: "/terms-and-condition" },
+    subsections: [
+      {
+        title: "Company",
+        links: [
+          { label: "About", href: "/about-us" },
+          { label: "Contact", href: "/contact-us" },
+          { label: "Careers", href: "/careers" },
+        ],
+      },
     ],
   },
 ];
