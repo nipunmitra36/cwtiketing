@@ -1,4 +1,35 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+const title = "Page Not Found | CWTicketing";
+const description =
+    "The page you are looking for might have been removed or does not exist.";
+
+// Without its own metadata the 404 inherits the root layout's homepage tags.
+// Every field the layout sets for the homepage is overridden here.
+export const metadata: Metadata = {
+    title,
+    description,
+    alternates: {
+        canonical: null,
+    },
+    robots: {
+        index: false,
+        follow: true,
+    },
+    openGraph: {
+        type: "website",
+        title,
+        description,
+        siteName: "CWTicketing",
+        locale: "en_US",
+    },
+    twitter: {
+        card: "summary",
+        title,
+        description,
+    },
+};
 
 export default function NotFound() {
     return (
