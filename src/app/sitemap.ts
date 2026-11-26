@@ -14,10 +14,6 @@ interface PageRoute {
   priority: number;
 }
 
-// Paths that must never reach the sitemap: staging leftovers and the
-// e-commerce template demo that still ships with this starter.
-const EXCLUDED_PREFIXES = ["/product", "/products", "/industries", "/solutions"];
-
 const pageRoutes: PageRoute[] = [
   // ── Highest-value commercial pages ──
   { path: "/", lastModified: "2026-10-07", priority: 1 },
@@ -50,13 +46,13 @@ function toDay(d: Date): string {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes: MetadataRoute.Sitemap = pageRoutes
-    .filter(({ path }) => !EXCLUDED_PREFIXES.some((p) => path.startsWith(p)))
-    .map(({ path, lastModified, priority }) => ({
+  const staticRoutes: MetadataRoute.Sitemap = pageRoutes.map(
+    ({ path, lastModified, priority }) => ({
       url: absoluteUrl(path),
       lastModified,
       priority,
-    }));
+    }),
+  );
 
   // Post dates are written like "Apr 23, 2026" and parse as local midnight, so
   // format them from local parts — toISOString() would shift them a day back

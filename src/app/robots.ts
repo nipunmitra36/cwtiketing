@@ -4,23 +4,13 @@ import { absoluteUrl } from "@/lib/site";
 /**
  * Paths that must never be indexed or crawled.
  *
- * - `/product`, `/products` — template e-commerce demo still in the repo. If you
- *   ship a real catalogue under these paths, remove them here.
- * - `/industries`, `/solutions` — permanently redirected in next.config.ts.
- *   Blocking the old paths stops crawlers burning budget on the redirect chain.
  * - Query-string noise that never renders distinct pages.
  *
  * `/_next/` is explicitly allowed: it serves the CSS, JS and optimised images
  * (`/_next/image?url=…`) Google needs to render the page. Blocking it makes
  * Googlebot see unstyled HTML. The longer `Allow` rule beats `/*?*`.
  */
-const DISALLOW = [
-  "/product/",
-  "/products/",
-  "/industries/",
-  "/solutions/",
-  "/*?*",
-];
+const DISALLOW = ["/*?*"];
 
 export default function robots(): MetadataRoute.Robots {
   return {

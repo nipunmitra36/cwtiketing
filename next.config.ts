@@ -51,31 +51,6 @@ const nextConfig: NextConfig = {
         destination: "/bus-terminal-ticketing-system",
         statusCode: 301,
       },
-      {
-        source: "/product/:slug",
-        destination: "/:slug",
-        permanent: true,
-      },
-      {
-        source: "/solutions/:slug",
-        destination: "/:slug",
-        permanent: true,
-      },
-      {
-        source: "/industries/:slug",
-        destination: "/:slug",
-        permanent: true,
-      },
-      {
-        source: "/solutions",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/industries",
-        destination: "/",
-        permanent: true,
-      },
     ];
   },
 };
