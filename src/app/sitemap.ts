@@ -11,32 +11,31 @@ interface PageRoute {
    * tell Google every page changed on every deploy, so these stay explicit.
    */
   lastModified: string;
-  priority: number;
 }
 
 const pageRoutes: PageRoute[] = [
   // ── Highest-value commercial pages ──
-  { path: "/", lastModified: "2026-10-07", priority: 1 },
-  { path: "/bus-ticketing-system", lastModified: "2026-10-07", priority: 0.9 },
-  { path: "/intercity-coach-booking-software", lastModified: "2026-10-08", priority: 0.9 },
-  { path: "/bus-terminal-ticketing-system", lastModified: "2026-10-07", priority: 0.9 },
-  { path: "/shuttle-booking-system", lastModified: "2026-10-07", priority: 0.9 },
-  { path: "/online-taxi-booking-system", lastModified: "2026-10-08", priority: 0.9 },
-  { path: "/event-ticketing-system", lastModified: "2026-10-08", priority: 0.9 },
-  { path: "/parcel-management-system", lastModified: "2026-10-08", priority: 0.9 },
-  { path: "/pricing", lastModified: "2026-10-07", priority: 0.85 },
+  { path: "/", lastModified: "2026-10-07" },
+  { path: "/bus-ticketing-system", lastModified: "2026-10-07" },
+  { path: "/intercity-coach-booking-software", lastModified: "2026-10-08" },
+  { path: "/bus-terminal-ticketing-system", lastModified: "2026-10-07" },
+  { path: "/shuttle-booking-system", lastModified: "2026-10-07" },
+  { path: "/online-taxi-booking-system", lastModified: "2026-10-08" },
+  { path: "/event-ticketing-system", lastModified: "2026-10-08" },
+  { path: "/parcel-management-system", lastModified: "2026-10-08" },
+  { path: "/pricing", lastModified: "2026-10-07" },
 
   // ── Feature pages (core modules) ──
-  ...FEATURE_PAGES.map(({ path }) => ({ path, lastModified: "2026-11-22", priority: 0.8 })),
+  ...FEATURE_PAGES.map(({ path }) => ({ path, lastModified: "2026-11-22" })),
 
   // ── Supporting content ──
-  { path: "/about-us", lastModified: "2026-10-07", priority: 0.6 },
-  { path: "/contact-us", lastModified: "2026-10-07", priority: 0.7 },
-  { path: "/careers", lastModified: "2026-10-07", priority: 0.6 },
+  { path: "/about-us", lastModified: "2026-10-07" },
+  { path: "/contact-us", lastModified: "2026-10-07" },
+  { path: "/careers", lastModified: "2026-10-07" },
 
   // ── Legal ──
-  { path: "/privacy-policy", lastModified: "2026-10-07", priority: 0.2 },
-  { path: "/terms-and-condition", lastModified: "2026-10-07", priority: 0.2 },
+  { path: "/privacy-policy", lastModified: "2026-10-07" },
+  { path: "/terms-and-condition", lastModified: "2026-10-07" },
 ];
 
 /** YYYY-MM-DD from a date's local calendar day. */
@@ -47,10 +46,9 @@ function toDay(d: Date): string {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = pageRoutes.map(
-    ({ path, lastModified, priority }) => ({
+    ({ path, lastModified }) => ({
       url: absoluteUrl(path),
       lastModified,
-      priority,
     }),
   );
 
@@ -63,13 +61,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogIndex: MetadataRoute.Sitemap[number] = {
     url: absoluteUrl("/blog"),
     lastModified: postDates.reduce((a, b) => (a > b ? a : b)),
-    priority: 0.8,
   };
 
   const blogRoutes: MetadataRoute.Sitemap = POSTS.map((post, i) => ({
     url: absoluteUrl(`/blog/${post.slug}`),
     lastModified: postDates[i],
-    priority: post.featured ? 0.7 : 0.6,
     images: [absoluteUrl(post.image)],
   }));
 
